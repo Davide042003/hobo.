@@ -51,8 +51,8 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment(Alignment.center.x, Alignment.center.y - 0.4),
-              end: Alignment.bottomCenter,
+              begin: Alignment(Alignment.topCenter.x, Alignment.topCenter.y),
+              end: Alignment(Alignment.bottomCenter.x, Alignment.bottomCenter.y *2),
               colors: [Colors.white, Color.fromRGBO(84, 204, 255, 1)]),
         ),
         child: Stack(
