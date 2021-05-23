@@ -3,9 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_widget.dart';
-import 'package:hobo_test/widgets/onBoarding/onboarding_constants.dart';
+import 'package:hobo_test/widgets/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:hobo_test/widgets/size_config.dart';
+import 'package:hobo_test/views/loginRegister_view.dart';
 
 class SliderLayoutView extends StatefulWidget {
   @override
@@ -76,7 +77,10 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () => Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  LoginRegisterView())),
                       child: Text(
                         "SKIP",
                         style: const TextStyle(
@@ -122,7 +126,7 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          SliderLayoutView()))
+                                          LoginRegisterView()))
                             },
                       child: Text(
                         "NEXT",

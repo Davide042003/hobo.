@@ -1,6 +1,4 @@
-class Constants{
-  static const String POPPINS = "Poppins";
-
+class OnBoardingConstants{
   static const String SKIP = "SKIP";
   static const String SLIDER_HEADING_1 = "Everyone can be a Guide";
   static const String SLIDER_HEADING_2 = "Private Tour";
