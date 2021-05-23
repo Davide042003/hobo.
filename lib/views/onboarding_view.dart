@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_widget.dart';
-import 'package:hobo_test/widgets/onBoarding/constants_onboarding.dart';
+import 'package:hobo_test/widgets/onBoarding/onboarding_constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:hobo_test/widgets/size_config.dart';
 

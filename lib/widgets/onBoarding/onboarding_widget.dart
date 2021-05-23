@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
-import 'package:hobo_test/widgets/onBoarding/constants_onboarding.dart';
+import 'package:hobo_test/widgets/onBoarding/onboarding_constants.dart';
 import 'package:hobo_test/widgets/size_config.dart';
 
 class OnBoardingWidget extends StatelessWidget {
