@@ -74,36 +74,56 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                     topRight: Radius.circular(40))),
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    InkWell(
-                      onTap: () => _onPageChanged(0),
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: _currentPage == 0 ? Colors.black : Color.fromRGBO(220, 220, 220, 1),
-                            fontFamily: Constants.POPPINS,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () => _pageController.animateToPage(0,
+                          duration: _duration, curve: _curve),
+                      child:  Container(
+                        width: SizeConfig.screenWidth * 0.3,
+                        height: SizeConfig.screenHeight * 0.07,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: _currentPage == 0
+                                    ? Colors.black
+                                    : Color.fromRGBO(220, 220, 220, 1),
+                                fontFamily: Constants.POPPINS,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ),
-                    SizedBox(width: SizeConfig.screenWidth * 0.25),
-                    InkWell(
-                      onTap: () => _onPageChanged(1),
-                      child: Text(
-                        "Register",
-                        style: TextStyle(
-                            color: _currentPage == 1 ? Colors.black : Color.fromRGBO(220, 220, 220, 1),
-                            fontFamily: Constants.POPPINS,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
+                    SizedBox(width: SizeConfig.screenWidth * 0.15),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () => _pageController.animateToPage(1,
+                          duration: _duration, curve: _curve),
+                      child:  Container(
+                        width: SizeConfig.screenWidth * 0.3,
+                        height: SizeConfig.screenHeight * 0.07,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Register",
+                            style: TextStyle(
+                                color: _currentPage == 1
+                                    ? Colors.black
+                                    : Color.fromRGBO(220, 220, 220, 1),
+                                fontFamily: Constants.POPPINS,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.02),
                 Stack(
                   children: [
                     Container(
@@ -113,20 +133,19 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                     ),
                     Row(
                       children: [
-                        SizedBox(width: SizeConfig.screenWidth * 0.13),
+                        SizedBox(width: SizeConfig.screenWidth * 0.10),
                         SmoothPageIndicator(
                           controller: _pageController,
-                          count:  2,
+                          count: 2,
                           axisDirection: Axis.horizontal,
-                          effect:  SlideEffect(
-                              spacing: 30.0,
-                              radius:  4.0,
-                              dotWidth:  135.0,
-                              dotHeight:  3.0,
-                              paintStyle:  PaintingStyle.fill,
-                              dotColor:  Colors.transparent,
-                              activeDotColor:  Color.fromRGBO(116, 142, 243, 1)
-                          ),
+                          effect: SlideEffect(
+                              spacing: 40.0,
+                              radius: 4.0,
+                              dotWidth: 150.0,
+                              dotHeight: 3.0,
+                              paintStyle: PaintingStyle.fill,
+                              dotColor: Colors.transparent,
+                              activeDotColor: Color.fromRGBO(116, 142, 243, 1)),
                         ),
                       ],
                     )
@@ -137,10 +156,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                     controller: _pageController,
                     scrollDirection: Axis.horizontal,
                     onPageChanged: _onPageChanged,
-                    children: [
-                      LoginWidget(),
-                      RegisterWidget()
-                    ],
+                    children: [LoginWidget(), RegisterWidget()],
                   ),
                 ),
               ],
