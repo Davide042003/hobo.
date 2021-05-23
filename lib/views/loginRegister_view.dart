@@ -5,6 +5,7 @@ import 'package:hobo_test/widgets/size_config.dart';
 import 'package:hobo_test/widgets/constants.dart';
 import 'package:hobo_test/widgets/login_widget.dart';
 import 'package:hobo_test/widgets/register_widget.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class LoginRegisterView extends StatefulWidget {
   @override
@@ -94,7 +95,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                       child: Text(
                         "Register",
                         style: const TextStyle(
-                            color: Colors.black,
+                            color: Color.fromRGBO(220, 220, 220, 1),
                             fontFamily: Constants.POPPINS,
                             fontSize: 17,
                             fontWeight: FontWeight.bold),
@@ -103,11 +104,45 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                   ],
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.02),
-                Stack(children: [
-                  Container(width: SizeConfig.screenWidth, height: SizeConfig.screenHeight * 0.0015, color: Color.fromRGBO(233, 233, 233, 1),)
-                ],
+                Stack(
+                  children: [
+                    Container(
+                      width: SizeConfig.screenWidth,
+                      height: SizeConfig.screenHeight * 0.0015,
+                      color: Color.fromRGBO(233, 233, 233, 1),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(width: SizeConfig.screenWidth * 0.13),
+                        SmoothPageIndicator(
+                          controller: _pageController,
+                          count:  2,
+                          axisDirection: Axis.horizontal,
+                          effect:  SlideEffect(
+                              spacing: 30.0,
+                              radius:  4.0,
+                              dotWidth:  135.0,
+                              dotHeight:  3.0,
+                              paintStyle:  PaintingStyle.fill,
+                              dotColor:  Colors.transparent,
+                              activeDotColor:  Color.fromRGBO(116, 142, 243, 1)
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-                LoginWidget(),
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    scrollDirection: Axis.horizontal,
+                    onPageChanged: _onPageChanged,
+                    children: [
+                      LoginWidget(),
+                      RegisterWidget()
+                    ],
+                  ),
+                ),
               ],
             ),
           )
