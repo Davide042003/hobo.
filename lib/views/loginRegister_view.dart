@@ -79,11 +79,11 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () => _onPageChanged(0),
                       child: Text(
                         "Login",
-                        style: const TextStyle(
-                            color: Colors.black,
+                        style: TextStyle(
+                            color: _currentPage == 0 ? Colors.black : Color.fromRGBO(220, 220, 220, 1),
                             fontFamily: Constants.POPPINS,
                             fontSize: 17,
                             fontWeight: FontWeight.bold),
@@ -91,11 +91,11 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                     ),
                     SizedBox(width: SizeConfig.screenWidth * 0.25),
                     InkWell(
-                      onTap: () {},
+                      onTap: () => _onPageChanged(1),
                       child: Text(
                         "Register",
-                        style: const TextStyle(
-                            color: Color.fromRGBO(220, 220, 220, 1),
+                        style: TextStyle(
+                            color: _currentPage == 1 ? Colors.black : Color.fromRGBO(220, 220, 220, 1),
                             fontFamily: Constants.POPPINS,
                             fontSize: 17,
                             fontWeight: FontWeight.bold),
