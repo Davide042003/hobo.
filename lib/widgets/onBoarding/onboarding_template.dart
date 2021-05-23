@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hobo_test/constants/constants.dart';
+import 'package:hobo_test/widgets/onBoarding/constants_onboarding.dart';
 
 class OnBoarding {
   final String sliderImageName;

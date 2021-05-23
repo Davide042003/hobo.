@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hobo_test/model/onboarding_model.dart';
-import 'package:hobo_test/constants/constants.dart';
+import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
+import 'package:hobo_test/widgets/onBoarding/constants_onboarding.dart';
+import 'package:hobo_test/widgets/size_config.dart';
 
 class OnBoardingWidget extends StatelessWidget {
   final int index;
@@ -9,17 +10,15 @@ class OnBoardingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final sizeWidth = size.width;
-    final sizeHeight = size.height;
+    SizeConfig().init(context);
 
     return Column(
       children: [
         SizedBox(
-          height: sizeHeight * .07,
+          height: SizeConfig.screenHeight * .07,
         ),
         SizedBox(
-          height: sizeHeight * .078,
+          height: SizeConfig.screenHeight * .078,
         ),
         Text(onBoardingArrayList[index].sliderHeading,
             style: TextStyle(
@@ -27,7 +26,7 @@ class OnBoardingWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 23)),
         SizedBox(
-          height: sizeHeight * .003,
+          height: SizeConfig.screenHeight * .003,
         ),
         Text(onBoardingArrayList[index].sliderSubHeading,
             style: TextStyle(
@@ -36,10 +35,9 @@ class OnBoardingWidget extends StatelessWidget {
                 fontSize: 15,
                 color: Color.fromRGBO(92, 96, 113, 1))),
         SizedBox(
-          height: sizeHeight * 0.15,
+          height: SizeConfig.screenHeight * 0.2228,
         ),
-        SizedBox(height: sizeHeight *0.0728),
-        Image.asset(onBoardingArrayList[index].sliderImageName, scale: size.aspectRatio),
+        Expanded(child: Image.asset(onBoardingArrayList[index].sliderImageName, fit: BoxFit.fill, width: double.infinity,)),
       ],
     );
   }

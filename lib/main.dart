@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hobo_test/ui_view/onboarding_view.dart';
+import 'package:hobo_test/pages/onboarding_view.dart';
 
 void main() {
   runApp(MyApp());

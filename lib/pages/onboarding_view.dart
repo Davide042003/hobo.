@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hobo_test/model/onboarding_model.dart';
-import 'package:hobo_test/widgets/onboarding_widget.dart';
-import 'package:hobo_test/constants/constants.dart';
+import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
+import 'package:hobo_test/widgets/onBoarding/onboarding_widget.dart';
+import 'package:hobo_test/widgets/onBoarding/constants_onboarding.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:hobo_test/widgets/size_config.dart';
 
 class SliderLayoutView extends StatefulWidget {
   @override
@@ -44,9 +45,7 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final sizeWidth = size.width;
-    final sizeHeight = size.height;
+    SizeConfig().init(context);
 
     return new Scaffold(
       body: Container(
@@ -71,7 +70,7 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: sizeHeight * 0.065
+                  height: SizeConfig.screenHeight * 0.065
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -88,23 +87,23 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                       ),
                     ),
                     SizedBox(
-                      width: sizeWidth * 0.09,
+                      width: SizeConfig.screenWidth * 0.09,
                     )
                   ],
                 ),
-                SizedBox(height: sizeHeight * 0.21),
+                SizedBox(height: SizeConfig.screenHeight * 0.21),
                 SmoothPageIndicator(
                   controller: _pageController,
                   count: onBoardingArrayList.length,
                   effect: ExpandingDotsEffect(
-                    expansionFactor: 3, dotWidth: sizeWidth * 0.012, dotHeight: sizeHeight * 0.006, dotColor: Color.fromRGBO(0, 0, 0, 0.17),activeDotColor: Color.fromRGBO(116, 142, 243, 1)
+                    expansionFactor: 3, dotWidth: SizeConfig.screenWidth * 0.012, dotHeight: SizeConfig.screenHeight * 0.006, dotColor: Color.fromRGBO(0, 0, 0, 0.17),activeDotColor: Color.fromRGBO(116, 142, 243, 1)
                   ),
                 ),
-                SizedBox(height: sizeHeight * 0.03),
+                SizedBox(height: SizeConfig.screenHeight * 0.03),
                 Container(
                     margin: EdgeInsets.only(top: 10),
-                    width: sizeWidth * 0.29,
-                    height: sizeHeight * 0.059,
+                    width: SizeConfig.screenWidth * 0.29,
+                    height: SizeConfig.screenHeight * 0.059,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(35)),
                       gradient: LinearGradient(
