@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:hobo_test/widgets/constants.dart';
 import 'package:hobo_test/widgets/size_config.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class OnBoardingWidget extends StatelessWidget {
   final int index;
+
   OnBoardingWidget(this.index);
 
   @override
@@ -34,10 +36,13 @@ class OnBoardingWidget extends StatelessWidget {
                 fontWeight: FontWeight.normal,
                 fontSize: 15,
                 color: Color.fromRGBO(92, 96, 113, 1))),
-        SizedBox(
-          height: SizeConfig.screenHeight * 0.2228,
-        ),
-        Expanded(child: Image.asset(onBoardingArrayList[index].sliderImageName, fit: BoxFit.fill, width: double.infinity,)),
+        Expanded(
+          child: SvgPicture.asset(
+            onBoardingArrayList[index].sliderImageName,
+            width: SizeConfig.screenWidth,
+            alignment: Alignment.bottomCenter,
+          ),
+        )
       ],
     );
   }

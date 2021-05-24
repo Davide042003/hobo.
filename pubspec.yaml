@@ -28,6 +28,7 @@ dependencies:
   smooth_page_indicator: ^0.2.3
   line_icons: ^2.0.1
   ionicons: ^0.1.2
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:
@@ -38,7 +39,9 @@ flutter:
   uses-material-design: true
 
   assets:
-   - assets/images/Onboarding-1.png
+   - assets/images/Onboarding-1.svg
+   - assets/images/Onboarding-2.svg
+   - assets/images/Onboarding-3.svg
 
   fonts:
     - family: Poppins
