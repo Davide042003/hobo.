@@ -9,7 +9,8 @@ class InputFieldPassword extends StatefulWidget {
   final Function onChanged;
   final bool isRegistration;
 
-  const InputFieldPassword (this.show,this.callback, this.onChanged, this.isRegistration);
+  const InputFieldPassword(
+      this.show, this.callback, this.onChanged, this.isRegistration);
 
   @override
   _InputFieldPasswordState createState() => _InputFieldPasswordState();
@@ -21,28 +22,34 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
   final TextStyle regularText = TextStyle(
       fontFamily: Constants.POPPINS,
       color: Color.fromRGBO(88, 88, 88, 1),
-      fontSize: 17);
+      fontSize: 17,
+      height: -0.01);
 
   @override
   Widget build(BuildContext context) {
-
     final TextStyle focusText = TextStyle(
         fontFamily: Constants.POPPINS,
         fontWeight: FontWeight.bold,
         height: -1,
-        color: widget.isRegistration ? Color.fromRGBO(36, 65, 187, 1) : Color.fromRGBO(116, 142, 243, 1),
+        color: widget.isRegistration
+            ? Color.fromRGBO(36, 65, 187, 1)
+            : Color.fromRGBO(116, 142, 243, 1),
         fontSize: 15);
 
     return Focus(
         onFocusChange: (hasFocus) {
-          setState(() => _textStyle = hasFocus ? focusText : regularText);},
-        child:
-        TextFormField(
+          setState(() => _textStyle = hasFocus ? focusText : regularText);
+        },
+        child: TextFormField(
           obscureText: !widget.show,
           decoration: InputDecoration(
               prefixIcon: Icon(Ionicons.key_outline),
               suffixIcon: IconButton(
-                icon: Icon(widget.show ? Ionicons.eye_off_outline : Ionicons.eye_outline, color: Color.fromRGBO(193, 193, 193, 1)),
+                icon: Icon(
+                    widget.show
+                        ? Ionicons.eye_off_outline
+                        : Ionicons.eye_outline,
+                    color: Color.fromRGBO(193, 193, 193, 1)),
                 onPressed: widget.callback,
               ),
               errorStyle: TextStyle(
@@ -52,15 +59,19 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
                   fontSize: 10),
               labelText: "Password",
               labelStyle: _textStyle,
-              focusColor: widget.isRegistration ? Color.fromRGBO(36, 65, 187, 1) : Color.fromRGBO(116, 142, 243, 1),
+              focusColor: widget.isRegistration
+                  ? Color.fromRGBO(36, 65, 187, 1)
+                  : Color.fromRGBO(116, 142, 243, 1),
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                      color: widget.isRegistration ? Color.fromRGBO(36, 65, 187, 1) : Color.fromRGBO(116, 142, 243, 1), width: 2))),
+                      color: widget.isRegistration
+                          ? Color.fromRGBO(36, 65, 187, 1)
+                          : Color.fromRGBO(116, 142, 243, 1),
+                      width: 2))),
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: _validatePassword,
           onChanged: widget.onChanged,
-        )
-    );
+        ));
   }
 
   String _validatePassword(String value) {
@@ -77,5 +88,3 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
     }
   }
 }
-
-
