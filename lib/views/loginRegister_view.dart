@@ -139,10 +139,9 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                           count: 2,
                           axisDirection: Axis.horizontal,
                           effect: SlideEffect(
-                              spacing: 40.0,
-                              radius: 4.0,
-                              dotWidth: 150.0,
-                              dotHeight: 3.0,
+                              spacing: SizeConfig.screenWidth * 0.042,
+                              dotWidth: SizeConfig.screenWidth * 0.39,
+                              dotHeight: SizeConfig.screenHeight * 0.0035,
                               paintStyle: PaintingStyle.fill,
                               dotColor: Colors.transparent,
                               activeDotColor: Color.fromRGBO(116, 142, 243, 1)),
