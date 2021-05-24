@@ -41,6 +41,8 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
           setState(() => _textStyle = hasFocus ? focusText : regularText);
         },
         child: TextFormField(
+          autocorrect: false,
+          enableSuggestions: false,
           obscureText: !widget.show,
           decoration: InputDecoration(
               prefixIcon: Icon(Ionicons.key_outline),

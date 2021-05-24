@@ -41,6 +41,8 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
           setState(() => _textStyle = hasFocus ? focusText : regularText);
         },
         child: TextFormField(
+          autocorrect: false,
+          enableSuggestions: false,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 widget.iconPrefix,
