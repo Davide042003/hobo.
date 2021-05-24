@@ -42,7 +42,11 @@ flutter:
    - assets/images/Onboarding-1.svg
    - assets/images/Onboarding-2.svg
    - assets/images/Onboarding-3.svg
-
+   - assets/images/Tourist-background.svg
+   - assets/images/Tourist-girl.svg
+   - assets/images/Guide-background.svg
+   - assets/images/Guide-girl.svg
+   -
   fonts:
     - family: Poppins
       fonts:
