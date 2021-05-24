@@ -6,7 +6,7 @@ import 'package:hobo_test/widgets/onBoarding/onboarding_widget.dart';
 import 'package:hobo_test/widgets/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:hobo_test/widgets/size_config.dart';
-import 'package:hobo_test/views/loginRegister_view.dart';
+import 'package:hobo_test/views/loginregister_view.dart';
 
 class SliderLayoutView extends StatefulWidget {
   @override

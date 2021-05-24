@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:hobo_test/views/choosewho_view.dart';
 import 'package:hobo_test/widgets/size_config.dart';
 import 'package:hobo_test/widgets/constants.dart';
 import 'package:ionicons/ionicons.dart';
 import 'inputFieldStandard_widget.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldPassword_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:hobo_test/views/onboarding_view.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -24,6 +26,17 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   TextStyle defaultStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, color: Colors.black);
   TextStyle linkStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, color: Color.fromRGBO(36, 65, 187, 1), fontWeight: FontWeight.w600);
+
+  void _trySubmitForm() {
+    final isValid = _formKey.currentState.validate();
+    if (isValid) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => ChooseWho()),
+            (Route<dynamic> route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +75,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             InputFieldStandard("Username", 0, Ionicons.person_outline,
                 (value) => _username = value, true),
             SizedBox(height: SizeConfig.screenHeight * 0.035),
-            InputFieldStandard("Email Address", 0, Ionicons.mail_outline,
+            InputFieldStandard("Email Address", 1, Ionicons.mail_outline,
                 (value) => _email = value, true),
             SizedBox(height: SizeConfig.screenHeight * 0.035),
             InputFieldPassword(
@@ -115,6 +128,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ]),
                 ),
                 child: TextButton(
+                  onPressed: _trySubmitForm,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
