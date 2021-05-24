@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
-import 'size_config.dart';
-import 'constants.dart';
-import 'inputFieldStandard_widget.dart';
+import '../size_config.dart';
+import '../constants.dart';
+import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
 import 'inputFieldPassword_widget.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:ionicons/ionicons.dart';

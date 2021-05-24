@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/size_config.dart';
 import 'package:hobo_test/widgets/constants.dart';
-import 'package:hobo_test/widgets/login_widget.dart';
-import 'package:hobo_test/widgets/register_widget.dart';
+import 'package:hobo_test/widgets/login_register/login_widget.dart';
+import 'package:hobo_test/widgets/login_register/register_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class LoginRegisterView extends StatefulWidget {

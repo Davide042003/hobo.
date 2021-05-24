@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'package:ionicons/ionicons.dart';
 
 class InputFieldPassword extends StatefulWidget {

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'size_config.dart';
-import 'constants.dart';
+import 'package:hobo_test/widgets/size_config.dart';
+import 'package:hobo_test/widgets/constants.dart';
 import 'package:ionicons/ionicons.dart';
 import 'inputFieldStandard_widget.dart';
-import 'inputFieldPassword_widget.dart';
+import 'package:hobo_test/widgets/login_register/inputFieldPassword_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegisterWidget extends StatefulWidget {

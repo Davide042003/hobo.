@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:hobo_test/widgets/constants.dart';
 
 class InputFieldStandard extends StatefulWidget {
   final String text;
