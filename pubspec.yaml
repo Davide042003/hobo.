@@ -26,6 +26,8 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   smooth_page_indicator: ^0.2.3
+  line_icons: ^2.0.1
+  ionicons: ^0.1.2
 
 dev_dependencies:
   flutter_test:

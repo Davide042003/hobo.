@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icon.dart';
 import 'size_config.dart';
 import 'constants.dart';
 import 'inputFieldStandard_widget.dart';
 import 'inputFieldPassword_widget.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:ionicons/ionicons.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -63,7 +66,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         color: Color.fromRGBO(138, 138, 138, 1)),
                     textAlign: TextAlign.left)),
             SizedBox(height: SizeConfig.screenHeight * 0.05),
-            InputFieldStandard("Username/Email", 0, Icons.mail_outline),
+            InputFieldStandard("Username/Email", 0, Ionicons.mail_outline),
             SizedBox(height: SizeConfig.screenHeight * 0.03),
             InputFieldPassword(
                 this._showPassword,
@@ -95,16 +98,91 @@ class _LoginWidgetState extends State<LoginWidget> {
                         Text(
                           "Login",
                           style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,),
+                            fontFamily: Constants.POPPINS,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
-                        Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white,)
+                        Icon(
+                          Icons.keyboard_arrow_right_outlined,
+                          color: Colors.white,
+                        )
                       ],
                     ),
                   ),
-                ))
+                )),
+            SizedBox(height: SizeConfig.screenHeight * 0.008),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {},
+              child: Container(
+                width: SizeConfig.screenWidth * 0.5,
+                height: SizeConfig.screenHeight * 0.05,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                        color: Color.fromRGBO(36, 65, 187, 1),
+                        fontFamily: Constants.POPPINS,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: SizeConfig.screenHeight * 0.06),
+            Container(
+              width: SizeConfig.screenWidth * 0.5,
+              height: SizeConfig.screenHeight * 0.03,
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Or login with",
+                  style: TextStyle(
+                      color: Color.fromRGBO(51, 51, 51, 1),
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+            SizedBox(height: SizeConfig.screenHeight * 0.02),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    height: SizeConfig.screenHeight * 0.11,
+                    width: SizeConfig.screenWidth * 0.18,
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Color.fromRGBO(164, 164, 14, .1),
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Icon(Ionicons.logo_google, size: 30,),
+                    )),
+                SizedBox(width: SizeConfig.screenWidth * 0.05),
+                Container(
+                  height: SizeConfig.screenHeight * 0.11,
+                    width: SizeConfig.screenWidth * 0.18,
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Color.fromRGBO(25, 119, 243, .15),
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Icon(LineIcons.facebookF, size: 30, color: Color.fromRGBO(25, 119, 243, 1),),
+                    )),
+                SizedBox(width: SizeConfig.screenWidth * 0.05),
+                Container(
+                    height: SizeConfig.screenHeight * 0.11,
+                    width: SizeConfig.screenWidth * 0.18,
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.black),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Icon(Ionicons.logo_apple, color: Colors.white, size: 30),
+                    )
+                ),
+              ],
+            )
           ],
         ),
       ),

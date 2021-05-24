@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icon.dart';
 import 'constants.dart';
+import 'package:ionicons/ionicons.dart';
 
 class InputFieldPassword extends StatefulWidget {
   final bool show;
@@ -37,9 +39,9 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
         TextFormField(
           obscureText: !widget.show,
           decoration: InputDecoration(
-              prefixIcon: Icon(Icons.vpn_key_outlined),
+              prefixIcon: Icon(Ionicons.key_outline),
               suffixIcon: IconButton(
-                icon: Icon(widget.show ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: Color.fromRGBO(193, 193, 193, 1)),
+                icon: Icon(widget.show ? Ionicons.eye_off_outline : Ionicons.eye_outline, color: Color.fromRGBO(193, 193, 193, 1)),
                 onPressed: widget.callback,
               ),
               errorStyle: TextStyle(
@@ -58,21 +60,6 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
           onChanged: widget.onChanged,
         )
     );
-  }
-
-  String _validatePassword(String value) {
-    Pattern pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
-    RegExp regex = new RegExp(pattern);
-    print(value);
-    if (value.isEmpty) {
-      return 'Please enter password';
-    } else {
-      if (!regex.hasMatch(value))
-        return 'Enter valid password';
-      else
-        return null;
-    }
   }
 }
 
