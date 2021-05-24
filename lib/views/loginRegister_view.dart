@@ -48,6 +48,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
     SizeConfig().init(context);
 
     return new Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: <Widget>[
