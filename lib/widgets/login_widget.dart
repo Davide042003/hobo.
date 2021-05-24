@@ -66,7 +66,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         color: Color.fromRGBO(138, 138, 138, 1)),
                     textAlign: TextAlign.left)),
             SizedBox(height: SizeConfig.screenHeight * 0.05),
-            InputFieldStandard("Username/Email", 0, Ionicons.mail_outline),
+            InputFieldStandard("Username/Email", 0, Ionicons.mail_outline, (value) => _userEmail = value),
             SizedBox(height: SizeConfig.screenHeight * 0.03),
             InputFieldPassword(
                 this._showPassword,
@@ -88,7 +88,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ]),
                 ),
                 child: TextButton(
-                  onPressed: () {},
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(

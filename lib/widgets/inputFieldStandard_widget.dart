@@ -5,8 +5,9 @@ class InputFieldStandard extends StatefulWidget {
   final String text;
   final int typeText; //0 = tastiera Text, 1 = tastiera mail
   final IconData iconPrefix;
+  final Function onChanged;
 
-  const InputFieldStandard (this.text, this.typeText, this.iconPrefix);
+  const InputFieldStandard (this.text, this.typeText, this.iconPrefix, this.onChanged);
 
   @override
   _InputFieldStandardState createState() => _InputFieldStandardState();
@@ -45,6 +46,7 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
             keyboardType: checkKeyboardType(),
             validator: validateField,
             autovalidateMode: AutovalidateMode.onUserInteraction,
+            onChanged: widget.onChanged
           )
     );
   }
