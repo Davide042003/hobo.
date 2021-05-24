@@ -21,20 +21,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   String _userEmail = '';
   String _password = '';
 
-  String _validatePassword(String value) {
-    Pattern pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
-    RegExp regex = new RegExp(pattern);
-    print(value);
-    if (value.isEmpty) {
-      return 'Please enter password';
-    } else {
-      if (!regex.hasMatch(value))
-        return 'Enter valid password';
-      else
-        return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -66,13 +52,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                         color: Color.fromRGBO(138, 138, 138, 1)),
                     textAlign: TextAlign.left)),
             SizedBox(height: SizeConfig.screenHeight * 0.05),
-            InputFieldStandard("Username/Email", 0, Ionicons.mail_outline, (value) => _userEmail = value),
+            InputFieldStandard("Username/Email", 0, Ionicons.mail_outline, (value) => _userEmail = value, false),
             SizedBox(height: SizeConfig.screenHeight * 0.03),
             InputFieldPassword(
                 this._showPassword,
                 () => setState(() => this._showPassword = !this._showPassword),
-                (value) => _validatePassword(value),
-                (value) => _password = value),
+                (value) => _password = value, false),
             SizedBox(height: SizeConfig.screenHeight * 0.05),
             Container(
                 width: SizeConfig.screenWidth,

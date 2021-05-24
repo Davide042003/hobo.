@@ -6,10 +6,10 @@ import 'package:ionicons/ionicons.dart';
 class InputFieldPassword extends StatefulWidget {
   final bool show;
   final VoidCallback callback;
-  final Function validator;
   final Function onChanged;
+  final bool isRegistration;
 
-  const InputFieldPassword (this.show,this.callback, this.validator, this.onChanged);
+  const InputFieldPassword (this.show,this.callback, this.onChanged, this.isRegistration);
 
   @override
   _InputFieldPasswordState createState() => _InputFieldPasswordState();
@@ -23,15 +23,16 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
       color: Color.fromRGBO(88, 88, 88, 1),
       fontSize: 17);
 
-  final TextStyle focusText = TextStyle(
-      fontFamily: Constants.POPPINS,
-      fontWeight: FontWeight.bold,
-      height: -1,
-      color: Color.fromRGBO(116, 142, 243, 1),
-      fontSize: 15);
-
   @override
   Widget build(BuildContext context) {
+
+    final TextStyle focusText = TextStyle(
+        fontFamily: Constants.POPPINS,
+        fontWeight: FontWeight.bold,
+        height: -1,
+        color: widget.isRegistration ? Color.fromRGBO(36, 65, 187, 1) : Color.fromRGBO(116, 142, 243, 1),
+        fontSize: 15);
+
     return Focus(
         onFocusChange: (hasFocus) {
           setState(() => _textStyle = hasFocus ? focusText : regularText);},
@@ -51,15 +52,29 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
                   fontSize: 10),
               labelText: "Password",
               labelStyle: _textStyle,
-              focusColor: Color.fromRGBO(116, 142, 243, 1),
+              focusColor: widget.isRegistration ? Color.fromRGBO(36, 65, 187, 1) : Color.fromRGBO(116, 142, 243, 1),
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                      color: Color.fromRGBO(116, 142, 243, 1), width: 2))),
+                      color: widget.isRegistration ? Color.fromRGBO(36, 65, 187, 1) : Color.fromRGBO(116, 142, 243, 1), width: 2))),
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: widget.validator,
+          validator: _validatePassword,
           onChanged: widget.onChanged,
         )
     );
+  }
+
+  String _validatePassword(String value) {
+    Pattern pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
+    RegExp regex = new RegExp(pattern);
+    print(value);
+    if (value.isEmpty) {
+      return 'Please enter password';
+    } else {
+      if (!regex.hasMatch(value))
+        return 'Enter valid password';
+      else
+        return null;
+    }
   }
 }
 
