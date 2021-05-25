@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/constants.dart';
 import 'package:hobo_test/widgets/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hobo_test/widgets/dark_theme_styles.dart';
+import 'package:provider/provider.dart';
+import 'package:hobo_test/widgets/dark_theme_provider.dart';
 
 class ChooseWho extends StatefulWidget {
   @override
@@ -13,10 +16,11 @@ class _ChooseWhoState extends State<ChooseWho> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
         body: Container(
-            color: Color.fromRGBO(245, 252, 255, 1),
+            color: Styles.loginregister_background(themeChange.darkTheme, context),
             child: SafeArea(
               child: Column(
                 children: [
@@ -29,7 +33,7 @@ class _ChooseWhoState extends State<ChooseWho> {
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
                               fontSize: 25,
-                              fontWeight: FontWeight.w600))),
+                              fontWeight: FontWeight.w600, color: Styles.whiteblack(themeChange.darkTheme, context)))),
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.04,
                   ),
@@ -53,7 +57,7 @@ class _ChooseWhoState extends State<ChooseWho> {
                         padding: EdgeInsets.only(
                             top: SizeConfig.screenHeight * 0.072, left: SizeConfig.screenWidth * 0.63),
                         child: SvgPicture.asset(
-                          "assets/images/Tourist-girl.svg",
+                          themeChange.darkTheme ? "assets/images/Tourist-girl-dark.svg" : "assets/images/Tourist-girl.svg",
                           alignment: Alignment.bottomLeft,
                           height: SizeConfig.screenHeight * 0.30,
                         ),
@@ -85,7 +89,7 @@ class _ChooseWhoState extends State<ChooseWho> {
                             padding: EdgeInsets.only(
                                 top: SizeConfig.screenHeight * 0.072, left: SizeConfig.screenWidth * 0.63),
                             child: SvgPicture.asset(
-                              "assets/images/Guide-girl.svg",
+                              themeChange.darkTheme ? "assets/images/Guide-girl-dark.svg" :  "assets/images/Guide-girl.svg",
                               alignment: Alignment.bottomLeft,
                               height: SizeConfig.screenHeight * 0.30,
                             ),

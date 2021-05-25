@@ -101,7 +101,8 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
           onFieldSubmitted: (term){
               widget.focusNode.unfocus();
               FocusScope.of(context).requestFocus(widget.nextFocusNode);
-          },),
+          },
+          ),
         );
   }
 

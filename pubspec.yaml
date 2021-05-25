@@ -48,6 +48,8 @@ flutter:
    - assets/images/Tourist-girl.svg
    - assets/images/Guide-background.svg
    - assets/images/Guide-girl.svg
+   - assets/images/Guide-girl-dark.svg
+   - assets/images/Tourist-girl-dark.svg
 
   fonts:
     - family: Poppins
