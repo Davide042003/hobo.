@@ -50,8 +50,27 @@ class Styles {
     return isDarkTheme ?  Colors.white : Colors.black;
   }
 
+  static Color blackwhite(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.black : Colors.white;
+  }
+
   static Color loginregister_subheadingandform(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(255, 255, 255, .5) : Color.fromRGBO(138, 138, 138, 1);
   }
 
+  static Color loginregister_or(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white : Color.fromRGBO(51, 51, 51, 1);
+  }
+
+  static Color loginregister_forgot(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(116, 142, 243, 1) : Color.fromRGBO(36, 65, 187, 1);
+  }
+
+  static Color loginregister_topbar(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(233, 233, 233, .15) : Color.fromRGBO(233, 233, 233, 1);
+  }
+
+  static Color loginregister_disablewindowcolor(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(255, 255, 255, .3) : Color.fromRGBO(220, 220, 220, 1);
+  }
 }

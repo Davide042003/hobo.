@@ -7,6 +7,9 @@ import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart'
 import 'inputFieldPassword_widget.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:hobo_test/widgets/dark_theme_styles.dart';
+import 'package:provider/provider.dart';
+import 'package:hobo_test/widgets/dark_theme_provider.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -24,6 +27,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Form(
       key: _formKey,
@@ -39,7 +43,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
                       fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                      fontSize: 25,
+                  color: Styles.whiteblack(themeChange.darkTheme, context)),
                   textAlign: TextAlign.left,
                 )),
             Align(
@@ -49,7 +54,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         fontFamily: Constants.POPPINS,
                         fontWeight: FontWeight.w300,
                         fontSize: 17,
-                        color: Color.fromRGBO(138, 138, 138, 1)),
+                        color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
                     textAlign: TextAlign.left)),
             SizedBox(height: SizeConfig.screenHeight * 0.05),
             InputFieldStandard("Username/Email", 0, Ionicons.mail_outline, (value) => _userEmail = value, false),
@@ -108,7 +113,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   child: Text(
                     "Forgot Password?",
                     style: TextStyle(
-                        color: Color.fromRGBO(36, 65, 187, 1),
+                        color: Styles.loginregister_forgot(themeChange.darkTheme, context),
                         fontFamily: Constants.POPPINS,
                         fontSize: 17,
                         fontWeight: FontWeight.w600),
@@ -125,7 +130,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 child: Text(
                   "Or login with",
                   style: TextStyle(
-                      color: Color.fromRGBO(51, 51, 51, 1),
+                      color: Styles.loginregister_or(themeChange.darkTheme, context),
                       fontFamily: Constants.POPPINS,
                       fontSize: 15,
                       fontWeight: FontWeight.w600),
@@ -139,7 +144,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 Container(
                     height: SizeConfig.screenHeight * 0.11,
                     width: SizeConfig.screenWidth * 0.18,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: Color.fromRGBO(164, 164, 14, .1),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.loginregister_google(themeChange.darkTheme, context),
                     ),
                     child: TextButton(
                       onPressed: () {},
@@ -149,7 +154,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 Container(
                   height: SizeConfig.screenHeight * 0.11,
                     width: SizeConfig.screenWidth * 0.18,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: Color.fromRGBO(25, 119, 243, .15),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.loginregister_fb(themeChange.darkTheme, context),
                     ),
                     child: TextButton(
                       onPressed: () {},
@@ -159,10 +164,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                 Container(
                     height: SizeConfig.screenHeight * 0.11,
                     width: SizeConfig.screenWidth * 0.18,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.black),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.whiteblack(themeChange.darkTheme, context)),
                     child: TextButton(
                       onPressed: () {},
-                      child: Icon(Ionicons.logo_apple, color: Colors.white, size: 30),
+                      child: Icon(Ionicons.logo_apple, color: Styles.blackwhite(themeChange.darkTheme, context), size: 30),
                     )
                 ),
               ],

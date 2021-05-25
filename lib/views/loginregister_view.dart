@@ -6,6 +6,9 @@ import 'package:hobo_test/widgets/constants.dart';
 import 'package:hobo_test/widgets/login_register/login_widget.dart';
 import 'package:hobo_test/widgets/login_register/register_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:hobo_test/widgets/dark_theme_styles.dart';
+import 'package:provider/provider.dart';
+import 'package:hobo_test/widgets/dark_theme_provider.dart';
 
 class LoginRegisterView extends StatefulWidget {
   @override
@@ -46,6 +49,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return new Scaffold(
       resizeToAvoidBottomInset: false,
@@ -69,7 +73,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
             height: SizeConfig.screenHeight * 0.9,
             decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
-                color: Color.fromRGBO(245, 252, 255, 1),
+                color: Styles.loginregister_background(themeChange.darkTheme, context),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40))),
@@ -82,7 +86,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                       behavior: HitTestBehavior.translucent,
                       onTap: () => _pageController.animateToPage(0,
                           duration: _duration, curve: _curve),
-                      child:  Container(
+                      child: Container(
                         width: SizeConfig.screenWidth * 0.3,
                         height: SizeConfig.screenHeight * 0.07,
                         child: Align(
@@ -91,8 +95,8 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                             "Login",
                             style: TextStyle(
                                 color: _currentPage == 0
-                                    ? Colors.black
-                                    : Color.fromRGBO(220, 220, 220, 1),
+                                    ? Styles.whiteblack(themeChange.darkTheme, context)
+                                    : Styles.loginregister_disablewindowcolor(themeChange.darkTheme, context),
                                 fontFamily: Constants.POPPINS,
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
@@ -105,7 +109,7 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                       behavior: HitTestBehavior.translucent,
                       onTap: () => _pageController.animateToPage(1,
                           duration: _duration, curve: _curve),
-                      child:  Container(
+                      child: Container(
                         width: SizeConfig.screenWidth * 0.3,
                         height: SizeConfig.screenHeight * 0.07,
                         child: Align(
@@ -114,8 +118,8 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                             "Register",
                             style: TextStyle(
                                 color: _currentPage == 1
-                                    ? Colors.black
-                                    : Color.fromRGBO(220, 220, 220, 1),
+                                    ? Styles.whiteblack(themeChange.darkTheme, context)
+                                    : Styles.loginregister_disablewindowcolor(themeChange.darkTheme, context),
                                 fontFamily: Constants.POPPINS,
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
@@ -130,11 +134,11 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
                     Container(
                       width: SizeConfig.screenWidth,
                       height: SizeConfig.screenHeight * 0.0015,
-                      color: Color.fromRGBO(233, 233, 233, 1),
+                      color: Styles.loginregister_topbar(themeChange.darkTheme, context),
                     ),
                     Row(
                       children: [
-                        SizedBox(width: SizeConfig.screenWidth * 0.10),
+                        SizedBox(width: SizeConfig.screenWidth * 0.08),
                         SmoothPageIndicator(
                           controller: _pageController,
                           count: 2,
