@@ -22,7 +22,6 @@ class InputFieldStandard extends StatefulWidget {
 }
 
 class _InputFieldStandardState extends State<InputFieldStandard> {
-  TextStyle _textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +41,22 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
         color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
         fontSize: 17);
 
-    return Focus(
-        onFocusChange: (hasFocus) {
-          setState(() => _textStyle = hasFocus ? focusText : regularText);
-        },
-        child: Theme(
+    TextStyle _textStyle(){
+      return widget.focusNode.hasFocus ? focusText : regularText;
+    }
+
+    Color _iconColor(){
+      return widget.focusNode.hasFocus ? widget.isRegistration
+          ? Color.fromRGBO(36, 65, 187, 1)
+          : Color.fromRGBO(116, 142, 243, 1) : Styles.loginregister_subheadingandform(themeChange.darkTheme, context);
+    }
+
+    return Theme(
           data: new ThemeData(
               primaryColor: widget.isRegistration
                   ? Color.fromRGBO(36, 65, 187, 1)
                   : Color.fromRGBO(116, 142, 243, 1),
             hintColor: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
-              iconTheme: IconThemeData(
-                  color: Colors.white
-              )
           ),
           child: TextFormField(
             focusNode: widget.focusNode,
@@ -63,9 +65,10 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   widget.iconPrefix,
+                  color: _iconColor(),
                 ),
                 labelText: widget.text,
-                labelStyle: _textStyle,
+                labelStyle: _textStyle(),
                 focusColor: widget.isRegistration
                     ? Color.fromRGBO(36, 65, 187, 1)
                     : Color.fromRGBO(116, 142, 243, 1),
@@ -99,7 +102,7 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
               widget.focusNode.unfocus();
               FocusScope.of(context).requestFocus(widget.nextFocusNode);
           },),
-        ));
+        );
   }
 
   TextInputType checkKeyboardType() {

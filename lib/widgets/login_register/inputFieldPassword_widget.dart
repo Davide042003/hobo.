@@ -39,75 +39,80 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
 
     final TextStyle regularText = TextStyle(
         fontFamily: Constants.POPPINS,
-        color: Styles.loginregister_subheadingandform(
-            themeChange.darkTheme, context),
+        color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
         fontSize: 17);
 
-    return Focus(
-        onFocusChange: (hasFocus) {
-          setState(() => _textStyle = hasFocus ? focusText : regularText);
-        },
-        child: Theme(
-          data: new ThemeData(
-            primaryColor: widget.isRegistration
-                ? Color.fromRGBO(36, 65, 187, 1)
-                : Color.fromRGBO(116, 142, 243, 1),
-            hintColor: Styles.loginregister_subheadingandform(
-                themeChange.darkTheme, context),
+    TextStyle _textStyle(){
+      return widget.focusNode.hasFocus ? focusText : regularText;
+    }
+
+    Color _iconColor(){
+      return widget.focusNode.hasFocus ? widget.isRegistration
+          ? Color.fromRGBO(36, 65, 187, 1)
+          : Color.fromRGBO(116, 142, 243, 1) : Styles.loginregister_subheadingandform(themeChange.darkTheme, context);
+    }
+
+    return Theme(
+      data: new ThemeData(
+        primaryColor: widget.isRegistration
+            ? Color.fromRGBO(36, 65, 187, 1)
+            : Color.fromRGBO(116, 142, 243, 1),
+        hintColor: Styles.loginregister_subheadingandform(
+            themeChange.darkTheme, context),
+      ),
+      child: TextFormField(
+        focusNode: widget.focusNode,
+        autocorrect: false,
+        enableSuggestions: false,
+        obscureText: !widget.show,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Ionicons.key_outline, color: _iconColor(),),
+          suffixIcon: IconButton(
+            icon: Icon(
+                widget.show
+                    ? Ionicons.eye_off_outline
+                    : Ionicons.eye_outline,
+                color: Color.fromRGBO(193, 193, 193, 1)),
+            onPressed: widget.callback,
           ),
-          child: TextFormField(
-            focusNode: widget.focusNode,
-            autocorrect: false,
-            enableSuggestions: false,
-            obscureText: !widget.show,
-            decoration: InputDecoration(
-              prefixIcon: Icon(Ionicons.key_outline),
-              suffixIcon: IconButton(
-                icon: Icon(
-                    widget.show
-                        ? Ionicons.eye_off_outline
-                        : Ionicons.eye_outline,
-                    color: Color.fromRGBO(193, 193, 193, 1)),
-                onPressed: widget.callback,
-              ),
-              labelText: "Password",
-              labelStyle: _textStyle,
-              focusColor: widget.isRegistration
-                  ? Color.fromRGBO(36, 65, 187, 1)
-                  : Color.fromRGBO(116, 142, 243, 1),
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: widget.isRegistration
-                          ? Color.fromRGBO(36, 65, 187, 1)
-                          : Color.fromRGBO(116, 142, 243, 1),
-                      width: 2)),
-              border: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Styles.loginregister_subheadingandform(
-                          themeChange.darkTheme, context),
-                      width: 1)),
-              enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Styles.loginregister_subheadingandform(
-                          themeChange.darkTheme, context),
-                      width: 1)),
-              errorStyle: TextStyle(
-                  fontFamily: Constants.POPPINS,
-                  fontWeight: FontWeight.w300,
-                  color: Color.fromRGBO(88, 88, 88, 1),
-                  fontSize: 10),
-            ),
-            style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 17,color: Styles.whiteblack(themeChange.darkTheme, context)),
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: _validatePassword,
-            onChanged: widget.onChanged,
-              textInputAction: TextInputAction.done,
-              onFieldSubmitted: (term){
-                widget.focusNode.unfocus();
-                FocusScope.of(context).requestFocus(widget.nextFocusNode);
-              }
-          ),
-        ));
+          labelText: "Password",
+          labelStyle: _textStyle(),
+          focusColor: widget.isRegistration
+              ? Color.fromRGBO(36, 65, 187, 1)
+              : Color.fromRGBO(116, 142, 243, 1),
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: widget.isRegistration
+                      ? Color.fromRGBO(36, 65, 187, 1)
+                      : Color.fromRGBO(116, 142, 243, 1),
+                  width: 2)),
+          border: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: Styles.loginregister_subheadingandform(
+                      themeChange.darkTheme, context),
+                  width: 1)),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: Styles.loginregister_subheadingandform(
+                      themeChange.darkTheme, context),
+                  width: 1)),
+          errorStyle: TextStyle(
+              fontFamily: Constants.POPPINS,
+              fontWeight: FontWeight.w300,
+              color: Color.fromRGBO(88, 88, 88, 1),
+              fontSize: 10),
+        ),
+        style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 17,color: Styles.whiteblack(themeChange.darkTheme, context)),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: _validatePassword,
+        onChanged: widget.onChanged,
+          textInputAction: TextInputAction.done,
+          onFieldSubmitted: (term){
+            widget.focusNode.unfocus();
+            FocusScope.of(context).requestFocus(widget.nextFocusNode);
+          }
+      ),
+    );
   }
 
   String _validatePassword(String value) {
