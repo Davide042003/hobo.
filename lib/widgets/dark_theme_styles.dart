@@ -34,4 +34,24 @@ class Styles {
     return isDarkTheme ?  Color.fromRGBO(255, 255, 255, 0.7) : Color.fromRGBO(92, 96, 113, 1);
   }
 
+  static Color loginregister_background(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(41, 41, 41, 1) : Color.fromRGBO(245, 252, 255, 1);
+  }
+
+  static Color loginregister_google(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white : Color.fromRGBO(245, 252, 255, 1);
+  }
+
+  static Color loginregister_fb(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white : Color.fromRGBO(25, 119, 243, .15);
+  }
+
+  static Color loginregister_switchandheading(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white : Colors.black;
+  }
+
+  static Color loginregister_subheadingandform(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(255, 255, 255, .5) : Color.fromRGBO(138, 138, 138, 1);
+  }
+
 }
