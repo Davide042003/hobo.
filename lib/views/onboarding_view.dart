@@ -10,6 +10,7 @@ import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:provider/provider.dart';
 import 'package:hobo_test/widgets/dark_theme_provider.dart';
 import 'package:hobo_test/widgets/dark_theme_styles.dart';
+import 'package:ionicons/ionicons.dart';
 
 class SliderLayoutView extends StatefulWidget {
   @override
@@ -17,12 +18,10 @@ class SliderLayoutView extends StatefulWidget {
 }
 
 class _SliderLayoutViewState extends State<SliderLayoutView> {
-
   int _currentPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
   static const _duration = const Duration(milliseconds: 300);
   static const _curve = Curves.ease;
-
 
   @override
   void initState() {
@@ -67,40 +66,71 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
               controller: _pageController,
               onPageChanged: _onPageChanged,
               itemCount: onBoardingArrayList.length,
-              itemBuilder: (ctx, i) =>
-                  OnBoardingWidget(i),
+              itemBuilder: (ctx, i) => OnBoardingWidget(i),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                    height: SizeConfig.screenHeight * 0.065
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      onTap: () =>
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      LoginRegisterView())),
-                      child: Text(
-                        "SKIP",
-                        style: TextStyle(
-                            color: Styles.onboarding_skip(
-                                themeChange.darkTheme, context),
-                            fontFamily: Constants.POPPINS,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
+                SizedBox(height: SizeConfig.screenHeight * 0.065),
+                _currentPage == 0
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: () => Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        LoginRegisterView())),
+                            child: Text(
+                              "SKIP",
+                              style: TextStyle(
+                                  color: Styles.onboarding_skip(
+                                      themeChange.darkTheme, context),
+                                  fontFamily: Constants.POPPINS,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.09,
+                          )
+                        ],
+                      )
+                    : Padding(
+                        padding: EdgeInsets.only(
+                            right: SizeConfig.screenWidth * 0.09,
+                            left: SizeConfig.screenWidth * 0.06),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () => _pageController.previousPage(
+                                  duration: _duration, curve: _curve),
+                              child: Icon(
+                                Ionicons.arrow_back_outline,
+                                size: 25,
+                                color: Colors.black,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          LoginRegisterView())),
+                              child: Text(
+                                "SKIP",
+                                style: TextStyle(
+                                    color: Styles.onboarding_skip(
+                                        themeChange.darkTheme, context),
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: SizeConfig.screenWidth * 0.09,
-                    )
-                  ],
-                ),
                 SizedBox(height: SizeConfig.screenHeight * 0.21),
                 SmoothPageIndicator(
                   controller: _pageController,
@@ -112,8 +142,7 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                       dotColor: Styles.onboarding_color_dot(
                           themeChange.darkTheme, context),
                       activeDotColor: Styles.onboarding_active_color_dot(
-                          themeChange.darkTheme, context)
-                  ),
+                          themeChange.darkTheme, context)),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.03),
                 Container(
@@ -121,8 +150,7 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                     width: SizeConfig.screenWidth * 0.29,
                     height: SizeConfig.screenHeight * 0.059,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(35)),
+                      borderRadius: BorderRadius.all(Radius.circular(35)),
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -132,16 +160,15 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                           ]),
                     ),
                     child: TextButton(
-                      onPressed: () =>
-                      _currentPage <= 1
+                      onPressed: () => _currentPage <= 1
                           ? _pageController.nextPage(
-                          duration: _duration, curve: _curve)
+                              duration: _duration, curve: _curve)
                           : {
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    LoginRegisterView()))
-                      },
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          LoginRegisterView()))
+                            },
                       child: Text(
                         "NEXT",
                         style: TextStyle(
