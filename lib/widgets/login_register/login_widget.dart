@@ -32,6 +32,36 @@ class _LoginWidgetState extends State<LoginWidget> {
     focusNodeMail = FocusNode();
     focusNodePassword = FocusNode();
     focusNodeSubmit = FocusNode();
+
+    focusNodeMail.addListener(() {
+      setState(() {
+        if(focusNodeMail.hasFocus) {
+          focusNodeMail.requestFocus();
+        }else{
+          focusNodeMail.unfocus();
+        }
+      });
+    });
+
+    focusNodeSubmit.addListener(() {
+      setState(() {
+        if(focusNodeSubmit.hasFocus) {
+          focusNodeSubmit.requestFocus();
+        }else{
+          focusNodeSubmit.unfocus();
+        }
+      });
+    });
+
+    focusNodePassword.addListener(() {
+      setState(() {
+        if(focusNodePassword.hasFocus) {
+          focusNodePassword.requestFocus();
+        }else{
+          focusNodePassword.unfocus();
+        }
+      });
+    });
   }
 
   @override
@@ -43,8 +73,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     super.dispose();
   }
-
-
+  
   String _userEmail = '';
   String _password = '';
 

@@ -107,10 +107,6 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
         validator: _validatePassword,
         onChanged: widget.onChanged,
           textInputAction: TextInputAction.done,
-          onFieldSubmitted: (term){
-            widget.focusNode.unfocus();
-            FocusScope.of(context).requestFocus(widget.nextFocusNode);
-          }
       ),
     );
   }

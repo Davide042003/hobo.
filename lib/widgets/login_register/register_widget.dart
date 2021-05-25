@@ -41,6 +41,56 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     focusNodeMail = FocusNode();
     focusNodePassword = FocusNode();
     focusNodeSubmit = FocusNode();
+
+    focusNodeName.addListener(() {
+      setState(() {
+        if(focusNodeName.hasFocus) {
+          focusNodeName.requestFocus();
+        }else{
+          focusNodeName.unfocus();
+        }
+      });
+    });
+
+    focusNodeUsername.addListener(() {
+      setState(() {
+        if(focusNodeUsername.hasFocus) {
+          focusNodeUsername.requestFocus();
+        }else{
+          focusNodeUsername.unfocus();
+        }
+      });
+    });
+
+    focusNodeMail.addListener(() {
+      setState(() {
+        if(focusNodeMail.hasFocus) {
+          focusNodeMail.requestFocus();
+        }else{
+          focusNodeMail.unfocus();
+        }
+      });
+    });
+
+    focusNodePassword.addListener(() {
+      setState(() {
+        if(focusNodePassword.hasFocus) {
+          focusNodePassword.requestFocus();
+        }else{
+          focusNodePassword.unfocus();
+        }
+      });
+    });
+
+    focusNodeSubmit.addListener(() {
+      setState(() {
+        if(focusNodeSubmit.hasFocus) {
+          focusNodeSubmit.requestFocus();
+        }else{
+          focusNodeSubmit.unfocus();
+        }
+      });
+    });
   }
 
   @override

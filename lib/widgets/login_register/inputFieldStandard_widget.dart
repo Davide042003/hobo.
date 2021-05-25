@@ -98,10 +98,6 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               onChanged: widget.onChanged,
           textInputAction: TextInputAction.next,
-          onFieldSubmitted: (term){
-              widget.focusNode.unfocus();
-              FocusScope.of(context).requestFocus(widget.nextFocusNode);
-          },
           ),
         );
   }
