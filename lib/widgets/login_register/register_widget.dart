@@ -7,7 +7,9 @@ import 'package:ionicons/ionicons.dart';
 import 'inputFieldStandard_widget.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldPassword_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:hobo_test/views/onboarding_view.dart';
+import 'package:hobo_test/widgets/dark_theme_styles.dart';
+import 'package:provider/provider.dart';
+import 'package:hobo_test/widgets/dark_theme_provider.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -24,8 +26,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   String _email = '';
   String _password = '';
 
-  TextStyle defaultStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, color: Colors.black);
-  TextStyle linkStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, color: Color.fromRGBO(36, 65, 187, 1), fontWeight: FontWeight.w600);
 
   void _trySubmitForm() {
     final isValid = _formKey.currentState.validate();
@@ -41,6 +41,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
+    TextStyle defaultStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, color: Styles.whiteblack(themeChange.darkTheme, context));
+    TextStyle linkStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, fontWeight: FontWeight.w600, color: Styles.loginregister_forgot(themeChange.darkTheme, context));
+
 
     return Form(
       key: _formKey,
@@ -56,7 +61,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
                       fontWeight: FontWeight.bold,
-                      fontSize: 25),
+                      fontSize: 25,
+                  color: Styles.whiteblack(themeChange.darkTheme, context)),
                   textAlign: TextAlign.left,
                 )),
             Align(
@@ -66,7 +72,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         fontFamily: Constants.POPPINS,
                         fontWeight: FontWeight.w300,
                         fontSize: 17,
-                        color: Color.fromRGBO(138, 138, 138, 1)),
+                        color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
                     textAlign: TextAlign.left)),
             SizedBox(height: SizeConfig.screenHeight * 0.035),
             InputFieldStandard("Name", 0, Ionicons.person_outline,
@@ -103,7 +109,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           }),
                     TextSpan(text: ' and '),
                     TextSpan(
-                        text: 'Privacy policy.',
+                        text: 'Privacy \n policy.',
                         style: linkStyle,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {

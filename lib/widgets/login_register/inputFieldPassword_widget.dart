@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icon.dart';
 import '../constants.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
+import 'package:hobo_test/widgets/dark_theme_provider.dart';
+import 'package:hobo_test/widgets/dark_theme_styles.dart';
 
 class InputFieldPassword extends StatefulWidget {
   final bool show;
@@ -27,6 +30,8 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     final TextStyle focusText = TextStyle(
         fontFamily: Constants.POPPINS,
         fontWeight: FontWeight.bold,

@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:hobo_test/widgets/dark_theme_provider.dart';
+import 'package:hobo_test/widgets/dark_theme_styles.dart';
 
 class InputFieldStandard extends StatefulWidget {
   final String text;
@@ -17,6 +21,7 @@ class InputFieldStandard extends StatefulWidget {
 
 class _InputFieldStandardState extends State<InputFieldStandard> {
   TextStyle _textStyle;
+  Color _iconColor;
 
   final TextStyle regularText = TextStyle(
       fontFamily: Constants.POPPINS,
@@ -26,6 +31,7 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
 
     final TextStyle focusText = TextStyle(
         fontFamily: Constants.POPPINS,
@@ -39,35 +45,53 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
     return Focus(
         onFocusChange: (hasFocus) {
           setState(() => _textStyle = hasFocus ? focusText : regularText);
+          setState(() => _iconColor = hasFocus ? Theme.of(context).primaryColor :  Styles.loginregister_subheadingandform(themeChange.darkTheme, context));
         },
-        child: TextFormField(
-          autocorrect: false,
-          enableSuggestions: false,
-            decoration: InputDecoration(
-              prefixIcon: Icon(
-                widget.iconPrefix,
-              ),
-              labelText: widget.text,
-              labelStyle: _textStyle,
-              focusColor: widget.isRegistration
+        child: Theme(
+          data: new ThemeData(
+              primaryColor: widget.isRegistration
                   ? Color.fromRGBO(36, 65, 187, 1)
                   : Color.fromRGBO(116, 142, 243, 1),
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: widget.isRegistration
-                          ? Color.fromRGBO(36, 65, 187, 1)
-                          : Color.fromRGBO(116, 142, 243, 1),
-                      width: 2)),
-              errorStyle: TextStyle(
-                  fontFamily: Constants.POPPINS,
-                  fontWeight: FontWeight.w300,
-                  color: Color.fromRGBO(88, 88, 88, 1),
-                  fontSize: 10),
-            ),
-            keyboardType: checkKeyboardType(),
-            validator: validateField,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onChanged: widget.onChanged));
+              hintColor: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),),
+          child: TextFormField(
+            autocorrect: false,
+            enableSuggestions: false,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  widget.iconPrefix,
+                 color: _iconColor,
+                ),
+                labelText: widget.text,
+                labelStyle: _textStyle,
+                focusColor: widget.isRegistration
+                    ? Color.fromRGBO(36, 65, 187, 1)
+                    : Color.fromRGBO(116, 142, 243, 1),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: widget.isRegistration
+                            ? Color.fromRGBO(36, 65, 187, 1)
+                            : Color.fromRGBO(116, 142, 243, 1),
+                        width: 2)),
+                border: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
+                        width: 1)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
+                          width: 1)),
+                errorStyle: TextStyle(
+                    fontFamily: Constants.POPPINS,
+                    fontWeight: FontWeight.w300,
+                    color: Color.fromRGBO(88, 88, 88, 1),
+                    fontSize: 10),
+              ),
+              style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 17,color: Styles.whiteblack(themeChange.darkTheme, context)) ,
+              keyboardType: checkKeyboardType(),
+              validator: validateField,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: widget.onChanged),
+        ));
   }
 
   TextInputType checkKeyboardType() {
