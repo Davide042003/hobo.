@@ -21,6 +21,30 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   final _formKey = GlobalKey<FormState>();
 
+  FocusNode focusNodeMail;
+  FocusNode focusNodePassword;
+  FocusNode focusNodeSubmit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    focusNodeMail = FocusNode();
+    focusNodePassword = FocusNode();
+    focusNodeSubmit = FocusNode();
+  }
+
+  @override
+  void dispose() {
+
+    focusNodeMail.dispose();
+    focusNodePassword.dispose();
+    focusNodeSubmit.dispose();
+
+    super.dispose();
+  }
+
+
   String _userEmail = '';
   String _password = '';
 
@@ -57,12 +81,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                         color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
                     textAlign: TextAlign.left)),
             SizedBox(height: SizeConfig.screenHeight * 0.05),
-            InputFieldStandard("Username/Email", 0, Ionicons.mail_outline, (value) => _userEmail = value, false),
+            InputFieldStandard("Username/Email", 0, Ionicons.mail_outline, (value) => _userEmail = value, false, focusNodeMail, focusNodePassword),
             SizedBox(height: SizeConfig.screenHeight * 0.03),
             InputFieldPassword(
                 this._showPassword,
                 () => setState(() => this._showPassword = !this._showPassword),
-                (value) => _password = value, false),
+                (value) => _password = value, false, focusNodePassword, focusNodeSubmit),
             SizedBox(height: SizeConfig.screenHeight * 0.05),
             Container(
                 width: SizeConfig.screenWidth,

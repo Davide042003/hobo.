@@ -11,9 +11,11 @@ class InputFieldPassword extends StatefulWidget {
   final VoidCallback callback;
   final Function onChanged;
   final bool isRegistration;
+  final FocusNode focusNode;
+  final FocusNode nextFocusNode;
 
   const InputFieldPassword(
-      this.show, this.callback, this.onChanged, this.isRegistration);
+      this.show, this.callback, this.onChanged, this.isRegistration, this.focusNode, this.nextFocusNode);
 
   @override
   _InputFieldPasswordState createState() => _InputFieldPasswordState();
@@ -54,6 +56,7 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
                 themeChange.darkTheme, context),
           ),
           child: TextFormField(
+            focusNode: widget.focusNode,
             autocorrect: false,
             enableSuggestions: false,
             obscureText: !widget.show,
@@ -98,6 +101,11 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: _validatePassword,
             onChanged: widget.onChanged,
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (term){
+                widget.focusNode.unfocus();
+                FocusScope.of(context).requestFocus(widget.nextFocusNode);
+              }
           ),
         ));
   }

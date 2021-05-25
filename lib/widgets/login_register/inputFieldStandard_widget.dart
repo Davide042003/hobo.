@@ -11,9 +11,11 @@ class InputFieldStandard extends StatefulWidget {
   final IconData iconPrefix;
   final Function onChanged;
   final bool isRegistration;
+  final FocusNode focusNode;
+  final FocusNode nextFocusNode;
 
   const InputFieldStandard(this.text, this.typeText, this.iconPrefix,
-      this.onChanged, this.isRegistration);
+      this.onChanged, this.isRegistration, this.focusNode, this.nextFocusNode);
 
   @override
   _InputFieldStandardState createState() => _InputFieldStandardState();
@@ -55,6 +57,7 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
               )
           ),
           child: TextFormField(
+            focusNode: widget.focusNode,
             autocorrect: false,
             enableSuggestions: false,
               decoration: InputDecoration(
@@ -90,7 +93,12 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
               keyboardType: checkKeyboardType(),
               validator: validateField,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              onChanged: widget.onChanged),
+              onChanged: widget.onChanged,
+          textInputAction: TextInputAction.next,
+          onFieldSubmitted: (term){
+              widget.focusNode.unfocus();
+              FocusScope.of(context).requestFocus(widget.nextFocusNode);
+          },),
         ));
   }
 

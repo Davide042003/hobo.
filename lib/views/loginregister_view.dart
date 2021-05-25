@@ -53,120 +53,143 @@ class _LoginRegisterViewState extends State<LoginRegisterView> {
 
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        alignment: AlignmentDirectional.bottomCenter,
-        children: <Widget>[
-          Container(
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: Stack(
+          alignment: AlignmentDirectional.bottomCenter,
+          children: <Widget>[
+            Container(
+                decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin:
+                      Alignment(Alignment.topLeft.x, Alignment.topCenter.y + 0.1),
+                  end: Alignment(
+                      Alignment.topRight.x, Alignment.topCenter.y + 0.4),
+                  colors: [
+                    Color.fromRGBO(116, 142, 243, 1),
+                    Color.fromRGBO(36, 65, 187, 1)
+                  ]),
+            )),
+            Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight * 0.9,
               decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin:
-                    Alignment(Alignment.topLeft.x, Alignment.topCenter.y + 0.1),
-                end: Alignment(
-                    Alignment.topRight.x, Alignment.topCenter.y + 0.4),
-                colors: [
-                  Color.fromRGBO(116, 142, 243, 1),
-                  Color.fromRGBO(36, 65, 187, 1)
-                ]),
-          )),
-          Container(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.9,
-            decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Styles.loginregister_background(themeChange.darkTheme, context),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40))),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () => _pageController.animateToPage(0,
-                          duration: _duration, curve: _curve),
-                      child: Container(
-                        width: SizeConfig.screenWidth * 0.3,
-                        height: SizeConfig.screenHeight * 0.07,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                                color: _currentPage == 0
-                                    ? Styles.whiteblack(themeChange.darkTheme, context)
-                                    : Styles.loginregister_disablewindowcolor(themeChange.darkTheme, context),
-                                fontFamily: Constants.POPPINS,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold),
+                  shape: BoxShape.rectangle,
+                  color: Styles.loginregister_background(themeChange.darkTheme, context),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40))),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          _pageController.animateToPage(0,
+                              duration: _duration, curve: _curve);
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                        },
+                        child: Container(
+                          width: SizeConfig.screenWidth * 0.3,
+                          height: SizeConfig.screenHeight * 0.07,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: _currentPage == 0
+                                      ? Styles.whiteblack(themeChange.darkTheme, context)
+                                      : Styles.loginregister_disablewindowcolor(themeChange.darkTheme, context),
+                                  fontFamily: Constants.POPPINS,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: SizeConfig.screenWidth * 0.15),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () => _pageController.animateToPage(1,
-                          duration: _duration, curve: _curve),
-                      child: Container(
-                        width: SizeConfig.screenWidth * 0.3,
-                        height: SizeConfig.screenHeight * 0.07,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Register",
-                            style: TextStyle(
-                                color: _currentPage == 1
-                                    ? Styles.whiteblack(themeChange.darkTheme, context)
-                                    : Styles.loginregister_disablewindowcolor(themeChange.darkTheme, context),
-                                fontFamily: Constants.POPPINS,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold),
+                      SizedBox(width: SizeConfig.screenWidth * 0.15),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          _pageController.animateToPage(1,
+                              duration: _duration, curve: _curve);
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                        },
+                        child: Container(
+                          width: SizeConfig.screenWidth * 0.3,
+                          height: SizeConfig.screenHeight * 0.07,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Register",
+                              style: TextStyle(
+                                  color: _currentPage == 1
+                                      ? Styles.whiteblack(themeChange.darkTheme, context)
+                                      : Styles.loginregister_disablewindowcolor(themeChange.darkTheme, context),
+                                  fontFamily: Constants.POPPINS,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      width: SizeConfig.screenWidth,
-                      height: SizeConfig.screenHeight * 0.0015,
-                      color: Styles.loginregister_topbar(themeChange.darkTheme, context),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(width: SizeConfig.screenWidth * 0.08),
-                        SmoothPageIndicator(
-                          controller: _pageController,
-                          count: 2,
-                          axisDirection: Axis.horizontal,
-                          effect: SlideEffect(
-                              spacing: SizeConfig.screenWidth * 0.042,
-                              dotWidth: SizeConfig.screenWidth * 0.39,
-                              dotHeight: SizeConfig.screenHeight * 0.0035,
-                              paintStyle: PaintingStyle.fill,
-                              dotColor: Colors.transparent,
-                              activeDotColor: Color.fromRGBO(116, 142, 243, 1)),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: PageView(
-                    controller: _pageController,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: _onPageChanged,
-                    children: [LoginWidget(), RegisterWidget()],
+                    ],
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                  Stack(
+                    children: [
+                      Container(
+                        width: SizeConfig.screenWidth,
+                        height: SizeConfig.screenHeight * 0.0015,
+                        color: Styles.loginregister_topbar(themeChange.darkTheme, context),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(width: SizeConfig.screenWidth * 0.08),
+                          SmoothPageIndicator(
+                            controller: _pageController,
+                            count: 2,
+                            axisDirection: Axis.horizontal,
+                            effect: SlideEffect(
+                                spacing: SizeConfig.screenWidth * 0.042,
+                                dotWidth: SizeConfig.screenWidth * 0.39,
+                                dotHeight: SizeConfig.screenHeight * 0.0035,
+                                paintStyle: PaintingStyle.fill,
+                                dotColor: Colors.transparent,
+                                activeDotColor: Color.fromRGBO(116, 142, 243, 1)),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  Expanded(
+                    child: PageView(
+                      controller: _pageController,
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: _onPageChanged,
+                      children: [LoginWidget(), RegisterWidget()],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

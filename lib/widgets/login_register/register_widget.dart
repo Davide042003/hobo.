@@ -21,11 +21,39 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   final _formKey = GlobalKey<FormState>();
 
+  FocusNode focusNodeName;
+  FocusNode focusNodeUsername;
+  FocusNode focusNodeMail;
+  FocusNode focusNodePassword;
+  FocusNode focusNodeSubmit;
+
   String _name = '';
   String _username = '';
   String _email = '';
   String _password = '';
 
+  @override
+  void initState() {
+    super.initState();
+
+    focusNodeName = FocusNode();
+    focusNodeUsername = FocusNode();
+    focusNodeMail = FocusNode();
+    focusNodePassword = FocusNode();
+    focusNodeSubmit = FocusNode();
+  }
+
+  @override
+  void dispose() {
+
+    focusNodeName.dispose();
+    focusNodeUsername..dispose();
+    focusNodeMail.dispose();
+    focusNodePassword.dispose();
+    focusNodeSubmit.dispose();
+
+    super.dispose();
+  }
 
   void _trySubmitForm() {
     final isValid = _formKey.currentState.validate();
@@ -76,19 +104,19 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     textAlign: TextAlign.left)),
             SizedBox(height: SizeConfig.screenHeight * 0.035),
             InputFieldStandard("Name", 0, Ionicons.person_outline,
-                (value) => _name = value, true),
+                (value) => _name = value, true, focusNodeName, focusNodeUsername),
             SizedBox(height: SizeConfig.screenHeight * 0.035),
             InputFieldStandard("Username", 0, Ionicons.person_outline,
-                (value) => _username = value, true),
+                (value) => _username = value, true, focusNodeUsername, focusNodeMail),
             SizedBox(height: SizeConfig.screenHeight * 0.035),
             InputFieldStandard("Email Address", 1, Ionicons.mail_outline,
-                (value) => _email = value, true),
+                (value) => _email = value, true, focusNodeMail, focusNodePassword),
             SizedBox(height: SizeConfig.screenHeight * 0.035),
             InputFieldPassword(
                 this._showPassword,
                 () => setState(() => this._showPassword = !this._showPassword),
                 (value) => _password = value,
-                true),
+                true, focusNodePassword, focusNodeSubmit),
             SizedBox(
               height: SizeConfig.screenWidth * 0.07,
             ),
@@ -134,6 +162,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ]),
                 ),
                 child: TextButton(
+                  focusNode: focusNodeSubmit,
                   onPressed: _trySubmitForm,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
