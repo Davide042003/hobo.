@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/widgets/dark_theme_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:hobo_test/widgets/dark_theme_provider.dart';
-import 'package:hobo_test/widgets/dark_theme_styles.dart';
 
 class OnBoardingWidget extends StatelessWidget {
   final int index;
@@ -31,8 +30,8 @@ class OnBoardingWidget extends StatelessWidget {
             style: TextStyle(
                 fontFamily: Constants.POPPINS,
                 fontWeight: FontWeight.bold,
-                fontSize: 23,
-            color: Styles.onboarding_heading_color(themeChange.darkTheme, context))),
+                fontSize: 25,
+            color: Styles.onboarding_heading_color(themeChange.darkTheme, context)),textAlign: TextAlign.center,),
         SizedBox(
           height: SizeConfig.screenHeight * .003,
         ),
@@ -40,8 +39,8 @@ class OnBoardingWidget extends StatelessWidget {
             style: TextStyle(
                 fontFamily: Constants.POPPINS,
                 fontWeight: FontWeight.normal,
-                fontSize: 15,
-                color: Styles.onboarding_subheading_color(themeChange.darkTheme, context))),
+                fontSize: 16,
+                color: Styles.onboarding_subheading_color(themeChange.darkTheme, context)),textAlign: TextAlign.center),
         Expanded(
           child: SvgPicture.asset(
             onBoardingArrayList[index].sliderImageName,

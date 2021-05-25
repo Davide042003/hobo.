@@ -31,7 +31,7 @@ class Styles {
   }
 
   static Color onboarding_skip(bool isDarkTheme, BuildContext context) {
-    return isDarkTheme ?  Color.fromRGBO(255, 255, 255, 0.7) : Color.fromRGBO(190, 190, 190, 1);
+    return isDarkTheme ?  Color.fromRGBO(255, 255, 255, 0.32) : Color.fromRGBO(190, 190, 190, 1);
   }
 
   static Color loginregister_background(bool isDarkTheme, BuildContext context) {
@@ -46,7 +46,7 @@ class Styles {
     return isDarkTheme ?  Colors.white : Color.fromRGBO(25, 119, 243, .15);
   }
 
-  static Color loginregister_switchandheading(bool isDarkTheme, BuildContext context) {
+  static Color whiteblack(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Colors.white : Colors.black;
   }
 

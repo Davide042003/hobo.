@@ -110,7 +110,8 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                               child: Icon(
                                 Ionicons.arrow_back_outline,
                                 size: 25,
-                                color: Colors.black,
+                                color: Styles.whiteblack(
+                                    themeChange.darkTheme, context),
                               ),
                             ),
                             InkWell(
