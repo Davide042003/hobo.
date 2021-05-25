@@ -22,12 +22,6 @@ class InputFieldPassword extends StatefulWidget {
 class _InputFieldPasswordState extends State<InputFieldPassword> {
   TextStyle _textStyle;
 
-  final TextStyle regularText = TextStyle(
-      fontFamily: Constants.POPPINS,
-      color: Color.fromRGBO(88, 88, 88, 1),
-      fontSize: 17,
-      height: -0.01);
-
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -41,15 +35,29 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
             : Color.fromRGBO(116, 142, 243, 1),
         fontSize: 15);
 
+    final TextStyle regularText = TextStyle(
+        fontFamily: Constants.POPPINS,
+        color: Styles.loginregister_subheadingandform(
+            themeChange.darkTheme, context),
+        fontSize: 17);
+
     return Focus(
         onFocusChange: (hasFocus) {
           setState(() => _textStyle = hasFocus ? focusText : regularText);
         },
-        child: TextFormField(
-          autocorrect: false,
-          enableSuggestions: false,
-          obscureText: !widget.show,
-          decoration: InputDecoration(
+        child: Theme(
+          data: new ThemeData(
+            primaryColor: widget.isRegistration
+                ? Color.fromRGBO(36, 65, 187, 1)
+                : Color.fromRGBO(116, 142, 243, 1),
+            hintColor: Styles.loginregister_subheadingandform(
+                themeChange.darkTheme, context),
+          ),
+          child: TextFormField(
+            autocorrect: false,
+            enableSuggestions: false,
+            obscureText: !widget.show,
+            decoration: InputDecoration(
               prefixIcon: Icon(Ionicons.key_outline),
               suffixIcon: IconButton(
                 icon: Icon(
@@ -59,11 +67,6 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
                     color: Color.fromRGBO(193, 193, 193, 1)),
                 onPressed: widget.callback,
               ),
-              errorStyle: TextStyle(
-                  fontFamily: Constants.POPPINS,
-                  fontWeight: FontWeight.w300,
-                  color: Color.fromRGBO(88, 88, 88, 1),
-                  fontSize: 10),
               labelText: "Password",
               labelStyle: _textStyle,
               focusColor: widget.isRegistration
@@ -74,10 +77,28 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
                       color: widget.isRegistration
                           ? Color.fromRGBO(36, 65, 187, 1)
                           : Color.fromRGBO(116, 142, 243, 1),
-                      width: 2))),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: _validatePassword,
-          onChanged: widget.onChanged,
+                      width: 2)),
+              border: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Styles.loginregister_subheadingandform(
+                          themeChange.darkTheme, context),
+                      width: 1)),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Styles.loginregister_subheadingandform(
+                          themeChange.darkTheme, context),
+                      width: 1)),
+              errorStyle: TextStyle(
+                  fontFamily: Constants.POPPINS,
+                  fontWeight: FontWeight.w300,
+                  color: Color.fromRGBO(88, 88, 88, 1),
+                  fontSize: 10),
+            ),
+            style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 17,color: Styles.whiteblack(themeChange.darkTheme, context)),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: _validatePassword,
+            onChanged: widget.onChanged,
+          ),
         ));
   }
 

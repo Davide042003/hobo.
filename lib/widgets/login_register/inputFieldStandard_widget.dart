@@ -21,13 +21,6 @@ class InputFieldStandard extends StatefulWidget {
 
 class _InputFieldStandardState extends State<InputFieldStandard> {
   TextStyle _textStyle;
-  Color _iconColor;
-
-  final TextStyle regularText = TextStyle(
-      fontFamily: Constants.POPPINS,
-      color: Color.fromRGBO(88, 88, 88, 1),
-      height: -0.01,
-      fontSize: 17);
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +35,31 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
             : Color.fromRGBO(116, 142, 243, 1),
         fontSize: 15);
 
+    final TextStyle regularText = TextStyle(
+        fontFamily: Constants.POPPINS,
+        color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
+        fontSize: 17);
+
     return Focus(
         onFocusChange: (hasFocus) {
           setState(() => _textStyle = hasFocus ? focusText : regularText);
-          setState(() => _iconColor = hasFocus ? Theme.of(context).primaryColor :  Styles.loginregister_subheadingandform(themeChange.darkTheme, context));
         },
         child: Theme(
           data: new ThemeData(
               primaryColor: widget.isRegistration
                   ? Color.fromRGBO(36, 65, 187, 1)
                   : Color.fromRGBO(116, 142, 243, 1),
-              hintColor: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),),
+            hintColor: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
+              iconTheme: IconThemeData(
+                  color: Colors.white
+              )
+          ),
           child: TextFormField(
             autocorrect: false,
             enableSuggestions: false,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   widget.iconPrefix,
-                 color: _iconColor,
                 ),
                 labelText: widget.text,
                 labelStyle: _textStyle,
