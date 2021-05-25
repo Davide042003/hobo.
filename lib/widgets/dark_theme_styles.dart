@@ -23,7 +23,7 @@ class Styles {
   }
 
   static Color onboarding_heading_color(bool isDarkTheme, BuildContext context) {
-    return isDarkTheme ?  Colors.white : Color.fromRGBO(0, 0, 0, 0.17);
+    return isDarkTheme ?  Colors.white : Color.fromRGBO(0, 0, 0, 1);
   }
 
   static Color onboarding_subheading_color(bool isDarkTheme, BuildContext context) {
@@ -31,7 +31,7 @@ class Styles {
   }
 
   static Color onboarding_skip(bool isDarkTheme, BuildContext context) {
-    return isDarkTheme ?  Color.fromRGBO(255, 255, 255, 0.7) : Color.fromRGBO(92, 96, 113, 1);
+    return isDarkTheme ?  Color.fromRGBO(255, 255, 255, 0.7) : Color.fromRGBO(190, 190, 190, 1);
   }
 
   static Color loginregister_background(bool isDarkTheme, BuildContext context) {
