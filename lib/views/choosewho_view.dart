@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
-import 'package:hobo_test/views/home_view.dart';
+import 'package:hobo_test/views/managepages_view.dart';
 
 class ChooseWho extends StatefulWidget {
   @override
@@ -45,7 +45,7 @@ class _ChooseWhoState extends State<ChooseWho> {
                       onTap: () => Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeView()),
+                                builder: (context) => ManagePagesView()),
                             (Route<dynamic> route) => false,
                           ),
                       child: Container(

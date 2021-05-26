@@ -73,4 +73,12 @@ class Styles {
   static Color loginregister_disablewindowcolor(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(255, 255, 255, .3) : Color.fromRGBO(220, 220, 220, 1);
   }
+
+  static Color home_buttonnavigator(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(116, 142, 243, 1) : Color.fromRGBO(82, 110, 219, 1);
+  }
+
+  static Color home_buttonnavigatordisable(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(136, 136, 136, 1) : Color.fromRGBO(185, 212, 220, 1);
+  }
 }
