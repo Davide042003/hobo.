@@ -46,21 +46,19 @@ class _ManagePagesViewState extends State<ManagePagesView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-        body: Container(
-            color:
-                Styles.loginregister_background(themeChange.darkTheme, context),
-            child: PageView(
-              controller: _pageController,
-              scrollDirection: Axis.horizontal,
-              onPageChanged: _onPageChanged,
-              children: [
-                HomeView(),
-                HomeView(),
-                HomeView(),
-                HomeView(),
-                HomeView()
-              ],
-            )),
+      backgroundColor:  Styles.loginregister_background(themeChange.darkTheme, context),
+        body: PageView(
+          controller: _pageController,
+          scrollDirection: Axis.horizontal,
+          onPageChanged: _onPageChanged,
+          children: [
+            HomeView(),
+            HomeView(),
+            HomeView(),
+            HomeView(),
+            HomeView()
+          ],
+        ),
         bottomNavigationBar:NavigationBarWidget(pageController: _pageController, currentPage: _currentPage, leftPosition: _leftPosition,));
   }
 }

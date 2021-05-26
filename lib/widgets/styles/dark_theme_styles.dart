@@ -81,4 +81,8 @@ class Styles {
   static Color home_buttonnavigatordisable(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(136, 136, 136, 1) : Color.fromRGBO(185, 212, 220, 1);
   }
+
+  static Color home_navigatorbackground(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(65, 65, 65, 1) : Colors.white;
+  }
 }

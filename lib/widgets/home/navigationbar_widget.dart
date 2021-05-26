@@ -36,7 +36,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               height: SizeConfig.screenHeight * 0.08,
               child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Styles.home_navigatorbackground(themeChange.darkTheme, context),
                       borderRadius: BorderRadius.all(Radius.circular(40)),
                       boxShadow: [
                         BoxShadow(
