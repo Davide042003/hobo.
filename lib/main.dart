@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:provider/provider.dart';
-import 'widgets/dark_theme_provider.dart';
-import 'widgets/dark_theme_styles.dart';
+import 'widgets/provider/dark_theme_provider.dart';
+import 'widgets/styles/dark_theme_styles.dart';
 
 void main() {
   runApp(MyApp());

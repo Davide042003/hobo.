@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
-import 'package:hobo_test/widgets/size_config.dart';
-import 'package:hobo_test/widgets/constants.dart';
+import 'package:hobo_test/widgets/styles/size_config.dart';
+import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:ionicons/ionicons.dart';
 import 'inputFieldStandard_widget.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldPassword_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:hobo_test/widgets/dark_theme_styles.dart';
+import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:provider/provider.dart';
-import 'package:hobo_test/widgets/dark_theme_provider.dart';
+import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override

@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hobo_test/widgets/size_config.dart';
-import 'package:hobo_test/widgets/constants.dart';
+import 'package:hobo_test/widgets/styles/size_config.dart';
+import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/login_register/login_widget.dart';
 import 'package:hobo_test/widgets/login_register/register_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:hobo_test/widgets/dark_theme_styles.dart';
+import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:provider/provider.dart';
-import 'package:hobo_test/widgets/dark_theme_provider.dart';
+import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 
 class LoginRegisterView extends StatefulWidget {
   @override
