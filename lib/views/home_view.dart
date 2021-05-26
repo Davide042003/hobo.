@@ -18,48 +18,40 @@ class _HomeViewState extends State<HomeView> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.only(
-            right: SizeConfig.screenWidth * 0.075,
-            left: SizeConfig.screenWidth * 0.075),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.07),
+      child: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding:
-              EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Explore",
-                    style: TextStyle(
-                        fontFamily: Constants.POPPINS,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: Styles.whiteblack(
-                            themeChange.darkTheme, context)),
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * 0.47,
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(.26),
-                              blurRadius: 7,
-                              offset: Offset(0, 6))
-                        ],
-                      ),
-                      child: ProfileImageHomeWidget(
-                          image: AssetImage(
-                              "assets/images/provaSocial.jpeg"),
-                          initials: "DB"))
-                ],
-              ),
+            SizedBox(height: SizeConfig.screenHeight * 0.01,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Explore",
+                  style: TextStyle(
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                      color: Styles.whiteblack(
+                          themeChange.darkTheme, context)),
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(.26),
+                            blurRadius: 7,
+                            offset: Offset(0, 6))
+                      ],
+                    ),
+                    child: ProfileImageHomeWidget(
+                        image: AssetImage(
+                            "assets/images/provaSocial.jpeg"),
+                        initials: "DB"))
+              ],
             ),
             SizedBox(height: SizeConfig.screenHeight * 0.015),
             Container(

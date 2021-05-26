@@ -56,7 +56,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                         width: 30,
                         height: 2,
                       ),
-                      duration: Duration(milliseconds: 500),
+                      duration: Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
                     ),
                     Padding(
