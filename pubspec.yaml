@@ -50,6 +50,7 @@ flutter:
    - assets/images/Guide-girl.svg
    - assets/images/Guide-girl-dark.svg
    - assets/images/Tourist-girl-dark.svg
+   - assets/images/provaSocial.jpeg
 
   fonts:
     - family: Poppins
