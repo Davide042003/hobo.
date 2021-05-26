@@ -156,16 +156,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             fontSize: 17,
                             color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
                         textAlign: TextAlign.left)),
-                SizedBox(height: SizeConfig.screenHeight * 0.035),
+                SizedBox(height: SizeConfig.screenHeight * 0.025),
                 InputFieldStandard("Name", 0, Ionicons.person_outline,
                     (value) => _name = value, true, focusNodeName, focusNodeUsername),
-                SizedBox(height: SizeConfig.screenHeight * 0.035),
+                SizedBox(height: SizeConfig.screenHeight * 0.025),
                 InputFieldStandard("Username", 0, Ionicons.person_outline,
                     (value) => _username = value, true, focusNodeUsername, focusNodeMail),
-                SizedBox(height: SizeConfig.screenHeight * 0.035),
+                SizedBox(height: SizeConfig.screenHeight * 0.025),
                 InputFieldStandard("Email Address", 1, Ionicons.mail_outline,
                     (value) => _email = value, true, focusNodeMail, focusNodePassword),
-                SizedBox(height: SizeConfig.screenHeight * 0.035),
+                SizedBox(height: SizeConfig.screenHeight * 0.025),
                 InputFieldPassword(
                     this._showPassword,
                     () => setState(() => this._showPassword = !this._showPassword),
@@ -174,31 +174,28 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 SizedBox(
                   height: SizeConfig.screenWidth * 0.07,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      style: defaultStyle,
-                      children: <TextSpan>[
-                        TextSpan(text: 'By registering, you are agreeing to our '),
-                        TextSpan(
-                            text: 'Terms & conditions',
-                            style: linkStyle,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print('Terms of Service"');
-                              }),
-                        TextSpan(text: ' and '),
-                        TextSpan(
-                            text: 'Privacy \n policy.',
-                            style: linkStyle,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print('Privacy policy"');
-                              }),
-                      ],
-                    ),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: defaultStyle,
+                    children: <TextSpan>[
+                      TextSpan(text: 'By registering, you are agreeing to \n our '),
+                      TextSpan(
+                          text: 'Terms & conditions',
+                          style: linkStyle,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Terms of Service"');
+                            }),
+                      TextSpan(text: ' and '),
+                      TextSpan(
+                          text: 'Privacy \n policy.',
+                          style: linkStyle,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Privacy policy"');
+                            }),
+                    ],
                   ),
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.035),
