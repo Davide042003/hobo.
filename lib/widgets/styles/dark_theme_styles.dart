@@ -39,7 +39,7 @@ class Styles {
   }
 
   static Color loginregister_google(bool isDarkTheme, BuildContext context) {
-    return isDarkTheme ?  Colors.white : Color.fromRGBO(245, 252, 255, 1);
+    return isDarkTheme ?  Colors.white : Color.fromRGBO(164, 164, 164, .1);
   }
 
   static Color loginregister_fb(bool isDarkTheme, BuildContext context) {
