@@ -93,4 +93,9 @@ class Styles {
   static Color categories_text(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Colors.white : Color.fromRGBO(23, 33, 42, 1);
   }
+
+  static Color shadow_map(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.black.withOpacity(0) : Color.fromRGBO(241, 248, 251, 0);
+  }
+
 }

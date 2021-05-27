@@ -9,6 +9,7 @@ import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'home_view.dart';
 import 'package:hobo_test/widgets/home/navigationbar_widget.dart';
+import 'map_view.dart';
 
 class ManagePagesView extends StatefulWidget {
   @override
@@ -46,6 +47,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
+      extendBody: true,
       backgroundColor:  Styles.loginregister_background(themeChange.darkTheme, context),
         body: PageView(
           controller: _pageController,
@@ -53,7 +55,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
           onPageChanged: _onPageChanged,
           children: [
             HomeView(),
-            HomeView(),
+            MapView(),
             HomeView(),
             HomeView(),
             HomeView()
