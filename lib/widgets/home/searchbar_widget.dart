@@ -91,7 +91,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                         offset: Offset(0, 1)),
                   ]),
                   child: Icon(Ionicons.search,
-                      color: Styles.blackwhite(themeChange.darkTheme, context),
+                      color: Colors.white,
                       size: 22),
                 ),
               )),

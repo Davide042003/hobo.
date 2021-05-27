@@ -9,11 +9,12 @@ import 'package:hobo_test/widgets/styles/constants.dart';
 
 class CategoriesWidget extends StatelessWidget {
   final Color colorBackground;
+  final Color colorBackgroundIconEnd;
   final double widthBackground;
   final IconData icon;
   final String category;
 
-  CategoriesWidget(this.colorBackground, this.widthBackground, this.icon, this.category);
+  CategoriesWidget(this.colorBackground, this.colorBackgroundIconEnd, this.widthBackground, this.icon, this.category);
 
   @override
   Widget build(BuildContext context) {
@@ -43,25 +44,19 @@ class CategoriesWidget extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color.fromRGBO(116, 142, 243, 1),
-                      Color.fromRGBO(36, 65, 187, 1)
+                     colorBackground.withOpacity(1),
+                      colorBackgroundIconEnd
                     ]),
                 boxShadow: [
-                  BoxShadow(
-                      color: Color.fromRGBO(63, 83, 216, .23),
-                      blurRadius: 4,
-                      offset: Offset(0, 6))
+                  themeChange.darkTheme ? BoxShadow (): BoxShadow(
+                      color: colorBackground.withOpacity(.65),
+                      blurRadius: 6.0,
+                      offset: Offset(0, 3))
                 ],
               ),
               child: Container(
                 width: SizeConfig.screenWidth * 0.065,
-                height: 11,
-                decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(.15),
-                      blurRadius: 2.0,
-                      offset: Offset(0, 1)),
-                ]),
+                decoration: BoxDecoration(shape: BoxShape.circle),
                 child: Icon(icon, color: Colors.white, size: 13),
               ),
             ),
