@@ -39,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
                   "Explore",
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
-                      fontSize: 30,
+                      fontSize: 25,
                       fontWeight: FontWeight.w600,
                       color: Styles.whiteblack(themeChange.darkTheme, context)),
                 ),

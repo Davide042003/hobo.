@@ -35,13 +35,14 @@ class _MapViewState extends State<MapView> {
           height: SizeConfig.screenHeight * 0.4,
           decoration: BoxDecoration(
               gradient: LinearGradient(
-            colors: [
-              Styles.loginregister_background(themeChange.darkTheme, context),
-              Styles.shadow_map(themeChange.darkTheme, context),
-            ],
-                begin: Alignment.center,
-                end: Alignment.bottomCenter
-          )),
+                  colors: [
+                Styles.loginregister_background(themeChange.darkTheme, context),
+                Styles.shadow_map(themeChange.darkTheme, context),
+              ],
+                  begin: themeChange.darkTheme
+                      ? Alignment.center * .7
+                      : Alignment.center * 1.2,
+                  end: Alignment.bottomCenter)),
         ),
         SafeArea(
             child: Padding(
@@ -52,16 +53,40 @@ class _MapViewState extends State<MapView> {
               height: SizeConfig.screenHeight * 0.01,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   "Places",
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
-                      fontSize: 30,
+                      fontSize: 25,
                       fontWeight: FontWeight.w600,
                       color: Styles.whiteblack(themeChange.darkTheme, context)),
                 ),
+                SizedBox(width: SizeConfig.screenWidth * 0.35),
+                Container(
+                    height: SizeConfig.screenHeight * 0.05,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromRGBO(116, 142, 243, .18),
+                      boxShadow: [
+                        themeChange.darkTheme
+                            ? BoxShadow(color: Colors.transparent,)
+                            : BoxShadow(
+                            color: Color.fromRGBO(116, 142, 243, .18),
+                            blurRadius: 4,
+                            offset: Offset(0, 6))
+                      ],
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Ionicons.filter,
+                        size: 25,
+                        color: Color.fromRGBO(77, 105, 216, 1),
+                      ),
+                    )),
+                SizedBox(width: SizeConfig.screenWidth * 0.02),
                 Container(
                     decoration: BoxDecoration(
                       color: Colors.white,

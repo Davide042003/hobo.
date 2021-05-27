@@ -36,8 +36,8 @@ class _ProfileImageHomeWidgetState extends State<ProfileImageHomeWidget> {
 
   Widget _fallBackAvatar() {
     return Container(
-        height: 50,
-        width: 50,
+        height: SizeConfig.screenWidth * 0.025,
+        width:  SizeConfig.screenHeight * 0.025,
         decoration: BoxDecoration(
             color: Colors.grey,
             borderRadius: BorderRadius.all(Radius.circular(25))
@@ -51,7 +51,7 @@ class _ProfileImageHomeWidgetState extends State<ProfileImageHomeWidget> {
     return CircleAvatar(
         backgroundImage: widget.image,
         backgroundColor: Colors.grey,
-      radius: 25,
+      radius: SizeConfig.screenHeight * 0.025,
     );
   }
 
