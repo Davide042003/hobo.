@@ -51,7 +51,11 @@ flutter:
    - assets/images/Guide-girl-dark.svg
    - assets/images/Tourist-girl-dark.svg
    - assets/images/provaSocial.jpeg
-
+   - assets/images/Paris-Background.png
+   - assets/images/Paris-Monument.png
+   - assets/images/NewYork-Background.png
+   - assets/images/NewYork-Monument.png
+   -
   fonts:
     - family: Poppins
       fonts:
