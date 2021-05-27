@@ -83,9 +83,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               ),
               child: TextButton(
                 onPressed: () {},
-                child: Icon(Ionicons.search,
-                    color: Styles.blackwhite(themeChange.darkTheme, context),
-                    size: 22),
+                child: Container(
+                  decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(.15),
+                        blurRadius: 2.0,
+                        offset: Offset(0, 1)),
+                  ]),
+                  child: Icon(Ionicons.search,
+                      color: Styles.blackwhite(themeChange.darkTheme, context),
+                      size: 22),
+                ),
               )),
         ])
       ],
