@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hobo_test/widgets/home/hotplaceshome_widget.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbar_widget.dart';
+import 'package:hobo_test/widgets/home/categories_widget.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -132,7 +134,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.032),
+          SizedBox(height: SizeConfig.screenHeight * 0.035),
           Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.07),
@@ -145,6 +147,25 @@ class _HomeViewState extends State<HomeView> {
                     fontSize: 19,
                     fontWeight: FontWeight.bold,
                     color: Styles.whiteblack(themeChange.darkTheme, context)),
+              ),
+            ),
+          ),
+          SizedBox(height: SizeConfig.screenHeight * 0.02),
+          Padding(
+            padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
+            child: Container(
+              height: SizeConfig.screenHeight * 0.05,
+              child: ListView(
+                primary: false,
+                scrollDirection: Axis.horizontal,
+                children: [
+                 CategoriesWidget(Color.fromRGBO(255, 113, 184, .11), 0.31, Ionicons.restaurant, "Restaurants"),
+                  SizedBox(width: SizeConfig.screenWidth * 0.03),
+                  CategoriesWidget(Color.fromRGBO(117, 149, 255, .11), 0.22, Ionicons.bed, "Hotels"),
+                  SizedBox(width: SizeConfig.screenWidth * 0.03),
+                  CategoriesWidget(Color.fromRGBO(80, 206, 134, .11), 0.2, Ionicons.earth, "Bars"),
+                  SizedBox(width: SizeConfig.screenWidth * 0.03),
+                ],
               ),
             ),
           ),

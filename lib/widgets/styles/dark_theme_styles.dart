@@ -89,4 +89,8 @@ class Styles {
   static Color searchBar_text(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Colors.white : Color.fromRGBO(40, 39, 79, 1);
   }
+
+  static Color categories_text(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white : Color.fromRGBO(23, 33, 42, 1);
+  }
 }
