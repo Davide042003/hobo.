@@ -8,27 +8,27 @@ import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
 
 class NavigationBarWidget extends StatefulWidget {
-
   final PageController pageController;
   final int currentPage;
   final double leftPosition;
 
-  NavigationBarWidget({@required this.pageController, @required this.currentPage, @required this.leftPosition});
+  NavigationBarWidget(
+      {@required this.pageController,
+      @required this.currentPage,
+      @required this.leftPosition});
 
   @override
   _NavigationBarWidgetState createState() => _NavigationBarWidgetState();
 }
 
 class _NavigationBarWidgetState extends State<NavigationBarWidget> {
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
-    return  Padding(
-      padding:
-      EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.05),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.05),
       child: AnimatedContainer(
           duration: Duration(milliseconds: 300),
           transform: Matrix4.translationValues(0, -30, 0),
@@ -36,7 +36,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               height: SizeConfig.screenHeight * 0.08,
               child: Container(
                   decoration: BoxDecoration(
-                      color: Styles.home_navigatorbackground(themeChange.darkTheme, context),
+                      color: Styles.home_navigatorbackground(
+                          themeChange.darkTheme, context),
                       borderRadius: BorderRadius.all(Radius.circular(40)),
                       boxShadow: [
                         BoxShadow(
@@ -52,76 +53,101 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                             color: Styles.home_buttonnavigator(
                                 themeChange.darkTheme, context),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
-                        width: 30,
-                        height: 2,
+                                BorderRadius.all(Radius.circular(10))),
+                        width: SizeConfig.screenWidth * 0.08,
+                        height: SizeConfig.screenHeight * 0.003,
                       ),
                       duration: Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: SizeConfig.screenHeight * 0.025),
+                      padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.04),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           GestureDetector(
-                            child: Icon(
-                              Ionicons.home,
-                              size: 25,
-                              color: widget.currentPage == 0
-                                  ? Styles.home_buttonnavigator(
-                                  themeChange.darkTheme, context)
-                                  : Styles.home_buttonnavigatordisable(
-                                  themeChange.darkTheme, context),
+                            behavior: HitTestBehavior.opaque,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.15,
+                              height: SizeConfig.screenHeight,
+                              child: Icon(
+                                Ionicons.home,
+                                size: 25,
+                                color: widget.currentPage == 0
+                                    ? Styles.home_buttonnavigator(
+                                        themeChange.darkTheme, context)
+                                    : Styles.home_buttonnavigatordisable(
+                                        themeChange.darkTheme, context),
+                              ),
                             ),
                             onTap: () => widget.pageController.jumpToPage(0),
                           ),
                           GestureDetector(
-                            child: Icon(
-                              Ionicons.location,
-                              size: 25,
-                              color: widget.currentPage == 1
-                                  ? Styles.home_buttonnavigator(
-                                  themeChange.darkTheme, context)
-                                  : Styles.home_buttonnavigatordisable(
-                                  themeChange.darkTheme, context),
+                            behavior: HitTestBehavior.opaque,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.15,
+                              height: SizeConfig.screenHeight,
+                              child: Icon(
+                                Ionicons.location,
+                                size: 25,
+                                color: widget.currentPage == 1
+                                    ? Styles.home_buttonnavigator(
+                                        themeChange.darkTheme, context)
+                                    : Styles.home_buttonnavigatordisable(
+                                        themeChange.darkTheme, context),
+                              ),
                             ),
                             onTap: () => widget.pageController.jumpToPage(1),
                           ),
                           GestureDetector(
-                              child: Icon(
-                                Ionicons.headset_outline,
-                                size: 25,
-                                color: widget.currentPage == 2
-                                    ? Styles.home_buttonnavigator(
-                                    themeChange.darkTheme, context)
-                                    : Styles.home_buttonnavigatordisable(
-                                    themeChange.darkTheme, context),
+                              behavior: HitTestBehavior.opaque,
+                              child: Container(
+                                width: SizeConfig.screenWidth * 0.15,
+                                height: SizeConfig.screenHeight,
+                                child: Icon(
+                                  Ionicons.headset_outline,
+                                  size: 25,
+                                  color: widget.currentPage == 2
+                                      ? Styles.home_buttonnavigator(
+                                          themeChange.darkTheme, context)
+                                      : Styles.home_buttonnavigatordisable(
+                                          themeChange.darkTheme, context),
+                                ),
                               ),
                               onTap: () => widget.pageController.jumpToPage(2)),
                           GestureDetector(
-                              child: Icon(
-                                Ionicons.chatbubble,
-                                size: 25,
-                                color: widget.currentPage == 3
-                                    ? Styles.home_buttonnavigator(
-                                    themeChange.darkTheme, context)
-                                    : Styles.home_buttonnavigatordisable(
-                                    themeChange.darkTheme, context),
+                              behavior: HitTestBehavior.opaque,
+                              child: Container(
+                                width: SizeConfig.screenWidth * 0.15,
+                                height: SizeConfig.screenHeight,
+                                child: Icon(
+                                  Ionicons.chatbubble,
+                                  size: 25,
+                                  color: widget.currentPage == 3
+                                      ? Styles.home_buttonnavigator(
+                                          themeChange.darkTheme, context)
+                                      : Styles.home_buttonnavigatordisable(
+                                          themeChange.darkTheme, context),
+                                ),
                               ),
                               onTap: () => widget.pageController.jumpToPage(3)),
                           GestureDetector(
-                              child: Icon(
-                                Ionicons.person,
-                                size: 25,
-                                color: widget.currentPage == 4
-                                    ? Styles.home_buttonnavigator(
-                                    themeChange.darkTheme, context)
-                                    : Styles.home_buttonnavigatordisable(
-                                    themeChange.darkTheme, context),
+                            behavior: HitTestBehavior.opaque,
+                              child: Container(
+                                width: SizeConfig.screenWidth * 0.15,
+                                height: SizeConfig.screenHeight,
+                                child: Icon(
+                                  Ionicons.person,
+                                  size: 25,
+                                  color: widget.currentPage == 4
+                                      ? Styles.home_buttonnavigator(
+                                          themeChange.darkTheme, context)
+                                      : Styles.home_buttonnavigatordisable(
+                                          themeChange.darkTheme, context),
+                                ),
                               ),
-                              onTap: () => {widget.pageController.jumpToPage(4)}),
+                              onTap: () =>
+                                  {widget.pageController.jumpToPage(4)}),
                         ],
                       ),
                     ),

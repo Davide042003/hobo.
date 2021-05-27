@@ -85,4 +85,8 @@ class Styles {
   static Color home_navigatorbackground(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(65, 65, 65, 1) : Colors.white;
   }
+
+  static Color searchBar_text(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white : Color.fromRGBO(40, 39, 79, 1);
+  }
 }

@@ -19,8 +19,8 @@ class _ManagePagesViewState extends State<ManagePagesView> {
 
   int _currentPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
-  final _leftPositionList = [0.1, 0.259, 0.415, 0.577, 0.736];
-  double _leftPosition = 0.1;
+  final _leftPositionList = [0.091, 0.252, 0.411, 0.573, 0.732];
+  double _leftPosition = 0.091;
 
   @override
   void initState() {

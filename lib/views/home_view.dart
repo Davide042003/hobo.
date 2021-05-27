@@ -6,6 +6,7 @@ import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
+import 'package:hobo_test/widgets/home/searchbar_widget.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -61,7 +62,9 @@ class _HomeViewState extends State<HomeView> {
                 borderRadius: new BorderRadius.all(Radius.circular(30)),
                 color: Colors.grey,
               ),
-            )
+            ),
+            SizedBox(height: SizeConfig.screenHeight * 0.025),
+            SearchBarWidget(),
           ],
         ),
       ),
