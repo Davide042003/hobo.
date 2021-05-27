@@ -119,12 +119,15 @@ class _HomeViewState extends State<HomeView> {
               height: SizeConfig.screenHeight * 0.2,
               child: ListView(
                 primary: false,
+                shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children: [
                   HotPlacesHomeWidget("assets/images/Paris-Background.png",
                       "assets/images/Paris-Monument.png", "Paris"),
                   HotPlacesHomeWidget("assets/images/NewYork-Background.png",
-                      "assets/images/NewYork-Monument.png", "New York")
+                      "assets/images/NewYork-Monument.png", "New York"),
+                  HotPlacesHomeWidget("assets/images/Paris-Background.png",
+                      "assets/images/Paris-Monument.png", "Paris"),
                 ],
               ),
             ),
