@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
@@ -23,31 +24,31 @@ class HotPlacesWidget extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(40))),
           width: SizeConfig.screenWidth * 0.9,
           height: SizeConfig.screenHeight * 0.8,
-          child: Image.asset(hotPlacesArrayList[index].hotPlaceNameBackImageBig, fit: BoxFit.fill),
+          child: Image.asset(hotPlacesArrayList[index].hotPlaceNameBackImageBig,
+              fit: BoxFit.fill),
         ),
         Positioned(
           left: SizeConfig.screenWidth * 0.375,
-          top: SizeConfig.screenHeight*0.061,
+          top: SizeConfig.screenHeight * 0.061,
           child: Container(
-            height: SizeConfig.screenHeight*0.8,
-
+            height: SizeConfig.screenHeight * 0.8,
             child: Image.asset(
               hotPlacesArrayList[index].hotPlaceNameFrontImageBig,
               fit: BoxFit.fill,
             ),
           ),
         ),
-        Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-                padding: EdgeInsets.only(
-                    left: SizeConfig.screenWidth * 0.05,
-                    bottom: SizeConfig.screenHeight * 0.017),
+        Padding(
+          padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.11, top: SizeConfig.screenHeight *0.025),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
                 child: Text(hotPlacesArrayList[index].hotPlaceName,
                     style: TextStyle(
                         fontFamily: Constants.POPPINS,
                         color: Colors.white,
-                        fontSize: 18.5,
+                        fontSize: 40,
                         fontWeight: FontWeight.w600,
                         shadows: [
                           Shadow(
@@ -55,7 +56,26 @@ class HotPlacesWidget extends StatelessWidget {
                             blurRadius: 6.0,
                             color: Colors.black.withOpacity(.11),
                           ),
-                        ]))))
+                        ])),
+              ),
+              Row(
+                children: [
+                  RatingBarIndicator(
+                    rating: 1,
+                    itemBuilder: (context, index) => Icon(
+                      Icons.star,
+                      color: Colors.white,
+                    ),
+                    unratedColor: Colors.white.withOpacity(.28),
+                    itemCount: 5,
+                    itemSize: 25.0,
+                    direction: Axis.horizontal,
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
       ],
     );
   }
