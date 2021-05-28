@@ -55,19 +55,21 @@ class _MapViewState extends State<MapView> {
           onPageChanged: _onPageChanged,
           controller: _pageController,
         ),
-        Container(
-          width: SizeConfig.screenWidth,
-          height: SizeConfig.screenHeight * 0.4,
-          decoration:  _currentPage == 0 ? BoxDecoration(
-              gradient:  LinearGradient(
-                  colors: [
-                Styles.loginregister_background(themeChange.darkTheme, context),
-                Styles.shadow_map(themeChange.darkTheme, context),
-              ],
-                  begin: themeChange.darkTheme
-                      ? Alignment.center * .7
-                      : Alignment.center * 1.2,
-                  end: Alignment.bottomCenter)): BoxDecoration(color: Colors.transparent),
+        IgnorePointer(
+          child: Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.4,
+            decoration:  _currentPage == 0 ? BoxDecoration(
+                gradient:  LinearGradient(
+                    colors: [
+                  Styles.loginregister_background(themeChange.darkTheme, context),
+                  Styles.shadow_map(themeChange.darkTheme, context),
+                ],
+                    begin: themeChange.darkTheme
+                        ? Alignment.center * .7
+                        : Alignment.center * 1.2,
+                    end: Alignment.bottomCenter)): BoxDecoration(color: Colors.transparent),
+          ),
         ),
         SafeArea(
             child: Padding(
