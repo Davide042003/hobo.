@@ -39,7 +39,7 @@ class HotPlacesWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.11, top: SizeConfig.screenHeight *0.025),
+          padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.095, top: SizeConfig.screenHeight *0.025),
           child: Column(
             children: [
               Align(
@@ -61,7 +61,7 @@ class HotPlacesWidget extends StatelessWidget {
               Row(
                 children: [
                   RatingBarIndicator(
-                    rating: 1,
+                    rating: hotPlacesArrayList[index].rating,
                     itemBuilder: (context, index) => Icon(
                       Icons.star,
                       color: Colors.white,
@@ -71,6 +71,8 @@ class HotPlacesWidget extends StatelessWidget {
                     itemSize: 25.0,
                     direction: Axis.horizontal,
                   ),
+                  SizedBox(width: SizeConfig.screenWidth*0.02),
+                  Text(hotPlacesArrayList[index].rating.toString() + " (" + hotPlacesArrayList[index].numberRatings.toString() +"K)", style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 15, color: Colors.white, fontWeight: FontWeight.w400),textAlign: TextAlign.center,)
                 ],
               )
             ],
