@@ -56,7 +56,7 @@ flutter:
    - assets/images/Paris-Monument.png
    - assets/images/NewYork-Background.png
    - assets/images/NewYork-Monument.png
-   - assets/images/Paris.png
+   - assets/images/Paris-Background_Big.png
 
   fonts:
     - family: Poppins

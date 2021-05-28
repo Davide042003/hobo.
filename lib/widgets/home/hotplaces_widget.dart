@@ -9,20 +9,33 @@ import 'package:ionicons/ionicons.dart';
 
 class HotPlacesWidget extends StatelessWidget {
   final String imageBackground;
+  final String imageFore;
   final String place;
 
-  HotPlacesWidget(this.imageBackground, this.place);
+  HotPlacesWidget(this.imageBackground, this.imageFore, this.place);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      overflow: Overflow.visible,
       children: [
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(40))),
-          width: SizeConfig.screenWidth * 0.85,
-          height: SizeConfig.screenHeight * 0.83,
+          width: SizeConfig.screenWidth * 0.9,
+          height: SizeConfig.screenHeight * 0.8,
           child: Image.asset(imageBackground, fit: BoxFit.fill),
+        ),
+        Positioned(
+          left: SizeConfig.screenWidth * 0.46,
+          top: SizeConfig.screenHeight*0.15,
+          child: Container(
+            height: SizeConfig.screenHeight*0.65,
+            child: Image.asset(
+              imageFore,
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         Align(
             alignment: Alignment.bottomLeft,

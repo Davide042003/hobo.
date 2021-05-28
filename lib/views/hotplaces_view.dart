@@ -71,17 +71,15 @@ class _HotPlacesViewState extends State<HotPlacesView> {
           ],
         ),
         Padding(
-          padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13),
+          padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13, left: SizeConfig.screenWidth * 0.05),
           child: Swiper(
             loop: false,
-            containerWidth: SizeConfig.screenWidth * 0.85,
-            containerHeight: SizeConfig.screenHeight * 0.83,
             outer: false,
+
             itemBuilder: (BuildContext context, int index) {
-              return new HotPlacesWidget("assets/images/Paris.png", "Paris");
+              return new HotPlacesWidget("assets/images/Paris-Background_Big.png", "assets/images/Paris-Monument.png", "Paris");
             },
             itemCount: _pageTotal,
-            viewportFraction: 0.8,
             scale: 0.9,
             onIndexChanged: (index) {
               _onPageChanged(index);
