@@ -75,9 +75,8 @@ class _HotPlacesViewState extends State<HotPlacesView> {
           child: Swiper(
             loop: false,
             outer: false,
-
             itemBuilder: (BuildContext context, int index) {
-              return new HotPlacesWidget("assets/images/Paris-Background_Big.png", "assets/images/Paris-Monument.png", "Paris");
+              return new HotPlacesWidget(index);
             },
             itemCount: _pageTotal,
             scale: 0.9,

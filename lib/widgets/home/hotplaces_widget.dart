@@ -6,13 +6,12 @@ import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:hobo_test/widgets/home/hotplaces_template.dart';
 
 class HotPlacesWidget extends StatelessWidget {
-  final String imageBackground;
-  final String imageFore;
-  final String place;
+  final int index;
 
-  HotPlacesWidget(this.imageBackground, this.imageFore, this.place);
+  HotPlacesWidget(this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +23,16 @@ class HotPlacesWidget extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(40))),
           width: SizeConfig.screenWidth * 0.9,
           height: SizeConfig.screenHeight * 0.8,
-          child: Image.asset(imageBackground, fit: BoxFit.fill),
+          child: Image.asset(hotPlacesArrayList[index].hotPlaceNameBackImageBig, fit: BoxFit.fill),
         ),
         Positioned(
-          left: SizeConfig.screenWidth * 0.46,
-          top: SizeConfig.screenHeight*0.15,
+          left: SizeConfig.screenWidth * 0.375,
+          top: SizeConfig.screenHeight*0.061,
           child: Container(
-            height: SizeConfig.screenHeight*0.65,
+            height: SizeConfig.screenHeight*0.8,
+
             child: Image.asset(
-              imageFore,
+              hotPlacesArrayList[index].hotPlaceNameFrontImageBig,
               fit: BoxFit.fill,
             ),
           ),
@@ -43,7 +43,7 @@ class HotPlacesWidget extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: SizeConfig.screenWidth * 0.05,
                     bottom: SizeConfig.screenHeight * 0.017),
-                child: Text(place,
+                child: Text(hotPlacesArrayList[index].hotPlaceName,
                     style: TextStyle(
                         fontFamily: Constants.POPPINS,
                         color: Colors.white,

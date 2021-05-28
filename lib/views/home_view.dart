@@ -12,6 +12,7 @@ import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbar_widget.dart';
 import 'package:hobo_test/widgets/home/categories_widget.dart';
+import 'package:hobo_test/widgets/home/hotplaces_template.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -121,19 +122,12 @@ class _HomeViewState extends State<HomeView> {
             padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
             child: Container(
               height: SizeConfig.screenHeight * 0.2,
-              child: ListView(
-                primary: false,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                children: [
-                  HotPlacesHomeWidget("assets/images/Paris-Background.png",
-                      "assets/images/Paris-Monument.png", "Paris"),
-                  HotPlacesHomeWidget("assets/images/NewYork-Background.png",
-                      "assets/images/NewYork-Monument.png", "New York"),
-                  HotPlacesHomeWidget("assets/images/Paris-Background.png",
-                      "assets/images/Paris-Monument.png", "Paris"),
-                ],
-              ),
+              child:ListView.builder(
+                  primary: false,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: hotPlacesArrayList.length,
+                  itemBuilder: (ctx, i) => HotPlacesHomeWidget(i))
             ),
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.035),

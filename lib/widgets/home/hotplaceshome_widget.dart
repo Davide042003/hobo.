@@ -3,13 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'package:hobo_test/widgets/styles/constants.dart';
+import 'package:hobo_test/widgets/home/hotplaces_template.dart';
 
 class HotPlacesHomeWidget extends StatelessWidget {
-  final String imageBackground;
-  final String imageFore;
-  final String place;
+  final int index;
 
-  HotPlacesHomeWidget(this.imageBackground, this.imageFore, this.place);
+  HotPlacesHomeWidget(this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class HotPlacesHomeWidget extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(40))),
           width: SizeConfig.screenWidth * 0.34,
           height: SizeConfig.screenHeight,
-          child: Image.asset(imageBackground, fit: BoxFit.fill),
+          child: Image.asset(hotPlacesArrayList[index].hotPlaceNameBackImage, fit: BoxFit.fill),
         ),
         Align(
             alignment: Alignment.bottomRight,
@@ -30,7 +29,7 @@ class HotPlacesHomeWidget extends StatelessWidget {
                 width: SizeConfig.screenWidth * 0.19,
                 margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.225),
                 child: Image.asset(
-                  imageFore,
+                  hotPlacesArrayList[index].hotPlaceNameFrontImage,
                   height: SizeConfig.screenHeight * 0.17,
                 ))),
         Align(
@@ -39,7 +38,7 @@ class HotPlacesHomeWidget extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: SizeConfig.screenWidth * 0.05,
                     bottom: SizeConfig.screenHeight * 0.017),
-                child: Text(place,
+                child: Text(hotPlacesArrayList[index].hotPlaceName,
                     style: TextStyle(
                         fontFamily: Constants.POPPINS,
                         color: Colors.white,
