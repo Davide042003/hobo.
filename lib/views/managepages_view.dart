@@ -47,6 +47,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBody: true,
       backgroundColor:  Styles.loginregister_background(themeChange.darkTheme, context),
         body: PageView(

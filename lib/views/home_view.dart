@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hobo_test/views/hotplaces_view.dart';
 import 'package:hobo_test/widgets/home/hotplaceshome_widget.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'package:ionicons/ionicons.dart';
@@ -96,6 +97,7 @@ class _HomeViewState extends State<HomeView> {
                               themeChange.darkTheme, context)),
                       textAlign: TextAlign.left),
                   GestureDetector(
+                    onTap: (){Navigator.of(context).push(_routeToHotPlaces());},
                       behavior: HitTestBehavior.opaque,
                       child: Container(
                         width: SizeConfig.screenWidth * 0.2,
@@ -174,4 +176,22 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+}
+
+Route _routeToHotPlaces() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => HotPlacesView(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

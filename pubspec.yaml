@@ -31,6 +31,7 @@ dependencies:
   flutter_svg: ^0.22.0
   shared_preferences: ^2.0.5
   provider: ^5.0.0
+  flutter_swiper: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +56,8 @@ flutter:
    - assets/images/Paris-Monument.png
    - assets/images/NewYork-Background.png
    - assets/images/NewYork-Monument.png
-   -
+   - assets/images/Paris.png
+
   fonts:
     - family: Poppins
       fonts:
