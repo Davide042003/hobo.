@@ -98,4 +98,9 @@ class Styles {
     return isDarkTheme ?  Colors.black.withOpacity(0) : Color.fromRGBO(241, 248, 251, 0);
   }
 
+  static Color cardtour_map(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(58, 58, 58, 1): Colors.white;
+  }
+
+
 }
