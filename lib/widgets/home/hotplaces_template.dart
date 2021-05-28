@@ -8,6 +8,7 @@ class HotPlaces {
   final String hotPlaceNameFrontImageBig;
   final double rating;
   final int numberRatings;
+  final String description;
 
   HotPlaces(
       {@required this.hotPlaceName,
@@ -16,7 +17,8 @@ class HotPlaces {
         @required this.hotPlaceNameBackImageBig,
         @required this.hotPlaceNameFrontImageBig,
         @required this.rating,
-        @required this.numberRatings});
+        @required this.numberRatings,
+        @required this.description});
 }
 
 final hotPlacesArrayList = [
@@ -27,7 +29,8 @@ final hotPlacesArrayList = [
     hotPlaceNameBackImageBig: "assets/images/Paris-Background_Big.png",
     hotPlaceNameFrontImageBig: "assets/images/Paris-Monument_Big.png",
     rating: 4.1,
-    numberRatings: 100
+    numberRatings: 100,
+    description: "Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit."
   ),
 
   HotPlaces(
@@ -37,7 +40,8 @@ final hotPlacesArrayList = [
     hotPlaceNameBackImageBig: "assets/images/Paris-Background_Big.png",
     hotPlaceNameFrontImageBig: "assets/images/Paris-Monument_Big.png",
       rating: 3.5,
-      numberRatings: 75
+      numberRatings: 75,
+      description: "Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit."
   ),
 
   HotPlaces(
@@ -47,7 +51,7 @@ final hotPlacesArrayList = [
     hotPlaceNameBackImageBig: "assets/images/Paris-Background_Big.png",
     hotPlaceNameFrontImageBig: "assets/images/Paris-Monument_Big.png",
       rating: 2,
-      numberRatings: 22
-
+      numberRatings: 22,
+      description: "Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit."
   ),
 ];

@@ -39,7 +39,9 @@ class HotPlacesWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.095, top: SizeConfig.screenHeight *0.025),
+          padding: EdgeInsets.only(
+              left: SizeConfig.screenWidth * 0.095,
+              top: SizeConfig.screenHeight * 0.025),
           child: Column(
             children: [
               Align(
@@ -71,10 +73,25 @@ class HotPlacesWidget extends StatelessWidget {
                     itemSize: 25.0,
                     direction: Axis.horizontal,
                   ),
-                  SizedBox(width: SizeConfig.screenWidth*0.02),
-                  Text(hotPlacesArrayList[index].rating.toString() + " (" + hotPlacesArrayList[index].numberRatings.toString() +"K)", style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 15, color: Colors.white, fontWeight: FontWeight.w400),textAlign: TextAlign.center,)
+                  SizedBox(width: SizeConfig.screenWidth * 0.02),
+                  Text(
+                    hotPlacesArrayList[index].rating.toString() +
+                        " (" +
+                        hotPlacesArrayList[index].numberRatings.toString() +
+                        "K)",
+                    style: TextStyle(
+                        fontFamily: Constants.POPPINS,
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400),
+                    textAlign: TextAlign.center,
+                  )
                 ],
-              )
+              ),
+              SizedBox(height: SizeConfig.screenHeight*0.43),
+              Align(alignment: Alignment.bottomLeft, child: Text("About " + hotPlacesArrayList[index].hotPlaceName,style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,fontFamily: Constants.POPPINS,color: Colors.white))),
+              Align(alignment: Alignment.bottomLeft, child: Container(width:SizeConfig.screenWidth*0.6,child: Text(hotPlacesArrayList[index].description,style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal,fontFamily: Constants.POPPINS,color: Colors.white, height: SizeConfig.screenHeight*0.002))))
+
             ],
           ),
         )
