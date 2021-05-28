@@ -16,20 +16,16 @@ class _TourlistWidgetState extends State<TourlistWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.18, left: SizeConfig.screenWidth*0.07, right: SizeConfig.screenWidth*0.07,bottom: SizeConfig.screenHeight * 0.05),
-      child: ListView(
-        children: [
-          CardTourWidget(),
-          SizedBox(height: 15),
-          CardTourWidget(),
-          SizedBox(height: 15),
-          CardTourWidget(),
-          SizedBox(height: 15),
-          CardTourWidget(),
-          SizedBox(height: 15),
-          CardTourWidget(),
-        ],
-      ),
-    );
+        margin: EdgeInsets.only(
+            top: SizeConfig.screenHeight * 0.18,
+            left: SizeConfig.screenWidth * 0.07,
+            right: SizeConfig.screenWidth * 0.07,
+            bottom: SizeConfig.screenHeight * 0.05),
+        child: ListView.separated(
+          scrollDirection: Axis.vertical,
+          itemCount: 5,
+          itemBuilder: (ctx, i) => CardTourWidget(),
+          separatorBuilder: (context, index) => SizedBox(height: SizeConfig.screenHeight * 0.017),
+        ));
   }
 }

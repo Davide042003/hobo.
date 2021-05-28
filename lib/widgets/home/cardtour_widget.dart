@@ -81,7 +81,7 @@ class _CardTourWidgetState extends State<CardTourWidget> {
                   ),
                   SizedBox(width: SizeConfig.screenWidth * 0.02),
                   Text(
-                    "4.1" + " (" + "100" + "K)",
+                    "4.1" + " (" + "1,250" + ")",
                     style: TextStyle(
                         fontFamily: Constants.POPPINS,
                         fontSize: 12,
