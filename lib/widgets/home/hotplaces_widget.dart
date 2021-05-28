@@ -28,23 +28,23 @@ class HotPlacesWidget extends StatelessWidget {
               fit: BoxFit.fill),
         ),
         Positioned(
-          left: SizeConfig.screenWidth * 0.375,
-          top: SizeConfig.screenHeight * 0.061,
+          left: SizeConfig.screenWidth * 0.465,
+          top: SizeConfig.screenHeight * 0.182,
           child: Container(
-            height: SizeConfig.screenHeight * 0.8,
+            height: SizeConfig.screenHeight * 0.67,
             child: Image.asset(
               hotPlacesArrayList[index].hotPlaceNameFrontImageBig,
               fit: BoxFit.fill,
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(
-              left: SizeConfig.screenWidth * 0.095,
-              top: SizeConfig.screenHeight * 0.025),
-          child: Column(
-            children: [
-              Align(
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  left: SizeConfig.screenWidth * 0.095,
+                  top: SizeConfig.screenHeight * 0.025),
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(hotPlacesArrayList[index].hotPlaceName,
                     style: TextStyle(
@@ -60,7 +60,12 @@ class HotPlacesWidget extends StatelessWidget {
                           ),
                         ])),
               ),
-              Row(
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: SizeConfig.screenWidth * 0.095,
+              ),
+              child: Row(
                 children: [
                   RatingBarIndicator(
                     rating: hotPlacesArrayList[index].rating,
@@ -88,13 +93,38 @@ class HotPlacesWidget extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: SizeConfig.screenHeight*0.43),
-              Align(alignment: Alignment.bottomLeft, child: Text("About " + hotPlacesArrayList[index].hotPlaceName,style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,fontFamily: Constants.POPPINS,color: Colors.white))),
-              Align(alignment: Alignment.bottomLeft, child: Container(width:SizeConfig.screenWidth*0.6,child: Text(hotPlacesArrayList[index].description,style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal,fontFamily: Constants.POPPINS,color: Colors.white, height: SizeConfig.screenHeight*0.002))))
-
-            ],
-          ),
-        )
+            ),
+            SizedBox(height: SizeConfig.screenHeight * 0.43),
+            Padding(
+                padding: EdgeInsets.only(
+                  left: SizeConfig.screenWidth * 0.07,
+                ),
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                        "About " + hotPlacesArrayList[index].hotPlaceName,
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: Constants.POPPINS,
+                            color: Colors.white)))),
+            Padding(
+                padding: EdgeInsets.only(
+                  left: SizeConfig.screenWidth * 0.07,
+                ),
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                        width: SizeConfig.screenWidth * 0.6,
+                        child: Text(hotPlacesArrayList[index].description,
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: Constants.POPPINS,
+                                color: Colors.white,
+                                height: SizeConfig.screenHeight * 0.002)))))
+          ],
+        ),
       ],
     );
   }
