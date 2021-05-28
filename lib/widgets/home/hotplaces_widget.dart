@@ -97,7 +97,7 @@ class HotPlacesWidget extends StatelessWidget {
             SizedBox(height: SizeConfig.screenHeight * 0.43),
             Padding(
                 padding: EdgeInsets.only(
-                  left: SizeConfig.screenWidth * 0.07,
+                  left: SizeConfig.screenWidth * 0.065,
                 ),
                 child: Align(
                     alignment: Alignment.bottomLeft,
@@ -110,19 +110,57 @@ class HotPlacesWidget extends StatelessWidget {
                             color: Colors.white)))),
             Padding(
                 padding: EdgeInsets.only(
-                  left: SizeConfig.screenWidth * 0.07,
+                  left: SizeConfig.screenWidth * 0.065,
                 ),
                 child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Container(
-                        width: SizeConfig.screenWidth * 0.6,
+                        width: SizeConfig.screenWidth * 0.65,
                         child: Text(hotPlacesArrayList[index].description,
                             style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 13.5,
                                 fontWeight: FontWeight.normal,
                                 fontFamily: Constants.POPPINS,
                                 color: Colors.white,
-                                height: SizeConfig.screenHeight * 0.002)))))
+                                height: SizeConfig.screenHeight * 0.0022))))),
+            SizedBox(
+              height: SizeConfig.screenHeight * 0.03,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: SizeConfig.screenWidth * 0.5,
+                height: SizeConfig.screenHeight * 0.05,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        bottomRight: Radius.circular(40)),
+                    color: Color.fromRGBO(116, 142, 243, 1),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(7.0, 9.0),
+                        blurRadius: 10.0,
+                        color: Colors.black.withOpacity(.09),
+                      ),
+                    ]),
+                child: Padding(
+                  padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.065, right: SizeConfig.screenWidth * 0.03),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Discover More",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: Constants.POPPINS,
+                              color: Colors.white,
+                              height: SizeConfig.screenHeight * 0.0022)),
+                      Icon(Icons.keyboard_arrow_right_outlined, color: Colors.white,size: 20,)
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ],
