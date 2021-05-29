@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hobo_test/widgets/home/cardtour_template.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,12 @@ import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:ionicons/ionicons.dart';
 
 class CardTourWidget extends StatefulWidget {
+  final int index;
+
+  CardTourWidget({
+    @required this.index,
+  });
+
   @override
   _CardTourWidgetState createState() => _CardTourWidgetState();
 }
@@ -47,7 +54,7 @@ class _CardTourWidgetState extends State<CardTourWidget> {
               color: Colors.white,
             ),
             child: Image.asset(
-              "assets/images/Paris-Background.png",
+              cardTourArrayList[widget.index].placeImage,
               fit: BoxFit.fill,
             ),
           ),
@@ -60,38 +67,40 @@ class _CardTourWidgetState extends State<CardTourWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Eiffel Tower",
+                  cardTourArrayList[widget.index].placeName,
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Styles.whiteblack(themeChange.darkTheme, context)),
                 ),
-                Row(children: [
-                  RatingBarIndicator(
-                    rating: 4,
-                    itemBuilder: (context, index) => Icon(
-                      Icons.star,
-                      color: Color.fromRGBO(55, 199, 117, 1),
+                Flexible(
+                  child: Row(children: [
+                    RatingBarIndicator(
+                      rating: cardTourArrayList[widget.index].rating,
+                      itemBuilder: (context, index) => Icon(
+                        LineIcons.starAlt,
+                        color: Color.fromRGBO(55, 199, 117, 1),
+                      ),
+                      unratedColor: Colors.black.withOpacity(.28),
+                      itemCount: 5,
+                      itemSize: 14,
+                      direction: Axis.horizontal,
                     ),
-                    unratedColor: Colors.black.withOpacity(.28),
-                    itemCount: 5,
-                    itemSize: 14,
-                    direction: Axis.horizontal,
-                  ),
-                  SizedBox(width: SizeConfig.screenWidth * 0.02),
-                  Text(
-                    "4.1" + " (" + "1,250" + ")",
-                    style: TextStyle(
-                        fontFamily: Constants.POPPINS,
-                        fontSize: 12,
-                        color: Color.fromRGBO(184, 184, 184, 1),
-                        fontWeight: FontWeight.normal),
-                    textAlign: TextAlign.center,
-                  )
-                ]),
+                    SizedBox(width: SizeConfig.screenWidth * 0.02),
+                    Text(
+                      cardTourArrayList[widget.index].rating.toString() + " (" + cardTourArrayList[widget.index].numberRatings.toString() + ")",
+                      style: TextStyle(
+                          fontFamily: Constants.POPPINS,
+                          fontSize: 12,
+                          color: Color.fromRGBO(184, 184, 184, 1),
+                          fontWeight: FontWeight.normal),
+                      textAlign: TextAlign.center,
+                    )
+                  ]),
+                ),
                 Text(
-                  "\$50",
+                  "\$" + cardTourArrayList[widget.index].price.toString(),
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
                       fontSize: 20,
@@ -118,17 +127,17 @@ class _CardTourWidgetState extends State<CardTourWidget> {
                           color: Color.fromRGBO(245, 95, 185, 1),
                         ))
                     : Padding(
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.screenWidth * 0.05),
-                    child: Icon(
-                      LineIcons.heart,
-                      color: Color.fromRGBO(210, 210, 210, 1),
-                    ))),
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.05),
+                        child: Icon(
+                          LineIcons.heart,
+                          color: Color.fromRGBO(210, 210, 210, 1),
+                        ))),
             onTap: () {
               setState(() {
-                if(!liked) {
+                if (!liked) {
                   liked = true;
-                }else {
+                } else {
                   liked = false;
                 }
                 print(liked);

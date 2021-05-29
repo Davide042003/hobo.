@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hobo_test/widgets/home/cardtour_template.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
@@ -23,8 +24,8 @@ class _TourlistWidgetState extends State<TourlistWidget> {
             bottom: SizeConfig.screenHeight * 0.05),
         child: ListView.separated(
           scrollDirection: Axis.vertical,
-          itemCount: 5,
-          itemBuilder: (ctx, i) => CardTourWidget(),
+          itemCount: cardTourArrayList.length,
+          itemBuilder: (ctx, i) => CardTourWidget(index: i),
           separatorBuilder: (context, index) => SizedBox(height: SizeConfig.screenHeight * 0.017),
         ));
   }
