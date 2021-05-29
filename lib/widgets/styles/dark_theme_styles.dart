@@ -109,4 +109,5 @@ class Styles {
   static Color tourpreview_colorprice(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(116, 142, 243, 1) : Color.fromRGBO(36, 65, 187, 1);
   }
+
 }
