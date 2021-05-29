@@ -9,6 +9,7 @@ import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
+import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 
 class TourSummaryView extends StatefulWidget {
   @override
@@ -22,6 +23,55 @@ class _TourSummaryViewState extends State<TourSummaryView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: SizeConfig.screenHeight *0.075,
+              centerTitle: false,
+              leadingWidth: 0,
+              elevation: 0,
+              backgroundColor: Styles.blackwhite(themeChange.darkTheme, context),
+              title: Row(
+                children: [
+                  GestureDetector(
+                    child: Container(
+                      width: SizeConfig.screenWidth * 0.125,
+                      height: SizeConfig.screenHeight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: SizeConfig.screenWidth *0.06),
+                        child: Icon(Icons.arrow_back_ios_outlined, color: Styles.whiteblack(themeChange.darkTheme, context),size: 20,),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Tour Summary",
+                    style: TextStyle(
+                        fontFamily: Constants.POPPINS,
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(left: SizeConfig.screenWidth*0.18),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(.26),
+                              blurRadius: 7,
+                              offset: Offset(0, 4))
+                        ],
+                      ),
+                      child: ProfileImageHomeWidget(
+                          image: AssetImage("assets/images/provaSocial.jpeg"),
+                          initials: "DB")),
+                ],
+              ),
+          )
+        ],
+      ),
       bottomNavigationBar: Stack(
         children: [
           IgnorePointer(
@@ -38,7 +88,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                   height: SizeConfig.screenHeight * 0.135,
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Styles.blackwhite(themeChange.darkTheme, context),
+                        color:
+                            Styles.blackwhite(themeChange.darkTheme, context),
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         boxShadow: [
                           BoxShadow(
@@ -82,7 +133,10 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                             child: Text(
                               "250\$",
                               style: TextStyle(
-                                  fontFamily: Constants.POPPINS, fontSize: 30,color: Styles.tourpreview_colorprice(themeChange.darkTheme, context)),
+                                  fontFamily: Constants.POPPINS,
+                                  fontSize: 30,
+                                  color: Styles.tourpreview_colorprice(
+                                      themeChange.darkTheme, context)),
                             ))
                       ],
                     ),
