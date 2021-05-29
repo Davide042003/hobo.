@@ -23,52 +23,63 @@ class _TourSummaryViewState extends State<TourSummaryView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-      body:  Stack(
-        children:[ Container(
+      body: Stack(children: [
+        Column(
+          children: [
+            Container(
               width: SizeConfig.screenWidth,
-                height: SizeConfig.screenHeight*0.13,
-                color: Styles.blackwhite(themeChange.darkTheme, context),
-                child: Padding(
-                  padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02, top: SizeConfig.screenHeight*0.04),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        child: Container(
-                          width: SizeConfig.screenWidth * 0.125,
-                          height: SizeConfig.screenHeight,
-                          child: Icon(Icons.arrow_back_ios_outlined, color: Styles.whiteblack(themeChange.darkTheme, context),size: 20,),
+              height: SizeConfig.screenHeight * 0.13,
+              color: Styles.blackwhite(themeChange.darkTheme, context),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: SizeConfig.screenWidth * 0.02,
+                    top: SizeConfig.screenHeight * 0.04),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        width: SizeConfig.screenWidth * 0.125,
+                        height: SizeConfig.screenHeight,
+                        child: Icon(
+                          Icons.arrow_back_ios_outlined,
+                          color: Styles.whiteblack(themeChange.darkTheme, context),
+                          size: 20,
                         ),
                       ),
-                      SizedBox(width: SizeConfig.screenWidth *0.04),
-                      Text(
-                        "Tour Summary",
-                        style: TextStyle(
-                            fontFamily: Constants.POPPINS,
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Container(
-                          margin: EdgeInsets.only(left: SizeConfig.screenWidth*0.18),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.26),
-                                  blurRadius: 7,
-                                  offset: Offset(0, 4))
-                            ],
-                          ),
-                          child: ProfileImageHomeWidget(
-                              image: AssetImage("assets/images/provaSocial.jpeg"),
-                              initials: "DB")),
-                    ],
-                  ),
+                    ),
+                    SizedBox(width: SizeConfig.screenWidth * 0.04),
+                    Text(
+                      "Tour Summary",
+                      style: TextStyle(
+                          fontFamily: Constants.POPPINS,
+                          color: Styles.whiteblack(themeChange.darkTheme, context),
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Container(
+                        margin:
+                            EdgeInsets.only(left: SizeConfig.screenWidth * 0.18),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(.26),
+                                blurRadius: 7,
+                                offset: Offset(0, 4))
+                          ],
+                        ),
+                        child: ProfileImageHomeWidget(
+                            image: AssetImage("assets/images/provaSocial.jpeg"),
+                            initials: "DB")),
+                  ],
                 ),
+              ),
             ),
-      ]
-      ),
+            Container(width: SizeConfig.screenWidth,height: SizeConfig.screenHeight *0.001,color: Color.fromRGBO(235, 235, 235, 1),)
+          ],
+        ),
+      ]),
       bottomNavigationBar: Stack(
         children: [
           IgnorePointer(
