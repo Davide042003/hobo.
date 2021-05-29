@@ -113,11 +113,6 @@ class _TourSummaryViewState extends State<TourSummaryView> {
               padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.619),
               child: Stack(
                 children: [
-                  IgnorePointer(
-                      child: Container(
-                          width: SizeConfig.screenWidth,
-                          height: SizeConfig.screenHeight * 0.25,
-                          color: Colors.transparent)),
                   Padding(
                       padding: EdgeInsets.only(
                           left: SizeConfig.screenWidth * 0.05,
@@ -203,7 +198,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(40)),
                                 boxShadow: [
-                                  BoxShadow(
+                                 themeChange.darkTheme ? BoxShadow() : BoxShadow(
                                       color: Color.fromRGBO(62, 109, 255, .39),
                                       blurRadius: 15,
                                       offset: Offset(0, 9))
