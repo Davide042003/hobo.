@@ -23,54 +23,51 @@ class _TourSummaryViewState extends State<TourSummaryView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: SizeConfig.screenHeight *0.075,
-              centerTitle: false,
-              leadingWidth: 0,
-              elevation: 0,
-              backgroundColor: Styles.blackwhite(themeChange.darkTheme, context),
-              title: Row(
-                children: [
-                  GestureDetector(
-                    child: Container(
-                      width: SizeConfig.screenWidth * 0.125,
-                      height: SizeConfig.screenHeight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: SizeConfig.screenWidth *0.06),
-                        child: Icon(Icons.arrow_back_ios_outlined, color: Styles.whiteblack(themeChange.darkTheme, context),size: 20,),
+      body:  Stack(
+        children:[ Container(
+              width: SizeConfig.screenWidth,
+                height: SizeConfig.screenHeight*0.13,
+                color: Styles.blackwhite(themeChange.darkTheme, context),
+                child: Padding(
+                  padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02, top: SizeConfig.screenHeight*0.04),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        child: Container(
+                          width: SizeConfig.screenWidth * 0.125,
+                          height: SizeConfig.screenHeight,
+                          child: Icon(Icons.arrow_back_ios_outlined, color: Styles.whiteblack(themeChange.darkTheme, context),size: 20,),
+                        ),
                       ),
-                    ),
-                  ),
-                  Text(
-                    "Tour Summary",
-                    style: TextStyle(
-                        fontFamily: Constants.POPPINS,
-                        color: Colors.black,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(left: SizeConfig.screenWidth*0.18),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(.26),
-                              blurRadius: 7,
-                              offset: Offset(0, 4))
-                        ],
+                      SizedBox(width: SizeConfig.screenWidth *0.04),
+                      Text(
+                        "Tour Summary",
+                        style: TextStyle(
+                            fontFamily: Constants.POPPINS,
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500),
                       ),
-                      child: ProfileImageHomeWidget(
-                          image: AssetImage("assets/images/provaSocial.jpeg"),
-                          initials: "DB")),
-                ],
-              ),
-          )
-        ],
+                      Container(
+                          margin: EdgeInsets.only(left: SizeConfig.screenWidth*0.18),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(.26),
+                                  blurRadius: 7,
+                                  offset: Offset(0, 4))
+                            ],
+                          ),
+                          child: ProfileImageHomeWidget(
+                              image: AssetImage("assets/images/provaSocial.jpeg"),
+                              initials: "DB")),
+                    ],
+                  ),
+                ),
+            ),
+      ]
       ),
       bottomNavigationBar: Stack(
         children: [
