@@ -65,9 +65,12 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins-Black.ttf
         - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
         - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
         - asset: assets/fonts/Poppins-Regular.ttf
         - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
     - family: CenturyGothic
       fonts:
         - asset: assets/fonts/CenturyGothic-Bold.ttf
