@@ -24,6 +24,14 @@ class TourSummaryView extends StatefulWidget {
 
 class _TourSummaryViewState extends State<TourSummaryView> {
 
+  bool checkboxValue = false;
+
+  void _onChangedCheck(){
+   setState(() {
+     checkboxValue ? checkboxValue = false : checkboxValue = true;
+   });
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -45,7 +53,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
             child: SingleChildScrollView(
               child: Stack(children: [
                 Padding(
-                  padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.9),
+                  padding: EdgeInsets.only(top: checkboxValue ? SizeConfig.screenHeight * 0.87 : SizeConfig.screenHeight * .8),
                   child: Container(
                     width: SizeConfig.screenWidth,
                     height: SizeConfig.screenHeight * 1,
@@ -53,9 +61,11 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                         themeChange.darkTheme, context),
                   ),
                 ),
-                Container(
+                AnimatedContainer(
+                  duration: Duration(milliseconds: 0),
+                  curve: Curves.fastLinearToSlowEaseIn,
                   width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 1,
+                  height: checkboxValue ? SizeConfig.screenHeight * 0.97 : SizeConfig.screenHeight * .9,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(40),
@@ -82,7 +92,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                         height: SizeConfig.screenWidth *0.003,
                         color: Styles.tourpreview_bar(themeChange.darkTheme, context),
                       ),
-                      PeopleAndDateWidget()
+                      PeopleAndDateWidget(checkboxValue, _onChangedCheck)
                     ],
                   ),
                 ),

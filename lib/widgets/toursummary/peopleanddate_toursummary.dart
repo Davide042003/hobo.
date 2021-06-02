@@ -12,6 +12,11 @@ import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 
 class PeopleAndDateWidget extends StatefulWidget {
+  final bool checkBoxValue;
+  final VoidCallback callback;
+
+  const PeopleAndDateWidget(this.checkBoxValue, this.callback);
+
   @override
   _PeopleAndDateWidgetState createState() => _PeopleAndDateWidgetState();
 }
@@ -20,7 +25,6 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
   List<RadioModel> peopleData = new List<RadioModel>();
   List<RadioModel> childrenData = new List<RadioModel>();
 
-  bool checkBoxValue = false;
   FocusNode focusNodeAddPeople;
   FocusNode focusNodeAddChildren;
 
@@ -121,12 +125,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
               ),
               InkWell(
                 child: RadioItemPeople(peopleData[1], false),
-                onTap: () {
-                  setState(() {
-                    peopleData.forEach((element) => element.isSelected = false);
-                    peopleData[1].isSelected = true;
-                  });
-                },
+                onTap: widget.callback
               ),
               InkWell(
                 child: RadioItemPeople(peopleData[2], false),
@@ -179,15 +178,15 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                   height: SizeConfig.screenHeight * 0.027,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: checkBoxValue
+                      color: widget.checkBoxValue
                           ? Color.fromRGBO(245, 95, 185, 1)
                           : Colors.transparent,
-                      border: checkBoxValue
+                      border: widget.checkBoxValue
                           ? null
                           : Border.all(
                               color: Color.fromRGBO(245, 95, 185, 1),
                               width: 1.5)),
-                  child: checkBoxValue
+                  child: widget.checkBoxValue
                       ? Icon(
                           Icons.check,
                           size: 18,
@@ -195,13 +194,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                         )
                       : null,
                 ),
-                onTap: () {
-                  setState(() {
-                    checkBoxValue
-                        ? checkBoxValue = false
-                        : checkBoxValue = true;
-                  });
-                },
+                onTap: widget.callback
               ),
               SizedBox(
                 width: SizeConfig.screenWidth * 0.025,
@@ -216,9 +209,9 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
             ],
           ),
           SizedBox(
-            height: checkBoxValue ? SizeConfig.screenHeight * 0.02 : 0,
+            height: widget.checkBoxValue ? SizeConfig.screenHeight * 0.02 : 0,
           ),
-          checkBoxValue
+          widget.checkBoxValue
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
