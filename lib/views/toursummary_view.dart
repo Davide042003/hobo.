@@ -66,6 +66,12 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                       color: Styles.tourpreview_bar(themeChange.darkTheme, context),
                     ),
                     InfoTourSummaryWidget(),
+                    SizedBox(height: SizeConfig.screenHeight *0.03,),
+                    Container(
+                      width: SizeConfig.screenWidth,
+                      height: SizeConfig.screenWidth *0.003,
+                      color: Styles.tourpreview_bar(themeChange.darkTheme, context),
+                    )
                   ],
                 ),
               ),

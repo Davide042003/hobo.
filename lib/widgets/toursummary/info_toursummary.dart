@@ -85,7 +85,8 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                                 LineIcons.starAlt,
                                 color: Color.fromRGBO(55, 199, 117, 1),
                               ),
-                              unratedColor: Styles.tourpreview_stars(themeChange.darkTheme, context),
+                              unratedColor: Styles.tourpreview_stars(
+                                  themeChange.darkTheme, context),
                               itemCount: 5,
                               itemSize: 12,
                               direction: Axis.horizontal,
@@ -122,8 +123,8 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.screenWidth * 0.05),
-                    width: SizeConfig.screenWidth * 0.9,
+                        horizontal: SizeConfig.screenWidth * 0.065),
+                    width: SizeConfig.screenWidth * 0.87,
                     height: SizeConfig.screenHeight * 0.22,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -235,7 +236,9 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: Padding(
-                              padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.17, bottom: SizeConfig.screenHeight *0.022),
+                              padding: EdgeInsets.only(
+                                  left: SizeConfig.screenWidth * 0.17,
+                                  bottom: SizeConfig.screenHeight * 0.022),
                               child: RatingBarIndicator(
                                 rating: 4.1,
                                 itemBuilder: (context, index) => Icon(
@@ -255,7 +258,8 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: Padding(
-                              padding: EdgeInsets.only(bottom: SizeConfig.screenHeight *0.018),
+                              padding: EdgeInsets.only(
+                                  bottom: SizeConfig.screenHeight * 0.018),
                               child: Text(
                                 "4.1" + " (" + "220" + ")",
                                 style: TextStyle(
@@ -271,25 +275,80 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                       ),
                     ]),
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: GestureDetector(
-                      child: Container(
-                        width: SizeConfig.screenWidth * 0.08,
-                        height: SizeConfig.screenHeight * 0.06,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(15),
-                                topRight: Radius.circular(15)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.33),
-                                  blurRadius: 6)
-                            ]),
+                  GestureDetector(
+                    child: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(15),
+                            topRight: Radius.circular(15)),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 5.0),
+                          child: Container(
+                            width: SizeConfig.screenWidth * 0.08,
+                            height: SizeConfig.screenHeight * 0.05,
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.6),
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(15),
+                                  topRight: Radius.circular(15)),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(.33),
+                                    blurRadius: 6)
+                              ],
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  right: SizeConfig.screenWidth * 0.02),
+                              child: Icon(
+                                Icons.arrow_back_ios_outlined,
+                                size: 15,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      onTap: () => _controller.previous(),
                     ),
+                    onTap: () => _controller.previous(),
+                  ),
+                  GestureDetector(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: SizeConfig.screenWidth*.92),
+                      child: Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              topLeft: Radius.circular(15)),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 5.0),
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.08,
+                              height: SizeConfig.screenHeight * 0.05,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.6),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(15),
+                                    topLeft: Radius.circular(15)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(.33),
+                                      blurRadius: 6)
+                                ],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: SizeConfig.screenWidth * 0.02),
+                                child: Icon(
+                                  Icons.arrow_forward_ios_outlined,
+                                  size: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    onTap: () => _controller.next(),
                   ),
                 ],
               ),
@@ -324,11 +383,12 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
             child: Text(
                 "Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit. Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit.",
                 style: TextStyle(
-                  fontFamily: Constants.POPPINS,
-                  fontSize: 13,
-                  fontWeight: FontWeight.normal,
-                  color: Styles.tourpreview_colordescription(themeChange.darkTheme, context),
-                ),
+                    fontFamily: Constants.POPPINS,
+                    fontSize: 13,
+                    fontWeight: FontWeight.normal,
+                    color: Styles.tourpreview_colordescription(
+                        themeChange.darkTheme, context),
+                    height: SizeConfig.screenHeight * 0.00175),
                 textAlign: TextAlign.left),
           ),
         )
