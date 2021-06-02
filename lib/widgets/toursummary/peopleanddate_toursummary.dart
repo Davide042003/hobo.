@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'package:ionicons/ionicons.dart';
@@ -16,18 +17,18 @@ class PeopleAndDateWidget extends StatefulWidget {
 }
 
 class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
-  List<RadioModel> sampleData = new List<RadioModel>();
+  List<RadioModel> peopleData = new List<RadioModel>();
 
   @override
   void initState() {
     super.initState();
 
-    sampleData.add(new RadioModel(true, '1'));
-    sampleData.add(new RadioModel(false, '2'));
-    sampleData.add(new RadioModel(false, '3'));
-    sampleData.add(new RadioModel(false, '4'));
-    sampleData.add(new RadioModel(false, '5'));
-
+    peopleData.add(new RadioModel(true, '1'));
+    peopleData.add(new RadioModel(false, '2'));
+    peopleData.add(new RadioModel(false, '3'));
+    peopleData.add(new RadioModel(false, '4'));
+    peopleData.add(new RadioModel(false, '5'));
+    peopleData.add(new RadioModel(false, '+'));
   }
 
   @override
@@ -60,53 +61,62 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                       color: Styles.tourpreview_subpeople(
                           themeChange.darkTheme, context)))),
           SizedBox(
-            height: SizeConfig.screenHeight *0.015,
+            height: SizeConfig.screenHeight * 0.015,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                child: RadioItem(sampleData[0]),
+                child: RadioItemPeople(peopleData[0]),
                 onTap: () {
                   setState(() {
-                    sampleData.forEach((element) => element.isSelected = false);
-                    sampleData[0].isSelected = true;
+                    peopleData.forEach((element) => element.isSelected = false);
+                    peopleData[0].isSelected = true;
                   });
                 },
               ),
               InkWell(
-                child: RadioItem(sampleData[1]),
+                child: RadioItemPeople(peopleData[1]),
                 onTap: () {
                   setState(() {
-                    sampleData.forEach((element) => element.isSelected = false);
-                    sampleData[1].isSelected = true;
+                    peopleData.forEach((element) => element.isSelected = false);
+                    peopleData[1].isSelected = true;
                   });
                 },
               ),
               InkWell(
-                child: RadioItem(sampleData[2]),
+                child: RadioItemPeople(peopleData[2]),
                 onTap: () {
                   setState(() {
-                    sampleData.forEach((element) => element.isSelected = false);
-                    sampleData[2].isSelected = true;
+                    peopleData.forEach((element) => element.isSelected = false);
+                    peopleData[2].isSelected = true;
                   });
                 },
               ),
               InkWell(
-                child: RadioItem(sampleData[3]),
+                child: RadioItemPeople(peopleData[3]),
                 onTap: () {
                   setState(() {
-                    sampleData.forEach((element) => element.isSelected = false);
-                    sampleData[3].isSelected = true;
+                    peopleData.forEach((element) => element.isSelected = false);
+                    peopleData[3].isSelected = true;
                   });
                 },
               ),
               InkWell(
-                child: RadioItem(sampleData[4]),
+                child: RadioItemPeople(peopleData[4]),
                 onTap: () {
                   setState(() {
-                    sampleData.forEach((element) => element.isSelected = false);
-                    sampleData[4].isSelected = true;
+                    peopleData.forEach((element) => element.isSelected = false);
+                    peopleData[4].isSelected = true;
+                  });
+                },
+              ),
+              InkWell(
+                child: RadioItemPeoplePlus(peopleData[5]),
+                onTap: () {
+                  setState(() {
+                    peopleData.forEach((element) => element.isSelected = false);
+                    peopleData[5].isSelected = true;
                   });
                 },
               ),
@@ -118,9 +128,9 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
   }
 }
 
-class RadioItem extends StatelessWidget {
+class RadioItemPeople extends StatelessWidget {
   final RadioModel _item;
-  RadioItem(this._item);
+  RadioItemPeople(this._item);
 
   @override
   Widget build(BuildContext context) {
@@ -132,17 +142,73 @@ class RadioItem extends StatelessWidget {
       height: SizeConfig.screenHeight * 0.055,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
-          gradient: _item.isSelected ? LinearGradient(
-              colors: [
-                Color.fromRGBO(116, 142, 243, 1),
-                Color.fromRGBO(36, 65, 187, 1)
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter
-          ) : null,
-          color: _item.isSelected ? null : Styles.tourpreview_peopleunselected(themeChange.darkTheme, context)
-      ),
-      child: Center(child: Text(_item.buttonText,style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 15, color: _item.isSelected ? Colors.white : Color.fromRGBO(191, 191, 191, 1)),)),
+          gradient: _item.isSelected
+              ? LinearGradient(colors: [
+                  Color.fromRGBO(116, 142, 243, 1),
+                  Color.fromRGBO(36, 65, 187, 1)
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+              : null,
+          color: _item.isSelected
+              ? null
+              : Styles.tourpreview_peopleunselected(
+                  themeChange.darkTheme, context)),
+      child: Center(
+          child: Text(
+        _item.buttonText,
+        style: TextStyle(
+            fontFamily: Constants.POPPINS,
+            fontSize: 15,
+            color: _item.isSelected
+                ? Colors.white
+                : Color.fromRGBO(191, 191, 191, 1)),
+      )),
+    );
+  }
+}
+
+class RadioItemPeoplePlus extends StatelessWidget {
+  final RadioModel _item;
+  RadioItemPeoplePlus(this._item);
+
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
+    return new Container(
+      width: SizeConfig.screenWidth * 0.12,
+      height: SizeConfig.screenHeight * 0.055,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          gradient: _item.isSelected
+              ? LinearGradient(colors: [
+                  Color.fromRGBO(116, 142, 243, 1),
+                  Color.fromRGBO(36, 65, 187, 1)
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+              : null,
+          border: _item.isSelected
+              ? null
+              : Border.all(color: Color.fromRGBO(116, 142, 243, 1), width: 1),
+          color: _item.isSelected ? null : Colors.transparent),
+      child: Center(
+          child: _item.isSelected
+              ? CupertinoTextField.borderless(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 15,
+                      color: Colors.white),
+                  maxLength: 2,
+                )
+              : Text(
+                  "+",
+                  style: TextStyle(
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 25,
+                      color: _item.isSelected
+                          ? Colors.white
+                          : Color.fromRGBO(116, 142, 243, 1)),
+                )),
     );
   }
 }

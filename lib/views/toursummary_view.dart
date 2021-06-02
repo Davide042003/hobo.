@@ -30,6 +30,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(children: [
         Padding(
           padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13),
