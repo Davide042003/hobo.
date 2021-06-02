@@ -127,14 +127,17 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                     width: SizeConfig.screenWidth * 0.87,
                     height: SizeConfig.screenHeight * 0.22,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                     child: Stack(children: [
                       Swiper(
                         itemBuilder: (BuildContext context, int index) {
-                          return new Image.asset(
-                            "assets/images/Paris-Tour.png",
-                            fit: BoxFit.fill,
+                          return ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            child: new Image.asset(
+                              "assets/images/Paris-Tour.png",
+                              fit: BoxFit.fill,
+                            ),
                           );
                         },
                         itemCount: 10,
@@ -149,7 +152,7 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                             height: SizeConfig.screenHeight * 0.1,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                    BorderRadius.all(Radius.circular(15)),
                                 gradient: LinearGradient(
                                     colors: [
                                       Colors.black.withOpacity(0),
