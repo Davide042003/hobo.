@@ -23,13 +23,12 @@ class TourSummaryView extends StatefulWidget {
 }
 
 class _TourSummaryViewState extends State<TourSummaryView> {
-
   bool checkboxValue = false;
 
-  void _onChangedCheck(){
-   setState(() {
-     checkboxValue ? checkboxValue = false : checkboxValue = true;
-   });
+  void _onChangedCheck() {
+    setState(() {
+      checkboxValue ? checkboxValue = false : checkboxValue = true;
+    });
   }
 
   @override
@@ -40,7 +39,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
 
           if (!currentFocus.hasPrimaryFocus) {
@@ -49,24 +48,174 @@ class _TourSummaryViewState extends State<TourSummaryView> {
         },
         child: Stack(children: [
           Padding(
-            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13, bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                top: SizeConfig.screenHeight * 0.13,
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: SingleChildScrollView(
               physics: ClampingScrollPhysics(),
               child: Stack(children: [
                 Padding(
-                  padding: EdgeInsets.only(top: checkboxValue ? SizeConfig.screenHeight * 0.87 : SizeConfig.screenHeight * .8),
+                  padding: EdgeInsets.only(
+                      top: checkboxValue
+                          ? SizeConfig.screenHeight * 0.87
+                          : SizeConfig.screenHeight * .8),
                   child: Container(
                     width: SizeConfig.screenWidth,
                     height: SizeConfig.screenHeight * 1,
                     color: Styles.loginregister_background(
                         themeChange.darkTheme, context),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.1),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.screenWidth * 0.17,
+                            ),
+                            width: SizeConfig.screenWidth,
+                            height: SizeConfig.screenHeight * 0.16,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: SizeConfig.screenWidth * 0.15,
+                                      height: SizeConfig.screenHeight * 0.075,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                              Color.fromRGBO(245, 95, 185, 1)),
+                                      child: Icon(
+                                        LineIcons.strava,
+                                        color: Colors.white,
+                                        size: 30,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Private",
+                                      style: TextStyle(
+                                          fontFamily: Constants.POPPINS,
+                                          fontSize: 15,
+                                          color: Styles.whiteblack(
+                                              themeChange.darkTheme, context)),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: SizeConfig.screenWidth * 0.15,
+                                      height: SizeConfig.screenHeight * 0.075,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                              Color.fromRGBO(0, 119, 255, 1)),
+                                      child: Icon(
+                                        LineIcons.car,
+                                        color: Colors.white,
+                                        size: 30,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Vehicle",
+                                      style: TextStyle(
+                                          fontFamily: Constants.POPPINS,
+                                          fontSize: 15,
+                                          color: Styles.whiteblack(
+                                              themeChange.darkTheme, context)),
+                                    )
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: SizeConfig.screenWidth * 0.15,
+                                      height: SizeConfig.screenHeight * 0.075,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                              Color.fromRGBO(233, 206, 32, .2)),
+                                      child: Icon(
+                                        Ionicons.diamond,
+                                        color: Color.fromRGBO(233, 206, 32, 1),
+                                        size: 30,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Luxury",
+                                      style: TextStyle(
+                                          fontFamily: Constants.POPPINS,
+                                          fontSize: 15,
+                                          color: Styles.whiteblack(
+                                              themeChange.darkTheme, context)),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: SizeConfig.screenWidth,
+                            height: SizeConfig.screenWidth * 0.003,
+                            color: Styles.tourpreview_barlight(
+                                themeChange.darkTheme, context),
+                          ),
+                          Container(
+                            width: SizeConfig.screenWidth,
+                            height: SizeConfig.screenHeight * 0.1,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: SizeConfig.screenWidth * 0.065,
+                                  vertical: SizeConfig.screenHeight * 0.03),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Activities",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                        color: Styles.whiteblack(
+                                            themeChange.darkTheme, context)),
+                                  ),
+                                  Text(
+                                    "6 selected",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color:
+                                            Color.fromRGBO(217, 217, 217, 1)),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: SizeConfig.screenWidth,
+                            height: SizeConfig.screenWidth * 0.003,
+                            color: Styles.tourpreview_barlight(
+                                themeChange.darkTheme, context),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 AnimatedContainer(
                   duration: Duration(milliseconds: 0),
                   curve: Curves.fastLinearToSlowEaseIn,
                   width: SizeConfig.screenWidth,
-                  height: checkboxValue ? SizeConfig.screenHeight * 0.97 : SizeConfig.screenHeight * .9,
+                  height: checkboxValue
+                      ? SizeConfig.screenHeight * 0.97
+                      : SizeConfig.screenHeight * .9,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(40),
@@ -83,15 +232,19 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                     children: [
                       Container(
                         width: SizeConfig.screenWidth,
-                        height: SizeConfig.screenWidth *0.003,
-                        color: Styles.tourpreview_bar(themeChange.darkTheme, context),
+                        height: SizeConfig.screenWidth * 0.003,
+                        color: Styles.tourpreview_bar(
+                            themeChange.darkTheme, context),
                       ),
                       InfoTourSummaryWidget(),
-                      SizedBox(height: SizeConfig.screenHeight *0.03,),
+                      SizedBox(
+                        height: SizeConfig.screenHeight * 0.03,
+                      ),
                       Container(
                         width: SizeConfig.screenWidth,
-                        height: SizeConfig.screenWidth *0.003,
-                        color: Styles.tourpreview_bar(themeChange.darkTheme, context),
+                        height: SizeConfig.screenWidth * 0.003,
+                        color: Styles.tourpreview_bar(
+                            themeChange.darkTheme, context),
                       ),
                       PeopleAndDateWidget(checkboxValue, _onChangedCheck)
                     ],
@@ -118,8 +271,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                           height: SizeConfig.screenHeight,
                           child: Icon(
                             Icons.arrow_back_ios_outlined,
-                            color:
-                                Styles.whiteblack(themeChange.darkTheme, context),
+                            color: Styles.whiteblack(
+                                themeChange.darkTheme, context),
                             size: 20,
                           ),
                         ),
@@ -129,8 +282,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                         "Tour Summary",
                         style: TextStyle(
                             fontFamily: Constants.POPPINS,
-                            color:
-                                Styles.whiteblack(themeChange.darkTheme, context),
+                            color: Styles.whiteblack(
+                                themeChange.darkTheme, context),
                             fontSize: 25,
                             fontWeight: FontWeight.w600),
                       ),
@@ -148,7 +301,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                             ],
                           ),
                           child: ProfileImageHomeWidget(
-                              image: AssetImage("assets/images/provaSocial.jpeg"),
+                              image:
+                                  AssetImage("assets/images/provaSocial.jpeg"),
                               initials: "DB")),
                     ],
                   ),
@@ -218,8 +372,10 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                         style: TextStyle(
                                             fontFamily: Constants.POPPINS,
                                             fontSize: 30,
-                                            color: Styles.tourpreview_colorprice(
-                                                themeChange.darkTheme, context)),
+                                            color:
+                                                Styles.tourpreview_colorprice(
+                                                    themeChange.darkTheme,
+                                                    context)),
                                       ))
                                 ],
                               ),
@@ -246,8 +402,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                     themeChange.darkTheme
                                         ? BoxShadow()
                                         : BoxShadow(
-                                            color:
-                                                Color.fromRGBO(62, 109, 255, .39),
+                                            color: Color.fromRGBO(
+                                                62, 109, 255, .39),
                                             blurRadius: 15,
                                             offset: Offset(0, 9))
                                   ]),
