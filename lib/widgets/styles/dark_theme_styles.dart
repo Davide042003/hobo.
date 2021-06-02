@@ -110,4 +110,7 @@ class Styles {
     return isDarkTheme ? Color.fromRGBO(116, 142, 243, 1) : Color.fromRGBO(36, 65, 187, 1);
   }
 
+  static Color tourpreview_colordescription(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Colors.white.withOpacity(.7) : Colors.black;
+  }
 }

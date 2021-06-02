@@ -74,7 +74,9 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                             style: TextStyle(
                                 fontFamily: Constants.POPPINS,
                                 fontSize: 17,
-                                fontWeight: FontWeight.w600)),
+                                fontWeight: FontWeight.w600,
+                                color: Styles.whiteblack(
+                                    themeChange.darkTheme, context))),
                         Row(
                           children: [
                             RatingBarIndicator(
@@ -130,7 +132,7 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                       Swiper(
                         itemBuilder: (BuildContext context, int index) {
                           return new Image.asset(
-                            "assets/images/Paris-Background_Big.png",
+                            "assets/images/Paris-Tour.png",
                             fit: BoxFit.fill,
                           );
                         },
@@ -138,6 +140,22 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                         layout: SwiperLayout.DEFAULT,
                         controller: _controller,
                         loop: true,
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                            width: SizeConfig.screenWidth,
+                            height: SizeConfig.screenHeight * 0.1,
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Colors.black.withOpacity(0),
+                                      Colors.black
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter))),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -179,7 +197,8 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                                 ]),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: SizeConfig.screenHeight*0.155),
+                            padding: EdgeInsets.only(
+                                top: SizeConfig.screenHeight * 0.155),
                             child: GestureDetector(
                               child: Container(
                                   height: SizeConfig.screenHeight * 0.025,
@@ -199,7 +218,8 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                                         shape: BoxShape.circle,
                                         boxShadow: [
                                           BoxShadow(
-                                              color: Colors.black.withOpacity(.1),
+                                              color:
+                                                  Colors.black.withOpacity(.1),
                                               blurRadius: 2.0,
                                               offset: Offset(0, 3)),
                                         ]),
@@ -241,6 +261,42 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
             ],
           ),
         ),
+        SizedBox(
+          height: SizeConfig.screenHeight * 0.035,
+        ),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.065),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text("Description",
+                style: TextStyle(
+                  fontFamily: Constants.POPPINS,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: Styles.whiteblack(themeChange.darkTheme, context),
+                )),
+          ),
+        ),
+        SizedBox(
+          height: SizeConfig.screenHeight * 0.005,
+        ),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.065),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+                "Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit. Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit.",
+                style: TextStyle(
+                  fontFamily: Constants.POPPINS,
+                  fontSize: 13,
+                  fontWeight: FontWeight.normal,
+                  color: Styles.tourpreview_colordescription(themeChange.darkTheme, context),
+                ),
+                textAlign: TextAlign.left),
+          ),
+        )
       ],
     );
   }
