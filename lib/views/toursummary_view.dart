@@ -1,6 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:line_icons/line_icons.dart';
@@ -9,7 +14,7 @@ import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
-import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
+import 'package:hobo_test/widgets/toursummary/info_toursummary.dart';
 
 class TourSummaryView extends StatefulWidget {
   @override
@@ -17,6 +22,7 @@ class TourSummaryView extends StatefulWidget {
 }
 
 class _TourSummaryViewState extends State<TourSummaryView> {
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -24,31 +30,42 @@ class _TourSummaryViewState extends State<TourSummaryView> {
 
     return Scaffold(
       body: Stack(children: [
-        SingleChildScrollView(
-          child: Stack(children: [
-            Padding(
-              padding: EdgeInsets.only(top: SizeConfig.screenHeight *0.9),
-              child: Container(
+        Padding(
+          padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.131),
+          child: SingleChildScrollView(
+            child: Stack(children: [
+              Padding(
+                padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.9),
+                child: Container(
+                  width: SizeConfig.screenWidth,
+                  height: SizeConfig.screenHeight * 1,
+                  color: Styles.loginregister_background(
+                      themeChange.darkTheme, context),
+                ),
+              ),
+              Container(
                 width: SizeConfig.screenWidth,
-                height: SizeConfig.screenHeight *1,
-                color: Styles.loginregister_background(themeChange.darkTheme, context),
+                height: SizeConfig.screenHeight * 1,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(40),
+                      bottomLeft: Radius.circular(40)),
+                  color: Styles.blackwhite(themeChange.darkTheme, context),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(.09),
+                        blurRadius: 29,
+                        offset: Offset(0, 3))
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    InfoTourSummaryWidget(),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight * 1,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(bottomRight: Radius.circular(40),bottomLeft: Radius.circular(40)),
-                color: Styles.blackwhite(themeChange.darkTheme, context),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(.09),
-                      blurRadius: 29,
-                      offset: Offset(0, 3))
-                ],
-              ),
-            ),
-          ]),
+            ]),
+          ),
         ),
         Column(
           children: [
@@ -82,7 +99,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                           color:
                               Styles.whiteblack(themeChange.darkTheme, context),
                           fontSize: 25,
-                          fontWeight: FontWeight.w500),
+                          fontWeight: FontWeight.w600),
                     ),
                     Container(
                         margin: EdgeInsets.only(
@@ -198,10 +215,13 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(40)),
                                 boxShadow: [
-                                 themeChange.darkTheme ? BoxShadow() : BoxShadow(
-                                      color: Color.fromRGBO(62, 109, 255, .39),
-                                      blurRadius: 15,
-                                      offset: Offset(0, 9))
+                                  themeChange.darkTheme
+                                      ? BoxShadow()
+                                      : BoxShadow(
+                                          color:
+                                              Color.fromRGBO(62, 109, 255, .39),
+                                          blurRadius: 15,
+                                          offset: Offset(0, 9))
                                 ]),
                             child: Padding(
                               padding: EdgeInsets.symmetric(
