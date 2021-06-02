@@ -18,8 +18,11 @@ class PeopleAndDateWidget extends StatefulWidget {
 
 class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
   List<RadioModel> peopleData = new List<RadioModel>();
+  List<RadioModel> childrenData = new List<RadioModel>();
+
   bool checkBoxValue = false;
   FocusNode focusNodeAddPeople;
+  FocusNode focusNodeAddChildren;
 
   @override
   void initState() {
@@ -32,6 +35,13 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
     peopleData.add(new RadioModel(false, '5'));
     peopleData.add(new RadioModel(false, '+'));
 
+    childrenData.add(new RadioModel(true, '1'));
+    childrenData.add(new RadioModel(false, '2'));
+    childrenData.add(new RadioModel(false, '3'));
+    childrenData.add(new RadioModel(false, '4'));
+    childrenData.add(new RadioModel(false, '5'));
+    childrenData.add(new RadioModel(false, '+'));
+
     focusNodeAddPeople = FocusNode();
 
     focusNodeAddPeople.addListener(() {
@@ -43,11 +53,24 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
         }
       });
     });
+
+    focusNodeAddChildren = FocusNode();
+
+    focusNodeAddChildren.addListener(() {
+      setState(() {
+        if (focusNodeAddChildren.hasFocus) {
+          focusNodeAddChildren.requestFocus();
+        } else {
+          focusNodeAddChildren.unfocus();
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
     focusNodeAddPeople.dispose();
+    focusNodeAddChildren.dispose();
 
     super.dispose();
   }
@@ -88,7 +111,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                child: RadioItemPeople(peopleData[0]),
+                child: RadioItemPeople(peopleData[0], false),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
@@ -97,7 +120,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeople(peopleData[1]),
+                child: RadioItemPeople(peopleData[1], false),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
@@ -106,7 +129,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeople(peopleData[2]),
+                child: RadioItemPeople(peopleData[2], false),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
@@ -115,7 +138,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeople(peopleData[3]),
+                child: RadioItemPeople(peopleData[3], false),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
@@ -124,7 +147,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeople(peopleData[4]),
+                child: RadioItemPeople(peopleData[4], false),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
@@ -133,7 +156,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeoplePlus(peopleData[5], focusNodeAddPeople),
+                child: RadioItemPeoplePlus(peopleData[5], focusNodeAddPeople, false),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
@@ -180,7 +203,9 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                   });
                 },
               ),
-              SizedBox(width: SizeConfig.screenWidth *0.025,),
+              SizedBox(
+                width: SizeConfig.screenWidth * 0.025,
+              ),
               Text(
                 "Children",
                 style: TextStyle(
@@ -189,6 +214,101 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                     color: Styles.whiteblack(themeChange.darkTheme, context)),
               )
             ],
+          ),
+          SizedBox(
+            height: checkBoxValue ? SizeConfig.screenHeight * 0.02 : 0,
+          ),
+          checkBoxValue
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      child: RadioItemPeople(childrenData[0], true),
+                      onTap: () {
+                        setState(() {
+                          childrenData
+                              .forEach((element) => element.isSelected = false);
+                          childrenData[0].isSelected = true;
+                        });
+                      },
+                    ),
+                    InkWell(
+                      child: RadioItemPeople(childrenData[1], true),
+                      onTap: () {
+                        setState(() {
+                          childrenData
+                              .forEach((element) => element.isSelected = false);
+                          childrenData[1].isSelected = true;
+                        });
+                      },
+                    ),
+                    InkWell(
+                      child: RadioItemPeople(childrenData[2], true),
+                      onTap: () {
+                        setState(() {
+                          childrenData
+                              .forEach((element) => element.isSelected = false);
+                          childrenData[2].isSelected = true;
+                        });
+                      },
+                    ),
+                    InkWell(
+                      child: RadioItemPeople(childrenData[3], true),
+                      onTap: () {
+                        setState(() {
+                          childrenData
+                              .forEach((element) => element.isSelected = false);
+                          childrenData[3].isSelected = true;
+                        });
+                      },
+                    ),
+                    InkWell(
+                      child: RadioItemPeople(childrenData[4], true),
+                      onTap: () {
+                        setState(() {
+                          childrenData
+                              .forEach((element) => element.isSelected = false);
+                          childrenData[4].isSelected = true;
+                        });
+                      },
+                    ),
+                    InkWell(
+                      child: RadioItemPeoplePlus(
+                          childrenData[5], focusNodeAddChildren, true),
+                      onTap: () {
+                        setState(() {
+                          childrenData
+                              .forEach((element) => element.isSelected = false);
+                          childrenData[5].isSelected = true;
+
+                          focusNodeAddChildren.requestFocus();
+                        });
+                      },
+                    ),
+                  ],
+                )
+              : SizedBox(
+                  width: 0,
+                ),
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.03,
+          ),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Text("Date and Time",
+                  style: TextStyle(
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color:
+                          Styles.whiteblack(themeChange.darkTheme, context)))),
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.02,
+          ),
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.06,
+            color: Colors.grey,
           )
         ],
       ),
@@ -198,7 +318,8 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
 
 class RadioItemPeople extends StatelessWidget {
   final RadioModel _item;
-  RadioItemPeople(this._item);
+  final bool _children;
+  RadioItemPeople(this._item, this._children);
 
   @override
   Widget build(BuildContext context) {
@@ -212,8 +333,12 @@ class RadioItemPeople extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(5)),
           gradient: _item.isSelected
               ? LinearGradient(colors: [
-                  Color.fromRGBO(116, 142, 243, 1),
-                  Color.fromRGBO(36, 65, 187, 1)
+                  _children
+                      ? Color.fromRGBO(245, 95, 185, 1)
+                      : Color.fromRGBO(116, 142, 243, 1),
+                  _children
+                      ? Color.fromRGBO(207, 74, 154, 1)
+                      : Color.fromRGBO(36, 65, 187, 1),
                 ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
               : null,
           color: _item.isSelected
@@ -237,8 +362,9 @@ class RadioItemPeople extends StatelessWidget {
 class RadioItemPeoplePlus extends StatelessWidget {
   final RadioModel _item;
   final FocusNode _focusNode;
+  final bool _children;
 
-  RadioItemPeoplePlus(this._item, this._focusNode);
+  RadioItemPeoplePlus(this._item, this._focusNode, this._children);
 
   @override
   Widget build(BuildContext context) {
@@ -251,9 +377,13 @@ class RadioItemPeoplePlus extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(5)),
           gradient: _item.isSelected
               ? LinearGradient(colors: [
-                  Color.fromRGBO(116, 142, 243, 1),
-                  Color.fromRGBO(36, 65, 187, 1)
-                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+            _children
+                ? Color.fromRGBO(245, 95, 185, 1)
+                : Color.fromRGBO(116, 142, 243, 1),
+            _children
+                ? Color.fromRGBO(207, 74, 154, 1)
+                : Color.fromRGBO(36, 65, 187, 1),
+          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
               : null,
           border: _item.isSelected
               ? null
