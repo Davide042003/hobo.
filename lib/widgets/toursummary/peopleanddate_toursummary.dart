@@ -18,7 +18,7 @@ class PeopleAndDateWidget extends StatefulWidget {
 
 class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
   List<RadioModel> peopleData = new List<RadioModel>();
-
+  bool checkBoxValue = false;
   FocusNode focusNodeAddPeople;
 
   @override
@@ -60,7 +60,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: SizeConfig.screenWidth * 0.065,
-          vertical: SizeConfig.screenHeight * 0.02),
+          vertical: SizeConfig.screenHeight * 0.03),
       child: Column(
         children: [
           Align(
@@ -82,7 +82,7 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                       color: Styles.tourpreview_subpeople(
                           themeChange.darkTheme, context)))),
           SizedBox(
-            height: SizeConfig.screenHeight * 0.015,
+            height: SizeConfig.screenHeight * 0.02,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,6 +143,51 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                   });
                 },
               ),
+            ],
+          ),
+          SizedBox(
+            height: SizeConfig.screenHeight * 0.03,
+          ),
+          Row(
+            children: [
+              GestureDetector(
+                child: Container(
+                  width: SizeConfig.screenWidth * 0.06,
+                  height: SizeConfig.screenHeight * 0.027,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: checkBoxValue
+                          ? Color.fromRGBO(245, 95, 185, 1)
+                          : Colors.transparent,
+                      border: checkBoxValue
+                          ? null
+                          : Border.all(
+                              color: Color.fromRGBO(245, 95, 185, 1),
+                              width: 1.5)),
+                  child: checkBoxValue
+                      ? Icon(
+                          Icons.check,
+                          size: 18,
+                          color: Colors.white,
+                        )
+                      : null,
+                ),
+                onTap: () {
+                  setState(() {
+                    checkBoxValue
+                        ? checkBoxValue = false
+                        : checkBoxValue = true;
+                  });
+                },
+              ),
+              SizedBox(width: SizeConfig.screenWidth *0.025,),
+              Text(
+                "Children",
+                style: TextStyle(
+                    fontFamily: Constants.POPPINS,
+                    fontSize: 16,
+                    color: Styles.whiteblack(themeChange.darkTheme, context)),
+              )
             ],
           )
         ],
