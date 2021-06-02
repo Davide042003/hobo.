@@ -51,6 +51,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
           Padding(
             padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13, bottom: MediaQuery.of(context).viewInsets.bottom),
             child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
               child: Stack(children: [
                 Padding(
                   padding: EdgeInsets.only(top: checkboxValue ? SizeConfig.screenHeight * 0.87 : SizeConfig.screenHeight * .8),
