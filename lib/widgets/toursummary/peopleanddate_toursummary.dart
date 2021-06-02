@@ -300,12 +300,68 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                       color:
                           Styles.whiteblack(themeChange.darkTheme, context)))),
           SizedBox(
-            height: SizeConfig.screenHeight * 0.02,
+            height: SizeConfig.screenHeight * 0.01,
           ),
-          Container(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.06,
-            color: Colors.grey,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: SizeConfig.screenWidth * 0.5,
+                height: SizeConfig.screenHeight * 0.06,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    color: Styles.tourpreview_peopleunselected(
+                        themeChange.darkTheme, context)),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.04,
+                      vertical: SizeConfig.screenHeight * 0.001),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Select Date",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 16,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                        Icon(Icons.calendar_today_outlined,
+                            color: Styles.whiteblack(
+                                themeChange.darkTheme, context), size: 22)
+                      ]),
+                ),
+              ),
+              Container(
+                width: SizeConfig.screenWidth * 0.32,
+                height: SizeConfig.screenHeight * 0.06,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                    color: Styles.tourpreview_peopleunselected(
+                        themeChange.darkTheme, context)),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.04,
+                      vertical: SizeConfig.screenHeight * 0.001),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Time",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 16,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                        Icon(LineIcons.clock,
+                            color: Styles.whiteblack(
+                                themeChange.darkTheme, context), size: 27,)
+                      ]),
+                ),
+              ),
+            ],
           )
         ],
       ),
