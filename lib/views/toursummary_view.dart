@@ -31,7 +31,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
     return Scaffold(
       body: Stack(children: [
         Padding(
-          padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.131),
+          padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13),
           child: SingleChildScrollView(
             child: Stack(children: [
               Padding(
@@ -60,6 +60,11 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                 ),
                 child: Column(
                   children: [
+                    Container(
+                      width: SizeConfig.screenWidth,
+                      height: SizeConfig.screenWidth *0.003,
+                      color: Styles.tourpreview_bar(themeChange.darkTheme, context),
+                    ),
                     InfoTourSummaryWidget(),
                   ],
                 ),
@@ -103,7 +108,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                     ),
                     Container(
                         margin: EdgeInsets.only(
-                            left: SizeConfig.screenWidth * 0.18),
+                            left: SizeConfig.screenWidth * 0.15),
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           shape: BoxShape.circle,
@@ -120,11 +125,6 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                   ],
                 ),
               ),
-            ),
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight * 0.001,
-              color: Color.fromRGBO(235, 235, 235, 1),
             ),
             Padding(
               padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.619),

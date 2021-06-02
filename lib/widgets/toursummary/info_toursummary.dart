@@ -85,7 +85,7 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                                 LineIcons.starAlt,
                                 color: Color.fromRGBO(55, 199, 117, 1),
                               ),
-                              unratedColor: Colors.black.withOpacity(.28),
+                              unratedColor: Styles.tourpreview_stars(themeChange.darkTheme, context),
                               itemCount: 5,
                               itemSize: 12,
                               direction: Axis.horizontal,
@@ -232,6 +232,41 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                               onTap: () {},
                             ),
                           ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.17, bottom: SizeConfig.screenHeight *0.022),
+                              child: RatingBarIndicator(
+                                rating: 4.1,
+                                itemBuilder: (context, index) => Icon(
+                                  LineIcons.starAlt,
+                                  color: Color.fromRGBO(255, 196, 0, 1),
+                                ),
+                                unratedColor: Color.fromRGBO(203, 203, 203, 1),
+                                itemCount: 5,
+                                itemSize: 12,
+                                direction: Axis.horizontal,
+                                itemPadding: EdgeInsets.symmetric(
+                                    horizontal: SizeConfig.screenWidth * 0.005),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: SizeConfig.screenWidth * 0.02),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: SizeConfig.screenHeight *0.018),
+                              child: Text(
+                                "4.1" + " (" + "220" + ")",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 11,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ]),

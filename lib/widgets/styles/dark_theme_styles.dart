@@ -113,4 +113,12 @@ class Styles {
   static Color tourpreview_colordescription(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Colors.white.withOpacity(.7) : Colors.black;
   }
+
+  static Color tourpreview_bar(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(235, 235, 235, .24) : Color.fromRGBO(235, 235, 235, 1);
+  }
+
+  static Color tourpreview_stars(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(123, 123, 123, 1) : Colors.black.withOpacity(.28);
+  }
 }
