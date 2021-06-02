@@ -19,6 +19,8 @@ class PeopleAndDateWidget extends StatefulWidget {
 class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
   List<RadioModel> peopleData = new List<RadioModel>();
 
+  FocusNode focusNodeAddPeople;
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +31,25 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
     peopleData.add(new RadioModel(false, '4'));
     peopleData.add(new RadioModel(false, '5'));
     peopleData.add(new RadioModel(false, '+'));
+
+    focusNodeAddPeople = FocusNode();
+
+    focusNodeAddPeople.addListener(() {
+      setState(() {
+        if (focusNodeAddPeople.hasFocus) {
+          focusNodeAddPeople.requestFocus();
+        } else {
+          focusNodeAddPeople.unfocus();
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    focusNodeAddPeople.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -112,11 +133,13 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeoplePlus(peopleData[5]),
+                child: RadioItemPeoplePlus(peopleData[5], focusNodeAddPeople),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
                     peopleData[5].isSelected = true;
+
+                    focusNodeAddPeople.requestFocus();
                   });
                 },
               ),
@@ -168,7 +191,9 @@ class RadioItemPeople extends StatelessWidget {
 
 class RadioItemPeoplePlus extends StatelessWidget {
   final RadioModel _item;
-  RadioItemPeoplePlus(this._item);
+  final FocusNode _focusNode;
+
+  RadioItemPeoplePlus(this._item, this._focusNode);
 
   @override
   Widget build(BuildContext context) {
@@ -199,6 +224,7 @@ class RadioItemPeoplePlus extends StatelessWidget {
                       fontSize: 15,
                       color: Colors.white),
                   maxLength: 2,
+                  focusNode: _focusNode,
                 )
               : Text(
                   "+",
