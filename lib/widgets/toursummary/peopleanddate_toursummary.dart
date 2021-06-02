@@ -124,9 +124,8 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeople(peopleData[1], false),
-                onTap: widget.callback
-              ),
+                  child: RadioItemPeople(peopleData[1], false),
+                  onTap: widget.callback),
               InkWell(
                 child: RadioItemPeople(peopleData[2], false),
                 onTap: () {
@@ -155,7 +154,8 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                 },
               ),
               InkWell(
-                child: RadioItemPeoplePlus(peopleData[5], focusNodeAddPeople, false),
+                child: RadioItemPeoplePlus(
+                    peopleData[5], focusNodeAddPeople, false),
                 onTap: () {
                   setState(() {
                     peopleData.forEach((element) => element.isSelected = false);
@@ -194,7 +194,11 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                         )
                       : null,
                 ),
-                onTap: widget.callback
+                onTap: () {
+                  widget.callback();
+                  childrenData.forEach((element) => element.isSelected = false);
+                  childrenData[0].isSelected = true;
+                },
               ),
               SizedBox(
                 width: SizeConfig.screenWidth * 0.025,
@@ -370,13 +374,13 @@ class RadioItemPeoplePlus extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(5)),
           gradient: _item.isSelected
               ? LinearGradient(colors: [
-            _children
-                ? Color.fromRGBO(245, 95, 185, 1)
-                : Color.fromRGBO(116, 142, 243, 1),
-            _children
-                ? Color.fromRGBO(207, 74, 154, 1)
-                : Color.fromRGBO(36, 65, 187, 1),
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+                  _children
+                      ? Color.fromRGBO(245, 95, 185, 1)
+                      : Color.fromRGBO(116, 142, 243, 1),
+                  _children
+                      ? Color.fromRGBO(207, 74, 154, 1)
+                      : Color.fromRGBO(36, 65, 187, 1),
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
               : null,
           border: _item.isSelected
               ? null
