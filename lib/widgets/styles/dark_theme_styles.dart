@@ -121,4 +121,8 @@ class Styles {
   static Color tourpreview_stars(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(123, 123, 123, 1) : Colors.black.withOpacity(.28);
   }
+
+  static Color tourpreview_subpeople(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Colors.white.withOpacity(.5) : Color.fromRGBO(191, 191, 191, 1);
+  }
 }

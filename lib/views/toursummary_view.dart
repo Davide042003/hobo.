@@ -15,6 +15,7 @@ import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/toursummary/info_toursummary.dart';
+import 'package:hobo_test/widgets/toursummary/peopleanddate_toursummary.dart';
 
 class TourSummaryView extends StatefulWidget {
   @override
@@ -71,7 +72,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                       width: SizeConfig.screenWidth,
                       height: SizeConfig.screenWidth *0.003,
                       color: Styles.tourpreview_bar(themeChange.darkTheme, context),
-                    )
+                    ),
+                    PeopleAndDateWidget()
                   ],
                 ),
               ),

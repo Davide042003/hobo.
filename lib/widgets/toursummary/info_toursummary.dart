@@ -285,12 +285,12 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                             bottomRight: Radius.circular(15),
                             topRight: Radius.circular(15)),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 5.0),
+                          filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
                           child: Container(
                             width: SizeConfig.screenWidth * 0.08,
                             height: SizeConfig.screenHeight * 0.05,
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.6),
+                              color: Colors.white.withOpacity(0.5),
                               borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(15),
                                   topRight: Radius.circular(15)),
@@ -323,12 +323,12 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                               bottomLeft: Radius.circular(15),
                               topLeft: Radius.circular(15)),
                           child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 5.0),
+                            filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
                             child: Container(
                               width: SizeConfig.screenWidth * 0.08,
                               height: SizeConfig.screenHeight * 0.05,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.6),
+                                color: Colors.white.withOpacity(0.5),
                                 borderRadius: BorderRadius.only(
                                     bottomLeft: Radius.circular(15),
                                     topLeft: Radius.circular(15)),
