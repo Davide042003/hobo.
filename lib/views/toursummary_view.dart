@@ -41,7 +41,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
         },
         child: Stack(children: [
           Padding(
-            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13),
+            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.13, bottom: MediaQuery.of(context).viewInsets.bottom),
             child: SingleChildScrollView(
               child: Stack(children: [
                 Padding(

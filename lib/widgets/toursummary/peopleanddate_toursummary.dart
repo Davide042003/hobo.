@@ -225,6 +225,7 @@ class RadioItemPeoplePlus extends StatelessWidget {
                       color: Colors.white),
                   maxLength: 2,
                   focusNode: _focusNode,
+                  textInputAction: TextInputAction.done,
                 )
               : Text(
                   "+",
