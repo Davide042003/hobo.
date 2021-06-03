@@ -16,6 +16,7 @@ import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/toursummary/info_toursummary.dart';
 import 'package:hobo_test/widgets/toursummary/peopleanddate_toursummary.dart';
+import 'package:hobo_test/widgets/toursummary/cardchoosetour_toursummary.dart';
 
 class TourSummaryView extends StatefulWidget {
   @override
@@ -205,31 +206,16 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                 themeChange.darkTheme, context),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: SizeConfig.screenHeight *0.035),
+                            margin: EdgeInsets.only(
+                                top: SizeConfig.screenHeight * 0.035),
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.4,
                             child: CupertinoScrollbar(
                                 child: ListView(
-                                  padding: EdgeInsets.zero,
+                              padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: SizeConfig.screenWidth * 0.065),
-                                  width: SizeConfig.screenWidth,
-                                  height: SizeConfig.screenHeight * 0.09,
-                                  decoration: BoxDecoration(
-                                      color: Styles.blackwhite(themeChange.darkTheme, context),
-                                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(.09),
-                                        blurRadius: 29,
-                                        offset: Offset(0,3)
-                                      )
-                                    ]
-                                  ),
-                                )
+                                CardChooseTourWidget(),
                               ],
                             )),
                           )
