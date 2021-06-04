@@ -152,7 +152,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                           ),
                           Container(
                             width: SizeConfig.screenWidth,
-                            height: SizeConfig.screenWidth * 0.003,
+                            height: SizeConfig.screenHeight * 0.0015,
                             color: Styles.tourpreview_barlight(
                                 themeChange.darkTheme, context),
                           ),
@@ -191,7 +191,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                           ),
                           Container(
                             width: SizeConfig.screenWidth,
-                            height: SizeConfig.screenWidth * 0.003,
+                            height: SizeConfig.screenHeight * 0.0015,
                             color: Styles.tourpreview_barlight(
                                 themeChange.darkTheme, context),
                           ),
@@ -237,7 +237,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                     children: [
                       Container(
                         width: SizeConfig.screenWidth,
-                        height: SizeConfig.screenWidth * 0.003,
+                        height: SizeConfig.screenHeight * 0.0015,
                         color: Styles.tourpreview_bar(
                             themeChange.darkTheme, context),
                       ),
@@ -247,7 +247,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                       ),
                       Container(
                         width: SizeConfig.screenWidth,
-                        height: SizeConfig.screenWidth * 0.003,
+                        height: SizeConfig.screenHeight * 0.0015,
                         color: Styles.tourpreview_bar(
                             themeChange.darkTheme, context),
                       ),
