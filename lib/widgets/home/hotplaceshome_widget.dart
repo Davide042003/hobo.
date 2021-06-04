@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hobo_test/widgets/styles/size_config.dart';
-import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:hobo_test/widgets/home/hotplaces_template.dart';
+import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class HotPlacesHomeWidget extends StatelessWidget {
   final int index;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hobo_test/widgets/styles/size_config.dart';
-import 'package:hobo_test/widgets/styles/constants.dart';
+import 'package:hobo_test/widgets/exports/base_export.dart';
+
 
 class ProfileImageHomeWidget extends StatefulWidget {
   final AssetImage image;

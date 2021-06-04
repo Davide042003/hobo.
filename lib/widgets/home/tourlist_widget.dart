@@ -1,12 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/home/cardtour_template.dart';
-import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
-import 'package:provider/provider.dart';
-import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
-import 'package:hobo_test/widgets/styles/constants.dart';
-import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'cardtour_widget.dart';
+import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class TourlistWidget extends StatefulWidget {
   @override

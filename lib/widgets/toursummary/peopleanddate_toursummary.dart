@@ -1,15 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hobo_test/widgets/styles/size_config.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:provider/provider.dart';
-import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
-import 'package:hobo_test/widgets/styles/constants.dart';
-import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
+import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class PeopleAndDateWidget extends StatefulWidget {
   final bool checkBoxValue;

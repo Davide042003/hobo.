@@ -1,16 +1,9 @@
-import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_widget.dart';
-import 'package:hobo_test/widgets/styles/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:hobo_test/widgets/styles/size_config.dart';
 import 'package:hobo_test/views/loginregister_view.dart';
-import 'package:provider/provider.dart';
-import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
-import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class SliderLayoutView extends StatefulWidget {
   @override

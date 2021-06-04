@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:line_icons/line_icon.dart';
-import '../styles/constants.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:provider/provider.dart';
-import 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
-import 'package:hobo_test/widgets/styles/dark_theme_styles.dart';
+import 'package:hobo_test/widgets/exports/base_export.dart';
+
 
 class InputFieldPassword extends StatefulWidget {
   final bool show;
