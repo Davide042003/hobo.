@@ -16,6 +16,7 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
   Animation<double> _animation;
   bool _openCard = false;
   List<RadioModel> cardType = new List<RadioModel>();
+  int cardsCount = 1;
 
   @override
   void initState() {
@@ -85,39 +86,39 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                   ),
                 ]),
               )),
-          GestureDetector(
-            onTap: () {
-              _openCardAdd();
-            },
-            child: AnimatedContainer(
-              duration: new Duration(milliseconds: 300),
-              height: SizeConfig.screenHeight * (_openCard ? 0.3 : 0.08),
-              curve: Curves.easeInOut,
-              child: _openCard
-                  ? SingleChildScrollView(
-                      physics: NeverScrollableScrollPhysics(),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth * 0.07),
-                        decoration: BoxDecoration(
-                            color: Styles.blackwhite(
-                                themeChange.darkTheme, context),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.05),
-                                  blurRadius: 29,
-                                  offset: Offset(0, 3))
-                            ]),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: SizeConfig.screenHeight * 0.016),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: SizeConfig.screenWidth * 0.06),
+          AnimatedContainer(
+            duration: new Duration(milliseconds: 500),
+            height: SizeConfig.screenHeight * (_openCard ? (cardsCount > 0 ? 0.4 : 0.23) : 0.08),
+            curve: Curves.easeInOut,
+            child: _openCard
+                ? SingleChildScrollView(
+                    physics: NeverScrollableScrollPhysics(),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.screenWidth * 0.07),
+                      decoration: BoxDecoration(
+                          color: Styles.blackwhite(
+                              themeChange.darkTheme, context),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(.05),
+                                blurRadius: 29,
+                                offset: Offset(0, 3))
+                          ]),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: SizeConfig.screenHeight * 0.016),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: SizeConfig.screenWidth * 0.06),
+                              child: GestureDetector(
+                                onTap: (){
+                                  _openCardAdd();
+                                },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -157,53 +158,92 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                                   ],
                                 ),
                               ),
-                              SizedBox(height: SizeConfig.screenHeight * 0.02),
-                              Container(
-                                width: SizeConfig.screenWidth,
-                                height: SizeConfig.screenHeight * 0.0015,
-                                color: Styles.tourpreview_bar(
-                                    themeChange.darkTheme, context),
-                              ),
-                              SizedBox(height: SizeConfig.screenHeight * 0.02),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                      child: RadioItemPayOption(cardType[0]),
-                                      onTap: () {
-                                        setState(() {
-                                          cardType.forEach((element) =>
-                                              element.isSelected = false);
-                                          cardType[0].isSelected = true;
-                                        });
-                                      }),
-                                  GestureDetector(
-                                      child: RadioItemPayOption(cardType[1]),
-                                      onTap: () {
-                                        setState(() {
-                                          cardType.forEach((element) =>
-                                              element.isSelected = false);
-                                          cardType[1].isSelected = true;
-                                        });
-                                      }),
-                                  GestureDetector(
-                                      child: RadioItemPayOption(cardType[2]),
-                                      onTap: () {
-                                        setState(() {
-                                          cardType.forEach((element) =>
-                                              element.isSelected = false);
-                                          cardType[2].isSelected = true;
-                                        });
-                                      })
-                                ],
+                            ),
+                            SizedBox(height: SizeConfig.screenHeight * 0.02),
+                            Container(
+                              width: SizeConfig.screenWidth,
+                              height: SizeConfig.screenHeight * 0.0015,
+                              color: Styles.tourpreview_bar(
+                                  themeChange.darkTheme, context),
+                            ),
+                            SizedBox(height: SizeConfig.screenHeight * 0.02),
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                    child: RadioItemPayOption(cardType[0]),
+                                    onTap: () {
+                                      setState(() {
+                                        cardType.forEach((element) =>
+                                            element.isSelected = false);
+                                        cardType[0].isSelected = true;
+                                      });
+                                    }),
+                                GestureDetector(
+                                    child: RadioItemPayOption(cardType[1]),
+                                    onTap: () {
+                                      setState(() {
+                                        cardType.forEach((element) =>
+                                            element.isSelected = false);
+                                        cardType[1].isSelected = true;
+                                      });
+                                    }),
+                                GestureDetector(
+                                    child: RadioItemPayOption(cardType[2]),
+                                    onTap: () {
+                                      setState(() {
+                                        cardType.forEach((element) =>
+                                            element.isSelected = false);
+                                        cardType[2].isSelected = true;
+                                      });
+                                    })
+                              ],
+                            ),
+                            cardsCount > 0 ? Container(
+                              width: SizeConfig.screenWidth * 0.72,
+                              height: SizeConfig.screenHeight * 0.17,
+                              child: ListView.separated(
+                                  physics: PageScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (BuildContext context, int i) {
+                                    return new CardItem();
+                                  },
+                                  separatorBuilder: (context, index) => SizedBox(width: SizeConfig.screenWidth * 0.05),
+                                 itemCount: 2,
                               )
-                            ],
-                          ),
+                            ):SizedBox(),
+                            SizedBox(height: SizeConfig.screenHeight *0.01,),
+                            Container(
+                              width: SizeConfig.screenWidth,
+                              height: SizeConfig.screenHeight*0.05,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: SizeConfig.screenWidth*0.06,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromRGBO(116, 142, 243, 1)
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(LineIcons.plus, color: Styles.blackwhite(themeChange.darkTheme, context),size: 15,),
+                                    ),
+                                  ),
+                                  SizedBox(width: SizeConfig.screenWidth*0.025),
+                                  Text("Add New Card", style: TextStyle(fontFamily: Constants.POPPINS,fontSize: 15,fontWeight: FontWeight.w600,color: Styles.whiteblack(themeChange.darkTheme, context)),)
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                  : Container(
+                    ),
+                  )
+                : GestureDetector(
+              onTap: () { _openCardAdd();},
+                  child: Container(
                       margin: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.07),
                       decoration: BoxDecoration(
@@ -263,7 +303,7 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                         ),
                       ),
                     ),
-            ),
+                ),
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.025),
           Container(
@@ -492,7 +532,10 @@ class RadioItemPayOption extends StatelessWidget {
                   : Color.fromRGBO(236, 236, 236, 1)),
           color: Colors.white),
       child: Center(
-        child: Icon(_item.icon, size: 35,),
+        child: Icon(
+          _item.icon,
+          size: 35,
+        ),
       ),
     );
   }
@@ -503,4 +546,27 @@ class RadioModel {
   final IconData icon;
 
   RadioModel(this.isSelected, this.icon);
+}
+
+class CardItem extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+      margin: EdgeInsets.only(
+          top: SizeConfig.screenHeight * 0.02),
+      width: SizeConfig.screenWidth * 0.72,
+      height: SizeConfig.screenHeight * 0.17,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+              Radius.circular(20)),
+          gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(35, 72, 145, 1),
+                Color.fromRGBO(38, 146, 217, 1),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight)),
+    );
+  }
 }

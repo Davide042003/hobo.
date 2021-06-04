@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/views/addcard_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/views/paymentdetails_view.dart';
