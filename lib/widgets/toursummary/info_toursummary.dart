@@ -143,8 +143,7 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.1,
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
+                              
                                 gradient: LinearGradient(
                                     colors: [
                                       Colors.black.withOpacity(0),
