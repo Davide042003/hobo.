@@ -241,13 +241,7 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                       SizedBox(
                           height: SizeConfig.screenHeight *
                               (cardPaymentArrayList.length > 0 ? 0.02 : 0.005)),
-                      cardPaymentArrayList.length > 0
-                          ? Container(
-                              width: SizeConfig.screenWidth * 0.72,
-                              height: SizeConfig.screenHeight * 0.17,
-                              child: CardItem(),
-                            )
-                          : SizedBox(),
+                      cardPaymentArrayList.length > 0 ? CardItem() : SizedBox(),
                       SizedBox(
                         height: SizeConfig.screenHeight *
                             (cardPaymentArrayList.length > 0 ? 0.02 : 0.005),
@@ -257,12 +251,19 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: cardPaymentArrayList.length,
-                        itemBuilder: (ctx, i) => GestureDetector(child: CardsOptions(index: i, item: cardType[i],), onTap: () {
-                          setState(() {
-                            cardType.forEach((element) => element.isSelected = false);
-                            cardType[i].isSelected = true;
-                          });
-                        },),
+                        itemBuilder: (ctx, i) => GestureDetector(
+                          child: CardsOptions(
+                            index: i,
+                            item: cardType[i],
+                          ),
+                          onTap: () {
+                            setState(() {
+                              cardType.forEach(
+                                  (element) => element.isSelected = false);
+                              cardType[i].isSelected = true;
+                            });
+                          },
+                        ),
                         separatorBuilder: (context, index) =>
                             SizedBox(height: SizeConfig.screenHeight * 0.015),
                       ),
@@ -271,7 +272,8 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => AddCardView()),
+                            MaterialPageRoute(
+                                builder: (context) => AddCardView()),
                           );
                         },
                         child: Container(
@@ -386,12 +388,12 @@ class CardsOptions extends StatelessWidget {
   final int index;
   final RadioModel item;
 
-  CardsOptions({
-    @required this.index, this.item
-  });
+  CardsOptions({@required this.index, this.item});
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.07),
       child: Row(
@@ -402,19 +404,21 @@ class CardsOptions extends StatelessWidget {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: Color.fromRGBO(236, 236, 236, 1))),
-            child: item.isSelected ? Container(
-              margin: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth *0.008),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromRGBO(36, 65, 187, 1)
-            )) : null,
+            child: item.isSelected
+                ? Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.008),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color.fromRGBO(36, 65, 187, 1)))
+                : null,
           ),
           SizedBox(width: SizeConfig.screenWidth * 0.025),
-          Icon(LineIcons.mastercardCreditCard, size: 30),
+          Icon(LineIcons.mastercardCreditCard, size: 30, color: Styles.whiteblack(themeChange.darkTheme, context),),
           SizedBox(width: SizeConfig.screenWidth * 0.025),
           Text(
             "Mastercard x-1235",
-            style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 15),
+            style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 15, color: Styles.whiteblack(themeChange.darkTheme, context)),
           )
         ],
       ),
@@ -431,16 +435,48 @@ class RadioModel {
 class CardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Container(
-      margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
       width: SizeConfig.screenWidth * 0.72,
       height: SizeConfig.screenHeight * 0.17,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          gradient: LinearGradient(colors: [
-            Color.fromRGBO(35, 72, 145, 1),
-            Color.fromRGBO(38, 146, 217, 1),
-          ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+      child: Stack(
+        children: [
+          Image.asset("assets/images/CreditCard.png", fit: BoxFit.fill),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.screenWidth * 0.07,
+                vertical: SizeConfig.screenHeight * 0.023),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: SizeConfig.screenWidth * 0.12,
+                  height: SizeConfig.screenHeight * 0.025,
+                  color: Colors.white,
+                ),
+                Text(
+                  "Jessie Williams",
+                  style: TextStyle(
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 14,
+                      color: Colors.white),
+                ),
+                Expanded(
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          "**** - **** - **** - 1597",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 15,
+                              color: Colors.white,
+                              letterSpacing: SizeConfig.screenWidth * 0.004),
+                        )))
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
