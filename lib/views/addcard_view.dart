@@ -36,6 +36,9 @@ class _AddCardViewState extends State<AddCardView> {
                         size: 20,
                       ),
                     ),
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
                   ),
                   SizedBox(width: SizeConfig.screenWidth * 0.04),
                   Text(

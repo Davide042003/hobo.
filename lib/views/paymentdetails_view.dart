@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/views/addcard_view.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/payment/cardpayment_template.dart';
 import 'package:hobo_test/widgets/payment/paymentOptions_widget.dart';
@@ -266,38 +267,46 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                             SizedBox(height: SizeConfig.screenHeight * 0.015),
                       ),
                       SizedBox(height: SizeConfig.screenHeight * 0.01),
-                      Container(
-                        width: SizeConfig.screenWidth,
-                        height: SizeConfig.screenHeight * 0.05,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: SizeConfig.screenWidth * 0.06,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color.fromRGBO(116, 142, 243, 1)),
-                              child: Padding(
-                                padding: EdgeInsets.all(4),
-                                child: Icon(
-                                  LineIcons.plus,
-                                  color: Styles.blackwhite(
-                                      themeChange.darkTheme, context),
-                                  size: 15,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AddCardView()),
+                          );
+                        },
+                        child: Container(
+                          width: SizeConfig.screenWidth,
+                          height: SizeConfig.screenHeight * 0.05,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: SizeConfig.screenWidth * 0.06,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromRGBO(116, 142, 243, 1)),
+                                child: Padding(
+                                  padding: EdgeInsets.all(4),
+                                  child: Icon(
+                                    LineIcons.plus,
+                                    color: Styles.blackwhite(
+                                        themeChange.darkTheme, context),
+                                    size: 15,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(width: SizeConfig.screenWidth * 0.025),
-                            Text(
-                              "Add New Card",
-                              style: TextStyle(
-                                  fontFamily: Constants.POPPINS,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  color: Styles.whiteblack(
-                                      themeChange.darkTheme, context)),
-                            )
-                          ],
+                              SizedBox(width: SizeConfig.screenWidth * 0.025),
+                              Text(
+                                "Add New Card",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Styles.whiteblack(
+                                        themeChange.darkTheme, context)),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],
