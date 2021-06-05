@@ -16,6 +16,7 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
   Animation<double> _animation;
   bool _openCard = false;
   List<RadioModel> cardType = new List<RadioModel>();
+  int selectedCardIndex = 0;
 
   @override
   void initState() {
@@ -241,7 +242,7 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                       SizedBox(
                           height: SizeConfig.screenHeight *
                               (cardPaymentArrayList.length > 0 ? 0.02 : 0.005)),
-                      cardPaymentArrayList.length > 0 ? CardItem() : SizedBox(),
+                      cardPaymentArrayList.length > 0 ? CardItem(themeChange, context) : SizedBox(),
                       SizedBox(
                         height: SizeConfig.screenHeight *
                             (cardPaymentArrayList.length > 0 ? 0.02 : 0.005),
@@ -261,6 +262,7 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                               cardType.forEach(
                                   (element) => element.isSelected = false);
                               cardType[i].isSelected = true;
+                              selectedCardIndex = i;
                             });
                           },
                         ),
@@ -275,7 +277,7 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                             MaterialPageRoute(
                                 builder: (context) => AddCardView()),
                           );
-                        },
+                          },
                         child: Container(
                           width: SizeConfig.screenWidth,
                           height: SizeConfig.screenHeight * 0.05,
@@ -382,6 +384,51 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
             ),
     );
   }
+
+  Container CardItem(DarkThemeProvider themeChange, BuildContext context){
+    return Container(
+      width: SizeConfig.screenWidth * 0.72,
+      height: SizeConfig.screenHeight * 0.17,
+      child: Stack(
+        children: [
+          Image.asset("assets/images/CreditCard.png", fit: BoxFit.fill),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.screenWidth * 0.07,
+                vertical: SizeConfig.screenHeight * 0.023),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: SizeConfig.screenWidth * 0.12,
+                  height: SizeConfig.screenHeight * 0.025,
+                  color: Colors.white,
+                ),
+                Text(
+                  cardPaymentArrayList[selectedCardIndex].name,
+                  style: TextStyle(
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 14,
+                      color: Colors.white),
+                ),
+                Expanded(
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          "**** - **** - **** - " + cardPaymentArrayList[selectedCardIndex].lastNumber.toString(),
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 15,
+                              color: Colors.white,
+                              letterSpacing: SizeConfig.screenWidth * 0.004),
+                        )))
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }
 
 class CardsOptions extends StatelessWidget {
@@ -417,7 +464,7 @@ class CardsOptions extends StatelessWidget {
           Icon(LineIcons.mastercardCreditCard, size: 30, color: Styles.whiteblack(themeChange.darkTheme, context),),
           SizedBox(width: SizeConfig.screenWidth * 0.025),
           Text(
-            "Mastercard x-1235",
+            cardPaymentArrayList[index].type + " x-" + cardPaymentArrayList[index].lastNumber.toString(),
             style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 15, color: Styles.whiteblack(themeChange.darkTheme, context)),
           )
         ],
@@ -430,53 +477,4 @@ class RadioModel {
   bool isSelected;
 
   RadioModel(this.isSelected);
-}
-
-class CardItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-      width: SizeConfig.screenWidth * 0.72,
-      height: SizeConfig.screenHeight * 0.17,
-      child: Stack(
-        children: [
-          Image.asset("assets/images/CreditCard.png", fit: BoxFit.fill),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.screenWidth * 0.07,
-                vertical: SizeConfig.screenHeight * 0.023),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: SizeConfig.screenWidth * 0.12,
-                  height: SizeConfig.screenHeight * 0.025,
-                  color: Colors.white,
-                ),
-                Text(
-                  "Jessie Williams",
-                  style: TextStyle(
-                      fontFamily: Constants.POPPINS,
-                      fontSize: 14,
-                      color: Colors.white),
-                ),
-                Expanded(
-                    child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          "**** - **** - **** - 1597",
-                          style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontSize: 15,
-                              color: Colors.white,
-                              letterSpacing: SizeConfig.screenWidth * 0.004),
-                        )))
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
 }
