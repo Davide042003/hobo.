@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hobo_test/views/addcard_view.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/payment/cardpayment_template.dart';
@@ -62,11 +63,11 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
             TopBar(themeChange, context),
             CardPaymentOption(themeChange, context),
             SizedBox(height: SizeConfig.screenHeight * 0.025),
-            PaymentOptionsWidget(LineIcons.applePayCreditCard, "Apple Pay"),
+            PaymentOptionsWidget(SvgPicture.asset("assets/images/applepay.svg", width: SizeConfig.screenWidth *0.09, color: Styles.whiteblack(themeChange.darkTheme, context),), "Apple Pay"),
             SizedBox(height: SizeConfig.screenHeight * 0.025),
-            PaymentOptionsWidget(LineIcons.paypal, "PayPal"),
+            PaymentOptionsWidget(SvgPicture.asset("assets/images/paypal.svg"), "PayPal"),
             SizedBox(height: SizeConfig.screenHeight * 0.025),
-            PaymentOptionsWidget(LineIcons.stripeS, "Stripe"),
+            PaymentOptionsWidget(SvgPicture.asset("assets/images/stripe.svg"), "Stripe"),
             SizedBox(height: SizeConfig.screenHeight * 0.03),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -191,18 +192,15 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                         padding: EdgeInsets.symmetric(
                             horizontal: SizeConfig.screenWidth * 0.06),
                         child: GestureDetector(
+                          behavior: HitTestBehavior.translucent,
                           onTap: () {
                             _openCardAdd();
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
-                                Icons.payment,
-                                color: Styles.whiteblack(
-                                    themeChange.darkTheme, context),
-                                size: 40,
-                              ),
+                              SizedBox(height: SizeConfig.screenHeight*0.048),
+                              Container(child: SvgPicture.asset("assets/images/cardIcon.svg"), width: SizeConfig.screenWidth*0.1,),
                               SizedBox(width: SizeConfig.screenWidth * 0.04),
                               Text(
                                 "Card",
@@ -344,12 +342,8 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(
-                            Icons.payment,
-                            color: Styles.whiteblack(
-                                themeChange.darkTheme, context),
-                            size: 40,
-                          ),
+                          SizedBox(height: SizeConfig.screenHeight*0.048),
+                          Container(child: SvgPicture.asset("assets/images/cardIcon.svg"), width: SizeConfig.screenWidth*0.1,),
                           SizedBox(width: SizeConfig.screenWidth * 0.04),
                           Text(
                             "Card",

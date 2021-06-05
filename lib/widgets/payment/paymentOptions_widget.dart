@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class PaymentOptionsWidget extends StatelessWidget {
-  IconData icon;
+  SvgPicture icon;
   String cardType;
 
   PaymentOptionsWidget(this.icon,this.cardType);
@@ -32,11 +33,7 @@ class PaymentOptionsWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(
-              icon,
-              color: Styles.whiteblack(themeChange.darkTheme, context),
-              size: 40,
-            ),
+            Container(child: icon, width: SizeConfig.screenWidth*0.1,),
             SizedBox(width: SizeConfig.screenWidth * 0.04),
             Text(
               "$cardType",

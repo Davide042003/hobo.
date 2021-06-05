@@ -61,6 +61,10 @@ flutter:
    - assets/images/Paris-Monument_Big.png
    - assets/images/Paris-Tour.png
    - assets/images/CreditCard.png
+   - assets/images/cardIcon.svg
+   - assets/images/stripe.svg
+   - assets/images/paypal.svg
+   - assets/images/applepay.svg
 
   fonts:
     - family: Poppins
