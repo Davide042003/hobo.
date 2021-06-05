@@ -411,6 +411,22 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                       fontSize: 14,
                       color: Colors.white),
                 ),
+                Padding(
+                  padding: EdgeInsets.only(left:SizeConfig.screenWidth*0.25,top: SizeConfig.screenHeight*0.008),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("VALID \nTHRU", style: TextStyle(
+                          fontFamily: Constants.POPPINS,
+                          fontSize: 7,
+                          color: Colors.white, height: 0.8)),
+                      Text(cardPaymentArrayList[selectedCardIndex].expiration, style: TextStyle(
+                          fontFamily: Constants.POPPINS,
+                          fontSize: 13,
+                          color: Colors.white))
+                    ],
+                  ),
+                ),
                 Expanded(
                     child: Align(
                         alignment: Alignment.bottomCenter,
