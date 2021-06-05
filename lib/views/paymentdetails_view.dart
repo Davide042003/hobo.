@@ -385,7 +385,8 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
       height: SizeConfig.screenHeight * 0.17,
       child: Stack(
         children: [
-          Image.asset("assets/images/CreditCard.png", fit: BoxFit.fill),
+          Container( width: SizeConfig.screenWidth * 0.72,
+          height: SizeConfig.screenHeight * 0.17,child: Image.asset("assets/images/CreditCard.png", fit: BoxFit.fill)),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.screenWidth * 0.07,
