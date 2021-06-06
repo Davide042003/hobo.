@@ -135,7 +135,7 @@ class Styles {
   }
 
   static Color chat_bar(bool isDarkTheme, BuildContext context) {
-    return isDarkTheme ? Color.fromRGBO(41, 41, 41, 1) : Colors.white;
+    return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Colors.white;
   }
 
   static Color chat_gradientstart(bool isDarkTheme, BuildContext context) {
@@ -144,5 +144,9 @@ class Styles {
 
   static Color chat_gradientend(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Colors.black.withOpacity(0) : Color.fromRGBO(241, 248, 251, 0);
+  }
+
+  static Color chat_typemessage(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white.withOpacity(.5) : Color.fromRGBO(138, 138, 138, 1);
   }
 }
