@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 
@@ -28,7 +29,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
           duration: Duration(milliseconds: 300),
           transform: Matrix4.translationValues(0, -30, 0),
           child: SizedBox(
-              height: SizeConfig.screenHeight * 0.08,
+              height: SizeConfig.screenHeight * 0.07,
               child: Container(
                   decoration: BoxDecoration(
                       color: Styles.home_navigatorbackground(
@@ -61,7 +62,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           GestureDetector(
-                            behavior: HitTestBehavior.opaque,
+                            behavior: HitTestBehavior.translucent,
                             child: Container(
                               width: SizeConfig.screenWidth * 0.15,
                               height: SizeConfig.screenHeight,
@@ -81,40 +82,49 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                             onTap: () => widget.pageController.jumpToPage(0),
                           ),
                           GestureDetector(
-                            behavior: HitTestBehavior.opaque,
+                            behavior: HitTestBehavior.translucent,
                             child: Container(
                               width: SizeConfig.screenWidth * 0.15,
                               height: SizeConfig.screenHeight,
-                              child: Icon(
-                                CustomIcons.pinlocationicon,
-                                size: 18,
-                                color: widget.currentPage == 1
-                                    ? Styles.home_buttonnavigator(
-                                        themeChange.darkTheme, context)
-                                    : Styles.home_buttonnavigatordisable(
-                                        themeChange.darkTheme, context),
-                              ),
-                            ),
-                            onTap: () => widget.pageController.jumpToPage(1),
-                          ),
-                          GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              child: Container(
-                                width: SizeConfig.screenWidth * 0.15,
-                                height: SizeConfig.screenHeight,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.01),
                                 child: Icon(
-                                  Ionicons.headset_outline,
-                                  size: 25,
-                                  color: widget.currentPage == 2
+                                  CustomIcons.pinlocationicon,
+                                  size: 18,
+                                  color: widget.currentPage == 1
                                       ? Styles.home_buttonnavigator(
                                           themeChange.darkTheme, context)
                                       : Styles.home_buttonnavigatordisable(
                                           themeChange.darkTheme, context),
                                 ),
                               ),
+                            ),
+                            onTap: () => widget.pageController.jumpToPage(1),
+                          ),
+                          GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              child: Container(
+                                width: SizeConfig.screenWidth * 0.15,
+                                height: SizeConfig.screenHeight,
+                                child: widget.currentPage == 2 ? Padding(
+                                  padding: EdgeInsets.only(right: SizeConfig.screenWidth * 0.03),
+                                  child: Container(
+                                    margin: EdgeInsets.all(6),
+                                    child: SvgPicture.asset(
+                                        "assets/images/hoboColor.svg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ) : Padding(
+                                  padding: EdgeInsets.all(19),
+                                  child: SvgPicture.asset(
+                                    "assets/images/hoboClear.svg"
+                                  ),
+                                ),
+                              ),
                               onTap: () => widget.pageController.jumpToPage(2)),
                           GestureDetector(
-                              behavior: HitTestBehavior.opaque,
+                              behavior: HitTestBehavior.translucent,
                               child: Container(
                                 width: SizeConfig.screenWidth * 0.15,
                                 height: SizeConfig.screenHeight,
@@ -130,7 +140,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               ),
                               onTap: () => widget.pageController.jumpToPage(3)),
                           GestureDetector(
-                            behavior: HitTestBehavior.opaque,
+                            behavior: HitTestBehavior.translucent,
                               child: Container(
                                 width: SizeConfig.screenWidth * 0.15,
                                 height: SizeConfig.screenHeight,

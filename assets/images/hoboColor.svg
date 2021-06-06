@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="57.068" height="59.371" viewBox="0 0 57.068 59.371">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60.068" height="45.371" viewBox="0 0 60.068 45.371">
   <defs>
     <linearGradient id="linear-gradient" x1="0.5" y1="1.002" x2="0.5" y2="-0.05" gradientUnits="objectBoundingBox">
       <stop offset="0" stop-color="#ff402a"/>
@@ -35,13 +35,6 @@
       <stop offset="0" stop-color="#fff"/>
       <stop offset="1" stop-color="#744343"/>
     </radialGradient>
-    <filter id="Unione_9" x="0" y="0" width="57.068" height="59.371" filterUnits="userSpaceOnUse">
-      <feOffset dx="-8" dy="8" input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feFlood flood-color="#1a213e" flood-opacity="0.302"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
   </defs>
   <g id="Raggruppa_2848" data-name="Raggruppa 2848" transform="translate(-200.466 -303.663)">
     <g id="Raggruppa_5" data-name="Raggruppa 5" transform="translate(227 317)">
