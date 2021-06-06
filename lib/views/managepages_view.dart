@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/views/chatlist_view.dart';
 import 'home_view.dart';
 import 'package:hobo_test/widgets/home/navigationbar_widget.dart';
 import 'map_view.dart';
@@ -51,7 +52,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
             HomeView(),
             MapView(),
             HomeView(),
-            HomeView(),
+            ChatListView(),
             HomeView()
           ],
         ),

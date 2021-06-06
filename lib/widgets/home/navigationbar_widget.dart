@@ -107,7 +107,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 width: SizeConfig.screenWidth * 0.15,
                                 height: SizeConfig.screenHeight,
                                 child: widget.currentPage == 2 ? Padding(
-                                  padding: EdgeInsets.only(right: SizeConfig.screenWidth * 0.03),
+                                  padding: EdgeInsets.only(right: SizeConfig.screenWidth * 0.034, bottom: SizeConfig.screenHeight*0.001),
                                   child: Container(
                                     margin: EdgeInsets.all(6),
                                     child: SvgPicture.asset(
