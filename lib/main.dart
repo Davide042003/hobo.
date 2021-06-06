@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/addcard_view.dart';
 import 'package:hobo_test/views/home_view.dart';
+import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/views/paymentdetails_view.dart';
 import 'package:hobo_test/views/toursummary_view.dart';
+import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:provider/provider.dart';
 import 'widgets/provider/dark_theme_provider.dart';
 import 'widgets/styles/dark_theme_styles.dart';
