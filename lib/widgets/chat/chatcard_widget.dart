@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:hobo_test/widgets/home/cardtour_template.dart';
+import 'package:hobo_test/widgets/chat/profileimagechat_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 
 class ChatCardWidget extends StatefulWidget {
   final int index;
@@ -38,7 +36,7 @@ class _ChatCardWidgetState extends State<ChatCardWidget> {
         padding:
             EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.05),
         child: Row(children: [
-         ProfileImageHomeWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+         ProfileImageChatWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
           Container(
             margin: EdgeInsets.only(
                 left: SizeConfig.screenWidth * 0.045,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/home/cardtour_template.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/chat/chatcard_widget.dart';
 
@@ -67,7 +66,7 @@ class _ChatListViewState extends State<ChatListView> {
                     child: ListView.separated(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
-                      itemCount: cardTourArrayList.length,
+                      itemCount: 1,
                       itemBuilder: (ctx, i) => ChatCardWidget(index: 0),
                       separatorBuilder: (context, index) =>
                           SizedBox(height: SizeConfig.screenHeight * 0.017),

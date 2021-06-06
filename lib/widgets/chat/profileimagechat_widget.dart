@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 
-class ProfileImageHomeWidget extends StatefulWidget {
+class ProfileImageChatWidget extends StatefulWidget {
   final AssetImage image;
   final String initials;
 
-  ProfileImageHomeWidget({@required this.image, @required this.initials});
+  ProfileImageChatWidget({@required this.image, @required this.initials});
 
   @override
-  _ProfileImageHomeWidgetState createState() => _ProfileImageHomeWidgetState();
+  _ProfileImageChatWidgetState createState() => _ProfileImageChatWidgetState();
 }
 
-class _ProfileImageHomeWidgetState extends State<ProfileImageHomeWidget> {
+class _ProfileImageChatWidgetState extends State<ProfileImageChatWidget> {
 
   bool _imgSuccess = false;
 
@@ -49,9 +49,9 @@ class _ProfileImageHomeWidgetState extends State<ProfileImageHomeWidget> {
 
   Widget _avatarImage() {
     return CircleAvatar(
-        backgroundImage: widget.image,
-        backgroundColor: Colors.grey,
-      radius: SizeConfig.screenHeight * 0.025,
+      backgroundImage: widget.image,
+      backgroundColor: Colors.grey,
+      radius: SizeConfig.screenHeight * 0.027,
     );
   }
 

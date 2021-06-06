@@ -133,4 +133,16 @@ class Styles {
   static Color tourpreview_peopleunselected(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(235, 245, 249, 1);
   }
+
+  static Color chat_bar(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(41, 41, 41, 1) : Colors.white;
+  }
+
+  static Color chat_gradientstart(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) :  Color.fromRGBO(245, 252, 255, 1);
+  }
+
+  static Color chat_gradientend(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Colors.black.withOpacity(0) : Color.fromRGBO(241, 248, 251, 0);
+  }
 }
