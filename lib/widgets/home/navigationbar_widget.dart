@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 
 class NavigationBarWidget extends StatefulWidget {
   final PageController pageController;
@@ -64,14 +65,17 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                             child: Container(
                               width: SizeConfig.screenWidth * 0.15,
                               height: SizeConfig.screenHeight,
-                              child: Icon(
-                                Ionicons.home,
-                                size: 25,
-                                color: widget.currentPage == 0
-                                    ? Styles.home_buttonnavigator(
-                                        themeChange.darkTheme, context)
-                                    : Styles.home_buttonnavigatordisable(
-                                        themeChange.darkTheme, context),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.01),
+                                child: Icon(
+                                  CustomIcons.homeicon,
+                                  size: 18,
+                                  color: widget.currentPage == 0
+                                      ? Styles.home_buttonnavigator(
+                                          themeChange.darkTheme, context)
+                                      : Styles.home_buttonnavigatordisable(
+                                          themeChange.darkTheme, context),
+                                ),
                               ),
                             ),
                             onTap: () => widget.pageController.jumpToPage(0),
@@ -82,8 +86,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               width: SizeConfig.screenWidth * 0.15,
                               height: SizeConfig.screenHeight,
                               child: Icon(
-                                Ionicons.location,
-                                size: 25,
+                                CustomIcons.pinlocationicon,
+                                size: 18,
                                 color: widget.currentPage == 1
                                     ? Styles.home_buttonnavigator(
                                         themeChange.darkTheme, context)
@@ -115,8 +119,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 width: SizeConfig.screenWidth * 0.15,
                                 height: SizeConfig.screenHeight,
                                 child: Icon(
-                                  Ionicons.chatbubble,
-                                  size: 25,
+                                  CustomIcons.chaticon,
+                                  size: 18,
                                   color: widget.currentPage == 3
                                       ? Styles.home_buttonnavigator(
                                           themeChange.darkTheme, context)
@@ -131,8 +135,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                                 width: SizeConfig.screenWidth * 0.15,
                                 height: SizeConfig.screenHeight,
                                 child: Icon(
-                                  Ionicons.person,
-                                  size: 25,
+                                  CustomIcons.profileicon,
+                                  size: 18,
                                   color: widget.currentPage == 4
                                       ? Styles.home_buttonnavigator(
                                           themeChange.darkTheme, context)

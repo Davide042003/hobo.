@@ -65,6 +65,8 @@ flutter:
    - assets/images/stripe.svg
    - assets/images/paypal.svg
    - assets/images/applepay.svg
+   - assets/images/hoboClear.svg
+   - assets/images/hoboColor.svg
 
   fonts:
     - family: Poppins
@@ -80,3 +82,7 @@ flutter:
     - family: CenturyGothic
       fonts:
         - asset: assets/fonts/CenturyGothic-Bold.ttf
+
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf
