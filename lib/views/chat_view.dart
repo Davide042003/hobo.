@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/widgets/chat/cardchat_widget.dart';
 import 'package:hobo_test/widgets/chat/profileimagechat_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/chat/typemessage_widget.dart';
@@ -23,18 +24,40 @@ class _ChatViewState extends State<ChatView> {
           child: Stack(
             children: [
               Container(
-                  width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.23,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                    colors: [
-                      Styles.chat_gradientstart(themeChange.darkTheme, context),
-                      Styles.chat_gradientend(themeChange.darkTheme, context),
-                    ],
-                    begin: Alignment(Alignment.center.x,
-                        Alignment.center.y + SizeConfig.screenHeight * 0.0001),
-                    end: Alignment.bottomCenter,
-                  ))),
+                margin: EdgeInsets.only(
+                    bottom: SizeConfig.screenHeight * 0.08,
+                    left: SizeConfig.screenWidth * 0.065,
+                    right: SizeConfig.screenWidth * 0.065,
+                    top: SizeConfig.screenHeight * 0.15),
+                width: SizeConfig.screenWidth,
+                height: SizeConfig.screenHeight,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Bubble(
+                      message: 'I\'ve told you so dude ijfisgodfg gidjg dfgh  hdgh dgh   hd gh dgh  dgh !',
+                      time: '12:00',
+                      delivered: true,
+                      isMe: true,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: SizeConfig.screenWidth,
+                height: SizeConfig.screenHeight * 0.23,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    Styles.chat_gradientstart(themeChange.darkTheme, context),
+                    Styles.chat_gradientend(themeChange.darkTheme, context),
+                  ],
+                  begin: Alignment(Alignment.center.x,
+                      Alignment.center.y + SizeConfig.screenHeight * 0.0001),
+                  end: Alignment.bottomCenter,
+                )),
+              ),
               Column(
                 children: [
                   Container(
@@ -144,7 +167,10 @@ class _ChatViewState extends State<ChatView> {
             ],
           )),
       bottomNavigationBar: Container(
-          margin: EdgeInsets.only(left: SizeConfig.screenWidth*0.06, right:SizeConfig.screenWidth*0.06, bottom: SizeConfig.screenHeight*0.04),
+          margin: EdgeInsets.only(
+              left: SizeConfig.screenWidth * 0.06,
+              right: SizeConfig.screenWidth * 0.06,
+              bottom: SizeConfig.screenHeight * 0.04),
           child: TypeMessageWidget()),
     );
   }

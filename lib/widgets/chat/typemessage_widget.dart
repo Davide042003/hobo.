@@ -41,14 +41,16 @@ class _TypeMessageWidgetState extends State<TypeMessageWidget> {
                   keyboardType: TextInputType.text,
                   decoration: new InputDecoration(
                     prefixIcon: Icon(Icons.add, color: Color.fromRGBO(151, 151, 151, 1),),
-                    suffixIcon: themeChange.darkTheme ? Icon(Icons.send, size: 20,color: Color.fromRGBO(116, 142, 243, 1),): GradientIcon(Icons.send, 20,LinearGradient(
-                        colors: [
-                          Color.fromRGBO(116, 142, 243, 1),
-                          Color.fromRGBO(36, 65, 187, 1)
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter
-                    )),
+                    suffixIcon: themeChange.darkTheme ? IconButton(icon: Icon(Icons.send, size: 20,color: Color.fromRGBO(116, 142, 243, 1),)): IconButton(
+                      icon: GradientIcon(Icons.send, 20,LinearGradient(
+                          colors: [
+                            Color.fromRGBO(116, 142, 243, 1),
+                            Color.fromRGBO(36, 65, 187, 1)
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter
+                      )),
+                    ),
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     enabledBorder: InputBorder.none,

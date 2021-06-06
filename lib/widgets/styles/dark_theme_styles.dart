@@ -149,4 +149,12 @@ class Styles {
   static Color chat_typemessage(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Colors.white.withOpacity(.5) : Color.fromRGBO(138, 138, 138, 1);
   }
+
+  static Color chat_send(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(228, 239, 243, 1);
+  }
+
+  static Color chat_receive(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(99, 99, 99, 1) : Color.fromRGBO(213, 242, 255, 1);
+  }
 }
