@@ -157,4 +157,8 @@ class Styles {
   static Color chat_receive(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(99, 99, 99, 1) : Color.fromRGBO(213, 242, 255, 1);
   }
+
+  static Color profile_disabledcolor(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white.withOpacity(0.30) : Color.fromRGBO(186, 195, 230, 1);
+  }
 }
