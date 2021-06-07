@@ -67,6 +67,9 @@ flutter:
    - assets/images/applepay.svg
    - assets/images/hoboClear.svg
    - assets/images/hoboColor.svg
+   - assets/images/background-profile.png
+   - assets/images/translate.svg
+   - assets/images/trophy.svg
 
   fonts:
     - family: Poppins

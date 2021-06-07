@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/chatlist_view.dart';
+import 'package:hobo_test/views/profile_view.dart';
 import 'home_view.dart';
 import 'package:hobo_test/widgets/home/navigationbar_widget.dart';
 import 'map_view.dart';
@@ -53,7 +54,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
             MapView(),
             HomeView(),
             ChatListView(),
-            HomeView()
+            ProfileView()
           ],
         ),
         bottomNavigationBar:NavigationBarWidget(pageController: _pageController, currentPage: _currentPage, leftPosition: _leftPosition,));

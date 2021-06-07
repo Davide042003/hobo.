@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, value, Widget child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: ChatView(),
+            home: ManagePagesView(),
           );
         },
       ),
