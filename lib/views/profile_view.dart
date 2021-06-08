@@ -578,125 +578,121 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.screenWidth * 0.01),
-                      child: Container(
-                        margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
-                        width: SizeConfig.screenWidth,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                          pinnedAppBar ? SizedBox(height: SizeConfig.screenHeight *0.05,) :  Stack(children: [
-                              Container(
+                    Container(
+                      margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
+                      width: SizeConfig.screenWidth,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                        pinnedAppBar ? SizedBox(height: SizeConfig.screenHeight *0.05,) :  Stack(children: [
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: SizeConfig.screenHeight * 0.0475),
+                              width: SizeConfig.screenWidth,
+                              height: SizeConfig.screenHeight * 0.001,
+                              color: Styles.tourpreview_bar(
+                                  themeChange.darkTheme, context),
+                            ),
+                            AnimatedPositioned(
+                              left: _leftPosition * SizeConfig.screenWidth,
+                              child: Container(
                                 margin: EdgeInsets.only(
-                                    top: SizeConfig.screenHeight * 0.0475),
-                                width: SizeConfig.screenWidth,
-                                height: SizeConfig.screenHeight * 0.001,
-                                color: Styles.tourpreview_bar(
-                                    themeChange.darkTheme, context),
+                                    top: SizeConfig.screenHeight * 0.045),
+                                decoration: BoxDecoration(
+                                    color: Styles.tourpreview_colorprice(
+                                        themeChange.darkTheme, context),
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10))),
+                                width: SizeConfig.screenWidth * 0.326,
+                                height: SizeConfig.screenHeight * 0.003,
                               ),
-                              AnimatedPositioned(
-                                left: _leftPosition * SizeConfig.screenWidth,
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      top: SizeConfig.screenHeight * 0.045),
-                                  decoration: BoxDecoration(
-                                      color: Styles.tourpreview_colorprice(
-                                          themeChange.darkTheme, context),
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10))),
-                                  width: SizeConfig.screenWidth * 0.326,
-                                  height: SizeConfig.screenHeight * 0.003,
-                                ),
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                      behavior: HitTestBehavior.translucent,
-                                      child: Container(
-                                        width: SizeConfig.screenWidth * 0.326,
-                                        height: SizeConfig.screenHeight * 0.05,
-                                        child: Center(
-                                            child: Text(
-                                          "Tours",
-                                          style: TextStyle(
-                                              fontFamily: Constants.POPPINS,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              color: _currentPage == 0
-                                                  ? Styles.tourpreview_colorprice(
-                                                      themeChange.darkTheme, context)
-                                                  : Styles.profile_disabledcolor(
-                                                      themeChange.darkTheme,
-                                                      context)),
-                                        )),
-                                      ),
-                                      onTap: () => _pageController.jumpToPage(0)),
-                                  GestureDetector(
-                                      behavior: HitTestBehavior.translucent,
-                                      child: Container(
-                                        width: SizeConfig.screenWidth * 0.326,
-                                        height: SizeConfig.screenHeight * 0.05,
-                                        child: Center(
-                                            child: Text(
-                                          "Gallery",
-                                          style: TextStyle(
-                                              fontFamily: Constants.POPPINS,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              color: _currentPage == 1
-                                                  ? Styles.tourpreview_colorprice(
-                                                      themeChange.darkTheme, context)
-                                                  : Styles.profile_disabledcolor(
-                                                      themeChange.darkTheme,
-                                                      context)),
-                                        )),
-                                      ),
-                                      onTap: () => _pageController.jumpToPage(1)),
-                                  GestureDetector(
-                                      behavior: HitTestBehavior.translucent,
-                                      child: Container(
-                                        width: SizeConfig.screenWidth * 0.326,
-                                        height: SizeConfig.screenHeight * 0.05,
-                                        child: Center(
-                                            child: Text(
-                                          "Reviews",
-                                          style: TextStyle(
-                                              fontFamily: Constants.POPPINS,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 15,
-                                              color: _currentPage == 2
-                                                  ? Styles.tourpreview_colorprice(
-                                                      themeChange.darkTheme, context)
-                                                  : Styles.profile_disabledcolor(
-                                                      themeChange.darkTheme,
-                                                      context)),
-                                        )),
-                                      ),
-                                      onTap: () => _pageController.jumpToPage(2)),
-                                ],
-                              ),
-                            ]),
-                            ExpandablePageView(
-                              controller: _pageController,
-                              onPageChanged: _onPageChanged,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TourlistProfileWidget(),
-                                GalleryWidget(),
-                                Container(
-                                  width: 100,
-                                  height: SizeConfig.screenHeight*0.1,
-                                  color: Colors.yellow,
-                                )
+                                GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    child: Container(
+                                      width: SizeConfig.screenWidth * 0.326,
+                                      height: SizeConfig.screenHeight * 0.05,
+                                      child: Center(
+                                          child: Text(
+                                        "Tours",
+                                        style: TextStyle(
+                                            fontFamily: Constants.POPPINS,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            color: _currentPage == 0
+                                                ? Styles.tourpreview_colorprice(
+                                                    themeChange.darkTheme, context)
+                                                : Styles.profile_disabledcolor(
+                                                    themeChange.darkTheme,
+                                                    context)),
+                                      )),
+                                    ),
+                                    onTap: () => _pageController.jumpToPage(0)),
+                                GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    child: Container(
+                                      width: SizeConfig.screenWidth * 0.326,
+                                      height: SizeConfig.screenHeight * 0.05,
+                                      child: Center(
+                                          child: Text(
+                                        "Gallery",
+                                        style: TextStyle(
+                                            fontFamily: Constants.POPPINS,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            color: _currentPage == 1
+                                                ? Styles.tourpreview_colorprice(
+                                                    themeChange.darkTheme, context)
+                                                : Styles.profile_disabledcolor(
+                                                    themeChange.darkTheme,
+                                                    context)),
+                                      )),
+                                    ),
+                                    onTap: () => _pageController.jumpToPage(1)),
+                                GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    child: Container(
+                                      width: SizeConfig.screenWidth * 0.326,
+                                      height: SizeConfig.screenHeight * 0.05,
+                                      child: Center(
+                                          child: Text(
+                                        "Reviews",
+                                        style: TextStyle(
+                                            fontFamily: Constants.POPPINS,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15,
+                                            color: _currentPage == 2
+                                                ? Styles.tourpreview_colorprice(
+                                                    themeChange.darkTheme, context)
+                                                : Styles.profile_disabledcolor(
+                                                    themeChange.darkTheme,
+                                                    context)),
+                                      )),
+                                    ),
+                                    onTap: () => _pageController.jumpToPage(2)),
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          ]),
+                          ExpandablePageView(
+                            controller: _pageController,
+                            onPageChanged: _onPageChanged,
+                            children: [
+                              TourlistProfileWidget(),
+                              GalleryWidget(),
+                              Container(
+                                width: 100,
+                                height: SizeConfig.screenHeight*0.1,
+                                color: Colors.yellow,
+                              )
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   ],
@@ -749,107 +745,103 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               ),
             ),
           ):SizedBox(),
-          pinnedAppBar ? Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.screenWidth * 0.01),
-            child: Container(
-              margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.099),
-              width: SizeConfig.screenWidth,
-              color: Colors.white,
-              child: Padding(
-                padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Stack(children: [
-                      AnimatedPositioned(
-                        left: _leftPosition * SizeConfig.screenWidth,
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              top: SizeConfig.screenHeight * 0.045),
-                          decoration: BoxDecoration(
-                              color: Styles.tourpreview_colorprice(
-                                  themeChange.darkTheme, context),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10))),
-                          width: SizeConfig.screenWidth * 0.326,
-                          height: SizeConfig.screenHeight * 0.003,
-                        ),
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
+          pinnedAppBar ? Container(
+            margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.099),
+            width: SizeConfig.screenWidth,
+            color: Styles.blackwhite(themeChange.darkTheme, context),
+            child: Padding(
+              padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Stack(children: [
+                    AnimatedPositioned(
+                      left: _leftPosition * SizeConfig.screenWidth,
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            top: SizeConfig.screenHeight * 0.045),
+                        decoration: BoxDecoration(
+                            color: Styles.tourpreview_colorprice(
+                                themeChange.darkTheme, context),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        width: SizeConfig.screenWidth * 0.326,
+                        height: SizeConfig.screenHeight * 0.003,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                              behavior: HitTestBehavior.translucent,
-                              child: Container(
-                                width: SizeConfig.screenWidth * 0.326,
-                                height: SizeConfig.screenHeight * 0.048,
-                                child: Center(
-                                    child: Text(
-                                      "Tours",
-                                      style: TextStyle(
-                                          fontFamily: Constants.POPPINS,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15,
-                                          color: _currentPage == 0
-                                              ? Styles.tourpreview_colorprice(
-                                              themeChange.darkTheme, context)
-                                              : Styles.profile_disabledcolor(
-                                              themeChange.darkTheme,
-                                              context)),
-                                    )),
-                              ),
-                              onTap: () => _pageController.jumpToPage(0)),
-                          GestureDetector(
-                              behavior: HitTestBehavior.translucent,
-                              child: Container(
-                                width: SizeConfig.screenWidth * 0.326,
-                                height: SizeConfig.screenHeight * 0.048,
-                                child: Center(
-                                    child: Text(
-                                      "Gallery",
-                                      style: TextStyle(
-                                          fontFamily: Constants.POPPINS,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15,
-                                          color: _currentPage == 1
-                                              ? Styles.tourpreview_colorprice(
-                                              themeChange.darkTheme, context)
-                                              : Styles.profile_disabledcolor(
-                                              themeChange.darkTheme,
-                                              context)),
-                                    )),
-                              ),
-                              onTap: () => _pageController.jumpToPage(1)),
-                          GestureDetector(
-                              behavior: HitTestBehavior.translucent,
-                              child: Container(
-                                width: SizeConfig.screenWidth * 0.326,
-                                height: SizeConfig.screenHeight * 0.048,
-                                child: Center(
-                                    child: Text(
-                                      "Reviews",
-                                      style: TextStyle(
-                                          fontFamily: Constants.POPPINS,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15,
-                                          color: _currentPage == 2
-                                              ? Styles.tourpreview_colorprice(
-                                              themeChange.darkTheme, context)
-                                              : Styles.profile_disabledcolor(
-                                              themeChange.darkTheme,
-                                              context)),
-                                    )),
-                              ),
-                              onTap: () => _pageController.jumpToPage(2)),
-                        ],
-                      ),
-                    ]),
-                  ],
-                ),
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.326,
+                              height: SizeConfig.screenHeight * 0.048,
+                              child: Center(
+                                  child: Text(
+                                    "Tours",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        color: _currentPage == 0
+                                            ? Styles.tourpreview_colorprice(
+                                            themeChange.darkTheme, context)
+                                            : Styles.profile_disabledcolor(
+                                            themeChange.darkTheme,
+                                            context)),
+                                  )),
+                            ),
+                            onTap: () => _pageController.jumpToPage(0)),
+                        GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.326,
+                              height: SizeConfig.screenHeight * 0.048,
+                              child: Center(
+                                  child: Text(
+                                    "Gallery",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        color: _currentPage == 1
+                                            ? Styles.tourpreview_colorprice(
+                                            themeChange.darkTheme, context)
+                                            : Styles.profile_disabledcolor(
+                                            themeChange.darkTheme,
+                                            context)),
+                                  )),
+                            ),
+                            onTap: () => _pageController.jumpToPage(1)),
+                        GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.326,
+                              height: SizeConfig.screenHeight * 0.048,
+                              child: Center(
+                                  child: Text(
+                                    "Reviews",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        color: _currentPage == 2
+                                            ? Styles.tourpreview_colorprice(
+                                            themeChange.darkTheme, context)
+                                            : Styles.profile_disabledcolor(
+                                            themeChange.darkTheme,
+                                            context)),
+                                  )),
+                            ),
+                            onTap: () => _pageController.jumpToPage(2)),
+                      ],
+                    ),
+                  ]),
+                ],
               ),
             ),
           ) : SizedBox(),

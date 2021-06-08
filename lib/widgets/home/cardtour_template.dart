@@ -17,5 +17,7 @@ class CardTour {
 }
 
 final cardTourArrayList = [
+  CardTour(placeName: "Paris", placeImage: "assets/images/Paris-Background.png", rating: 4.9, numberRatings: 1250, price: 50),
+  CardTour(placeName: "Paris", placeImage: "assets/images/Paris-Background.png", rating: 4.9, numberRatings: 1250, price: 50),
   CardTour(placeName: "Paris", placeImage: "assets/images/Paris-Background.png", rating: 4.9, numberRatings: 1250, price: 50)
 ];
