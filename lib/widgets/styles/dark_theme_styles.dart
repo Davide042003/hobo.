@@ -165,4 +165,8 @@ class Styles {
   static Color profile_review(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Colors.white.withOpacity(.5) : Color.fromRGBO(138, 138, 138, 1);
   }
+
+  static Color profile_stars(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white.withOpacity(.5) : Color.fromRGBO(138, 138, 138, 1);
+  }
 }

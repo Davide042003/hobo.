@@ -763,7 +763,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
-                        width: SizeConfig.screenWidth * 0.326,
+                        width: SizeConfig.screenWidth * 0.333,
                         height: SizeConfig.screenHeight * 0.003,
                       ),
                       duration: Duration(milliseconds: 300),
@@ -775,7 +775,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             child: Container(
-                              width: SizeConfig.screenWidth * 0.326,
+                              width: SizeConfig.screenWidth * 0.333,
                               height: SizeConfig.screenHeight * 0.048,
                               child: Center(
                                   child: Text(
@@ -796,7 +796,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             child: Container(
-                              width: SizeConfig.screenWidth * 0.326,
+                              width: SizeConfig.screenWidth * 0.333,
                               height: SizeConfig.screenHeight * 0.048,
                               child: Center(
                                   child: Text(
@@ -817,7 +817,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                         GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             child: Container(
-                              width: SizeConfig.screenWidth * 0.326,
+                              width: SizeConfig.screenWidth * 0.333,
                               height: SizeConfig.screenHeight * 0.048,
                               child: Center(
                                   child: Text(
