@@ -786,7 +786,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                               behavior: HitTestBehavior.translucent,
                               child: Container(
                                 width: SizeConfig.screenWidth * 0.326,
-                                height: SizeConfig.screenHeight * 0.0485,
+                                height: SizeConfig.screenHeight * 0.048,
                                 child: Center(
                                     child: Text(
                                       "Tours",
@@ -807,7 +807,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                               behavior: HitTestBehavior.translucent,
                               child: Container(
                                 width: SizeConfig.screenWidth * 0.326,
-                                height: SizeConfig.screenHeight * 0.0485,
+                                height: SizeConfig.screenHeight * 0.048,
                                 child: Center(
                                     child: Text(
                                       "Gallery",
@@ -828,7 +828,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                               behavior: HitTestBehavior.translucent,
                               child: Container(
                                 width: SizeConfig.screenWidth * 0.326,
-                                height: SizeConfig.screenHeight * 0.0485,
+                                height: SizeConfig.screenHeight * 0.048,
                                 child: Center(
                                     child: Text(
                                       "Reviews",
