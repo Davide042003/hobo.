@@ -8,6 +8,7 @@ import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/views/paymentdetails_view.dart';
 import 'package:hobo_test/views/toursummary_view.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
+import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:provider/provider.dart';
 import 'widgets/provider/dark_theme_provider.dart';
 import 'widgets/styles/dark_theme_styles.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
+  NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
 
   @override
   void initState() {
@@ -38,12 +40,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) {
-        return themeChangeProvider;
-      },
-      child: Consumer<DarkThemeProvider>(
-        builder: (BuildContext context, value, Widget child) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<DarkThemeProvider>(
+            create: (_) {
+              return themeChangeProvider;
+            }
+        ),
+        ChangeNotifierProvider<NavigationBarProvider>(
+            create: (_) {
+              return scrollDownProvider;
+            }
+        ),
+      ],
+      child: Consumer2<DarkThemeProvider, NavigationBarProvider>(
+        builder: (BuildContext context, value, value2, Widget child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: ManagePagesView(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
+import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 
 class NavigationBarWidget extends StatefulWidget {
   final PageController pageController;
@@ -22,12 +23,13 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final downScroll = Provider.of<NavigationBarProvider>(context);
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.05),
       child: AnimatedContainer(
           duration: Duration(milliseconds: 300),
-          transform: Matrix4.translationValues(0, -30, 0),
+          transform: Matrix4.translationValues(0, downScroll.scrollingDown ? SizeConfig.screenHeight * 0.07 : SizeConfig.screenHeight * -0.035, 0),
           child: SizedBox(
               height: SizeConfig.screenHeight * 0.07,
               child: Container(
