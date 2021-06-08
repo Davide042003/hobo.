@@ -13,7 +13,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
 
     return GridView.builder(
       shrinkWrap: true,
-        padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01, bottom: SizeConfig.screenHeight *.03),
+        padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01, bottom: SizeConfig.screenHeight *.12),
         itemCount: 20,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

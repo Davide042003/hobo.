@@ -95,6 +95,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
       child: Stack(
         children: [
           SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             controller: _scrollController,
             child: Stack(
               children: [
@@ -698,7 +699,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
             child: Container(
               width: SizeConfig.screenWidth,
               height: SizeConfig.screenHeight*0.1,
-              color: Colors.white,
+              color: Styles.blackwhite(themeChange.darkTheme, context),
               child: Padding(
                 padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.07,right: SizeConfig.screenWidth*0.02, top: SizeConfig.screenHeight*0.045),
                 child: Row(
@@ -707,7 +708,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                     Text("Jessica Smith", style: TextStyle(
                         fontFamily: Constants.POPPINS,
                         fontSize: 20,
-                        fontWeight: FontWeight.bold
+                        fontWeight: FontWeight.bold,
+                        color: Styles.whiteblack(themeChange.darkTheme, context)
                     ),),
                     SizedBox(width: SizeConfig.screenWidth*0.3),
                     Container(
@@ -716,7 +718,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Icon(
-                          Ionicons.add_circle_outline, size: 30,
+                          Ionicons.add_circle_outline, size: 30, color: Styles.whiteblack(themeChange.darkTheme, context),
                         ),
                       ),
                     ),
@@ -727,7 +729,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Icon(
-                          Ionicons.settings_outline, size: 30,
+                          Ionicons.settings_outline, size: 30,color: Styles.whiteblack(themeChange.darkTheme, context)
                         ),
                       ),
                     )
@@ -736,7 +738,6 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               ),
             ),
           ):SizedBox()
-
         ],
       ),
     );
