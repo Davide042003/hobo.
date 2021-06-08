@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/profile/gallery_widget.dart';
 import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
+import 'package:hobo_test/widgets/profile/reviewcard_widget.dart';
 import 'package:hobo_test/widgets/profile/tourlistprofile_widget.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 
@@ -19,7 +20,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
 
   int _currentPage = 0;
   final PageController _pageController = PageController(initialPage: 0);
-  final _leftPositionList = [0.0, 0.326, 0.652];
+  final _leftPositionList = [0.0, 0.333, 0.666];
   double _leftPosition = 0;
   final ScrollController _scrollController = ScrollController();
   double animationPos;
@@ -604,7 +605,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10),
                                         topRight: Radius.circular(10))),
-                                width: SizeConfig.screenWidth * 0.326,
+                                width: SizeConfig.screenWidth * 0.333,
                                 height: SizeConfig.screenHeight * 0.003,
                               ),
                               duration: Duration(milliseconds: 300),
@@ -616,7 +617,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 GestureDetector(
                                     behavior: HitTestBehavior.translucent,
                                     child: Container(
-                                      width: SizeConfig.screenWidth * 0.326,
+                                      width: SizeConfig.screenWidth * 0.333,
                                       height: SizeConfig.screenHeight * 0.05,
                                       child: Center(
                                           child: Text(
@@ -637,7 +638,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 GestureDetector(
                                     behavior: HitTestBehavior.translucent,
                                     child: Container(
-                                      width: SizeConfig.screenWidth * 0.326,
+                                      width: SizeConfig.screenWidth * 0.333,
                                       height: SizeConfig.screenHeight * 0.05,
                                       child: Center(
                                           child: Text(
@@ -658,7 +659,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 GestureDetector(
                                     behavior: HitTestBehavior.translucent,
                                     child: Container(
-                                      width: SizeConfig.screenWidth * 0.326,
+                                      width: SizeConfig.screenWidth * 0.333,
                                       height: SizeConfig.screenHeight * 0.05,
                                       child: Center(
                                           child: Text(
@@ -685,11 +686,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                             children: [
                               TourlistProfileWidget(),
                               GalleryWidget(),
-                              Container(
-                                width: 100,
-                                height: SizeConfig.screenHeight*0.1,
-                                color: Colors.yellow,
-                              )
+                              ReviewCardWidget()
                             ],
                           )
                         ],
