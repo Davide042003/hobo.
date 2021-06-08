@@ -14,7 +14,7 @@ class ProfileView extends StatefulWidget {
   _ProfileViewState createState() => _ProfileViewState();
 }
 
-class _ProfileViewState extends State<ProfileView> {
+class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin{
   bool isMe = true;
 
   int _currentPage = 0;
@@ -22,15 +22,35 @@ class _ProfileViewState extends State<ProfileView> {
   final _leftPositionList = [0.0, 0.326, 0.652];
   double _leftPosition = 0;
   final ScrollController _scrollController = ScrollController();
+  double animationPos;
+  bool visible = false;
 
   @override
   void initState() {
     super.initState();
+    _scrollController..addListener(() {
+
+      if(_scrollController.offset >= SizeConfig.screenHeight * 0.2){
+        setState(() {
+          visible = true;
+        });
+      }else if(_scrollController.offset <= SizeConfig.screenHeight * 0.18){
+        setState(() {
+          visible = false;
+        });
+      }
+
+        if(_scrollController.offset >= SizeConfig.screenHeight * 0.2 && _scrollController.offset <= SizeConfig.screenHeight * 0.24){
+          double pos = ((_scrollController.offset - SizeConfig.screenHeight * 0.2) / (SizeConfig.screenHeight * 0.24- SizeConfig.screenHeight * 0.2));
+          animationPos = pos;
+        }
+      });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _scrollController.dispose();
     _pageController.dispose();
   }
 
@@ -666,46 +686,51 @@ class _ProfileViewState extends State<ProfileView> {
               ],
             ),
           ),
-          Container(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight*0.1,
-            color: Colors.white,
-            child: Padding(
-              padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.07,right: SizeConfig.screenWidth*0.02, top: SizeConfig.screenHeight*0.045),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Jessica Smith", style: TextStyle(
-                    fontFamily: Constants.POPPINS,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),),
-                  SizedBox(width: SizeConfig.screenWidth*0.3),
-                  Container(
-                    width: SizeConfig.screenWidth * 0.1,
-                    height: SizeConfig.screenHeight,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Ionicons.add_circle_outline, size: 30,
+          visible ? AnimatedOpacity(
+            opacity: animationPos,
+            duration: Duration(milliseconds: 250),
+            child: Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight*0.1,
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.07,right: SizeConfig.screenWidth*0.02, top: SizeConfig.screenHeight*0.045),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("Jessica Smith", style: TextStyle(
+                        fontFamily: Constants.POPPINS,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),),
+                    SizedBox(width: SizeConfig.screenWidth*0.3),
+                    Container(
+                      width: SizeConfig.screenWidth * 0.1,
+                      height: SizeConfig.screenHeight,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Ionicons.add_circle_outline, size: 30,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: SizeConfig.screenWidth* 0.025,),
-                  Container(
-                    width: SizeConfig.screenWidth * 0.1,
-                    height: SizeConfig.screenHeight,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Ionicons.settings_outline, size: 30,
+                    SizedBox(width: SizeConfig.screenWidth* 0.025,),
+                    Container(
+                      width: SizeConfig.screenWidth * 0.1,
+                      height: SizeConfig.screenHeight,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(
+                          Ionicons.settings_outline, size: 30,
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          )
+          ):SizedBox()
+
         ],
       ),
     );
