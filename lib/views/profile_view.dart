@@ -29,22 +29,28 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   void initState() {
     super.initState();
     _scrollController..addListener(() {
-
-      if(_scrollController.offset >= SizeConfig.screenHeight * 0.2){
+      if (_scrollController.offset >= SizeConfig.screenHeight * 0.2) {
         setState(() {
           visible = true;
         });
-      }else if(_scrollController.offset <= SizeConfig.screenHeight * 0.18){
+      } else if (_scrollController.offset <= SizeConfig.screenHeight * 0.18) {
         setState(() {
           visible = false;
         });
       }
 
-        if(_scrollController.offset >= SizeConfig.screenHeight * 0.2 && _scrollController.offset <= SizeConfig.screenHeight * 0.24){
-          double pos = ((_scrollController.offset - SizeConfig.screenHeight * 0.2) / (SizeConfig.screenHeight * 0.24- SizeConfig.screenHeight * 0.2));
+      if (_scrollController.offset < SizeConfig.screenHeight * 0.25) {
+        if (_scrollController.offset >= SizeConfig.screenHeight * 0.2 &&
+            _scrollController.offset <= SizeConfig.screenHeight * 0.24) {
+          double pos = ((_scrollController.offset -
+              SizeConfig.screenHeight * 0.2) /
+              (SizeConfig.screenHeight * 0.24 - SizeConfig.screenHeight * 0.2));
           animationPos = pos;
         }
-      });
+      } else {
+        animationPos = 1;
+      }
+    });
   }
 
   @override
