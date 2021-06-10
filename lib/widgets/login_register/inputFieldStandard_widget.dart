@@ -9,9 +9,10 @@ class InputFieldStandard extends StatefulWidget {
   final bool isRegistration;
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
+  final double sizeIcon;
 
   const InputFieldStandard(this.text, this.typeText, this.iconPrefix,
-      this.onChanged, this.isRegistration, this.focusNode, this.nextFocusNode);
+      this.onChanged, this.isRegistration, this.focusNode, this.nextFocusNode, this.sizeIcon);
 
   @override
   _InputFieldStandardState createState() => _InputFieldStandardState();
@@ -62,6 +63,7 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
                 prefixIcon: Icon(
                   widget.iconPrefix,
                   color: _iconColor(),
+                  size: widget.sizeIcon,
                 ),
                 labelText: widget.text,
                 labelStyle: _textStyle(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 
@@ -62,7 +63,7 @@ class _InputFieldPasswordState extends State<InputFieldPassword> {
         enableSuggestions: false,
         obscureText: !widget.show,
         decoration: InputDecoration(
-          prefixIcon: Icon(Ionicons.key_outline, color: _iconColor(),),
+          prefixIcon: Icon(CustomIcons.keyicon, size: 18, color: _iconColor(),),
           suffixIcon: IconButton(
             icon: Icon(
                 widget.show

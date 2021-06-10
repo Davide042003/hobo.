@@ -25,4 +25,9 @@ class CustomIcons {
   static const IconData chaticon = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pinlocationicon = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData profileicon = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData mailicon = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData calendaricon = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData clockicon = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData keyicon = IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData usericon = IconData(0xe815, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

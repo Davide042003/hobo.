@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'inputFieldStandard_widget.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldPassword_widget.dart';
 import 'package:flutter/material.dart';
@@ -151,14 +152,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
                         textAlign: TextAlign.left)),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
-                InputFieldStandard("Name", 0, Ionicons.person_outline,
-                    (value) => _name = value, true, focusNodeName, focusNodeUsername),
+                InputFieldStandard("Name", 0, CustomIcons.usericon,
+                    (value) => _name = value, true, focusNodeName, focusNodeUsername, 22),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
-                InputFieldStandard("Username", 0, Ionicons.person_outline,
-                    (value) => _username = value, true, focusNodeUsername, focusNodeMail),
+                InputFieldStandard("Username", 0, CustomIcons.usericon,
+                    (value) => _username = value, true, focusNodeUsername, focusNodeMail, 22),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
-                InputFieldStandard("Email Address", 1, Ionicons.mail_outline,
-                    (value) => _email = value, true, focusNodeMail, focusNodePassword),
+                InputFieldStandard("Email Address", 1, CustomIcons.mailicon,
+                    (value) => _email = value, true, focusNodeMail, focusNodePassword, 18),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
                 InputFieldPassword(
                     this._showPassword,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
 import 'inputFieldPassword_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -107,7 +108,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
                         textAlign: TextAlign.left)),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
-                InputFieldStandard("Username/Email", 0, Ionicons.mail_outline, (value) => _userEmail = value, false, focusNodeMail, focusNodePassword),
+                InputFieldStandard("Username/Email", 0, CustomIcons.mailicon, (value) => _userEmail = value, false, focusNodeMail, focusNodePassword, 18),
                 SizedBox(height: SizeConfig.screenHeight * 0.03),
                 InputFieldPassword(
                     this._showPassword,
