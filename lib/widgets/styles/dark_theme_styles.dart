@@ -169,4 +169,12 @@ class Styles {
   static Color profile_stars(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Colors.white.withOpacity(.5) : Color.fromRGBO(138, 138, 138, 1);
   }
+
+  static Color social_profile(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white.withOpacity(.5) : Color.fromRGBO(149, 149, 149, 1);
+  }
+
+  static Color social_choosetext(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(220, 220, 220, 0.3) :  Color.fromRGBO(220, 220, 220, 1);
+  }
 }

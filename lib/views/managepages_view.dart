@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/chatlist_view.dart';
 import 'package:hobo_test/views/profile_view.dart';
+import 'package:hobo_test/views/social_view.dart';
 import 'home_view.dart';
 import 'package:hobo_test/widgets/home/navigationbar_widget.dart';
 import 'map_view.dart';
@@ -46,13 +47,14 @@ class _ManagePagesViewState extends State<ManagePagesView> {
       extendBody: true,
       backgroundColor:  Styles.loginregister_background(themeChange.darkTheme, context),
         body: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           scrollDirection: Axis.horizontal,
           onPageChanged: _onPageChanged,
           children: [
             HomeView(),
             MapView(),
-            HomeView(),
+            SocialView(),
             ChatListView(),
             ProfileView()
           ],
