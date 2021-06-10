@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class PeopleAndDateWidget extends StatefulWidget {
@@ -320,9 +321,9 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                               color: Styles.whiteblack(
                                   themeChange.darkTheme, context)),
                         ),
-                        Icon(Icons.calendar_today_outlined,
+                        Icon(CustomIcons.calendaricon,
                             color: Styles.whiteblack(
-                                themeChange.darkTheme, context), size: 22)
+                                themeChange.darkTheme, context), size: 20)
                       ]),
                 ),
               ),
@@ -348,9 +349,9 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                               color: Styles.whiteblack(
                                   themeChange.darkTheme, context)),
                         ),
-                        Icon(LineIcons.clock,
+                        Icon(CustomIcons.clockicon,
                             color: Styles.whiteblack(
-                                themeChange.darkTheme, context), size: 27,)
+                                themeChange.darkTheme, context), size: 20,)
                       ]),
                 ),
               ),
