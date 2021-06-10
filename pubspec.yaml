@@ -71,6 +71,7 @@ flutter:
    - assets/images/background-profile.png
    - assets/images/translate.svg
    - assets/images/trophy.svg
+   - assets/images/Google-Logo.svg
 
   fonts:
     - family: Poppins

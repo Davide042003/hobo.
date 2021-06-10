@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
 import 'inputFieldPassword_widget.dart';
@@ -199,7 +200,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         child: TextButton(
                           onPressed: () {},
-                          child: Icon(Ionicons.logo_google, size: 30,),
+                          child: SvgPicture.asset("assets/images/Google-Logo.svg", width: 25,),
                         )),
                     SizedBox(width: SizeConfig.screenWidth * 0.05),
                     Container(
