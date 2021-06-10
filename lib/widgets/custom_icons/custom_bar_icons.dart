@@ -30,4 +30,8 @@ class CustomIcons {
   static const IconData clockicon = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData keyicon = IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData usericon = IconData(0xe815, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData mapicon = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData messagge = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData listicon = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData filter = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

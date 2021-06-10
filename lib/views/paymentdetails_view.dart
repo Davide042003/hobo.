@@ -287,13 +287,9 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Color.fromRGBO(116, 142, 243, 1)),
-                                child: Padding(
-                                  padding: EdgeInsets.all(4),
-                                  child: Icon(
-                                    LineIcons.plus,
-                                    color: Styles.blackwhite(
-                                        themeChange.darkTheme, context),
-                                    size: 15,
+                                child: Center(
+                                  child: Text(
+                                    "+",style: TextStyle(fontSize: 20, color: Styles.blackwhite(themeChange.darkTheme, context),fontFamily: Constants.POPPINS),
                                   ),
                                 ),
                               ),

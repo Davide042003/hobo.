@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/home/tourlist_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbarmap_widget.dart';
@@ -101,8 +102,8 @@ class _MapViewState extends State<MapView> {
                       ],
                     ),
                     child: Icon(
-                      Ionicons.filter,
-                      size: 25,
+                      CustomIcons.filter,
+                      size: 14,
                       color: Color.fromRGBO(77, 105, 216, 1),
                     )),
                 SizedBox(width: SizeConfig.screenWidth*0.05),
@@ -128,10 +129,13 @@ class _MapViewState extends State<MapView> {
                               blurRadius: 2.0,
                               offset: Offset(0, 3)),
                         ]),
-                        child: Icon(
-                          _currentPage == 1 ? Ionicons.map_outline : Ionicons.list_outline,
-                          size: 23,
-                          color: Colors.white,
+                        child: Padding(
+                          padding: _currentPage == 1 ? EdgeInsets.only(top: SizeConfig.screenHeight *0.005, left: SizeConfig.screenWidth*0.0045): EdgeInsets.only(top: SizeConfig.screenHeight *0.0075),
+                          child: Icon(
+                            _currentPage == 1 ? CustomIcons.mapicon : CustomIcons.listicon,
+                            size: _currentPage == 1 ? 25 : 22,
+                            color: Colors.white,
+                          ),
                         ),
                       )),
                   onTap: () => _pageController.animateToPage(_currentPage == 0 ? 1 : 0, duration: _duration, curve: _curve),

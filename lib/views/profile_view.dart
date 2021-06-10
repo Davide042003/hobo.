@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/profile/gallery_widget.dart';
 import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
@@ -151,8 +152,11 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 blurRadius: 3.0,
                                 offset: Offset(0, 6)),
                           ]),
-                          child: Icon(Ionicons.chatbubble,
-                              color: Colors.white, size: 22),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: SizeConfig.screenHeight*0.005),
+                            child: Icon(CustomIcons.messagge,
+                                color: Colors.white, size: 32),
+                          ),
                         ),
                 ),
                 Column(

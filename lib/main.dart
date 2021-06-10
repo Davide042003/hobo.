@@ -6,6 +6,7 @@ import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/views/paymentdetails_view.dart';
+import 'package:hobo_test/views/profile_view.dart';
 import 'package:hobo_test/views/toursummary_view.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, value, value2, Widget child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: SliderLayoutView(),
+            home: ManagePagesView(),
           );
         },
       ),
