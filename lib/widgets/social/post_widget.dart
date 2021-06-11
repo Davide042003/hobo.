@@ -239,18 +239,66 @@ class PostWidget extends StatelessWidget {
             width: SizeConfig.screenWidth,
             child: DescriptionTextWidget(text : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
           ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: SizeConfig.screenWidth * 0.5,
+              height: SizeConfig.screenHeight * 0.014,
+              child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.065),
+                  child: Text(
+                    "View all 3 comments",
+                    style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.social_sub(themeChange.darkTheme, context)),
+                  )),
+            ),
+          ),
           Container(
+            margin: EdgeInsets.only(top: SizeConfig.screenHeight*0.008),
             width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.014,
+            height: SizeConfig.screenHeight * 0.04,
             child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: SizeConfig.screenWidth * 0.065),
-                child: Text(
-                  "View all 3 comments",
-                  style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.social_sub(themeChange.darkTheme, context)),
+                child: Row(
+                  children: [
+                   ProfileImageSocialWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+                    Container(
+                      margin: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
+                      width: SizeConfig.screenWidth*0.7,
+                      height: SizeConfig.screenHeight * 0.025,
+                      child: TextField(
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.text,
+                        decoration: new InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            hintText: "Add a comment",
+                        hintStyle: TextStyle(fontFamily: Constants.POPPINS, fontSize: 13, color: Styles.social_comment(themeChange.darkTheme, context)),
+                        contentPadding: EdgeInsets.only(top: SizeConfig.screenHeight*0.07),),
+                      ),
+                    )
+                  ],
                 )),
           ),
-          SizedBox(height: SizeConfig.screenHeight*0.1,)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: SizeConfig.screenWidth * 0.5,
+              height: SizeConfig.screenHeight * 0.016,
+              child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.065),
+                  child: Text(
+                    "3 hours ago",
+                    style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.social_sub(themeChange.darkTheme, context)),
+                  )),
+            ),
+          ),
+          SizedBox(height: SizeConfig.screenHeight*0.015,)
         ],
       ),
     );

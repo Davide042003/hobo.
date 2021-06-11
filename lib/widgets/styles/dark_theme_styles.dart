@@ -193,4 +193,8 @@ class Styles {
   static Color social_sub(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(100, 100, 100, 1) :   Color.fromRGBO(203, 203, 203, 1);
   }
+
+  static Color social_comment(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(128, 128, 128, 1) :   Color.fromRGBO(212, 212, 212, 1);
+  }
 }
