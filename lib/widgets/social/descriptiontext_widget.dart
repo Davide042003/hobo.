@@ -32,6 +32,9 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return new Container(
       child: secondHalf.isEmpty
           ? new Text(firstHalf, style:  TextStyle(fontFamily: Constants.POPPINS, fontSize: 10),)
@@ -45,7 +48,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               children: <Widget>[
                 new Text(
                   "other",
-                  style: new TextStyle(color: Colors.blue),
+                  style: new TextStyle(color: Styles.social_sub(themeChange.darkTheme, context), fontSize: 10, fontFamily: Constants.POPPINS),
                 ),
               ],
             ),

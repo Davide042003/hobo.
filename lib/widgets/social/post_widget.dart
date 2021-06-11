@@ -237,7 +237,7 @@ class PostWidget extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth*0.065, vertical: SizeConfig.screenHeight *0.01),
             width: SizeConfig.screenWidth,
-            child: DescriptionTextWidget(text : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit."),
+            child: DescriptionTextWidget(text : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit"),
           ),
           Container(
             width: SizeConfig.screenWidth,
