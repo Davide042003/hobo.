@@ -36,21 +36,25 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
     _scrollController..addListener(() {
       if (_scrollController.offset >= SizeConfig.screenHeight * 0.2) {
         setState(() {
-          visible = true;
+          if (!visible)
+            visible = true;
         });
       } else if (_scrollController.offset <= SizeConfig.screenHeight * 0.18) {
         setState(() {
-          visible = false;
+          if (visible)
+            visible = false;
         });
       }
 
       if (_scrollController.offset >= SizeConfig.screenHeight * 0.448) {
         setState(() {
-          pinnedAppBar = true;
+          if (!pinnedAppBar)
+            pinnedAppBar = true;
         });
       } else if (_scrollController.offset < SizeConfig.screenHeight * 0.448) {
         setState(() {
-          pinnedAppBar = false;
+          if (pinnedAppBar)
+            pinnedAppBar = false;
         });
       }
 
@@ -206,6 +210,25 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
           ),
           visible ? TopBarWidget(animationPos: animationPos, themeChange: themeChange):SizedBox(),
           pinnedAppBar ? PinnedAppBarWidget(themeChange: themeChange, leftPosition: _leftPosition, currentPage: _currentPage, pageController: _pageController) : SizedBox(),
+          Padding(
+            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
+            child: Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight * 0.2,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [
+                        Styles.social_gradientstart(themeChange.darkTheme, context),
+                        Styles.social_gradientend(themeChange.darkTheme, context)
+                      ],
+                      begin: Alignment(
+                          Alignment.topCenter.x,
+                          Alignment.topCenter.y + SizeConfig.screenHeight*0.0005),
+                      end: Alignment(
+                          Alignment.bottomCenter.x,
+                          Alignment.bottomCenter.y - SizeConfig.screenHeight*0.0003))),
+            ),
+          )
         ],
       ),
     );

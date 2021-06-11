@@ -177,4 +177,16 @@ class Styles {
   static Color social_choosetext(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(220, 220, 220, 0.3) :  Color.fromRGBO(220, 220, 220, 1);
   }
+
+  static Color social_gototour(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(116, 142, 243, 1) :  Color.fromRGBO(0, 119, 255, 1);
+  }
+
+  static Color social_gradientstart(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.black.withOpacity(0) :   Color.fromRGBO(245, 252, 255, 0);
+  }
+
+  static Color social_gradientend(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(41, 41, 41, 1) :   Color.fromRGBO(245, 252, 255, 1);
+  }
 }

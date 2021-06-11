@@ -18,11 +18,27 @@ class _SocialViewState extends State<SocialView> {
   final _leftPositionList = [0.105, 0.5];
   double _leftPosition = 0.105;
   final ScrollController _scrollController = ScrollController();
+  bool visible = false;
 
   @override
   void initState() {
     super.initState();
+    _scrollController
+      ..addListener(() {
+        if (_scrollController.offset >= SizeConfig.screenHeight * 0.12) {
+          setState(() {
+            if (!visible)
+              visible = true;
+          });
+        } else if (_scrollController.offset <= SizeConfig.screenHeight * 0.18) {
+          setState(() {
+            if (visible)
+              visible = false;
+          });
+        }
+      });
   }
+
 
   @override
   void dispose() {
@@ -148,93 +164,87 @@ class _SocialViewState extends State<SocialView> {
                           initials: "DB")),
                 ],
               ),
-            ),
-            SizedBox(height: SizeConfig.screenHeight * 0.025),
-            Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight * 0.12,
-              color: Colors.black,
-            ),
-            Stack(children: [
-              Container(
-                margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0475),
-                width: SizeConfig.screenWidth,
-                height: SizeConfig.screenHeight * 0.001,
-                color: Styles.tourpreview_bar(themeChange.darkTheme, context),
-              ),
-              AnimatedPositioned(
-                left: _leftPosition * SizeConfig.screenWidth,
-                child: Container(
-                  margin:
+            ),SizedBox(height: visible ? SizeConfig.screenHeight * 0.015: 0,),
+                visible ? Stack(children: [
+                  Container(
+                    margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0475),
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.001,
+                    color: Styles.tourpreview_bar(themeChange.darkTheme, context),
+                  ),
+                  AnimatedPositioned(
+                    left: _leftPosition * SizeConfig.screenWidth,
+                    child: Container(
+                      margin:
                       EdgeInsets.only(top: SizeConfig.screenHeight * 0.0455),
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(116, 142, 243, 1),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10))),
-                  width: SizeConfig.screenWidth * 0.38,
-                  height: SizeConfig.screenHeight * 0.0025,
-                ),
-                duration: Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.screenWidth * 0.1),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          width: SizeConfig.screenWidth * 0.333,
-                          height: SizeConfig.screenHeight * 0.05,
-                          child: Center(
-                              child: Text(
-                            "Followed",
-                            style: TextStyle(
-                                fontFamily: Constants.POPPINS,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: _currentPage == 0
-                                    ? Styles.whiteblack(
-                                        themeChange.darkTheme, context)
-                                    : Styles.social_choosetext(
-                                        themeChange.darkTheme, context)),
-                          )),
-                        ),
-                        onTap: () => _pageController.animateToPage(0,
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.fastOutSlowIn)),
-                    GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          width: SizeConfig.screenWidth * 0.333,
-                          height: SizeConfig.screenHeight * 0.05,
-                          child: Center(
-                              child: Text(
-                            "Explore",
-                            style: TextStyle(
-                                fontFamily: Constants.POPPINS,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: _currentPage == 1
-                                    ? Styles.whiteblack(
-                                        themeChange.darkTheme, context)
-                                    : Styles.social_choosetext(
-                                        themeChange.darkTheme, context)),
-                          )),
-                        ),
-                        onTap: () => _pageController.animateToPage(1,
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.fastOutSlowIn)),
-                  ],
-                ),
-              ),
-            ]),
-          ])),
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(116, 142, 243, 1),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10))),
+                      width: SizeConfig.screenWidth * 0.38,
+                      height: SizeConfig.screenHeight * 0.0025,
+                    ),
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.1),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.333,
+                              height: SizeConfig.screenHeight * 0.05,
+                              child: Center(
+                                  child: Text(
+                                    "Followed",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                        color: _currentPage == 0
+                                            ? Styles.whiteblack(
+                                            themeChange.darkTheme, context)
+                                            : Styles.social_choosetext(
+                                            themeChange.darkTheme, context)),
+                                  )),
+                            ),
+                            onTap: () => _pageController.animateToPage(0,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.fastOutSlowIn)),
+                        GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.333,
+                              height: SizeConfig.screenHeight * 0.05,
+                              child: Center(
+                                  child: Text(
+                                    "Explore",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                        color: _currentPage == 1
+                                            ? Styles.whiteblack(
+                                            themeChange.darkTheme, context)
+                                            : Styles.social_choosetext(
+                                            themeChange.darkTheme, context)),
+                                  )),
+                            ),
+                            onTap: () => _pageController.animateToPage(1,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.fastOutSlowIn)),
+                      ],
+                    ),
+                  ),
+                ]) : SizedBox()
+              ])),
           Padding(
-            padding: EdgeInsets.only(top: SizeConfig.screenHeight*0.312),
+            padding: EdgeInsets.only(top: SizeConfig.screenHeight * (visible ? 0.182 : 0.135)),
             child: SingleChildScrollView(
               controller: _scrollController,
               child: Container(
@@ -242,6 +252,88 @@ class _SocialViewState extends State<SocialView> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Container(
+                      width: SizeConfig.screenWidth,
+                      height: SizeConfig.screenHeight * 0.12,
+                      color: Colors.black,
+                    ),
+                    visible ? SizedBox(): Stack(children: [
+                      Container(
+                        margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0475),
+                        width: SizeConfig.screenWidth,
+                        height: SizeConfig.screenHeight * 0.001,
+                        color: Styles.tourpreview_bar(themeChange.darkTheme, context),
+                      ),
+                      AnimatedPositioned(
+                        left: _leftPosition * SizeConfig.screenWidth,
+                        child: Container(
+                          margin:
+                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.0455),
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(116, 142, 243, 1),
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10))),
+                          width: SizeConfig.screenWidth * 0.38,
+                          height: SizeConfig.screenHeight * 0.0025,
+                        ),
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.screenWidth * 0.1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                child: Container(
+                                  width: SizeConfig.screenWidth * 0.333,
+                                  height: SizeConfig.screenHeight * 0.05,
+                                  child: Center(
+                                      child: Text(
+                                        "Followed",
+                                        style: TextStyle(
+                                            fontFamily: Constants.POPPINS,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17,
+                                            color: _currentPage == 0
+                                                ? Styles.whiteblack(
+                                                themeChange.darkTheme, context)
+                                                : Styles.social_choosetext(
+                                                themeChange.darkTheme, context)),
+                                      )),
+                                ),
+                                onTap: () => _pageController.animateToPage(0,
+                                    duration: Duration(milliseconds: 300),
+                                    curve: Curves.fastOutSlowIn)),
+                            GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                child: Container(
+                                  width: SizeConfig.screenWidth * 0.333,
+                                  height: SizeConfig.screenHeight * 0.05,
+                                  child: Center(
+                                      child: Text(
+                                        "Explore",
+                                        style: TextStyle(
+                                            fontFamily: Constants.POPPINS,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17,
+                                            color: _currentPage == 1
+                                                ? Styles.whiteblack(
+                                                themeChange.darkTheme, context)
+                                                : Styles.social_choosetext(
+                                                themeChange.darkTheme, context)),
+                                      )),
+                                ),
+                                onTap: () => _pageController.animateToPage(1,
+                                    duration: Duration(milliseconds: 300),
+                                    curve: Curves.fastOutSlowIn)),
+                          ],
+                        ),
+                      ),
+                    ]),
                     ExpandablePageView(
                       controller: _pageController,
                       onPageChanged: _onPageChanged,
@@ -255,6 +347,25 @@ class _SocialViewState extends State<SocialView> {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
+            child: Container(
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight * 0.2,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [
+                    Styles.social_gradientstart(themeChange.darkTheme, context),
+                    Styles.social_gradientend(themeChange.darkTheme, context)
+                  ],
+                      begin: Alignment(
+                          Alignment.topCenter.x,
+                          Alignment.topCenter.y + SizeConfig.screenHeight*0.0005),
+                      end: Alignment(
+                          Alignment.bottomCenter.x,
+                          Alignment.bottomCenter.y - SizeConfig.screenHeight*0.0003))),
+            ),
+          )
         ],
       ),
     );

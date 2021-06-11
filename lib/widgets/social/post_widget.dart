@@ -13,8 +13,8 @@ class PostWidget extends StatelessWidget {
 
     return Container(
       width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight * 0.4,
-      decoration: BoxDecoration(boxShadow: [
+      height: SizeConfig.screenHeight * 0.55,
+      decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
             color: Colors.black.withOpacity(0.06),
             blurRadius: 15,
@@ -84,6 +84,112 @@ class PostWidget extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.3,
+            color: Colors.black,
+            child: Image.asset(
+              "assets/images/image-social-1.png",
+              fit: BoxFit.fill,
+            ),
+          ),
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.06,
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.screenHeight * 0.01,
+                    horizontal: SizeConfig.screenWidth * 0.065),
+                child: Row(
+                  children: [
+                    Container(
+                      width: SizeConfig.screenWidth * 0.1,
+                      height: SizeConfig.screenHeight,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Icon(
+                          LineIcons.heart,
+                          size: 22,
+                          color:
+                              Styles.whiteblack(themeChange.darkTheme, context),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: SizeConfig.screenWidth * 0.01),
+                    Container(
+                      width: SizeConfig.screenWidth * 0.1,
+                      height: SizeConfig.screenHeight,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Icon(
+                          Ionicons.chatbubble_outline,
+                          size: 22,
+                          color:
+                              Styles.whiteblack(themeChange.darkTheme, context),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: SizeConfig.screenWidth * 0.01),
+                    Container(
+                      width: SizeConfig.screenWidth * 0.1,
+                      height: SizeConfig.screenHeight,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Icon(
+                          Ionicons.share_outline,
+                          size: 22,
+                          color:
+                              Styles.whiteblack(themeChange.darkTheme, context),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: SizeConfig.screenWidth * 0.01),
+                    Container(
+                      width: SizeConfig.screenWidth * 0.35,
+                      height: SizeConfig.screenHeight,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            Icon(
+                              CustomIcons.pinlocationicon,
+                              size: 22,
+                              color: Styles.social_gototour(
+                                  themeChange.darkTheme, context),
+                            ),
+                            SizedBox(width: SizeConfig.screenWidth * 0.01),
+                            Text(
+                              "GO TO THE TOUR",
+                              style: TextStyle(
+                                  fontFamily: Constants.POPPINS,
+                                  fontSize: 13,
+                                  color: Styles.social_gototour(
+                                      themeChange.darkTheme, context)),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                        child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: SizeConfig.screenWidth * 0.1,
+                        height: SizeConfig.screenHeight,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            LineIcons.addToShoppingCart,
+                            size: 22,
+                            color:
+                            Styles.whiteblack(themeChange.darkTheme, context),
+                          ),
+                        ),
+                      ),
+                    ))
+                  ],
+                )),
           )
         ],
       ),

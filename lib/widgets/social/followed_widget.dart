@@ -14,13 +14,16 @@ class _FollowedWidgetState extends State<FollowedWidget> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Container(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-        children: [
-          PostWidget()
-        ],
+        child: ListView.separated(
+      padding: EdgeInsets.zero,
+      primary: false,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: 3,
+      itemBuilder: (ctx, i) => PostWidget(),
+      separatorBuilder: (ctx, i) => SizedBox(
+        height: SizeConfig.screenHeight * 0.012,
       ),
-    );
+    ));
   }
 }
