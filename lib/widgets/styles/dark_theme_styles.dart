@@ -189,4 +189,8 @@ class Styles {
   static Color social_gradientend(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(41, 41, 41, 1) :   Color.fromRGBO(245, 252, 255, 1);
   }
+
+  static Color social_sub(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(100, 100, 100, 1) :   Color.fromRGBO(203, 203, 203, 1);
+  }
 }

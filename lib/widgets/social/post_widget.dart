@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hobo_test/widgets/chat/profileimagechat_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
-import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
+import 'package:hobo_test/widgets/social/socialprofilelike_widget.dart';
+import 'package:hobo_test/widgets/social/descriptiontext_widget.dart';
 
 class PostWidget extends StatelessWidget {
   @override
@@ -12,8 +12,6 @@ class PostWidget extends StatelessWidget {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Container(
-      width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight * 0.55,
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
             color: Colors.black.withOpacity(0.06),
@@ -95,11 +93,11 @@ class PostWidget extends StatelessWidget {
             ),
           ),
           Container(
+            margin: EdgeInsets.only(top: SizeConfig.screenHeight*0.008),
             width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.06,
+            height: SizeConfig.screenHeight * 0.04,
             child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: SizeConfig.screenHeight * 0.01,
                     horizontal: SizeConfig.screenWidth * 0.065),
                 child: Row(
                   children: [
@@ -190,7 +188,69 @@ class PostWidget extends StatelessWidget {
                     ))
                   ],
                 )),
-          )
+          ),
+          SizedBox(height: SizeConfig.screenHeight *0.002),
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.03,
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.screenWidth * 0.065),
+                child: Row(
+                  children: [
+                    Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.1),
+                          child: ProfileImageSocialWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: SizeConfig.screenWidth *0.05),
+                          child: ProfileImageSocialWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+                        ),
+                        ProfileImageSocialWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
+                      child: RichText(text: TextSpan(
+                        text: "Liked by ",
+                        style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.whiteblack(themeChange.darkTheme, context)),
+                        children: [
+                          TextSpan(
+                              text: "jonhsmith",
+                              style: TextStyle(fontWeight: FontWeight.w600)
+                          ),
+                          TextSpan(
+                              text: " and ",
+                          ),
+                          TextSpan(
+                              text: "45 others",
+                              style: TextStyle(fontWeight: FontWeight.w600)
+                          )
+                        ]
+                      )),
+                    )
+                  ],
+                )),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth*0.065, vertical: SizeConfig.screenHeight *0.01),
+            width: SizeConfig.screenWidth,
+            child: DescriptionTextWidget(text : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit."),
+          ),
+          Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight * 0.014,
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.screenWidth * 0.065),
+                child: Text(
+                  "View all 3 comments",
+                  style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.social_sub(themeChange.darkTheme, context)),
+                )),
+          ),
+          SizedBox(height: SizeConfig.screenHeight*0.1,)
         ],
       ),
     );
