@@ -108,35 +108,33 @@ class PostWidget extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Icon(
                           LineIcons.heart,
-                          size: 22,
+                          size: 20,
                           color:
                               Styles.whiteblack(themeChange.darkTheme, context),
                         ),
                       ),
                     ),
-                    SizedBox(width: SizeConfig.screenWidth * 0.01),
                     Container(
                       width: SizeConfig.screenWidth * 0.1,
                       height: SizeConfig.screenHeight,
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Icon(
-                          Ionicons.chatbubble_outline,
-                          size: 22,
+                          CustomIcons.comment,
+                          size: 15,
                           color:
                               Styles.whiteblack(themeChange.darkTheme, context),
                         ),
                       ),
                     ),
-                    SizedBox(width: SizeConfig.screenWidth * 0.01),
                     Container(
                       width: SizeConfig.screenWidth * 0.1,
                       height: SizeConfig.screenHeight,
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Icon(
-                          Ionicons.share_outline,
-                          size: 22,
+                          CustomIcons.share,
+                          size: 15,
                           color:
                               Styles.whiteblack(themeChange.darkTheme, context),
                         ),
@@ -178,8 +176,8 @@ class PostWidget extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Icon(
-                            LineIcons.addToShoppingCart,
-                            size: 22,
+                            CustomIcons.save,
+                            size: 15,
                             color:
                             Styles.whiteblack(themeChange.darkTheme, context),
                           ),
