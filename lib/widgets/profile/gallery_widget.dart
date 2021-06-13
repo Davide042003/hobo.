@@ -17,7 +17,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
         itemCount: 20,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, crossAxisSpacing: 2, mainAxisSpacing: 2),
+            crossAxisCount: 3, crossAxisSpacing: SizeConfig.screenWidth*0.005, mainAxisSpacing:SizeConfig.screenHeight*0.0023),
         itemBuilder: (BuildContext context, int index) {
           return Container(
             width: SizeConfig.screenWidth * 0.28,

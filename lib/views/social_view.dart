@@ -348,23 +348,25 @@ class _SocialViewState extends State<SocialView> {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
-            child: Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight * 0.2,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                    Styles.social_gradientstart(themeChange.darkTheme, context),
-                    Styles.social_gradientend(themeChange.darkTheme, context)
-                  ],
-                      begin: Alignment(
-                          Alignment.topCenter.x,
-                          Alignment.topCenter.y + SizeConfig.screenHeight*0.0005),
-                      end: Alignment(
-                          Alignment.bottomCenter.x,
-                          Alignment.bottomCenter.y - SizeConfig.screenHeight*0.0003))),
+          IgnorePointer(
+            child: Padding(
+              padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
+              child: Container(
+                width: SizeConfig.screenWidth,
+                height: SizeConfig.screenHeight * 0.2,
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [
+                      Styles.social_gradientstart(themeChange.darkTheme, context),
+                      Styles.social_gradientend(themeChange.darkTheme, context)
+                    ],
+                        begin: Alignment(
+                            Alignment.topCenter.x,
+                            Alignment.topCenter.y + SizeConfig.screenHeight*0.0005),
+                        end: Alignment(
+                            Alignment.bottomCenter.x,
+                            Alignment.bottomCenter.y - SizeConfig.screenHeight*0.0003))),
+              ),
             ),
           )
         ],
