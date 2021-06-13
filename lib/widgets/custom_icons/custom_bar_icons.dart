@@ -37,4 +37,13 @@ class CustomIcons {
   static const IconData save = IconData(0xe823, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData comment = IconData(0xe824, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData share = IconData(0xe825, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData map_pin = IconData(0xe826, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData lock = IconData(0xe827, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData bell = IconData(0xe829, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData settings_double = IconData(0xe82a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData privacy = IconData(0xe82b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData service_center = IconData(0xe82c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData twitter = IconData(0xe82d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData instagram = IconData(0xe82e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData logout = IconData(0xe82f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

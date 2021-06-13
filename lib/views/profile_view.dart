@@ -1,6 +1,7 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hobo_test/views/settings_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/profile/gallery_widget.dart';
@@ -139,17 +140,23 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                       ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
                       shape: BoxShape.circle),
                   child: isMe
-                      ? Container(
-                          decoration:
-                              BoxDecoration(shape: BoxShape.circle, boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(.15),
-                                blurRadius: 2.0,
-                                offset: Offset(0, 1)),
-                          ]),
-                          child: Icon(Ionicons.settings_outline,
-                              color: Colors.white, size: 22),
-                        )
+                      ? GestureDetector(
+                        child: Container(
+                            decoration:
+                                BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(.15),
+                                  blurRadius: 2.0,
+                                  offset: Offset(0, 1)),
+                            ]),
+                            child: Icon(Ionicons.settings_outline,
+                                color: Colors.white, size: 22),
+                          ),
+                    onTap: () =>   Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsView()),
+                    ),
+                      )
                       : Container(
                           decoration:
                               BoxDecoration(shape: BoxShape.circle, boxShadow: [

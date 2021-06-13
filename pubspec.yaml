@@ -75,6 +75,7 @@ flutter:
    - assets/images/trophy.svg
    - assets/images/Google-Logo.svg
    - assets/images/image-social-1.png
+   - assets/images/instagram-gradient.jpeg
 
   fonts:
     - family: Poppins

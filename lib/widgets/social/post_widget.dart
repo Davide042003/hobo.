@@ -174,8 +174,8 @@ class _PostWidgetState extends State<PostWidget> {
                         child: Row(
                           children: [
                             Icon(
-                              CustomIcons.pinlocationicon,
-                              size: 22,
+                              CustomIcons.map_pin,
+                              size: 15,
                               color: Styles.social_gototour(
                                   themeChange.darkTheme, context),
                             ),

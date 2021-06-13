@@ -197,4 +197,8 @@ class Styles {
   static Color social_comment(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(128, 128, 128, 1) :   Color.fromRGBO(212, 212, 212, 1);
   }
+
+  static Color settings_card(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(48, 48, 48, 1) :   Colors.white;
+  }
 }
