@@ -112,17 +112,15 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.015),
-          Padding(
-            padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
-            child: Container(
-              height: SizeConfig.screenHeight * 0.2,
-              child:ListView.builder(
-                  primary: false,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: hotPlacesArrayList.length,
-                  itemBuilder: (ctx, i) => HotPlacesHomeWidget(i))
-            ),
+          Container(
+            height: SizeConfig.screenHeight * 0.2,
+            child:ListView.builder(
+                padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
+                primary: false,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: hotPlacesArrayList.length,
+                itemBuilder: (ctx, i) => HotPlacesHomeWidget(i))
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.035),
           Padding(
@@ -141,23 +139,21 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
-          Padding(
-            padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
-            child: Container(
-              height: SizeConfig.screenHeight * 0.05,
-              child: ListView(
-                primary: false,
-                scrollDirection: Axis.horizontal,
-                children: [
-                 CategoriesWidget(Color.fromRGBO(255, 113, 184, .11), Color.fromRGBO(245, 83, 163, 1), 0.31, Ionicons.restaurant, "Restaurants"),
-                  SizedBox(width: SizeConfig.screenWidth * 0.03),
-                  CategoriesWidget(Color.fromRGBO(117, 149, 255, .11), Color.fromRGBO(75, 114, 241, 1), 0.22, Ionicons.bed, "Hotels"),
-                  SizedBox(width: SizeConfig.screenWidth * 0.03),
-                  CategoriesWidget(Color.fromRGBO(80, 206, 134, .11), Color.fromRGBO(32, 194, 101, 1), 0.2, Ionicons.earth, "Bars"),
-                  SizedBox(width: SizeConfig.screenWidth * 0.03),
-                  CategoriesWidget(Color.fromRGBO(255, 113, 184, .11), Color.fromRGBO(245, 83, 163, 1), 0.31, Ionicons.restaurant, "Restaurants"),
-                ],
-              ),
+          Container(
+            height: SizeConfig.screenHeight * 0.05,
+            child: ListView(
+              padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
+              primary: false,
+              scrollDirection: Axis.horizontal,
+              children: [
+               CategoriesWidget(Color.fromRGBO(255, 113, 184, .11), Color.fromRGBO(245, 83, 163, 1), 0.31, Ionicons.restaurant, "Restaurants"),
+                SizedBox(width: SizeConfig.screenWidth * 0.03),
+                CategoriesWidget(Color.fromRGBO(117, 149, 255, .11), Color.fromRGBO(75, 114, 241, 1), 0.22, Ionicons.bed, "Hotels"),
+                SizedBox(width: SizeConfig.screenWidth * 0.03),
+                CategoriesWidget(Color.fromRGBO(80, 206, 134, .11), Color.fromRGBO(32, 194, 101, 1), 0.2, Ionicons.earth, "Bars"),
+                SizedBox(width: SizeConfig.screenWidth * 0.03),
+                CategoriesWidget(Color.fromRGBO(255, 113, 184, .11), Color.fromRGBO(245, 83, 163, 1), 0.31, Ionicons.restaurant, "Restaurants"),
+              ],
             ),
           ),
         ],
