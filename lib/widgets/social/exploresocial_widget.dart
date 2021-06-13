@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/social/postexplore_widget.dart';
 import 'package:hobo_test/widgets/social/tag_widget.dart';
@@ -30,18 +31,23 @@ class ExploreWidget extends StatelessWidget {
                   )),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.065),
-          child: GridView.builder(
+          margin:
+              EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.065),
+          child: StaggeredGridView.countBuilder(
               shrinkWrap: true,
               padding: EdgeInsets.only(
                   top: SizeConfig.screenHeight * 0.006,
                   bottom: SizeConfig.screenHeight * .12),
               itemCount: 20,
               physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, crossAxisSpacing: SizeConfig.screenWidth * 0.05, mainAxisSpacing: SizeConfig.screenHeight *0.025),
+              crossAxisCount: 2,
+              crossAxisSpacing: SizeConfig.screenWidth * 0.05,
+              mainAxisSpacing: SizeConfig.screenHeight * 0.025,
               itemBuilder: (BuildContext context, int index) {
                 return PostExploreWidget();
+              },
+              staggeredTileBuilder: (index) {
+                return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
               }),
         )
       ],

@@ -19,10 +19,10 @@ class _PostExploreWidgetState extends State<PostExploreWidget> {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(10)),
       child: Container(
-        height: SizeConfig.screenHeight*0.5,
+        height: SizeConfig.screenHeight,
         child: Stack(
           children: [
-            Container(height: SizeConfig.screenHeight*0.5, child: Image.asset("assets/images/image-social-1.png",fit: BoxFit.fill,)),
+            Container(height: SizeConfig.screenHeight, child: Image.asset("assets/images/image-social-1.png",fit: BoxFit.fill,)),
             Container(height: SizeConfig.screenHeight*0.06,decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
