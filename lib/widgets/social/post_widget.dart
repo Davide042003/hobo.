@@ -12,7 +12,7 @@ class PostWidget extends StatelessWidget {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Container(
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+      decoration: BoxDecoration(color: Styles.blackwhite(themeChange.darkTheme, context), boxShadow: [
         BoxShadow(
             color: Colors.black.withOpacity(0.06),
             blurRadius: 15,
@@ -96,6 +96,7 @@ class PostWidget extends StatelessWidget {
             margin: EdgeInsets.only(top: SizeConfig.screenHeight*0.008),
             width: SizeConfig.screenWidth,
             height: SizeConfig.screenHeight * 0.04,
+            color: Styles.blackwhite(themeChange.darkTheme, context),
             child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: SizeConfig.screenWidth * 0.065),

@@ -37,11 +37,11 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
 
     return new Container(
       child: secondHalf.isEmpty
-          ? new Text(firstHalf, style:  TextStyle(fontFamily: Constants.POPPINS, fontSize: 10),)
+          ? new Text(firstHalf, style:  TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.whiteblack(themeChange.darkTheme, context),),)
           : new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          new Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf), style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10),),
+          new Text(flag ? (firstHalf + "...") : (firstHalf + secondHalf), style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.whiteblack(themeChange.darkTheme, context),),),
           flag ? new InkWell(
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.end,

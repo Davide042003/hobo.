@@ -5,6 +5,7 @@ import 'package:hobo_test/views/home_view.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
+import 'package:hobo_test/widgets/social/exploresocial_widget.dart';
 import 'package:hobo_test/widgets/social/followed_widget.dart';
 
 class SocialView extends StatefulWidget {
@@ -339,7 +340,7 @@ class _SocialViewState extends State<SocialView> {
                       onPageChanged: _onPageChanged,
                       children: [
                         FollowedWidget(),
-                        HomeView(),
+                        ExploreWidget(),
                       ],
                     )
                   ],
