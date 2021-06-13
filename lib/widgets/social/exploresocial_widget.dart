@@ -41,14 +41,7 @@ class ExploreWidget extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, crossAxisSpacing: SizeConfig.screenWidth * 0.05, mainAxisSpacing: SizeConfig.screenHeight *0.025),
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  width: SizeConfig.screenWidth * 0.28,
-                  //    height: SizeConfig.screenWidth * 0.14,
-                  child: Image.asset(
-                    "assets/images/NewYork-Background.png",
-                    fit: BoxFit.cover,
-                  ),
-                );
+                return PostExploreWidget();
               }),
         )
       ],

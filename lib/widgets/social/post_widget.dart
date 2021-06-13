@@ -5,7 +5,14 @@ import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/social/socialprofilelike_widget.dart';
 import 'package:hobo_test/widgets/social/descriptiontext_widget.dart';
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
+  @override
+  _PostWidgetState createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
+  bool liked = false;
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -72,13 +79,13 @@ class PostWidget extends StatelessWidget {
                   ),
                   Expanded(
                       child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      child: Icon(Icons.more_vert_rounded,
-                          color: Styles.social_profile(
-                              themeChange.darkTheme, context)),
-                    ),
-                  ))
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          child: Icon(Icons.more_vert_rounded,
+                              color: Styles.social_profile(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ))
                 ],
               ),
             ),
@@ -102,18 +109,35 @@ class PostWidget extends StatelessWidget {
                     horizontal: SizeConfig.screenWidth * 0.065),
                 child: Row(
                   children: [
-                    Container(
-                      width: SizeConfig.screenWidth * 0.1,
-                      height: SizeConfig.screenHeight,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Icon(
-                          LineIcons.heart,
-                          size: 20,
-                          color:
-                              Styles.whiteblack(themeChange.darkTheme, context),
+                    GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      child: Container(
+                        width: SizeConfig.screenWidth * 0.1,
+                        height: SizeConfig.screenHeight,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: liked == true
+                              ? Icon(
+                                LineIcons.heartAlt,
+                                color: Color.fromRGBO(245, 95, 185, 1),
+                                size: 20,
+                              )
+                              : Icon(
+                                LineIcons.heart,
+                                color:Styles.whiteblack(themeChange.darkTheme, context),
+                                size: 20,
+                              )
                         ),
                       ),
+                      onTap: () {
+                        setState(() {
+                          if (!liked) {
+                            liked = true;
+                          } else {
+                            liked = false;
+                          }
+                        });
+                      },
                     ),
                     Container(
                       width: SizeConfig.screenWidth * 0.1,
@@ -124,7 +148,7 @@ class PostWidget extends StatelessWidget {
                           CustomIcons.comment,
                           size: 15,
                           color:
-                              Styles.whiteblack(themeChange.darkTheme, context),
+                          Styles.whiteblack(themeChange.darkTheme, context),
                         ),
                       ),
                     ),
@@ -137,7 +161,7 @@ class PostWidget extends StatelessWidget {
                           CustomIcons.share,
                           size: 15,
                           color:
-                              Styles.whiteblack(themeChange.darkTheme, context),
+                          Styles.whiteblack(themeChange.darkTheme, context),
                         ),
                       ),
                     ),
@@ -170,21 +194,21 @@ class PostWidget extends StatelessWidget {
                     ),
                     Expanded(
                         child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        width: SizeConfig.screenWidth * 0.1,
-                        height: SizeConfig.screenHeight,
-                        child: Align(
                           alignment: Alignment.centerRight,
-                          child: Icon(
-                            CustomIcons.save,
-                            size: 15,
-                            color:
-                            Styles.whiteblack(themeChange.darkTheme, context),
+                          child: Container(
+                            width: SizeConfig.screenWidth * 0.1,
+                            height: SizeConfig.screenHeight,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(
+                                CustomIcons.save,
+                                size: 15,
+                                color:
+                                Styles.whiteblack(themeChange.darkTheme, context),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ))
+                        ))
                   ],
                 )),
           ),
@@ -213,21 +237,21 @@ class PostWidget extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
                       child: RichText(text: TextSpan(
-                        text: "Liked by ",
-                        style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.whiteblack(themeChange.darkTheme, context)),
-                        children: [
-                          TextSpan(
-                              text: "jonhsmith",
-                              style: TextStyle(fontWeight: FontWeight.w600)
-                          ),
-                          TextSpan(
+                          text: "Liked by ",
+                          style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 10, color: Styles.whiteblack(themeChange.darkTheme, context)),
+                          children: [
+                            TextSpan(
+                                text: "jonhsmith",
+                                style: TextStyle(fontWeight: FontWeight.w600)
+                            ),
+                            TextSpan(
                               text: " and ",
-                          ),
-                          TextSpan(
-                              text: "45 others",
-                              style: TextStyle(fontWeight: FontWeight.w600)
-                          )
-                        ]
+                            ),
+                            TextSpan(
+                                text: "45 others",
+                                style: TextStyle(fontWeight: FontWeight.w600)
+                            )
+                          ]
                       )),
                     )
                   ],
@@ -261,7 +285,7 @@ class PostWidget extends StatelessWidget {
                     horizontal: SizeConfig.screenWidth * 0.065),
                 child: Row(
                   children: [
-                   ProfileImageSocialWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+                    ProfileImageSocialWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
                     Container(
                       margin: EdgeInsets.only(left: SizeConfig.screenWidth*0.02),
                       width: SizeConfig.screenWidth*0.7,
@@ -270,14 +294,14 @@ class PostWidget extends StatelessWidget {
                         cursorColor: Colors.black,
                         keyboardType: TextInputType.text,
                         decoration: new InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            hintText: "Add a comment",
-                        hintStyle: TextStyle(fontFamily: Constants.POPPINS, fontSize: 13, color: Styles.social_comment(themeChange.darkTheme, context)),
-                        contentPadding: EdgeInsets.only(top: SizeConfig.screenHeight*0.07),),
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          hintText: "Add a comment",
+                          hintStyle: TextStyle(fontFamily: Constants.POPPINS, fontSize: 13, color: Styles.social_comment(themeChange.darkTheme, context)),
+                          contentPadding: EdgeInsets.only(top: SizeConfig.screenHeight*0.07),),
                       ),
                     )
                   ],
