@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/chat/cardchat_widget.dart';
 import 'package:hobo_test/widgets/chat/profileimagechat_widget.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/chat/typemessage_widget.dart';
 
@@ -83,10 +84,10 @@ class _ChatViewState extends State<ChatView> {
                               width: SizeConfig.screenWidth * 0.125,
                               height: SizeConfig.screenHeight,
                               child: Icon(
-                                Icons.arrow_back_ios_outlined,
+                                CustomIcons.backarrow,
                                 color: Styles.whiteblack(
                                     themeChange.darkTheme, context),
-                                size: 20,
+                                size: 16,
                               ),
                             ),
                             onTap: () {

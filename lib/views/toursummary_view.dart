@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/toursummary/info_toursummary.dart';
 import 'package:hobo_test/widgets/toursummary/peopleanddate_toursummary.dart';
@@ -295,10 +296,10 @@ class TopBar extends StatelessWidget {
                 width: SizeConfig.screenWidth * 0.125,
                 height: SizeConfig.screenHeight,
                 child: Icon(
-                  Icons.arrow_back_ios_outlined,
+                  CustomIcons.backarrow,
                   color: Styles.whiteblack(
                       themeChange.darkTheme, context),
-                  size: 20,
+                  size: 16,
                 ),
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hobo_test/views/addcard_view.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/payment/cardpayment_template.dart';
 import 'package:hobo_test/widgets/payment/paymentOptions_widget.dart';
@@ -137,9 +138,9 @@ class _PaymentDetailsViewState extends State<PaymentDetailsView>
                 width: SizeConfig.screenWidth * 0.125,
                 height: SizeConfig.screenHeight,
                 child: Icon(
-                  Icons.arrow_back_ios_outlined,
+                  CustomIcons.backarrow,
                   color: Styles.whiteblack(themeChange.darkTheme, context),
-                  size: 20,
+                  size: 16,
                 ),
               ),
             ),

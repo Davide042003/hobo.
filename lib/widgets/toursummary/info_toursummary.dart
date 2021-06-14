@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
@@ -143,7 +144,7 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.1,
                             decoration: BoxDecoration(
-                              
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
                                 gradient: LinearGradient(
                                     colors: [
                                       Colors.black.withOpacity(0),
@@ -219,7 +220,7 @@ class _InfoTourSummaryWidgetState extends State<InfoTourSummaryWidget> {
                                               offset: Offset(0, 3)),
                                         ]),
                                     child: Icon(
-                                      Ionicons.map_outline,
+                                      CustomIcons.mapicon,
                                       size: 12,
                                       color: Colors.white,
                                     ),

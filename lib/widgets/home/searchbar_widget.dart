@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 
@@ -74,7 +75,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                           blurRadius: 2.0,
                           offset: Offset(0, 1)),
                     ]),
-                    child: Icon(Ionicons.search, color: Colors.white, size: 22),
+                    child: Icon(CustomIcons.search, color: Colors.white, size: 26),
                   ),
                 )),
           ])

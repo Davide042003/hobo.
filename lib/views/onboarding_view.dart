@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:hobo_test/widgets/onBoarding/onboarding_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -93,8 +94,8 @@ class _SliderLayoutViewState extends State<SliderLayoutView> {
                               onTap: () => _pageController.previousPage(
                                   duration: _duration, curve: _curve),
                               child: Icon(
-                                Ionicons.arrow_back_outline,
-                                size: 25,
+                                CustomIcons.back_onboarding,
+                                size: 16,
                                 color: Styles.whiteblack(
                                     themeChange.darkTheme, context),
                               ),

@@ -2,6 +2,7 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hobo_test/views/home_view.dart';
+import 'package:hobo_test/views/searchsocial_view.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
@@ -133,7 +134,6 @@ class _SocialViewState extends State<SocialView> {
                               ]),
                         ),
                         child: TextButton(
-                          onPressed: () {},
                           child: Container(
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -147,6 +147,12 @@ class _SocialViewState extends State<SocialView> {
                                 color: Colors.white, size: 20),
                           ),
                         )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchSocialView()),
+                      );
+                    },
                   ),
                   SizedBox(width: SizeConfig.screenWidth * 0.01),
                   Container(
@@ -165,7 +171,8 @@ class _SocialViewState extends State<SocialView> {
                           initials: "DB")),
                 ],
               ),
-            ),SizedBox(height: visible ? SizeConfig.screenHeight * 0.015: 0,),
+            ),
+                SizedBox(height: visible ? SizeConfig.screenHeight * 0.015: 0,),
                 visible ? Stack(children: [
                   Container(
                     margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.0475),

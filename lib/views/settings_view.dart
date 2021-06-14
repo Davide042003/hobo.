@@ -35,10 +35,10 @@ class _SettingsViewState extends State<SettingsView> {
                         width: SizeConfig.screenWidth * 0.125,
                         height: SizeConfig.screenHeight,
                         child: Icon(
-                          Icons.arrow_back_ios_outlined,
+                          CustomIcons.backarrow,
                           color: Styles.whiteblack(
                               themeChange.darkTheme, context),
-                          size: 20,
+                          size: 16,
                         ),
                       ),
                       onTap: () => Navigator.pop(context),
