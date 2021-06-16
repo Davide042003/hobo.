@@ -6,3 +6,4 @@ export 'package:provider/provider.dart';
 export 'package:hobo_test/widgets/provider/dark_theme_provider.dart';
 export 'package:ionicons/ionicons.dart';
 export 'package:line_icons/line_icons.dart';
+export 'package:firebase_core/firebase_core.dart';

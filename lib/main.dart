@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hobo_test/views/addcard_view.dart';
-import 'package:hobo_test/views/chat_view.dart';
-import 'package:hobo_test/views/home_view.dart';
-import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
-import 'package:hobo_test/views/map_view.dart';
-import 'package:hobo_test/views/onboarding_view.dart';
-import 'package:hobo_test/views/paymentdetails_view.dart';
-import 'package:hobo_test/views/profile_view.dart';
-import 'package:hobo_test/views/settings_view.dart';
-import 'package:hobo_test/views/social_view.dart';
-import 'package:hobo_test/views/toursummary_view.dart';
-import 'package:hobo_test/widgets/onBoarding/onboarding_template.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:provider/provider.dart';
 import 'widgets/provider/dark_theme_provider.dart';
-import 'widgets/styles/dark_theme_styles.dart';
+import 'widgets/exports/base_export.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -31,9 +23,29 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
 
+  bool _initialized = false;
+  bool _error = false;
+
+  // Define an async function to initialize FlutterFire
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+      setState(() {
+        _initialized = true;
+      });
+    } catch(e) {
+      // Set `_error` state to true if Firebase initialization fails
+      setState(() {
+        _error = true;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    initializeFlutterFire();
     getCurrentAppTheme();
   }
 
@@ -44,6 +56,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Show error message if initialization failed
+    if(_error) {
+      print(_error);
+      return Container();
+    }
+
+    // Show a loader until FlutterFire is initialized
+    if (!_initialized) {
+      return Container();
+    }
+
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<DarkThemeProvider>(
