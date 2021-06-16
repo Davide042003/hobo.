@@ -179,37 +179,7 @@ class InformationBoxWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
-          Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: SizeConfig.screenWidth * 0.06),
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight * 0.035,
-            child: Row(
-              children: [
-                Container(
-                  height: SizeConfig.screenHeight,
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(245, 95, 185, .1),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(40))),
-                  child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                            SizeConfig.screenWidth * 0.03),
-                        child: Text(
-                          "#Food",
-                          style: TextStyle(
-                            fontFamily: Constants.POPPINS,
-                            fontSize: 12,
-                            color: Color.fromRGBO(245, 95, 185, 1),
-                          ),
-                        ),
-                      )),
-                )
-              ],
-            ),
-          ),
+          TagCardWidget(),
           SizedBox(height: SizeConfig.screenHeight * 0.02),
           Container(
             width: SizeConfig.screenWidth,
@@ -417,6 +387,47 @@ class InformationBoxWidget extends StatelessWidget {
                 ),
               ),
             ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TagCardWidget extends StatelessWidget {
+  const TagCardWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(
+          horizontal: SizeConfig.screenWidth * 0.06),
+      width: SizeConfig.screenWidth,
+      height: SizeConfig.screenHeight * 0.035,
+      child: Row(
+        children: [
+          Container(
+            height: SizeConfig.screenHeight,
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(245, 95, 185, .1),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(40))),
+            child: Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal:
+                      SizeConfig.screenWidth * 0.03),
+                  child: Text(
+                    "#Food",
+                    style: TextStyle(
+                      fontFamily: Constants.POPPINS,
+                      fontSize: 12,
+                      color: Color.fromRGBO(245, 95, 185, 1),
+                    ),
+                  ),
+                )),
           )
         ],
       ),

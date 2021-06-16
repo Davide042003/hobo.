@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, value, value2, Widget child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: TourSummaryView(),
+            home: ManagePagesView(),
           );
         },
       ),
