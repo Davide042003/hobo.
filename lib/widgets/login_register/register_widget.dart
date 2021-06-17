@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
@@ -39,9 +41,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
     focusNodeName.addListener(() {
       setState(() {
-        if(focusNodeName.hasFocus) {
+        if (focusNodeName.hasFocus) {
           focusNodeName.requestFocus();
-        }else{
+        } else {
           focusNodeName.unfocus();
         }
       });
@@ -49,9 +51,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
     focusNodeUsername.addListener(() {
       setState(() {
-        if(focusNodeUsername.hasFocus) {
+        if (focusNodeUsername.hasFocus) {
           focusNodeUsername.requestFocus();
-        }else{
+        } else {
           focusNodeUsername.unfocus();
         }
       });
@@ -59,9 +61,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
     focusNodeMail.addListener(() {
       setState(() {
-        if(focusNodeMail.hasFocus) {
+        if (focusNodeMail.hasFocus) {
           focusNodeMail.requestFocus();
-        }else{
+        } else {
           focusNodeMail.unfocus();
         }
       });
@@ -69,9 +71,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
     focusNodePassword.addListener(() {
       setState(() {
-        if(focusNodePassword.hasFocus) {
+        if (focusNodePassword.hasFocus) {
           focusNodePassword.requestFocus();
-        }else{
+        } else {
           focusNodePassword.unfocus();
         }
       });
@@ -79,9 +81,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
     focusNodeSubmit.addListener(() {
       setState(() {
-        if(focusNodeSubmit.hasFocus) {
+        if (focusNodeSubmit.hasFocus) {
           focusNodeSubmit.requestFocus();
-        }else{
+        } else {
           focusNodeSubmit.unfocus();
         }
       });
@@ -90,7 +92,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   @override
   void dispose() {
-
     focusNodeName.dispose();
     focusNodeUsername..dispose();
     focusNodeMail.dispose();
@@ -100,14 +101,35 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     super.dispose();
   }
 
-  void _trySubmitForm() {
+  void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => ChooseWho()),
-            (Route<dynamic> route) => false,
-      );
+      try {
+        UserCredential user = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: _email, password: _password);
+        FirebaseFirestore.instance.collection('users').doc().set({
+          'email': _email,
+          'name': _name,
+          'onboardingSeen': false,
+          'password': _password,
+          'profilePic': null,
+          'username': _username
+        });
+
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => ChooseWho()),
+              (Route<dynamic> route) => false,
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
@@ -117,9 +139,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
 
-    TextStyle defaultStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, color: Styles.whiteblack(themeChange.darkTheme, context));
-    TextStyle linkStyle = TextStyle(fontSize: 15, fontFamily: Constants.POPPINS, fontWeight: FontWeight.w600, color: Styles.loginregister_forgot(themeChange.darkTheme, context));
-
+    TextStyle defaultStyle = TextStyle(
+        fontSize: 15,
+        fontFamily: Constants.POPPINS,
+        color: Styles.whiteblack(themeChange.darkTheme, context));
+    TextStyle linkStyle = TextStyle(
+        fontSize: 15,
+        fontFamily: Constants.POPPINS,
+        fontWeight: FontWeight.w600,
+        color: Styles.loginregister_forgot(themeChange.darkTheme, context));
 
     return Form(
       key: _formKey,
@@ -127,8 +155,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         padding: EdgeInsets.only(bottom: bottom),
         child: SingleChildScrollView(
           child: Container(
-              margin:
-                  EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.1),
+              margin: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.screenWidth * 0.1),
               child: Column(children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.035),
                 Align(
@@ -139,7 +167,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           fontFamily: Constants.POPPINS,
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
-                      color: Styles.whiteblack(themeChange.darkTheme, context)),
+                          color: Styles.whiteblack(
+                              themeChange.darkTheme, context)),
                       textAlign: TextAlign.left,
                     )),
                 Align(
@@ -149,23 +178,48 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             fontFamily: Constants.POPPINS,
                             fontWeight: FontWeight.w300,
                             fontSize: 17,
-                            color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
+                            color: Styles.loginregister_subheadingandform(
+                                themeChange.darkTheme, context)),
                         textAlign: TextAlign.left)),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
-                InputFieldStandard("Name", 0, CustomIcons.usericon,
-                    (value) => _name = value, true, focusNodeName, focusNodeUsername, 22),
+                InputFieldStandard(
+                    "Name",
+                    0,
+                    CustomIcons.usericon,
+                    (value) => _name = value,
+                    true,
+                    focusNodeName,
+                    focusNodeUsername,
+                    22),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
-                InputFieldStandard("Username", 0, CustomIcons.usericon,
-                    (value) => _username = value, true, focusNodeUsername, focusNodeMail, 22),
+                InputFieldStandard(
+                    "Username",
+                    0,
+                    CustomIcons.usericon,
+                    (value) => _username = value,
+                    true,
+                    focusNodeUsername,
+                    focusNodeMail,
+                    22),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
-                InputFieldStandard("Email Address", 1, CustomIcons.mailicon,
-                    (value) => _email = value, true, focusNodeMail, focusNodePassword, 18),
+                InputFieldStandard(
+                    "Email Address",
+                    1,
+                    CustomIcons.mailicon,
+                    (value) => _email = value,
+                    true,
+                    focusNodeMail,
+                    focusNodePassword,
+                    18),
                 SizedBox(height: SizeConfig.screenHeight * 0.025),
                 InputFieldPassword(
                     this._showPassword,
-                    () => setState(() => this._showPassword = !this._showPassword),
+                    () => setState(
+                        () => this._showPassword = !this._showPassword),
                     (value) => _password = value,
-                    true, focusNodePassword, focusNodeSubmit),
+                    true,
+                    focusNodePassword,
+                    focusNodeSubmit),
                 SizedBox(
                   height: SizeConfig.screenWidth * 0.07,
                 ),
@@ -174,7 +228,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   text: TextSpan(
                     style: defaultStyle,
                     children: <TextSpan>[
-                      TextSpan(text: 'By registering, you are agreeing to \n our '),
+                      TextSpan(
+                          text: 'By registering, you are agreeing to \n our '),
                       TextSpan(
                           text: 'Terms & conditions',
                           style: linkStyle,

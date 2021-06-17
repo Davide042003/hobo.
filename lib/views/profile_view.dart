@@ -179,7 +179,7 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                           horizontal: SizeConfig.screenWidth * 0.08),
                       child: Stack(
                         children: [
-                          InformationBoxWidget(themeChange: themeChange, isMe: isMe),
+                          InformationBoxWidget(themeChange: themeChange, isMe: true),
                           Padding(
                             padding: EdgeInsets.only(
                                 top: SizeConfig.screenHeight * 0.09,
