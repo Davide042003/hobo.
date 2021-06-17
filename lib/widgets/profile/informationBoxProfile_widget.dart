@@ -412,7 +412,7 @@ class InformationBoxWidget extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.only(
-                left: SizeConfig.screenWidth * 0.5, top: SizeConfig.screenHeight *0.014),
+                left: SizeConfig.screenWidth * 0.515, top: SizeConfig.screenHeight *0.014),
             width: SizeConfig.screenWidth * 0.27,
             height: SizeConfig.screenHeight * 0.04,
             decoration: BoxDecoration(
