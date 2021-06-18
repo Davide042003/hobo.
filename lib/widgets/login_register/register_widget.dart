@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
+import 'package:hobo_test/methods/firestore_service.dart';
+import 'package:hobo_test/models/user_model.dart';
+import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'inputFieldStandard_widget.dart';
@@ -9,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class RegisterWidget extends StatefulWidget {
+
   @override
   _RegisterWidgetState createState() => _RegisterWidgetState();
 }
@@ -105,6 +109,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
       try {
+        FirestoreService firestoreService = FirestoreService();
+        firestoreService.registerUser(_name, _username, _email, _password);
+
+        /*
         UserCredential userCredentials = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: _email, password: _password);
         FirebaseFirestore.instance.collection('users').doc(userCredentials.user.uid).set({
@@ -116,7 +124,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           'guide': false,
           'timeCreation' : Timestamp.now()
         });
-
+*/
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => ChooseWho()),

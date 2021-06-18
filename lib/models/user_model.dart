@@ -1,9 +1,7 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hobo_test/widgets/exports/base_export.dart';
 
-class User {
-
+class UserModel {
   final String uid;
   final String username;
   final String email;
@@ -12,29 +10,37 @@ class User {
   final bool guide;
   final Timestamp timestamp;
 
-  User({this.username, this.email, this.name, this.profilePic, this.uid, this.guide,this.timestamp, });
+  UserModel({
+    this.username,
+    this.email,
+    this.name,
+    this.profilePic,
+    @required this.uid,
+    this.guide,
+    this.timestamp,
+  });
 
-  factory User.fromJson(Map<dynamic, dynamic> json){
-   return User(
-     username: json['username'],
-     email: json['email'],
-     name: json['name'],
-     profilePic: json['profilePic'],
-     uid: json['uid'],
-     guide: json['guide'],
-     timestamp: json['timestamp'],
-   );
+  factory UserModel.fromJson(Map<dynamic, dynamic> json) {
+    return UserModel(
+      username: json['username'],
+      email: json['email'],
+      name: json['name'],
+      profilePic: json['profilePic'],
+      uid: json['uid'],
+      guide: json['guide'],
+      timestamp: json['timestamp'],
+    );
   }
 
-  Map<dynamic, dynamic> toMap(){
-    return{
-      'username':username,
-      'email':email,
-      'name':name,
-      'profilePic':profilePic,
+  Map<String, dynamic> toMap() {
+    return {
+      'username': username,
+      'email': email,
+      'name': name,
+      'profilePic': profilePic,
       'uid': uid,
-      'guide' : guide,
-      'timestamp' : timestamp
+      'guide': guide,
+      'timestamp': timestamp
     };
   }
 }

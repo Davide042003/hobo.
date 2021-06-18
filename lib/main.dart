@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
 import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
 
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
+  UserProvider userProvider = new UserProvider();
 
   bool _initialized = false;
   bool _error = false;
@@ -82,6 +84,11 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<NavigationBarProvider>(
             create: (_) {
               return scrollDownProvider;
+            }
+        ),
+        ChangeNotifierProvider<UserProvider>(
+            create: (_) {
+              return userProvider;
             }
         ),
       ],

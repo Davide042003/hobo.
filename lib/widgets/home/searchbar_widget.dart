@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -67,7 +68,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                   ],
                 ),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    // todo: delete this function from here
+                    try {
+                      String userCredentials = FirebaseAuth.instance.currentUser.uid;
+                      print(userCredentials);
+                      await FirebaseAuth.instance.signOut();
+                      print("log out");
+                    } catch (e){
+                      print("just logout");
+                    }
+                  },
                   child: Container(
                     decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
                       BoxShadow(

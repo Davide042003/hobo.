@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hobo_test/models/user_model.dart';
+import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/hotplaces_view.dart';
 import 'package:hobo_test/widgets/home/hotplaceshome_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
@@ -9,14 +11,43 @@ import 'package:hobo_test/widgets/home/hotplaces_template.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class HomeView extends StatefulWidget {
+  final UserModel userModel;
+
+  HomeView({this.userModel});
+
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
+  final userController = new TextEditingController();
+
+  @override
+  void dispose () {
+    userController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    if (widget.userModel != null){
+      userController.text = widget.userModel.uid;
+      userProvider.loadAll(widget.userModel);
+    } else {
+      userProvider.loadAll(null);
+      userProvider.saveData();
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+
     SizeConfig().init(context);
+
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return SafeArea(
