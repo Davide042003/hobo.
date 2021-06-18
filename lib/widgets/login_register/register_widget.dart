@@ -105,15 +105,16 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
       try {
-        UserCredential user = await FirebaseAuth.instance
+        UserCredential userCredentials = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: _email, password: _password);
-        FirebaseFirestore.instance.collection('users').doc().set({
+        FirebaseFirestore.instance.collection('users').doc(userCredentials.user.uid).set({
+          'uid': userCredentials.user.uid,
           'email': _email,
           'name': _name,
-          'onboardingSeen': false,
-          'password': _password,
           'profilePic': null,
-          'username': _username
+          'username': _username,
+          'guide': false,
+          'timeCreation' : Timestamp.now()
         });
 
         Navigator.pushAndRemoveUntil(

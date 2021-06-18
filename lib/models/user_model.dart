@@ -1,24 +1,28 @@
 import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User {
 
+  final String uid;
   final String username;
   final String email;
-  final String password;
   final String name;
   final String profilePic;
-  final bool onboardingSeen;
+  final bool guide;
+  final Timestamp timestamp;
 
-  User({this.username, this.email, this.password, this.name, this.profilePic, this.onboardingSeen});
+  User({this.username, this.email, this.name, this.profilePic, this.uid, this.guide,this.timestamp, });
 
   factory User.fromJson(Map<dynamic, dynamic> json){
    return User(
      username: json['username'],
      email: json['email'],
-     password: json['password'],
      name: json['name'],
      profilePic: json['profilePic'],
-     onboardingSeen: json['onboardingSeen'],
+     uid: json['uid'],
+     guide: json['guide'],
+     timestamp: json['timestamp'],
    );
   }
 
@@ -26,10 +30,11 @@ class User {
     return{
       'username':username,
       'email':email,
-      'password':password,
       'name':name,
       'profilePic':profilePic,
-      'onboardingSeen':onboardingSeen,
+      'uid': uid,
+      'guide' : guide,
+      'timestamp' : timestamp
     };
   }
 }

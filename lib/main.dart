@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/views/choosewho_view.dart';
+import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
+import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:provider/provider.dart';
 import 'widgets/provider/dark_theme_provider.dart';
@@ -86,7 +89,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, value, value2, Widget child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: ManagePagesView(),
+            home: SliderLayoutView(),
           );
         },
       ),
