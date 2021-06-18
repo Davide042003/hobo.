@@ -4,7 +4,15 @@ import 'package:hobo_test/models/user_model.dart';
 
 
 class FirestoreService {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  // get current user
+  Future<User> getCurrentUser () async {
+    User currentUser;
+    currentUser = await _auth.currentUser;
+    return currentUser;
+  }
 
   // Register User
   Future<void> registerUser (name, username, email, password) async{
@@ -31,6 +39,8 @@ class FirestoreService {
             .map((doc) => UserModel.fromJson(doc.data()))
             .toList());
   }
+
+
 
 //Upsert
   Future<void> setUser(UserModel user) {

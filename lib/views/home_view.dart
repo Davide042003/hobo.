@@ -11,36 +11,12 @@ import 'package:hobo_test/widgets/home/hotplaces_template.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class HomeView extends StatefulWidget {
-  final UserModel userModel;
-
-  HomeView({this.userModel});
 
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  final userController = new TextEditingController();
-
-  @override
-  void dispose () {
-    userController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-
-    if (widget.userModel != null){
-      userController.text = widget.userModel.uid;
-      userProvider.loadAll(widget.userModel);
-    } else {
-      userProvider.loadAll(null);
-      userProvider.saveData();
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
