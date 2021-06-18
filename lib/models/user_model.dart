@@ -15,7 +15,7 @@ class UserModel {
     this.email,
     this.name,
     this.profilePic,
-    @required this.uid,
+    this.uid,
     this.guide,
     this.timestamp,
   });

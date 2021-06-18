@@ -1,6 +1,7 @@
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/views/settings_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -19,7 +20,12 @@ class ProfileView extends StatefulWidget {
   _ProfileViewState createState() => _ProfileViewState();
 }
 
-class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin{
+// global
+final FirestoreService _repository = FirestoreService();
+
+class _ProfileViewState extends State<ProfileView>
+    with TickerProviderStateMixin {
+
   bool isMe = true;
 
   int _currentPage = 0;
@@ -31,45 +37,53 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
   bool visible = false;
   bool pinnedAppBar = false;
 
+  String currentUserId;
+  String userName;
+
   @override
   void initState() {
     super.initState();
-    _scrollController..addListener(() {
-      if (_scrollController.offset >= SizeConfig.screenHeight * 0.2) {
-        setState(() {
-          if (!visible)
-            visible = true;
-        });
-      } else if (_scrollController.offset <= SizeConfig.screenHeight * 0.18) {
-        setState(() {
-          if (visible)
-            visible = false;
-        });
-      }
-
-      if (_scrollController.offset >= SizeConfig.screenHeight * 0.448) {
-        setState(() {
-          if (!pinnedAppBar)
-            pinnedAppBar = true;
-        });
-      } else if (_scrollController.offset < SizeConfig.screenHeight * 0.448) {
-        setState(() {
-          if (pinnedAppBar)
-            pinnedAppBar = false;
-        });
-      }
-
-      if (_scrollController.offset < SizeConfig.screenHeight * 0.25) {
-        if (_scrollController.offset >= SizeConfig.screenHeight * 0.2 &&
-            _scrollController.offset <= SizeConfig.screenHeight * 0.24) {
-          double pos = ((_scrollController.offset -
-              SizeConfig.screenHeight * 0.2) /
-              (SizeConfig.screenHeight * 0.24 - SizeConfig.screenHeight * 0.2));
-          animationPos = pos;
+    _scrollController
+      ..addListener(() {
+        if (_scrollController.offset >= SizeConfig.screenHeight * 0.2) {
+          setState(() {
+            if (!visible) visible = true;
+          });
+        } else if (_scrollController.offset <= SizeConfig.screenHeight * 0.18) {
+          setState(() {
+            if (visible) visible = false;
+          });
         }
-      } else {
-        animationPos = 1;
-      }
+
+        if (_scrollController.offset >= SizeConfig.screenHeight * 0.448) {
+          setState(() {
+            if (!pinnedAppBar) pinnedAppBar = true;
+          });
+        } else if (_scrollController.offset < SizeConfig.screenHeight * 0.448) {
+          setState(() {
+            if (pinnedAppBar) pinnedAppBar = false;
+          });
+        }
+
+        if (_scrollController.offset < SizeConfig.screenHeight * 0.25) {
+          if (_scrollController.offset >= SizeConfig.screenHeight * 0.2 &&
+              _scrollController.offset <= SizeConfig.screenHeight * 0.24) {
+            double pos =
+                ((_scrollController.offset - SizeConfig.screenHeight * 0.2) /
+                    (SizeConfig.screenHeight * 0.24 -
+                        SizeConfig.screenHeight * 0.2));
+            animationPos = pos;
+          }
+        } else {
+          animationPos = 1;
+        }
+      });
+
+    _repository.getUserName().then((value) {
+      setState(() {
+        userName = value;
+        print("$value $userName");
+      });
     });
   }
 
@@ -95,13 +109,14 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
 
     return NotificationListener<ScrollNotification>(
       onNotification: (scrollNotification) {
-
         if (scrollNotification is ScrollUpdateNotification) {
-          if(_scrollController.position.userScrollDirection == ScrollDirection.reverse){
+          if (_scrollController.position.userScrollDirection ==
+              ScrollDirection.reverse) {
             setState(() {
               downScroll.navigationdown = true;
             });
-          }else if(_scrollController.position.userScrollDirection == ScrollDirection.forward) {
+          } else if (_scrollController.position.userScrollDirection ==
+              ScrollDirection.forward) {
             setState(() {
               downScroll.navigationdown = false;
             });
@@ -134,29 +149,37 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                   width: SizeConfig.screenWidth * 0.11,
                   height: SizeConfig.screenHeight * 0.055,
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [
-                        Color.fromRGBO(116, 142, 243, 1),
-                        Color.fromRGBO(36, 65, 187, 1)
-                      ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                      gradient: LinearGradient(
+                          colors: [
+                            Color.fromRGBO(116, 142, 243, 1),
+                            Color.fromRGBO(36, 65, 187, 1)
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter),
                       shape: BoxShape.circle),
                   child: isMe
                       ? GestureDetector(
-                        child: Container(
-                            decoration:
-                                BoxDecoration(shape: BoxShape.circle, boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.15),
-                                  blurRadius: 2.0,
-                                  offset: Offset(0, 1)),
-                            ]),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(.15),
+                                      blurRadius: 2.0,
+                                      offset: Offset(0, 1)),
+                                ]),
                             child: Icon(Ionicons.settings_outline,
                                 color: Colors.white, size: 22),
                           ),
-                    onTap: () =>   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsView()),
-                    ),
-                      )
+                          onTap: () {
+                            print(userName);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SettingsView()),
+                            );
+                          },
+                        )
                       : Container(
                           decoration:
                               BoxDecoration(shape: BoxShape.circle, boxShadow: [
@@ -166,7 +189,8 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                                 offset: Offset(0, 6)),
                           ]),
                           child: Padding(
-                            padding: EdgeInsets.only(top: SizeConfig.screenHeight*0.005),
+                            padding: EdgeInsets.only(
+                                top: SizeConfig.screenHeight * 0.005),
                             child: Icon(CustomIcons.messagge,
                                 color: Colors.white, size: 32),
                           ),
@@ -179,25 +203,38 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
                           horizontal: SizeConfig.screenWidth * 0.08),
                       child: Stack(
                         children: [
-                          InformationBoxWidget(themeChange: themeChange, isMe: true),
+                          InformationBoxWidget(
+                              userName: userName,
+                              themeChange: themeChange,
+                              isMe: true),
                           Padding(
                             padding: EdgeInsets.only(
                                 top: SizeConfig.screenHeight * 0.09,
                                 left: SizeConfig.screenWidth * 0.285),
                             child: ProfileImageWidget(
-                                image: AssetImage("assets/images/provaSocial.jpeg"),
+                                image: AssetImage(
+                                    "assets/images/provaSocial.jpeg"),
                                 initials: "DB"),
                           ),
                         ],
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
+                      margin:
+                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
                       width: SizeConfig.screenWidth,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                        pinnedAppBar ? SizedBox(height: SizeConfig.screenHeight *0.05,) :  AppBarWidget(themeChange: themeChange, leftPosition: _leftPosition, currentPage: _currentPage, pageController: _pageController),
+                          pinnedAppBar
+                              ? SizedBox(
+                                  height: SizeConfig.screenHeight * 0.05,
+                                )
+                              : AppBarWidget(
+                                  themeChange: themeChange,
+                                  leftPosition: _leftPosition,
+                                  currentPage: _currentPage,
+                                  pageController: _pageController),
                           ExpandablePageView(
                             controller: _pageController,
                             onPageChanged: _onPageChanged,
@@ -215,8 +252,17 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               ],
             ),
           ),
-          visible ? TopBarWidget(animationPos: animationPos, themeChange: themeChange):SizedBox(),
-          pinnedAppBar ? PinnedAppBarWidget(themeChange: themeChange, leftPosition: _leftPosition, currentPage: _currentPage, pageController: _pageController) : SizedBox(),
+          visible
+              ? TopBarWidget(
+                  animationPos: animationPos, themeChange: themeChange)
+              : SizedBox(),
+          pinnedAppBar
+              ? PinnedAppBarWidget(
+                  themeChange: themeChange,
+                  leftPosition: _leftPosition,
+                  currentPage: _currentPage,
+                  pageController: _pageController)
+              : SizedBox(),
           Padding(
             padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
             child: Container(
@@ -225,15 +271,17 @@ class _ProfileViewState extends State<ProfileView> with TickerProviderStateMixin
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                       colors: [
-                        Styles.social_gradientstart(themeChange.darkTheme, context),
-                        Styles.social_gradientend(themeChange.darkTheme, context)
-                      ],
+                    Styles.social_gradientstart(themeChange.darkTheme, context),
+                    Styles.social_gradientend(themeChange.darkTheme, context)
+                  ],
                       begin: Alignment(
                           Alignment.topCenter.x,
-                          Alignment.topCenter.y + SizeConfig.screenHeight*0.0005),
+                          Alignment.topCenter.y +
+                              SizeConfig.screenHeight * 0.0005),
                       end: Alignment(
                           Alignment.bottomCenter.x,
-                          Alignment.bottomCenter.y - SizeConfig.screenHeight*0.0003))),
+                          Alignment.bottomCenter.y -
+                              SizeConfig.screenHeight * 0.0003))),
             ),
           )
         ],

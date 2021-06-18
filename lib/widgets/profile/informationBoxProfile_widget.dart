@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class InformationBoxWidget extends StatelessWidget {
+
   const InformationBoxWidget({
     Key key,
+    @required this.userName,
     @required this.themeChange,
     @required this.isMe,
   }) : super(key: key);
 
+  final String userName;
   final DarkThemeProvider themeChange;
   final bool isMe;
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.167),
       width: SizeConfig.screenWidth,
@@ -32,7 +37,7 @@ class InformationBoxWidget extends StatelessWidget {
         children: [
           SizedBox(height: SizeConfig.screenHeight * 0.06),
           Text(
-            "Jessica Smith",
+            "userName",
             style: TextStyle(
                 fontFamily: Constants.POPPINS,
                 fontSize: 20,
