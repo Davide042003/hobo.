@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hobo_test/methods/firebase_methods.dart';
+import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
+import 'package:hobo_test/views/home_view.dart';
 import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
@@ -23,6 +27,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  FirestoreService _repository = FirestoreService();
 
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
@@ -94,9 +99,19 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Consumer2<DarkThemeProvider, NavigationBarProvider>(
         builder: (BuildContext context, value, value2, Widget child) {
+
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: SliderLayoutView(),
+            home: FutureBuilder(
+              future: _repository.getCurrentUser(),
+              builder: (context, AsyncSnapshot<User> snapshot){
+                if (snapshot.hasData){
+                  return HomeView();
+                } else {
+                  return SliderLayoutView();
+                }
+              },
+            ),
           );
         },
       ),
