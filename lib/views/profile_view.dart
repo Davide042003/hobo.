@@ -126,7 +126,7 @@ class _ProfileViewState extends State<ProfileView>
           return Center(child: Text("Document does not exist"));
         }
 
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.hasData) {
           Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
           //return Text("Full Name: ${data['username']} ${data['email']}");
 
