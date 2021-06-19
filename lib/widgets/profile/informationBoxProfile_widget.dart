@@ -21,7 +21,6 @@ class InformationBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String displayReferralCode = referralCode.substring(0,9);
 
     return Container(
       margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.167),
@@ -100,7 +99,7 @@ class InformationBoxWidget extends StatelessWidget {
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          displayReferralCode,
+                          referralCode,
                           style: TextStyle(
                             fontFamily: Constants.POPPINS,
                             fontSize: 14,

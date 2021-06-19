@@ -67,8 +67,9 @@ class FirestoreService {
   // Register User
   Future<void> registerUser(name, username, email, password) async {
     // generate random referral code
+    var referralCode = DateTime.now().millisecondsSinceEpoch.toString();
     var uuid = Uuid();
-    var referralCode = uuid.v1();
+    //var referralCode = uuid.v1();
     print("Referral Code: $referralCode");
 
     UserCredential userCredentials = await FirebaseAuth.instance
