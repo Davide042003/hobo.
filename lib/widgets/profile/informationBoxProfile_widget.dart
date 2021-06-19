@@ -9,12 +9,22 @@ class InformationBoxWidget extends StatelessWidget {
   const InformationBoxWidget({
     Key key,
     @required this.username,
+    @required this.ratings,
+    @required this.totalRatings,
     @required this.referralCode,
+    @required this.revenue,
+    @required this.followers,
+    @required this.followed,
     @required this.themeChange,
     @required this.isMe,
   }) : super(key: key);
 
   final String username;
+  final int ratings;
+  final int totalRatings;
+  final double revenue;
+  final int followers;
+  final int followed;
   final String referralCode;
   final DarkThemeProvider themeChange;
   final bool isMe;
@@ -65,7 +75,7 @@ class InformationBoxWidget extends StatelessWidget {
               ),
               SizedBox(width: SizeConfig.screenWidth * 0.02),
               Text(
-                "4.1" + " (" + "1,252" + ")",
+                "40   ( $ratings )",
                 style: TextStyle(
                     fontFamily: Constants.POPPINS,
                     fontSize: 11,
@@ -143,7 +153,7 @@ class InformationBoxWidget extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("125",
+                                Text("$followers",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 16,
@@ -167,7 +177,7 @@ class InformationBoxWidget extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("301",
+                                Text("$followed",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 16,
@@ -206,7 +216,7 @@ class InformationBoxWidget extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("125",
+                                Text("$followers",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 16,
@@ -230,7 +240,7 @@ class InformationBoxWidget extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("301",
+                                Text("$followed",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 16,
@@ -411,7 +421,7 @@ class InformationBoxWidget extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "\$455.53",
+                  "\$$revenue",
                   style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 35),
                 ),
               ],

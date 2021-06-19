@@ -85,6 +85,11 @@ class FirestoreService {
       'username': username,
       'guide': false,
       'referralCode': referralCode,
+      'ratings': 0,
+      'totalRatings': 0,
+      'revenue': 0.0,
+      'followers': 0,
+      'followed': 0,
       'timeCreation': Timestamp.now()
     });
 

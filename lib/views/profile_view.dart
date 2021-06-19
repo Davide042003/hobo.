@@ -228,6 +228,11 @@ class _ProfileViewState extends State<ProfileView>
                               children: [
                                 InformationBoxWidget(
                                     username: data['username'],
+                                    ratings: data['ratings'],
+                                    totalRatings: data['totalRatings'],
+                                    revenue: data['revenue'],
+                                    followers: data['followers'],
+                                    followed: data['followed'],
                                     referralCode: data['referralCode'],
                                     themeChange: themeChange,
                                     isMe: true),
