@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hobo_test/models/user_model.dart';
+import 'package:uuid/uuid.dart';
 
 class FirestoreService {
   UserModel userModel = UserModel();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _db = FirebaseFirestore.instance;
-
   String userName;
+
 
   // get current user
   Future<User> getCurrentUser() async {
@@ -65,6 +66,11 @@ class FirestoreService {
 
   // Register User
   Future<void> registerUser(name, username, email, password) async {
+    // generate random referral code
+    var uuid = Uuid();
+    var referralCode = uuid.v1();
+    print("Referral Code: $referralCode");
+
     UserCredential userCredentials = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
     _db
@@ -77,6 +83,7 @@ class FirestoreService {
       'profilePic': null,
       'username': username,
       'guide': false,
+      'referralCode': referralCode,
       'timeCreation': Timestamp.now()
     });
 

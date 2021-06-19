@@ -109,7 +109,6 @@ class _ProfileViewState extends State<ProfileView>
   @override
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection("users");
-    print("Document Id $documentId");
 
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -229,6 +228,7 @@ class _ProfileViewState extends State<ProfileView>
                               children: [
                                 InformationBoxWidget(
                                     username: data['username'],
+                                    referralCode: data['referralCode'],
                                     themeChange: themeChange,
                                     isMe: true),
                                 Padding(

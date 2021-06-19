@@ -9,16 +9,19 @@ class InformationBoxWidget extends StatelessWidget {
   const InformationBoxWidget({
     Key key,
     @required this.username,
+    @required this.referralCode,
     @required this.themeChange,
     @required this.isMe,
   }) : super(key: key);
 
   final String username;
+  final String referralCode;
   final DarkThemeProvider themeChange;
   final bool isMe;
 
   @override
   Widget build(BuildContext context) {
+    String displayReferralCode = referralCode.substring(0,9);
 
     return Container(
       margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.167),
@@ -97,7 +100,7 @@ class InformationBoxWidget extends StatelessWidget {
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "XVC58757",
+                          displayReferralCode,
                           style: TextStyle(
                             fontFamily: Constants.POPPINS,
                             fontSize: 14,
