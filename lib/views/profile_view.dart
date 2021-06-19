@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
@@ -20,9 +22,6 @@ class ProfileView extends StatefulWidget {
   _ProfileViewState createState() => _ProfileViewState();
 }
 
-// global
-final FirestoreService _repository = FirestoreService();
-
 class _ProfileViewState extends State<ProfileView>
     with TickerProviderStateMixin {
 
@@ -37,7 +36,11 @@ class _ProfileViewState extends State<ProfileView>
   bool visible = false;
   bool pinnedAppBar = false;
 
-  String currentUserId;
+
+  final FirestoreService _repository = FirestoreService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  String documentId;
   String userName;
 
   @override
@@ -78,13 +81,15 @@ class _ProfileViewState extends State<ProfileView>
           animationPos = 1;
         }
       });
-
+    documentId = _auth.currentUser.uid;
+    print("Document Id $documentId");
+    /*
     _repository.getUserName().then((value) {
       setState(() {
         userName = value;
-        print("$value $userName");
       });
     });
+     */
   }
 
   @override
@@ -103,62 +108,81 @@ class _ProfileViewState extends State<ProfileView>
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
+    print("Document Id $documentId");
+
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
-    return NotificationListener<ScrollNotification>(
-      onNotification: (scrollNotification) {
-        if (scrollNotification is ScrollUpdateNotification) {
-          if (_scrollController.position.userScrollDirection ==
-              ScrollDirection.reverse) {
-            setState(() {
-              downScroll.navigationdown = true;
-            });
-          } else if (_scrollController.position.userScrollDirection ==
-              ScrollDirection.forward) {
-            setState(() {
-              downScroll.navigationdown = false;
-            });
-          }
-        } else if (scrollNotification is ScrollEndNotification) {
-          setState(() {
-            downScroll.navigationdown = false;
-          });
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(documentId).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
+        if (snapshot.hasError) {
+          return Center(child: Text("Something went wrong"));
         }
-      },
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            controller: _scrollController,
+        if (snapshot.hasData && !snapshot.data.exists) {
+          return Center(child: Text("Document does not exist"));
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
+          //return Text("Full Name: ${data['username']} ${data['email']}");
+
+          return NotificationListener<ScrollNotification>(
+            onNotification: (scrollNotification) {
+              if (scrollNotification is ScrollUpdateNotification) {
+                if (_scrollController.position.userScrollDirection ==
+                    ScrollDirection.reverse) {
+                  setState(() {
+                    downScroll.navigationdown = true;
+                  });
+                } else if (_scrollController.position.userScrollDirection ==
+                    ScrollDirection.forward) {
+                  setState(() {
+                    downScroll.navigationdown = false;
+                  });
+                }
+              } else if (scrollNotification is ScrollEndNotification) {
+                setState(() {
+                  downScroll.navigationdown = false;
+                });
+              }
+            },
             child: Stack(
               children: [
-                Container(
-                  width: SizeConfig.screenWidth,
-                  height: SizeConfig.screenHeight * 0.3,
-                  child: Image.asset(
-                    "assets/images/background-profile.png",
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * 0.815,
-                      top: SizeConfig.screenHeight * 0.065),
-                  width: SizeConfig.screenWidth * 0.11,
-                  height: SizeConfig.screenHeight * 0.055,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            Color.fromRGBO(116, 142, 243, 1),
-                            Color.fromRGBO(36, 65, 187, 1)
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter),
-                      shape: BoxShape.circle),
-                  child: isMe
-                      ? GestureDetector(
+                SingleChildScrollView(
+                  physics: ClampingScrollPhysics(),
+                  controller: _scrollController,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: SizeConfig.screenWidth,
+                        height: SizeConfig.screenHeight * 0.3,
+                        child: Image.asset(
+                          "assets/images/background-profile.png",
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: SizeConfig.screenWidth * 0.815,
+                            top: SizeConfig.screenHeight * 0.065),
+                        width: SizeConfig.screenWidth * 0.11,
+                        height: SizeConfig.screenHeight * 0.055,
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(116, 142, 243, 1),
+                                  Color.fromRGBO(36, 65, 187, 1)
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter),
+                            shape: BoxShape.circle),
+                        child: isMe
+                            ? GestureDetector(
                           child: Container(
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -180,9 +204,9 @@ class _ProfileViewState extends State<ProfileView>
                             );
                           },
                         )
-                      : Container(
+                            : Container(
                           decoration:
-                              BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                          BoxDecoration(shape: BoxShape.circle, boxShadow: [
                             BoxShadow(
                                 color: Colors.black.withOpacity(.06),
                                 blurRadius: 3.0,
@@ -195,97 +219,102 @@ class _ProfileViewState extends State<ProfileView>
                                 color: Colors.white, size: 32),
                           ),
                         ),
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.screenWidth * 0.08),
-                      child: Stack(
+                      ),
+                      Column(
                         children: [
-                          InformationBoxWidget(
-                              userName: userName,
-                              themeChange: themeChange,
-                              isMe: true),
                           Padding(
-                            padding: EdgeInsets.only(
-                                top: SizeConfig.screenHeight * 0.09,
-                                left: SizeConfig.screenWidth * 0.285),
-                            child: ProfileImageWidget(
-                                image: AssetImage(
-                                    "assets/images/provaSocial.jpeg"),
-                                initials: "DB"),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.screenWidth * 0.08),
+                            child: Stack(
+                              children: [
+                                InformationBoxWidget(
+                                    username: data['username'],
+                                    themeChange: themeChange,
+                                    isMe: true),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: SizeConfig.screenHeight * 0.09,
+                                      left: SizeConfig.screenWidth * 0.285),
+                                  child: ProfileImageWidget(
+                                      image: AssetImage(
+                                          "assets/images/provaSocial.jpeg"),
+                                      initials: "DB"),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin:
+                            EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
+                            width: SizeConfig.screenWidth,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                pinnedAppBar
+                                    ? SizedBox(
+                                  height: SizeConfig.screenHeight * 0.05,
+                                )
+                                    : AppBarWidget(
+                                    themeChange: themeChange,
+                                    leftPosition: _leftPosition,
+                                    currentPage: _currentPage,
+                                    pageController: _pageController),
+                                ExpandablePageView(
+                                  controller: _pageController,
+                                  onPageChanged: _onPageChanged,
+                                  children: [
+                                    TourlistProfileWidget(),
+                                    GalleryWidget(),
+                                    ReviewCardWidget()
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    Container(
-                      margin:
-                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
-                      width: SizeConfig.screenWidth,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          pinnedAppBar
-                              ? SizedBox(
-                                  height: SizeConfig.screenHeight * 0.05,
-                                )
-                              : AppBarWidget(
-                                  themeChange: themeChange,
-                                  leftPosition: _leftPosition,
-                                  currentPage: _currentPage,
-                                  pageController: _pageController),
-                          ExpandablePageView(
-                            controller: _pageController,
-                            onPageChanged: _onPageChanged,
-                            children: [
-                              TourlistProfileWidget(),
-                              GalleryWidget(),
-                              ReviewCardWidget()
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                visible
+                    ? TopBarWidget(
+                    animationPos: animationPos, themeChange: themeChange)
+                    : SizedBox(),
+                pinnedAppBar
+                    ? PinnedAppBarWidget(
+                    themeChange: themeChange,
+                    leftPosition: _leftPosition,
+                    currentPage: _currentPage,
+                    pageController: _pageController)
+                    : SizedBox(),
+                Padding(
+                  padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
+                  child: Container(
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.2,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                              Styles.social_gradientstart(themeChange.darkTheme, context),
+                              Styles.social_gradientend(themeChange.darkTheme, context)
+                            ],
+                            begin: Alignment(
+                                Alignment.topCenter.x,
+                                Alignment.topCenter.y +
+                                    SizeConfig.screenHeight * 0.0005),
+                            end: Alignment(
+                                Alignment.bottomCenter.x,
+                                Alignment.bottomCenter.y -
+                                    SizeConfig.screenHeight * 0.0003))),
+                  ),
+                )
               ],
             ),
-          ),
-          visible
-              ? TopBarWidget(
-                  animationPos: animationPos, themeChange: themeChange)
-              : SizedBox(),
-          pinnedAppBar
-              ? PinnedAppBarWidget(
-                  themeChange: themeChange,
-                  leftPosition: _leftPosition,
-                  currentPage: _currentPage,
-                  pageController: _pageController)
-              : SizedBox(),
-          Padding(
-            padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
-            child: Container(
-              width: SizeConfig.screenWidth,
-              height: SizeConfig.screenHeight * 0.2,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                    Styles.social_gradientstart(themeChange.darkTheme, context),
-                    Styles.social_gradientend(themeChange.darkTheme, context)
-                  ],
-                      begin: Alignment(
-                          Alignment.topCenter.x,
-                          Alignment.topCenter.y +
-                              SizeConfig.screenHeight * 0.0005),
-                      end: Alignment(
-                          Alignment.bottomCenter.x,
-                          Alignment.bottomCenter.y -
-                              SizeConfig.screenHeight * 0.0003))),
-            ),
-          )
-        ],
-      ),
+          );
+        }
+
+        return Text("loading");
+      },
     );
   }
 }

@@ -8,12 +8,12 @@ class InformationBoxWidget extends StatelessWidget {
 
   const InformationBoxWidget({
     Key key,
-    @required this.userName,
+    @required this.username,
     @required this.themeChange,
     @required this.isMe,
   }) : super(key: key);
 
-  final String userName;
+  final String username;
   final DarkThemeProvider themeChange;
   final bool isMe;
 
@@ -37,7 +37,7 @@ class InformationBoxWidget extends StatelessWidget {
         children: [
           SizedBox(height: SizeConfig.screenHeight * 0.06),
           Text(
-            "userName",
+            username,
             style: TextStyle(
                 fontFamily: Constants.POPPINS,
                 fontSize: 20,
