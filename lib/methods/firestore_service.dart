@@ -107,6 +107,31 @@ class FirestoreService {
 
   }
 
+  // Create Tours
+  Future<void> createTours(userId, tourName, tourImage, tourRatings, tourTotalRatings, tourPrice) async {
+    // generate random tourId
+    var uuid = Uuid();
+    var tourId = uuid.v1();
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId)
+        .set({
+      'userId': userId,
+      'tourId': tourId,
+      'tourName': tourName,
+      'tourImage': tourImage,
+      'tourTotalRatings': tourTotalRatings,
+      'tourRatings': tourRatings,
+      'tourPrice': tourPrice,
+      'timeCreation': Timestamp.now()
+    });
+
+    print('Success: Tour Created!');
+
+  }
   // ------------ todo: delete the functions down here -------------------------
 
 //Get Entries

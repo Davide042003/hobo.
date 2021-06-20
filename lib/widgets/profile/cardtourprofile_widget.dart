@@ -5,9 +5,17 @@ import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class CardTourProfileWidget extends StatefulWidget {
   final int index;
+  final String tourName;
+  final int tourRatings;
+  final int tourTotalRatings;
+  final int tourPrice;
 
   CardTourProfileWidget({
     @required this.index,
+    @required this.tourName,
+    this.tourRatings,
+    this.tourTotalRatings,
+    this.tourPrice,
   });
 
   @override
@@ -46,10 +54,13 @@ class _CardTourProfileWidgetState extends State<CardTourProfileWidget> {
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,
             ),
+
             child: Image.asset(
-              cardTourArrayList[widget.index].placeImage,
+              //cardTourArrayList[widget.index].placeImage,
+              "assets/images/Paris-Background.png",
               fit: BoxFit.fill,
             ),
+
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -60,7 +71,7 @@ class _CardTourProfileWidgetState extends State<CardTourProfileWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  cardTourArrayList[widget.index].placeName,
+                  widget.tourName,
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
                       fontSize: 16,
@@ -70,7 +81,7 @@ class _CardTourProfileWidgetState extends State<CardTourProfileWidget> {
                 Flexible(
                   child: Row(children: [
                     RatingBarIndicator(
-                      rating: cardTourArrayList[widget.index].rating,
+                      rating: 5.0,
                       itemBuilder: (context, index) => Icon(
                         LineIcons.starAlt,
                         color: Color.fromRGBO(55, 199, 117, 1),
@@ -82,7 +93,7 @@ class _CardTourProfileWidgetState extends State<CardTourProfileWidget> {
                     ),
                     SizedBox(width: SizeConfig.screenWidth * 0.02),
                     Text(
-                      cardTourArrayList[widget.index].rating.toString() + " (" + cardTourArrayList[widget.index].numberRatings.toString() + ")",
+                      "${widget.tourRatings} ( ${widget.tourTotalRatings} )",
                       style: TextStyle(
                           fontFamily: Constants.POPPINS,
                           fontSize: 12,
@@ -93,7 +104,7 @@ class _CardTourProfileWidgetState extends State<CardTourProfileWidget> {
                   ]),
                 ),
                 Text(
-                  "\$" + cardTourArrayList[widget.index].price.toString(),
+                  "\$ ${widget.tourPrice}",
                   style: TextStyle(
                       fontFamily: Constants.POPPINS,
                       fontSize: 20,

@@ -109,6 +109,10 @@ class _ProfileViewState extends State<ProfileView>
   @override
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection("users");
+    CollectionReference tours = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('tours');
+    CollectionReference gallery = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('gallery');
+    CollectionReference reviews = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('reviews');
+
 
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -195,7 +199,7 @@ class _ProfileViewState extends State<ProfileView>
                                 color: Colors.white, size: 22),
                           ),
                           onTap: () {
-                            print(userName);
+                            _repository.createTours(_auth.currentUser.uid, 'provaTour', null, 4, 10, 50);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -268,7 +272,7 @@ class _ProfileViewState extends State<ProfileView>
                                   controller: _pageController,
                                   onPageChanged: _onPageChanged,
                                   children: [
-                                    TourlistProfileWidget(),
+                                    TourlistProfileWidget(userId: _auth.currentUser.uid,),
                                     GalleryWidget(),
                                     ReviewCardWidget()
                                   ],
