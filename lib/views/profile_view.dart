@@ -24,7 +24,6 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView>
     with TickerProviderStateMixin {
-
   bool isMe = true;
 
   int _currentPage = 0;
@@ -35,7 +34,6 @@ class _ProfileViewState extends State<ProfileView>
   double animationPos;
   bool visible = false;
   bool pinnedAppBar = false;
-
 
   final FirestoreService _repository = FirestoreService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -109,10 +107,18 @@ class _ProfileViewState extends State<ProfileView>
   @override
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection("users");
-    CollectionReference tours = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('tours');
-    CollectionReference posts = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('posts');
-    CollectionReference reviews = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('reviews');
-
+    CollectionReference tours = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.currentUser.uid)
+        .collection('tours');
+    CollectionReference posts = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.currentUser.uid)
+        .collection('posts');
+    CollectionReference reviews = FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.currentUser.uid)
+        .collection('reviews');
 
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -122,7 +128,6 @@ class _ProfileViewState extends State<ProfileView>
       future: users.doc(documentId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
         if (snapshot.hasError) {
           return Center(child: Text("Something went wrong"));
         }
@@ -131,7 +136,8 @@ class _ProfileViewState extends State<ProfileView>
         }
 
         if (snapshot.hasData) {
-          Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
+          Map<String, dynamic> data =
+              snapshot.data.data() as Map<String, dynamic>;
           //return Text("Full Name: ${data['username']} ${data['email']}");
 
           return NotificationListener<ScrollNotification>(
@@ -186,43 +192,62 @@ class _ProfileViewState extends State<ProfileView>
                             shape: BoxShape.circle),
                         child: isMe
                             ? GestureDetector(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(.15),
-                                      blurRadius: 2.0,
-                                      offset: Offset(0, 1)),
-                                ]),
-                            child: Icon(Ionicons.settings_outline,
-                                color: Colors.white, size: 22),
-                          ),
-                          onTap: () {
-                            _repository.createTours(_auth.currentUser.uid, 'provaTour', null, 4, 10, 50);
-                            _repository.createPost(_auth.currentUser.uid, 'post test', 'Rome', null, 55, 'This is a caption... ', 10);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SettingsView()),
-                            );
-                          },
-                        )
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(.15),
+                                            blurRadius: 2.0,
+                                            offset: Offset(0, 1)),
+                                      ]),
+                                  child: Icon(Ionicons.settings_outline,
+                                      color: Colors.white, size: 22),
+                                ),
+                                onTap: () {
+                                  _repository.createTours(_auth.currentUser.uid,
+                                      'provaTour', null, 4, 10, 50);
+                                  _repository.createPosts(
+                                      _auth.currentUser.uid,
+                                      'post test',
+                                      'Rome',
+                                      null,
+                                      55,
+                                      'This is a caption... ',
+                                      10);
+                                  _repository.createReviews(
+                                      _auth.currentUser.uid,
+                                      _auth.currentUser.displayName,
+                                      "id del turista",
+                                      "usernametourist",
+                                      "id tour",
+                                      4,
+                                      "21-06-2021",
+                                      "Descrizione della review");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SettingsView()),
+                                  );
+                                },
+                              )
                             : Container(
-                          decoration:
-                          BoxDecoration(shape: BoxShape.circle, boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(.06),
-                                blurRadius: 3.0,
-                                offset: Offset(0, 6)),
-                          ]),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: SizeConfig.screenHeight * 0.005),
-                            child: Icon(CustomIcons.messagge,
-                                color: Colors.white, size: 32),
-                          ),
-                        ),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(.06),
+                                          blurRadius: 3.0,
+                                          offset: Offset(0, 6)),
+                                    ]),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: SizeConfig.screenHeight * 0.005),
+                                  child: Icon(CustomIcons.messagge,
+                                      color: Colors.white, size: 32),
+                                ),
+                              ),
                       ),
                       Column(
                         children: [
@@ -254,28 +279,31 @@ class _ProfileViewState extends State<ProfileView>
                             ),
                           ),
                           Container(
-                            margin:
-                            EdgeInsets.only(top: SizeConfig.screenHeight * 0.01),
+                            margin: EdgeInsets.only(
+                                top: SizeConfig.screenHeight * 0.01),
                             width: SizeConfig.screenWidth,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 pinnedAppBar
                                     ? SizedBox(
-                                  height: SizeConfig.screenHeight * 0.05,
-                                )
+                                        height: SizeConfig.screenHeight * 0.05,
+                                      )
                                     : AppBarWidget(
-                                    themeChange: themeChange,
-                                    leftPosition: _leftPosition,
-                                    currentPage: _currentPage,
-                                    pageController: _pageController),
+                                        themeChange: themeChange,
+                                        leftPosition: _leftPosition,
+                                        currentPage: _currentPage,
+                                        pageController: _pageController),
                                 ExpandablePageView(
                                   controller: _pageController,
                                   onPageChanged: _onPageChanged,
                                   children: [
-                                    TourlistProfileWidget(userId: _auth.currentUser.uid,),
-                                    GalleryWidget(userId: _auth.currentUser.uid,),
-                                    ReviewCardWidget()
+                                    TourlistProfileWidget(
+                                        userId: _auth.currentUser.uid),
+                                    GalleryWidget(
+                                        userId: _auth.currentUser.uid),
+                                    ReviewCardWidget(
+                                        userId: _auth.currentUser.uid),
                                   ],
                                 )
                               ],
@@ -288,14 +316,14 @@ class _ProfileViewState extends State<ProfileView>
                 ),
                 visible
                     ? TopBarWidget(
-                    animationPos: animationPos, themeChange: themeChange)
+                        animationPos: animationPos, themeChange: themeChange)
                     : SizedBox(),
                 pinnedAppBar
                     ? PinnedAppBarWidget(
-                    themeChange: themeChange,
-                    leftPosition: _leftPosition,
-                    currentPage: _currentPage,
-                    pageController: _pageController)
+                        themeChange: themeChange,
+                        leftPosition: _leftPosition,
+                        currentPage: _currentPage,
+                        pageController: _pageController)
                     : SizedBox(),
                 Padding(
                   padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.8),
@@ -305,9 +333,11 @@ class _ProfileViewState extends State<ProfileView>
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                             colors: [
-                              Styles.social_gradientstart(themeChange.darkTheme, context),
-                              Styles.social_gradientend(themeChange.darkTheme, context)
-                            ],
+                          Styles.social_gradientstart(
+                              themeChange.darkTheme, context),
+                          Styles.social_gradientend(
+                              themeChange.darkTheme, context)
+                        ],
                             begin: Alignment(
                                 Alignment.topCenter.x,
                                 Alignment.topCenter.y +

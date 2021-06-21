@@ -134,7 +134,7 @@ class FirestoreService {
   }
 
   // Create Tours
-  Future<void> createPost(userId, postName, postLocalization, postImage, postLikes, postDescription, postComments) async {
+  Future<void> createPosts(userId, postName, postLocalization, postImage, postLikes, postDescription, postComments) async {
     // generate random tourId
     var uuid = Uuid();
     var postId = uuid.v1();
@@ -156,7 +156,34 @@ class FirestoreService {
       'timeCreation': Timestamp.now()
     });
 
-    print('Success: Tour Created!');
+    print('Success: Post Created!');
+
+  }
+
+  // Create Review
+  Future<void> createReviews(userIdGuide, usernameGuide, userIdTourist, usernameTourist, tourId, ratings, date, description) async {
+    // generate random tourId
+    var uuid = Uuid();
+    var reviewId = uuid.v1();
+
+    _db
+        .collection('users')
+        .doc(userIdGuide)
+        .collection('reviews')
+        .doc(reviewId)
+        .set({
+      'userIdGuide': userIdGuide,
+      'usernameGuide': usernameGuide,
+      'userIdTourist': userIdTourist,
+      'usernameTourist': usernameTourist,
+      'tourId': tourId,
+      'ratings': ratings,
+      'date': date,
+      'description': description,
+      'timeCreation': Timestamp.now()
+    });
+
+    print('Success: Review Created!');
 
   }
 
