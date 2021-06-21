@@ -38,8 +38,7 @@ class _TourlistProfileWidgetState extends State<TourlistProfileWidget> {
 
         if (snapshot.hasData) {
           final List<DocumentSnapshot> documents = snapshot.data.docs;
-          print('Tours');
-          print(documents[0]['tourName']);
+          print('Success -> Tours - tourlistprofile_widget');
           int countTour = snapshot.data.docs.length;
           //Map<String, dynamic> data = snapshot.data.docs as Map<String, dynamic>;
           return Container(

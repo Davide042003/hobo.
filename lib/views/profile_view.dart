@@ -110,7 +110,7 @@ class _ProfileViewState extends State<ProfileView>
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection("users");
     CollectionReference tours = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('tours');
-    CollectionReference gallery = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('gallery');
+    CollectionReference posts = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('posts');
     CollectionReference reviews = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser.uid).collection('reviews');
 
 
@@ -200,6 +200,7 @@ class _ProfileViewState extends State<ProfileView>
                           ),
                           onTap: () {
                             _repository.createTours(_auth.currentUser.uid, 'provaTour', null, 4, 10, 50);
+                            _repository.createPost(_auth.currentUser.uid, 'post test', 'Rome', null, 55, 'This is a caption... ', 10);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -273,7 +274,7 @@ class _ProfileViewState extends State<ProfileView>
                                   onPageChanged: _onPageChanged,
                                   children: [
                                     TourlistProfileWidget(userId: _auth.currentUser.uid,),
-                                    GalleryWidget(),
+                                    GalleryWidget(userId: _auth.currentUser.uid,),
                                     ReviewCardWidget()
                                   ],
                                 )
