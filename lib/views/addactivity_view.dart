@@ -331,6 +331,7 @@ class _InputFieldDescriptionState extends State<InputFieldDescription> {
         hintColor: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
       ),
       child: TextFormField(
+        minLines: 1,
         maxLines: widget.maxLines,
         focusNode: widget.focusNode,
         autocorrect: false,

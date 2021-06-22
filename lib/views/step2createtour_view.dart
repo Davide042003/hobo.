@@ -368,6 +368,7 @@ class _InputFieldDescriptionState extends State<InputFieldDescription> {
       ),
       child: TextFormField(
         maxLines: widget.maxLines,
+        minLines: 1,
         focusNode: widget.focusNode,
         autocorrect: false,
         enableSuggestions: false,
