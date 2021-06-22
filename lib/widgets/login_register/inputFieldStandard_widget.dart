@@ -60,11 +60,11 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
             autocorrect: false,
             enableSuggestions: false,
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: widget.iconPrefix != null ? Icon(
                   widget.iconPrefix,
                   color: _iconColor(),
                   size: widget.sizeIcon,
-                ),
+                ) : null,
                 labelText: widget.text,
                 labelStyle: _textStyle(),
                 focusColor: widget.isRegistration
@@ -105,6 +105,8 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
       return TextInputType.text;
     } else if (widget.typeText == 1) {
       return TextInputType.emailAddress;
+    } else if (widget.typeText == 2) {
+      return TextInputType.number;
     }
     return null;
   }

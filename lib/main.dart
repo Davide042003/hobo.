@@ -8,6 +8,7 @@ import 'package:hobo_test/views/home_view.dart';
 import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
+import 'package:hobo_test/views/step1createtour_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:provider/provider.dart';
 import 'widgets/provider/dark_theme_provider.dart';
@@ -106,7 +107,7 @@ class _MyAppState extends State<MyApp> {
               future: _repository.getCurrentUser(),
               builder: (context, AsyncSnapshot<User> snapshot){
                 if (snapshot.hasData){
-                  return SliderLayoutView();
+                  return Step1CreateTour();
                 } else {
                   return SliderLayoutView();
                 }
