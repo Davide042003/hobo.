@@ -3,6 +3,7 @@ import 'package:hobo_test/views/step2createtour_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
+import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class Step1CreateTour extends StatefulWidget {
@@ -100,6 +101,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
+    final downScroll = Provider.of<NavigationBarProvider>(context);
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -136,21 +138,22 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                             )),
                         Expanded(
                             child: GestureDetector(
-                              child: Container(
-                          height: SizeConfig.screenHeight * 0.04,
-                          child: Align(
+                          child: Container(
+                            height: SizeConfig.screenHeight * 0.04,
+                            child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Icon(
                                   Icons.close,
                                   size: 22,
                                 )),
-                        ),
-                              onTap: (){
-                                setState(() {
-                                  addNewTour.addNewTourVisible = false;
-                                });
-                              },
-                            ))
+                          ),
+                          onTap: () {
+                            setState(() {
+                              addNewTour.addNewTourVisible = false;
+                              downScroll.navigationdown = false;
+                            });
+                          },
+                        ))
                       ],
                     ),
                   ),
@@ -256,6 +259,30 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                               fontFamily: Constants.POPPINS,
                               fontSize: 14,
                               fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Container(
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.0015,
+                    color: Styles.tourpreview_barlight(
+                        themeChange.darkTheme, context),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.015),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Tour Name",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17),
                         ),
                       ],
                     ),
