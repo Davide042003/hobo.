@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:hobo_test/models/user_provider.dart';
@@ -105,7 +107,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     super.dispose();
   }
 
-  void _trySubmitForm() async {
+  void _trySubmitForm(bool dark) async {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
       try {
@@ -125,6 +127,25 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           'timeCreation' : Timestamp.now()
         });
 */
+        Future.wait([
+          precachePicture(
+            ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Guide-background.svg'),
+            null,
+          ),
+          precachePicture(
+            ExactAssetPicture(SvgPicture.svgStringDecoder, dark ? 'assets/images/Guide-girl-dark.svg' : 'assets/images/Guide-girl.svg'),
+            null,
+          ),
+          precachePicture(
+            ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Tourist-background.svg'),
+            null,
+          ),
+          precachePicture(
+            ExactAssetPicture(SvgPicture.svgStringDecoder, dark ? 'assets/images/Tourist-girl-dark.svg' : 'assets/images/Tourist-girl.svg'),
+            null,
+          ),
+        ]);
+
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => ChooseWho()),
@@ -273,7 +294,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                     child: TextButton(
                       focusNode: focusNodeSubmit,
-                      onPressed: _trySubmitForm,
+                      onPressed: () {_trySubmitForm(themeChange.darkTheme);},
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(

@@ -3,6 +3,7 @@ import 'package:hobo_test/views/step2createtour_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class Step1CreateTour extends StatefulWidget {
   @override
@@ -67,7 +68,6 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     });
   }
 
-
   @override
   void dispose() {
     focusNodeTourName.dispose();
@@ -99,167 +99,185 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
+    final addNewTour = Provider.of<NewTourProvider>(context);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor:
-          Styles.loginregister_background(themeChange.darkTheme, context),
-      body: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: bottom),
-            child: SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: SizeConfig.screenWidth * 0.1,
-                    right: SizeConfig.screenWidth * 0.1,
-                    top: SizeConfig.screenHeight * 0.02),
-                child: Column(
-                  children: [
-                    SizedBox(height: SizeConfig.screenHeight * 0.07),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Let's publish a new tour",
+    return Container(
+      margin: EdgeInsets.symmetric(
+          vertical: SizeConfig.screenHeight * 0.14,
+          horizontal: SizeConfig.screenWidth * 0.035),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        color: Colors.white,
+      ),
+      child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: bottom),
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: SizeConfig.screenHeight * 0.025),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.05,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                            height: SizeConfig.screenHeight * 0.04,
+                            child: Text(
+                              "Let's Publish a New Tour",
+                              style: TextStyle(
+                                  fontFamily: Constants.POPPINS,
+                                  fontSize: 22.5,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                        Expanded(
+                            child: GestureDetector(
+                              child: Container(
+                          height: SizeConfig.screenHeight * 0.04,
+                          child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(
+                                  Icons.close,
+                                  size: 22,
+                                )),
+                        ),
+                              onTap: (){
+                                setState(() {
+                                  addNewTour.addNewTourVisible = false;
+                                });
+                              },
+                            ))
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.085),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Colors.red,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Colors.red,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Colors.red,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Colors.red,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Colors.grey,
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Colors.red,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.013),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Step 1",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              color: Styles.whiteblack(
-                                  themeChange.darkTheme, context)),
-                          textAlign: TextAlign.left,
-                        )),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text("Step 1",
-                            style: TextStyle(
-                                fontFamily: Constants.POPPINS,
-                                fontWeight: FontWeight.w300,
-                                fontSize: 17,
-                                color: Styles.loginregister_subheadingandform(
-                                    themeChange.darkTheme, context)),
-                            textAlign: TextAlign.left)),
-                    SizedBox(height: SizeConfig.screenHeight * 0.05),
-                    InputFieldStandard("Tour Name", 0, null, (value) => _tourName = value, false,
-                        focusNodeTourName, focusNodeTourPlace, 18),
-                    SizedBox(height: SizeConfig.screenHeight * 0.03),
-                    InputFieldStandard("Tour Place", 0, null, (value) => _tourPlace = value, false,
-                        focusNodeTourPlace, focusNodeMaxPeople, 18),
-                    SizedBox(height: SizeConfig.screenHeight * 0.03),
-                    Row(
-                      children: [
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                                width: SizeConfig.screenWidth * 0.26,
-                                child: InputFieldStandard(
-                                    "Max People",
-                                    2,
-                                    null,
-                                    (value) => _maxPeople = value,
-                                    false,
-                                    focusNodeMaxPeople,
-                                    null,
-                                    18))),
-                        SizedBox(width: SizeConfig.screenWidth*0.1,),
-                        Text("Allow children ?",style: TextStyle(
-                          fontFamily: Constants.POPPINS,fontSize: 16, color: Styles.whiteblack(themeChange.darkTheme, context)
-                        ),),
-                        SizedBox(width: SizeConfig.screenWidth*0.03,),
-                        GestureDetector(
-                          child: Container(
-                            width: SizeConfig.screenWidth * 0.06,
-                            height: SizeConfig.screenHeight * 0.027,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                color: _allowChildren
-                                    ? Color.fromRGBO(245, 95, 185, 1)
-                                    : Colors.transparent,
-                                border: _allowChildren
-                                    ? null
-                                    : Border.all(
-                                    color: Color.fromRGBO(245, 95, 185, 1),
-                                    width: 1.5)),
-                            child: _allowChildren
-                                ? Icon(
-                              Icons.check,
-                              size: 18,
-                              color: Colors.white,
-                            )
-                                : null,
-                          ),
-                          onTap: () {
-                           setState(() {
-                             if(!_allowChildren){
-                               _allowChildren = true;
-                             }else {
-                               _allowChildren = false;
-                             }
-                           });
-                          },
-                        )],
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        Text(
+                          "Step 2",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        Text(
+                          "Step 3",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        Text(
+                          "Step 4",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        Text(
+                          "Step 5",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: SizeConfig.screenHeight * 0.03),
-                    Row(
-                      children: [
-                        Text("Is a private tour ? ",style: TextStyle(
-                            fontFamily: Constants.POPPINS,fontSize: 16, color: Styles.whiteblack(themeChange.darkTheme, context)
-                        ),),
-                        SizedBox(width: SizeConfig.screenWidth*0.03,),
-                        GestureDetector(
-                          child: Container(
-                            width: SizeConfig.screenWidth * 0.06,
-                            height: SizeConfig.screenHeight * 0.027,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(5)),
-                                color: _private
-                                    ? Color.fromRGBO(245, 95, 185, 1)
-                                    : Colors.transparent,
-                                border: _private
-                                    ? null
-                                    : Border.all(
-                                    color: Color.fromRGBO(245, 95, 185, 1),
-                                    width: 1.5)),
-                            child: _private
-                                ? Icon(
-                              Icons.check,
-                              size: 18,
-                              color: Colors.white,
-                            )
-                                : null,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              if(!_private){
-                                _private = true;
-                              }else {
-                                _private = false;
-                              }
-                            });
-                          },
-                        )],
-                    ),
-                    SizedBox(height: SizeConfig.screenHeight * 0.05),
-                    GestureDetector(
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.05),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.05),
+                    child: GestureDetector(
                       onTap: _trySubmitForm,
                       child: Container(
                           width: SizeConfig.screenWidth,
-                          height: SizeConfig.screenHeight * 0.065,
+                          height: SizeConfig.screenHeight * 0.07,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(35)),
                             boxShadow: [
-                              themeChange.darkTheme ? BoxShadow() : BoxShadow(
-                                  color: Color.fromRGBO(62, 109, 255, 0.39),
-                                  offset: Offset(0, 9),
-                                  blurRadius: 15)
+                              themeChange.darkTheme
+                                  ? BoxShadow()
+                                  : BoxShadow(
+                                      color: Color.fromRGBO(62, 109, 255, 0.39),
+                                      offset: Offset(0, 9),
+                                      blurRadius: 15)
                             ],
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
@@ -271,9 +289,11 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           ),
                           child: TextButton(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -294,8 +314,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                             ),
                           )),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

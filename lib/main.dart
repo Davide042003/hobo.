@@ -1,15 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hobo_test/methods/firebase_methods.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_provider.dart';
-import 'package:hobo_test/views/choosewho_view.dart';
-import 'package:hobo_test/views/home_view.dart';
-import 'package:hobo_test/views/loginregister_view.dart';
+import 'package:hobo_test/views/imagepickerpost_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
+
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/views/step1createtour_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:provider/provider.dart';
 import 'widgets/provider/dark_theme_provider.dart';
 import 'widgets/exports/base_export.dart';
@@ -32,6 +34,7 @@ class _MyAppState extends State<MyApp> {
 
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
+  NewTourProvider newTourProvider = new NewTourProvider();
   UserProvider userProvider = new UserProvider();
 
   bool _initialized = false;
@@ -92,6 +95,11 @@ class _MyAppState extends State<MyApp> {
               return scrollDownProvider;
             }
         ),
+        ChangeNotifierProvider<NewTourProvider>(
+            create: (_) {
+              return newTourProvider;
+            }
+        ),
         ChangeNotifierProvider<UserProvider>(
             create: (_) {
               return userProvider;
@@ -107,8 +115,22 @@ class _MyAppState extends State<MyApp> {
               future: _repository.getCurrentUser(),
               builder: (context, AsyncSnapshot<User> snapshot){
                 if (snapshot.hasData){
-                  return Step1CreateTour();
+                  return ManagePagesView();
                 } else {
+                  Future.wait([
+                    precachePicture(
+                      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-1.svg'),
+                      null,
+                    ),
+                    precachePicture(
+                      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-2.svg'),
+                      null,
+                    ),
+                    precachePicture(
+                      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-3.svg'),
+                      null,
+                    ),
+                  ]);
                   return SliderLayoutView();
                 }
               },
