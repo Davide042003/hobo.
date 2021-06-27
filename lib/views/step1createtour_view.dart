@@ -313,7 +313,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                         "Tour name",
                         (value) => _tourName = value,
                         focusNodeTourName,
-                        focusNodeTourPlace),
+                        focusNodeTourPlace, false),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Padding(
@@ -343,7 +343,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                         "Tour place",
                         (value) => _tourPlace = value,
                         focusNodeTourPlace,
-                        null),
+                        null, false),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Padding(

@@ -6,8 +6,9 @@ class InputFieldNewTour extends StatefulWidget {
   final Function onChanged;
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
+  final bool isForNumber;
 
-  const InputFieldNewTour(this.text, this.onChanged, this.focusNode, this.nextFocusNode);
+  const InputFieldNewTour(this.text, this.onChanged, this.focusNode, this.nextFocusNode, this.isForNumber);
 
   @override
   _InputFieldNewTourState createState() => _InputFieldNewTourState();
@@ -50,7 +51,7 @@ class _InputFieldNewTourState extends State<InputFieldNewTour> {
           style: TextStyle(fontFamily: Constants.POPPINS,
               fontSize: 15,
               color: Styles.whiteblack(themeChange.darkTheme, context)),
-          keyboardType: TextInputType.text,
+          keyboardType: widget.isForNumber ? TextInputType.number: TextInputType.text,
           validator: validateField,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           onChanged: widget.onChanged,

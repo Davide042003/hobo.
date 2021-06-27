@@ -17,7 +17,6 @@ class Step4CreateTour extends StatefulWidget {
 }
 
 class _Step4CreateTourState extends State<Step4CreateTour> {
-  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -29,11 +28,8 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
     super.dispose();
   }
 
-  void _trySubmitForm() async {
-    final isValid = _formKey.currentState.validate();
-    if (isValid) {
-
-    }
+  void _trySubmitForm() {
+    widget.pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/step4createtour_view.dart';
 import 'package:hobo_test/widgets/add_tour/descriptionnewtour_widget.dart';
+import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
@@ -21,6 +22,7 @@ class _AddActivityState extends State<AddActivity> {
   final _formKey = GlobalKey<FormState>();
 
   FocusNode focusNodeDescription;
+  FocusNode focusNodePlace;
   FocusNode focusNodePrice;
 
   @override
@@ -50,25 +52,39 @@ class _AddActivityState extends State<AddActivity> {
         }
       });
     });
+
+    focusNodePlace = FocusNode();
+
+    focusNodePlace.addListener(() {
+      setState(() {
+        if (focusNodePlace.hasFocus) {
+          focusNodePlace.requestFocus();
+        } else {
+          focusNodePlace.unfocus();
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
     focusNodeDescription.dispose();
     focusNodePrice.dispose();
+    focusNodePlace.dispose();
 
     super.dispose();
   }
+
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
-    if (isValid) {
-
-    }
+    if (isValid) {}
   }
 
-  String _description = "";
   bool _onlyAdult = false;
   bool _luxury = false;
+  String _description = "";
+  String _place = "";
+  String _price = "";
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +112,8 @@ class _AddActivityState extends State<AddActivity> {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.screenWidth * 0.05,
-                      vertical: SizeConfig.screenHeight * 0.01
-                    ),
+                        horizontal: SizeConfig.screenWidth * 0.05,
+                        vertical: SizeConfig.screenHeight * 0.01),
                     child: Row(
                       children: [
                         GestureDetector(
@@ -108,7 +123,8 @@ class _AddActivityState extends State<AddActivity> {
                             child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
-                                  padding: EdgeInsets.only(bottom: SizeConfig.screenHeight * 0.005),
+                                  padding: EdgeInsets.only(
+                                      bottom: SizeConfig.screenHeight * 0.005),
                                   child: Icon(
                                     CustomIcons.backarrow,
                                     color: Styles.publishtour_close(
@@ -123,7 +139,7 @@ class _AddActivityState extends State<AddActivity> {
                             });
                           },
                         ),
-                        SizedBox(width:SizeConfig.screenWidth * 0.1),
+                        SizedBox(width: SizeConfig.screenWidth * 0.1),
                         Container(
                             height: SizeConfig.screenHeight * 0.04,
                             child: Text(
@@ -134,7 +150,7 @@ class _AddActivityState extends State<AddActivity> {
                                   fontWeight: FontWeight.bold,
                                   color: Styles.whiteblack(
                                       themeChange.darkTheme, context),
-                              letterSpacing: 4),
+                                  letterSpacing: 4),
                             )),
                       ],
                     ),
@@ -162,7 +178,12 @@ class _AddActivityState extends State<AddActivity> {
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth * 0.0465,
-                    ), child: DescriptionNewTour("Description", (value) => _description = value, focusNodeDescription, null),
+                    ),
+                    child: DescriptionNewTour(
+                        "Description",
+                        (value) => _description = value,
+                        focusNodeDescription,
+                        null),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Padding(
@@ -177,21 +198,23 @@ class _AddActivityState extends State<AddActivity> {
                                 width: SizeConfig.screenWidth * 0.06,
                                 height: SizeConfig.screenHeight * 0.027,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)),
                                     color: _onlyAdult
                                         ? Color.fromRGBO(245, 95, 185, 1)
                                         : Colors.transparent,
                                     border: _onlyAdult
                                         ? null
                                         : Border.all(
-                                        color: Styles.publishtour_check(themeChange.darkTheme, context),
-                                        width: 1)),
+                                            color: Styles.publishtour_check(
+                                                themeChange.darkTheme, context),
+                                            width: 1)),
                                 child: _onlyAdult
                                     ? Icon(
-                                  Icons.check,
-                                  size: 18,
-                                  color: Colors.white,
-                                )
+                                        Icons.check,
+                                        size: 18,
+                                        color: Colors.white,
+                                      )
                                     : null,
                               ),
                               onTap: () {
@@ -202,8 +225,7 @@ class _AddActivityState extends State<AddActivity> {
                                     _onlyAdult = false;
                                   }
                                 });
-                              }
-                          ),
+                              }),
                           SizedBox(
                             width: SizeConfig.screenWidth * 0.025,
                           ),
@@ -212,29 +234,34 @@ class _AddActivityState extends State<AddActivity> {
                             style: TextStyle(
                                 fontFamily: Constants.POPPINS,
                                 fontSize: 15,
-                                color: Styles.whiteblack(themeChange.darkTheme, context)),
+                                color: Styles.whiteblack(
+                                    themeChange.darkTheme, context)),
                           ),
-                          SizedBox(width: SizeConfig.screenWidth * 0.12,),
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.12,
+                          ),
                           GestureDetector(
                               child: Container(
                                 width: SizeConfig.screenWidth * 0.06,
                                 height: SizeConfig.screenHeight * 0.027,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)),
                                     color: _luxury
                                         ? Color.fromRGBO(245, 95, 185, 1)
                                         : Colors.transparent,
                                     border: _luxury
                                         ? null
                                         : Border.all(
-                                        color: Styles.publishtour_check(themeChange.darkTheme, context),
-                                        width: 1)),
+                                            color: Styles.publishtour_check(
+                                                themeChange.darkTheme, context),
+                                            width: 1)),
                                 child: _luxury
                                     ? Icon(
-                                  Icons.check,
-                                  size: 18,
-                                  color: Colors.white,
-                                )
+                                        Icons.check,
+                                        size: 18,
+                                        color: Colors.white,
+                                      )
                                     : null,
                               ),
                               onTap: () {
@@ -245,8 +272,7 @@ class _AddActivityState extends State<AddActivity> {
                                     _luxury = false;
                                   }
                                 });
-                              }
-                          ),
+                              }),
                           SizedBox(
                             width: SizeConfig.screenWidth * 0.025,
                           ),
@@ -255,7 +281,8 @@ class _AddActivityState extends State<AddActivity> {
                             style: TextStyle(
                                 fontFamily: Constants.POPPINS,
                                 fontSize: 15,
-                                color: Styles.whiteblack(themeChange.darkTheme, context)),
+                                color: Styles.whiteblack(
+                                    themeChange.darkTheme, context)),
                           ),
                         ],
                       ),
@@ -263,7 +290,99 @@ class _AddActivityState extends State<AddActivity> {
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.05),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.05),
+                    child: Container(
+                      width: SizeConfig.screenWidth,
+                      height: SizeConfig.screenHeight * 0.0015,
+                      color: Styles.tourpreview_barlight(
+                          themeChange.darkTheme, context),
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Activity Place",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.01),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: InputFieldNewTour(
+                        "Activity place",
+                        (value) => _place = value,
+                        focusNodePlace,
+                        focusNodePrice, false),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Price per person",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.01),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: SizeConfig.screenWidth * 0.1,
+                          height: SizeConfig.screenHeight * 0.055,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Styles.publishtour_backgroundinputfield(
+                                themeChange.darkTheme, context),
+                          ),
+                          child: Center(
+                            child: Text("\$", style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 20,
+                              color: Styles.whiteblack(themeChange.darkTheme, context)
+                            ),),
+                          ),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01,),
+                        Expanded(
+                          child: InputFieldNewTour("Price per person",
+                              (value) => _price = value, focusNodePrice, null, true),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.05),
                     child: Container(
                       width: SizeConfig.screenWidth,
                       height: SizeConfig.screenHeight * 0.0015,
@@ -293,8 +412,8 @@ class _AddActivityState extends State<AddActivity> {
                           child: TextButton(
                             child: Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 20),
-                              child:  Text(
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
                                 "Save",
                                 style: TextStyle(
                                   fontFamily: Constants.POPPINS,
