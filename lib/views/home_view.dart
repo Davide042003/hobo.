@@ -20,6 +20,8 @@ import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
+import 'addvehicle_view.dart';
+
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
@@ -249,6 +251,7 @@ class _HomeViewState extends State<HomeView> {
                     Step4CreateTour(_pageController),
                     Step5CreateTour(_pageController),
                     AddActivity(_pageController),
+                    AddVehicle(_pageController)
                   ],
                 ),
               ),

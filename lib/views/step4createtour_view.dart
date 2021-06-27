@@ -237,6 +237,9 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.015),
                 Container(
+                  constraints: BoxConstraints(
+                    maxHeight: SizeConfig.screenHeight * 0.4
+                  ),
                     margin: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.05),
                     child: ListView.separated(

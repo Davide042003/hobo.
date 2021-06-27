@@ -245,23 +245,28 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, i) {
                         if (i == 0) {
-                          return Container(
-                            width: SizeConfig.screenWidth * 0.23,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(5)),
-                                border: Border.all(
-                                    color: Color.fromRGBO(116, 142, 243, 1),
-                                    width: 1),
-                                color: Colors.transparent),
-                            child: Center(
-                                child: Text(
-                                  "+",
-                                  style: TextStyle(
-                                      fontFamily: Constants.POPPINS,
-                                      fontSize: 43,
-                                      color: Color.fromRGBO(116, 142, 243, 1)),
-                                )),
+                          return GestureDetector(
+                            onTap: () {
+                              widget.pageController.jumpToPage(6);
+                            },
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.23,
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                                  border: Border.all(
+                                      color: Color.fromRGBO(116, 142, 243, 1),
+                                      width: 1),
+                                  color: Colors.transparent),
+                              child: Center(
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontSize: 43,
+                                        color: Color.fromRGBO(116, 142, 243, 1)),
+                                  )),
+                            ),
                           );
                         } else {
                           return Container(
