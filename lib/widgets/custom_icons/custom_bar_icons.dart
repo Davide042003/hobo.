@@ -49,4 +49,7 @@ class CustomIcons {
   static const IconData backarrow = IconData(0xe830, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData back_onboarding = IconData(0xe831, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search = IconData(0xe832, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData profileiconsetting = IconData(0xe835, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData close = IconData(0xe836, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrowdownlanguages = IconData(0xe837, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

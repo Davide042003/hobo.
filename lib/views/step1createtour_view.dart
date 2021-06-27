@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/step2createtour_view.dart';
+import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
@@ -109,7 +110,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
           horizontal: SizeConfig.screenWidth * 0.035),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: Colors.white,
+        color: Styles.publishtour_background(themeChange.darkTheme, context),
       ),
       child: Form(
         key: _formKey,
@@ -133,8 +134,9 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                               "Let's Publish a New Tour",
                               style: TextStyle(
                                   fontFamily: Constants.POPPINS,
-                                  fontSize: 22.5,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                              color: Styles.whiteblack(themeChange.darkTheme, context)),
                             )),
                         Expanded(
                             child: GestureDetector(
@@ -143,7 +145,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                             child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Icon(
-                                  Icons.close,
+                                  CustomIcons.close,
+                                  color: Styles.publishtour_close(themeChange.darkTheme, context),
                                   size: 22,
                                 )),
                           ),
@@ -165,59 +168,59 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                       children: [
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Color.fromRGBO(245, 95, 185, 1),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Colors.grey,
+                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Colors.grey,
+                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Colors.grey,
+                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Colors.grey,
+                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Colors.red,
+                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.013),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.06,
                     ),
                     child: Row(
                       children: [
@@ -225,40 +228,37 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           "Step 1",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                              fontSize: 12,
+                          color: Styles.whiteblack(themeChange.darkTheme, context)),
                         ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        SizedBox(width: SizeConfig.screenWidth * 0.09),
                         Text(
                           "Step 2",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                              fontSize: 12,
+                          color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
                         ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        SizedBox(width: SizeConfig.screenWidth * 0.085),
                         Text(
                           "Step 3",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                              fontSize: 12, color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
                         ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        SizedBox(width: SizeConfig.screenWidth * 0.085),
                         Text(
                           "Step 4",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                              fontSize: 12, color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
                         ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.07),
+                        SizedBox(width: SizeConfig.screenWidth * 0.085),
                         Text(
                           "Step 5",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                              fontSize: 12, color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
                         ),
                       ],
                     ),
@@ -282,10 +282,45 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
                               fontWeight: FontWeight.w600,
-                              fontSize: 17),
+                              fontSize: 15,
+                            color: Styles.whiteblack(themeChange.darkTheme, context)
+                          ),
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.01),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: InputFieldNewTour("Tour name", (value) => _tourName = value, focusNodeTourName, focusNodeTourPlace),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.015),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Tour Place",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Styles.whiteblack(themeChange.darkTheme, context)
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.01),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: InputFieldNewTour("Tour place", (value) => _tourPlace = value, focusNodeTourName, focusNodeTourPlace),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.05),
                   Padding(
@@ -327,7 +362,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                     "Continue",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
-                                      fontSize: 17,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                     ),

@@ -217,17 +217,26 @@ class _HomeViewState extends State<HomeView> {
             ],
           ),
         ),
-        addNewTour.addNewTourVisible ? Container(
-          width: SizeConfig.screenWidth,
-          height: SizeConfig.screenHeight,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
-            child: Container(
-              decoration: BoxDecoration(color: Colors.black.withOpacity(0.2)),
-              child: PageView(
-                children: [
-                  Step1CreateTour()
-                ],
+        addNewTour.addNewTourVisible ? GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: Container(
+            width: SizeConfig.screenWidth,
+            height: SizeConfig.screenHeight,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+              child: Container(
+                decoration: BoxDecoration(color: Styles.publishtour_blur(themeChange.darkTheme, context)),
+                child: PageView(
+                  children: [
+                    Step1CreateTour()
+                  ],
+                ),
               ),
             ),
           ),

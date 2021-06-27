@@ -201,4 +201,32 @@ class Styles {
   static Color settings_card(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ?  Color.fromRGBO(48, 48, 48, 1) :   Colors.white;
   }
+
+  static Color publishtour_close(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Colors.white : Color.fromRGBO(217, 217, 217, 1) ;
+  }
+
+  static Color publishtour_bar(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(239, 239, 239, 1) ;
+  }
+
+  static Color publishtour_blur(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.black.withOpacity(0.8) : Colors.black.withOpacity(0.44) ;
+  }
+
+  static Color publishtour_background(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Color.fromRGBO(41, 41, 41, 1) : Colors.white;
+  }
+
+  static Color publishtour_inactive(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white.withOpacity(.2) : Color.fromRGBO(203, 203, 203, 1);
+  }
+
+  static Color publishtour_hintText(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ?  Colors.white.withOpacity(.3) : Color.fromRGBO(51, 51, 51, .3);
+  }
+
+  static Color publishtour_backgroundinputfield(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(235, 245, 249, 1);
+  }
 }
