@@ -237,4 +237,8 @@ class Styles {
   static Color publishtour_noacitivity(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(241, 241, 241, 1);
   }
+
+  static Color publishtour_check(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(213, 213, 213, 1);
+  }
 }

@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:hobo_test/models/user_provider.dart';
+import 'package:hobo_test/views/addactivity_view.dart';
 import 'package:hobo_test/views/hotplaces_view.dart';
 import 'package:hobo_test/views/step1createtour_view.dart';
 import 'package:hobo_test/views/step2createtour_view.dart';
 import 'package:hobo_test/views/step3createtour_view.dart';
 import 'package:hobo_test/views/step4createtour_view.dart';
+import 'package:hobo_test/views/step5createtour_view.dart';
 import 'package:hobo_test/widgets/home/hotplaceshome_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbar_widget.dart';
@@ -244,7 +246,9 @@ class _HomeViewState extends State<HomeView> {
                     Step1CreateTour(_pageController),
                     Step2CreateTour(_pageController),
                     Step3CreateTour(_pageController),
-                    Step4CreateTour(_pageController)
+                    Step4CreateTour(_pageController),
+                    Step5CreateTour(_pageController),
+                    AddActivity(_pageController),
                   ],
                 ),
               ),

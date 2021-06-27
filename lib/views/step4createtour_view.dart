@@ -4,7 +4,6 @@ import 'package:hobo_test/views/step5createtour_view.dart';
 import 'package:hobo_test/widgets/add_tour/cardtouradd_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
@@ -33,10 +32,7 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Step5CreateTour()),
-      );
+
     }
   }
 
@@ -275,7 +271,9 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                                     color: Color.fromRGBO(116, 142, 243, 1)),
                               )),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              widget.pageController.jumpToPage(5);
+                            },
                           );
                         } else {
                           return CardTourAddWidget();

@@ -384,7 +384,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                 border: _allowChildren
                                     ? null
                                     : Border.all(
-                                    color: Color.fromRGBO(213, 213, 213, 1),
+                                    color: Styles.publishtour_check(themeChange.darkTheme, context),
                                     width: 1)),
                             child: _allowChildren
                                 ? Icon(
