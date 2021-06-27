@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/step2createtour_view.dart';
+import 'package:hobo_test/widgets/add_tour/counter_widget.dart';
 import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -17,16 +20,17 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
   FocusNode focusNodeTourName;
   FocusNode focusNodeTourPlace;
-  FocusNode focusNodeMaxPeople;
   FocusNode focusNodeContinue;
+  int countPeople;
 
   @override
   void initState() {
     super.initState();
 
+    countPeople = 0;
+
     focusNodeTourName = FocusNode();
     focusNodeTourPlace = FocusNode();
-    focusNodeMaxPeople = FocusNode();
     focusNodeContinue = FocusNode();
 
     focusNodeTourName.addListener(() {
@@ -35,16 +39,6 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
           focusNodeTourName.requestFocus();
         } else {
           focusNodeTourName.unfocus();
-        }
-      });
-    });
-
-    focusNodeMaxPeople.addListener(() {
-      setState(() {
-        if (focusNodeMaxPeople.hasFocus) {
-          focusNodeMaxPeople.requestFocus();
-        } else {
-          focusNodeMaxPeople.unfocus();
         }
       });
     });
@@ -74,10 +68,15 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
   void dispose() {
     focusNodeTourName.dispose();
     focusNodeTourPlace.dispose();
-    focusNodeMaxPeople.dispose();
     focusNodeContinue.dispose();
 
     super.dispose();
+  }
+
+   void _updateCounter(int value) {
+    setState(() {
+      countPeople = value;
+    });
   }
 
   void _trySubmitForm() async {
@@ -136,7 +135,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                   fontFamily: Constants.POPPINS,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
-                              color: Styles.whiteblack(themeChange.darkTheme, context)),
+                                  color: Styles.whiteblack(
+                                      themeChange.darkTheme, context)),
                             )),
                         Expanded(
                             child: GestureDetector(
@@ -146,7 +146,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                 alignment: Alignment.centerRight,
                                 child: Icon(
                                   CustomIcons.close,
-                                  color: Styles.publishtour_close(themeChange.darkTheme, context),
+                                  color: Styles.publishtour_close(
+                                      themeChange.darkTheme, context),
                                   size: 22,
                                 )),
                           ),
@@ -174,45 +175,53 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          color: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          backgroundColor: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          color: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          backgroundColor: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          color: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          backgroundColor: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         Container(
                           width: SizeConfig.screenWidth * 0.13,
                           height: SizeConfig.screenHeight * 0.006,
-                          color: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          color: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.01),
                         CircleAvatar(
                           radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Styles.publishtour_bar(themeChange.darkTheme, context),
+                          backgroundColor: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
                         ),
                       ],
                     ),
@@ -229,7 +238,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
                               fontSize: 12,
-                          color: Styles.whiteblack(themeChange.darkTheme, context)),
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.09),
                         Text(
@@ -237,28 +247,35 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
                               fontSize: 12,
-                          color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.085),
                         Text(
                           "Step 3",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 12, color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
+                              fontSize: 12,
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.085),
                         Text(
                           "Step 4",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 12, color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
+                              fontSize: 12,
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
                         ),
                         SizedBox(width: SizeConfig.screenWidth * 0.085),
                         Text(
                           "Step 5",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 12, color: Styles.publishtour_inactive(themeChange.darkTheme, context)),
+                              fontSize: 12,
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
                         ),
                       ],
                     ),
@@ -283,8 +300,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                               fontFamily: Constants.POPPINS,
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
-                            color: Styles.whiteblack(themeChange.darkTheme, context)
-                          ),
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
                         ),
                       ],
                     ),
@@ -294,9 +311,13 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth * 0.0465,
                     ),
-                    child: InputFieldNewTour("Tour name", (value) => _tourName = value, focusNodeTourName, focusNodeTourPlace),
+                    child: InputFieldNewTour(
+                        "Tour name",
+                        (value) => _tourName = value,
+                        focusNodeTourName,
+                        focusNodeTourPlace),
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.015),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth * 0.0465,
@@ -309,8 +330,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                               fontFamily: Constants.POPPINS,
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
-                              color: Styles.whiteblack(themeChange.darkTheme, context)
-                          ),
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
                         ),
                       ],
                     ),
@@ -320,8 +341,41 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth * 0.0465,
                     ),
-                    child: InputFieldNewTour("Tour place", (value) => _tourPlace = value, focusNodeTourName, focusNodeTourPlace),
+                    child: InputFieldNewTour(
+                        "Tour place",
+                        (value) => _tourPlace = value,
+                        focusNodeTourPlace,
+                        null),
                   ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "No. of People",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.01),
+                  Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.0465,
+                      ),
+                      child: Row(
+                        children: [
+                         CounterWidget((value) { _updateCounter(value);})
+                        ],
+                      )),
                   SizedBox(height: SizeConfig.screenHeight * 0.05),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -333,14 +387,6 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           height: SizeConfig.screenHeight * 0.07,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(35)),
-                            boxShadow: [
-                              themeChange.darkTheme
-                                  ? BoxShadow()
-                                  : BoxShadow(
-                                      color: Color.fromRGBO(62, 109, 255, 0.39),
-                                      offset: Offset(0, 9),
-                                      blurRadius: 15)
-                            ],
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,

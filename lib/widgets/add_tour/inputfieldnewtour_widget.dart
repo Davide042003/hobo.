@@ -19,24 +19,6 @@ class _InputFieldNewTourState extends State<InputFieldNewTour> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
-    final TextStyle focusText = TextStyle(
-        fontFamily: Constants.POPPINS,
-        fontWeight: FontWeight.bold,
-        height: -1,
-        color: Color.fromRGBO(116, 142, 243, 1),
-        fontSize: 15);
-
-    final TextStyle regularText = TextStyle(
-        fontFamily: Constants.POPPINS,
-        color: Styles.loginregister_subheadingandform(
-            themeChange.darkTheme, context),
-        fontSize: 17);
-
-    TextStyle _textStyle() {
-      return widget.focusNode.hasFocus ? focusText : regularText;
-    }
-
-
     return Theme(
       data: new ThemeData(
         primaryColor: Color.fromRGBO(116, 142, 243, 1),

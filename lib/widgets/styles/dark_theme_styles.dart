@@ -229,4 +229,5 @@ class Styles {
   static Color publishtour_backgroundinputfield(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(235, 245, 249, 1);
   }
+
 }
