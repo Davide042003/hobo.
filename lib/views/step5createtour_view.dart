@@ -26,10 +26,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Step4CreateTour()),
-      );
+
     }
   }
 

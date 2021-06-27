@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/step3createtour_view.dart';
+import 'package:hobo_test/widgets/add_tour/descriptionnewtour_widget.dart';
 import 'package:hobo_test/widgets/add_tour/language.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class Step2CreateTour extends StatefulWidget {
+  final PageController pageController;
+
+  const Step2CreateTour(this.pageController);
+
   @override
   _Step2CreateTourState createState() => _Step2CreateTourState();
 }
@@ -41,10 +48,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Step3CreateTour()),
-      );
+      widget.pageController.nextPage(
+          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
   }
 
@@ -63,94 +68,227 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
+    final addNewTour = Provider.of<NewTourProvider>(context);
+    final downScroll = Provider.of<NavigationBarProvider>(context);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor:
-          Styles.loginregister_background(themeChange.darkTheme, context),
-      body: GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: bottom),
-            child: SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.only(top: SizeConfig.screenHeight * 0.02),
-                child: Column(
-                  children: [
-                    SizedBox(height: SizeConfig.screenHeight * 0.07),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Let's publish a new tour",
-                            style: TextStyle(
-                                fontFamily: Constants.POPPINS,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                                color: Styles.whiteblack(
-                                    themeChange.darkTheme, context)),
-                            textAlign: TextAlign.left,
-                          )),
+    return Container(
+      margin: EdgeInsets.symmetric(
+          vertical: SizeConfig.screenHeight * 0.14,
+          horizontal: SizeConfig.screenWidth * 0.035),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        color: Styles.publishtour_background(themeChange.darkTheme, context),
+      ),
+      child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: bottom),
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: SizeConfig.screenHeight * 0.025),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.05,
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("Step 2",
+                    child: Row(
+                      children: [
+                        Container(
+                            height: SizeConfig.screenHeight * 0.04,
+                            child: Text(
+                              "Let's Publish a New Tour",
                               style: TextStyle(
                                   fontFamily: Constants.POPPINS,
-                                  fontWeight: FontWeight.w300,
-                                  fontSize: 17,
-                                  color: Styles.loginregister_subheadingandform(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Styles.whiteblack(
                                       themeChange.darkTheme, context)),
-                              textAlign: TextAlign.left)),
+                            )),
+                        Expanded(
+                            child: GestureDetector(
+                          child: Container(
+                            height: SizeConfig.screenHeight * 0.04,
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Icon(
+                                  CustomIcons.close,
+                                  color: Styles.publishtour_close(
+                                      themeChange.darkTheme, context),
+                                  size: 22,
+                                )),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              addNewTour.addNewTourVisible = false;
+                              downScroll.navigationdown = false;
+                            });
+                          },
+                        ))
+                      ],
                     ),
-                    SizedBox(height: SizeConfig.screenHeight * 0.03),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Images",
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.085),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Color.fromRGBO(245, 95, 185, 1),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Color.fromRGBO(245, 95, 185, 1),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Color.fromRGBO(245, 95, 185, 1),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        Container(
+                          width: SizeConfig.screenWidth * 0.13,
+                          height: SizeConfig.screenHeight * 0.006,
+                          color: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.01),
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.016,
+                          backgroundColor: Styles.publishtour_bar(
+                              themeChange.darkTheme, context),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.013),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: SizeConfig.screenWidth * 0.06,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Step 1",
                           style: TextStyle(
                               fontFamily: Constants.POPPINS,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 12,
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.09),
+                        Text(
+                          "Step 2",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 12,
                               color: Styles.whiteblack(
                                   themeChange.darkTheme, context)),
                         ),
-                      ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.085),
+                        Text(
+                          "Step 3",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 12,
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.085),
+                        Text(
+                          "Step 4",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 12,
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
+                        ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.085),
+                        Text(
+                          "Step 5",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 12,
+                              color: Styles.publishtour_inactive(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: SizeConfig.screenWidth * 0.03,
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Container(
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.0015,
+                    color: Styles.tourpreview_barlight(
+                        themeChange.darkTheme, context),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.015),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
                     ),
-                    Container(
-                      height: SizeConfig.screenHeight * 0.15,
+                    child: Row(
+                      children: [
+                        Text(
+                          "Images",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.015),
+                  Container(
+                      height: SizeConfig.screenHeight * 0.105,
                       child: ListView.separated(
                         padding:
-                            EdgeInsets.only(left: SizeConfig.screenWidth * 0.1),
+                            EdgeInsets.only(left: SizeConfig.screenWidth * 0.05),
                         primary: false,
                         shrinkWrap: true,
+                        itemCount: 4,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, i) {
                           if (i == 0) {
                             return Container(
-                              width: SizeConfig.screenWidth * 0.35,
+                              width: SizeConfig.screenWidth * 0.23,
                               decoration: BoxDecoration(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                      BorderRadius.all(Radius.circular(5)),
                                   border: Border.all(
                                       color: Color.fromRGBO(116, 142, 243, 1),
                                       width: 1),
@@ -160,99 +298,80 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                                 "+",
                                 style: TextStyle(
                                     fontFamily: Constants.POPPINS,
-                                    fontSize: 35,
+                                    fontSize: 43,
                                     color: Color.fromRGBO(116, 142, 243, 1)),
                               )),
                             );
                           } else {
                             return Container(
-                              width: SizeConfig.screenWidth * 0.35,
+                              width: SizeConfig.screenWidth * 0.23,
                               height: SizeConfig.screenHeight,
                               decoration: BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                    BorderRadius.all(Radius.circular(5)),
                                 color: Colors.grey,
                               ),
                             );
                           }
                         },
-                        separatorBuilder: (context, i) => SizedBox(
-                          width: SizeConfig.screenWidth * 0.02,
-                        ),
-                        itemCount: 3,
-                      ),
+                        separatorBuilder: (context, i) =>
+                            SizedBox(width: SizeConfig.screenWidth * 0.05),
+                      )),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
                     ),
-                    SizedBox(height: SizeConfig.screenHeight * 0.03),
-                    Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.screenWidth * 0.1),
-                      child: InputFieldDescription(
+                    child: Row(
+                      children: [
+                        Text(
                           "Description",
-                          0,
-                          null,
-                          (value) => _description = value,
-                          false,
-                          focusNodeDescription,
-                          null,
-                          18,
-                          5),
-                    ),
-                    SizedBox(height: SizeConfig.screenHeight * 0.03),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.1),
-                      child: Row(children: [
-                        DropdownButton(
-                          onChanged: (Language language) {
-                            _changeLanguage(language);
-                          },
-                          underline: SizedBox(),
-                          hint: Text("Select Language ", style:
-                              TextStyle(fontFamily: Constants.POPPINS,
-                                  color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context),
-                                  fontSize: 17)),
-                          icon: Icon(
-                            Icons.language,
-                              color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)
-                          ),
-                          items: Language.languageList()
-                              .map<DropdownMenuItem<Language>>(
-                                  (lang) => DropdownMenuItem(
-                                      value: lang,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            lang.name,
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                          Text(lang.flag,
-                                              style:
-                                              TextStyle(fontFamily:Constants.POPPINS))
-                                        ],
-                                      )))
-                              .toList(),
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
                         ),
-                      ]),
+                      ],
                     ),
-                    SizedBox(height: SizeConfig.screenHeight * 0.05),
-                    GestureDetector(
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.015),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ), child: DescriptionNewTour("Description", (value) => _description = value, focusNodeDescription, null),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Language",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.04),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.05),
+                    child: GestureDetector(
                       onTap: _trySubmitForm,
                       child: Container(
-                          margin: EdgeInsets.only(
-                              right: SizeConfig.screenWidth * 0.1,
-                              left: SizeConfig.screenWidth * 0.1),
                           width: SizeConfig.screenWidth,
-                          height: SizeConfig.screenHeight * 0.065,
+                          height: SizeConfig.screenHeight * 0.07,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(35)),
-                            boxShadow: [
-                              themeChange.darkTheme
-                                  ? BoxShadow()
-                                  : BoxShadow(
-                                      color: Color.fromRGBO(62, 109, 255, 0.39),
-                                      offset: Offset(0, 9),
-                                      blurRadius: 15)
-                            ],
                             gradient: LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
@@ -274,7 +393,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                                     "Continue",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
-                                      fontSize: 17,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                     ),
@@ -288,166 +407,16 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                             ),
                           )),
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.015,
+                  )
+                ],
               ),
             ),
           ),
         ),
       ),
     );
-  }
-}
-
-class InputFieldDescription extends StatefulWidget {
-  final String text;
-  final int typeText; //0 = tastiera Text, 1 = tastiera mail
-  final IconData iconPrefix;
-  final Function onChanged;
-  final bool isRegistration;
-  final FocusNode focusNode;
-  final FocusNode nextFocusNode;
-  final double sizeIcon;
-  final int maxLines;
-
-  const InputFieldDescription(
-      this.text,
-      this.typeText,
-      this.iconPrefix,
-      this.onChanged,
-      this.isRegistration,
-      this.focusNode,
-      this.nextFocusNode,
-      this.sizeIcon,
-      this.maxLines);
-
-  @override
-  _InputFieldDescriptionState createState() => _InputFieldDescriptionState();
-}
-
-class _InputFieldDescriptionState extends State<InputFieldDescription> {
-  @override
-  Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
-
-    final TextStyle focusText = TextStyle(
-        fontFamily: Constants.POPPINS,
-        fontWeight: FontWeight.bold,
-        height: -1,
-        color: widget.isRegistration
-            ? Color.fromRGBO(36, 65, 187, 1)
-            : Color.fromRGBO(116, 142, 243, 1),
-        fontSize: 15);
-
-    final TextStyle regularText = TextStyle(
-        fontFamily: Constants.POPPINS,
-        color: Styles.loginregister_subheadingandform(
-            themeChange.darkTheme, context),
-        fontSize: 17);
-
-    TextStyle _textStyle() {
-      return widget.focusNode.hasFocus ? focusText : regularText;
-    }
-
-    Color _iconColor() {
-      return widget.focusNode.hasFocus
-          ? widget.isRegistration
-              ? Color.fromRGBO(36, 65, 187, 1)
-              : Color.fromRGBO(116, 142, 243, 1)
-          : Styles.loginregister_subheadingandform(
-              themeChange.darkTheme, context);
-    }
-
-    return Theme(
-      data: new ThemeData(
-        primaryColor: widget.isRegistration
-            ? Color.fromRGBO(36, 65, 187, 1)
-            : Color.fromRGBO(116, 142, 243, 1),
-        hintColor: Styles.loginregister_subheadingandform(
-            themeChange.darkTheme, context),
-      ),
-      child: TextFormField(
-        maxLines: widget.maxLines,
-        minLines: 1,
-        focusNode: widget.focusNode,
-        autocorrect: false,
-        enableSuggestions: false,
-        decoration: InputDecoration(
-          alignLabelWithHint: true,
-          prefixIcon: widget.iconPrefix != null
-              ? Icon(
-                  widget.iconPrefix,
-                  color: _iconColor(),
-                  size: widget.sizeIcon,
-                )
-              : null,
-          labelText: widget.text,
-          labelStyle: _textStyle(),
-          focusColor: widget.isRegistration
-              ? Color.fromRGBO(36, 65, 187, 1)
-              : Color.fromRGBO(116, 142, 243, 1),
-          focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                  color: widget.isRegistration
-                      ? Color.fromRGBO(36, 65, 187, 1)
-                      : Color.fromRGBO(116, 142, 243, 1),
-                  width: 2)),
-          border: UnderlineInputBorder(
-              borderSide: BorderSide(
-                  color: Styles.loginregister_subheadingandform(
-                      themeChange.darkTheme, context),
-                  width: 1)),
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                  color: Styles.loginregister_subheadingandform(
-                      themeChange.darkTheme, context),
-                  width: 1)),
-          errorStyle: TextStyle(
-              fontFamily: Constants.POPPINS,
-              fontWeight: FontWeight.w300,
-              color: Color.fromRGBO(88, 88, 88, 1),
-              fontSize: 10),
-        ),
-        style: TextStyle(
-            fontFamily: Constants.POPPINS,
-            fontSize: 17,
-            color: Styles.whiteblack(themeChange.darkTheme, context)),
-        keyboardType: checkKeyboardType(),
-        validator: validateField,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        onChanged: widget.onChanged,
-        textInputAction: TextInputAction.next,
-      ),
-    );
-  }
-
-  TextInputType checkKeyboardType() {
-    if (widget.typeText == 0) {
-      return TextInputType.text;
-    } else if (widget.typeText == 1) {
-      return TextInputType.emailAddress;
-    } else if (widget.typeText == 2) {
-      return TextInputType.number;
-    }
-    return null;
-  }
-
-  String validateField(String value) {
-    if (widget.typeText == 0) {
-      if (value.trim().isEmpty) {
-        return 'This field is required';
-      }
-      if (value.trim().length <= 3) {
-        return 'This field is required';
-      }
-    } else if (widget.typeText == 1) {
-      if (value.trim().isEmpty) {
-        return 'Please enter your email address';
-      }
-      if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-        return 'Please enter a valid email address';
-      }
-    }
-    return null;
   }
 }

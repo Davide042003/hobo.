@@ -1,10 +1,14 @@
 import 'dart:ui';
+import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/hotplaces_view.dart';
 import 'package:hobo_test/views/step1createtour_view.dart';
+import 'package:hobo_test/views/step2createtour_view.dart';
+import 'package:hobo_test/views/step3createtour_view.dart';
+import 'package:hobo_test/views/step4createtour_view.dart';
 import 'package:hobo_test/widgets/home/hotplaceshome_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbar_widget.dart';
@@ -20,6 +24,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -232,9 +237,14 @@ class _HomeViewState extends State<HomeView> {
               filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
               child: Container(
                 decoration: BoxDecoration(color: Styles.publishtour_blur(themeChange.darkTheme, context)),
-                child: PageView(
+                child: ExpandablePageView(
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: _pageController,
                   children: [
-                    Step1CreateTour()
+                    Step1CreateTour(_pageController),
+                    Step2CreateTour(_pageController),
+                    Step3CreateTour(_pageController),
+                    Step4CreateTour(_pageController)
                   ],
                 ),
               ),

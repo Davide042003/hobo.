@@ -230,4 +230,11 @@ class Styles {
     return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(235, 245, 249, 1);
   }
 
+  static Color publishtour_dateandtime(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(136, 136, 136, 1) : Colors.black;
+  }
+
+  static Color publishtour_noacitivity(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(241, 241, 241, 1);
+  }
 }

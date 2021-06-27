@@ -11,6 +11,10 @@ import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class Step1CreateTour extends StatefulWidget {
+  final PageController pageController;
+
+  const Step1CreateTour(this.pageController);
+
   @override
   _Step1CreateTourState createState() => _Step1CreateTourState();
 }
@@ -21,13 +25,10 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
   FocusNode focusNodeTourName;
   FocusNode focusNodeTourPlace;
   FocusNode focusNodeContinue;
-  int countPeople;
 
   @override
   void initState() {
     super.initState();
-
-    countPeople = 0;
 
     focusNodeTourName = FocusNode();
     focusNodeTourPlace = FocusNode();
@@ -75,23 +76,20 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
    void _updateCounter(int value) {
     setState(() {
-      countPeople = value;
+      _maxPeople = value;
     });
   }
 
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
-    if (isValid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Step2CreateTour()),
-      );
+    if (isValid && _maxPeople>0) {
+       widget.pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
   }
 
   String _tourName = '';
   String _tourPlace = '';
-  String _maxPeople = '';
+  int _maxPeople = 0;
   bool _allowChildren = false;
   bool _private = false;
 
@@ -363,6 +361,49 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                               color: Styles.whiteblack(
                                   themeChange.darkTheme, context)),
                         ),
+                        SizedBox(width: SizeConfig.screenWidth * 0.32),
+                        Text(
+                          "Children",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 15,
+                              color: Styles.whiteblack(themeChange.darkTheme, context)),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.025,
+                        ),
+                        GestureDetector(
+                          child: Container(
+                            width: SizeConfig.screenWidth * 0.06,
+                            height: SizeConfig.screenHeight * 0.027,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                color: _allowChildren
+                                    ? Color.fromRGBO(245, 95, 185, 1)
+                                    : Colors.transparent,
+                                border: _allowChildren
+                                    ? null
+                                    : Border.all(
+                                    color: Color.fromRGBO(213, 213, 213, 1),
+                                    width: 1)),
+                            child: _allowChildren
+                                ? Icon(
+                              Icons.check,
+                              size: 18,
+                              color: Colors.white,
+                            )
+                                : null,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              if (_allowChildren == false) {
+                                _allowChildren = true;
+                              } else {
+                                _allowChildren = false;
+                              }
+                            });
+                          }
+                        ),
                       ],
                     ),
                   ),
@@ -376,7 +417,61 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                          CounterWidget((value) { _updateCounter(value);})
                         ],
                       )),
-                  SizedBox(height: SizeConfig.screenHeight * 0.05),
+                  SizedBox(height: SizeConfig.screenHeight * 0.03,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Container(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                              child: Container(
+                                width: SizeConfig.screenWidth * 0.06,
+                                height: SizeConfig.screenHeight * 0.027,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    color: _private
+                                        ? Color.fromRGBO(245, 95, 185, 1)
+                                        : Colors.transparent,
+                                    border: _private
+                                        ? null
+                                        : Border.all(
+                                        color: Color.fromRGBO(213, 213, 213, 1),
+                                        width: 1)),
+                                child: _private
+                                    ? Icon(
+                                  Icons.check,
+                                  size: 18,
+                                  color: Colors.white,
+                                )
+                                    : null,
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  if (_private == false) {
+                                    _private = true;
+                                  } else {
+                                    _private = false;
+                                  }
+                                });
+                              }
+                          ),
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.025,
+                          ),
+                          Text(
+                            "Private",
+                            style: TextStyle(
+                                fontFamily: Constants.POPPINS,
+                                fontSize: 15,
+                                color: Styles.whiteblack(themeChange.darkTheme, context)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.04),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.05),
@@ -423,6 +518,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           )),
                     ),
                   ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.015,)
                 ],
               ),
             ),
