@@ -91,8 +91,77 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                         width: SizeConfig.screenWidth * 0.3,
                         height: SizeConfig.screenHeight * 0.22,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(5)),
-                            color: Styles.toursummary_cardcar(isDark, context)),
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: Styles.toursummary_cardcar(isDark, context),
+                            border: Border.all(
+                              color: Color.fromRGBO(245, 95, 185, 1),
+                            )),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.screenWidth * 0.03,
+                              vertical: SizeConfig.screenHeight * 0.0125),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                        width: SizeConfig.screenWidth * 0.037,
+                                        height:
+                                            SizeConfig.screenHeight * 0.0175,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(2)),
+                                            color: Color.fromRGBO(
+                                                245, 95, 185, 1)),
+                                        child: Icon(
+                                          CustomIcons.check,
+                                          size: 7,
+                                          color: Styles.blackwhite(
+                                              isDark, context),
+                                        )),
+                                    onTap: () {},
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                "+\$10",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                color: Color.fromRGBO(193, 193, 193, 1)),
+                              ),
+                              SizedBox(height: SizeConfig.screenHeight * 0.015,),
+                              Stack(
+                                children: [
+                                  CircleAvatar(
+                                    radius: SizeConfig.screenWidth * 0.08,
+                                    backgroundColor: Color.fromRGBO(74, 121, 165, 1),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: SizeConfig.screenHeight * 0.012,),
+                              Text(
+                                "Utility Car",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: Styles.toursummary_typecartext(isDark, context)),
+                              ),
+                              Text(
+                                "5 places",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w400,
+                                    color: Styles.publishtour_hintText(isDark, context)),
+                              ),
+                            ],
+                          ),
+                        ),
                       )
                     ],
                   ),
