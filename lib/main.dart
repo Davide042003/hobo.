@@ -10,6 +10,7 @@ import 'package:hobo_test/views/managepages_view.dart';
 
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/views/step1createtour_view.dart';
+import 'package:hobo_test/views/toursummary_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:provider/provider.dart';

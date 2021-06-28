@@ -22,6 +22,85 @@ class _TourSummaryViewState extends State<TourSummaryView> {
       checkboxValue ? checkboxValue = false : checkboxValue = true;
     });
   }
+  
+
+  void _openPopUp(bool isDark) {
+    showGeneralDialog(
+        barrierColor:Styles.toursummary_popupbackground(
+        isDark, context),
+        transitionBuilder: (context, a1, a2, widget) {
+          final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+          return Material(
+            type: MaterialType.transparency,
+            child: Transform(
+              transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+              child: Opacity(
+                opacity: a1.value,
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: SizeConfig.screenHeight * 0.32,
+                      horizontal: SizeConfig.screenWidth * 0.04),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.screenWidth * 0.05,
+                              vertical: SizeConfig.screenHeight * 0.03),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                child: Container(
+                                  height: SizeConfig.screenHeight * 0.04,
+                                  width: SizeConfig.screenWidth * 0.1,
+                                  child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            bottom: SizeConfig.screenHeight *
+                                                0.005),
+                                        child: Icon(
+                                          CustomIcons.close,
+                                          color: Styles.publishtour_close(
+                                              isDark, context),
+                                          size: 20,
+                                        ),
+                                      )),
+                                ),
+                                onTap: () {Navigator.pop(context);},
+                              ),
+                              SizedBox(width: SizeConfig.screenWidth * 0.04),
+                              Container(
+                                  height: SizeConfig.screenHeight * 0.04,
+                                  child: Text(
+                                    "CHANGE VEHICLE",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Styles.whiteblack(
+                                            isDark, context),
+                                        letterSpacing: 4),
+                                  )),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +136,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                     color: Styles.loginregister_background(
                         themeChange.darkTheme, context),
                     child: Padding(
-                      padding:
-                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.1),
+                      padding: EdgeInsets.only(
+                          top: SizeConfig.screenHeight * 0.1),
                       child: Column(
                         children: [
                           Container(
@@ -68,18 +147,21 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.16,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
                                   children: [
                                     Container(
                                       width: SizeConfig.screenWidth * 0.15,
-                                      height: SizeConfig.screenHeight * 0.075,
+                                      height:
+                                          SizeConfig.screenHeight * 0.075,
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color:
-                                              Color.fromRGBO(245, 95, 185, 1)),
+                                          color: Color.fromRGBO(
+                                              245, 95, 185, 1)),
                                       child: Icon(
                                         LineIcons.strava,
                                         color: Colors.white,
@@ -92,49 +174,60 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                           fontFamily: Constants.POPPINS,
                                           fontSize: 15,
                                           color: Styles.whiteblack(
-                                              themeChange.darkTheme, context)),
+                                              themeChange.darkTheme,
+                                              context)),
                                     )
                                   ],
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: SizeConfig.screenWidth * 0.15,
-                                      height: SizeConfig.screenHeight * 0.075,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color:
-                                              Color.fromRGBO(0, 119, 255, 1)),
-                                      child: Icon(
-                                        LineIcons.car,
-                                        color: Colors.white,
-                                        size: 30,
+                                GestureDetector(
+                                  onTap: () {_openPopUp(themeChange.darkTheme);},
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width:
+                                            SizeConfig.screenWidth * 0.15,
+                                        height:
+                                            SizeConfig.screenHeight * 0.075,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Color.fromRGBO(
+                                                0, 119, 255, 1)),
+                                        child: Icon(
+                                          LineIcons.car,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      "Vehicle",
-                                      style: TextStyle(
-                                          fontFamily: Constants.POPPINS,
-                                          fontSize: 15,
-                                          color: Styles.whiteblack(
-                                              themeChange.darkTheme, context)),
-                                    )
-                                  ],
+                                      Text(
+                                        "Vehicle",
+                                        style: TextStyle(
+                                            fontFamily: Constants.POPPINS,
+                                            fontSize: 15,
+                                            color: Styles.whiteblack(
+                                                themeChange.darkTheme,
+                                                context)),
+                                      )
+                                    ],
+                                  ),
                                 ),
                                 Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
                                   children: [
                                     Container(
                                       width: SizeConfig.screenWidth * 0.15,
-                                      height: SizeConfig.screenHeight * 0.075,
+                                      height:
+                                          SizeConfig.screenHeight * 0.075,
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color:
-                                              Color.fromRGBO(233, 206, 32, .2)),
+                                          color: Color.fromRGBO(
+                                              233, 206, 32, .2)),
                                       child: Icon(
                                         Ionicons.diamond,
-                                        color: Color.fromRGBO(233, 206, 32, 1),
+                                        color:
+                                            Color.fromRGBO(233, 206, 32, 1),
                                         size: 30,
                                       ),
                                     ),
@@ -144,7 +237,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                           fontFamily: Constants.POPPINS,
                                           fontSize: 15,
                                           color: Styles.whiteblack(
-                                              themeChange.darkTheme, context)),
+                                              themeChange.darkTheme,
+                                              context)),
                                     )
                                   ],
                                 )
@@ -162,7 +256,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                             height: SizeConfig.screenHeight * 0.1,
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: SizeConfig.screenWidth * 0.065,
+                                  horizontal:
+                                      SizeConfig.screenWidth * 0.065,
                                   vertical: SizeConfig.screenHeight * 0.03),
                               child: Row(
                                 mainAxisAlignment:
@@ -175,7 +270,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                         fontSize: 22,
                                         fontWeight: FontWeight.w600,
                                         color: Styles.whiteblack(
-                                            themeChange.darkTheme, context)),
+                                            themeChange.darkTheme,
+                                            context)),
                                   ),
                                   Text(
                                     "6 selected",
@@ -183,8 +279,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                         fontFamily: Constants.POPPINS,
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
-                                        color:
-                                            Color.fromRGBO(217, 217, 217, 1)),
+                                        color: Color.fromRGBO(
+                                            217, 217, 217, 1)),
                                   )
                                 ],
                               ),
@@ -202,14 +298,19 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.4,
                             child: CupertinoScrollbar(
-                                child: ListView(
-                              padding: EdgeInsets.zero,
+                                child: ListView.separated(
+                              padding: EdgeInsets.only(
+                                  bottom: SizeConfig.screenHeight * 0.03),
                               shrinkWrap: true,
-                              children: [
-                                CardChooseTourWidget(),
-                              ],
+                              primary: false,
+                              itemCount: 5,
+                              itemBuilder: (ctx, i) =>
+                                  CardChooseTourWidget(),
+                              separatorBuilder: (ctx, i) => SizedBox(
+                                height: SizeConfig.screenHeight * 0.02,
+                              ),
                             )),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -226,7 +327,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(40),
                         bottomLeft: Radius.circular(40)),
-                    color: Styles.blackwhite(themeChange.darkTheme, context),
+                    color:
+                        Styles.blackwhite(themeChange.darkTheme, context),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.black.withOpacity(.09),
@@ -297,8 +399,7 @@ class TopBar extends StatelessWidget {
                 height: SizeConfig.screenHeight,
                 child: Icon(
                   CustomIcons.backarrow,
-                  color: Styles.whiteblack(
-                      themeChange.darkTheme, context),
+                  color: Styles.whiteblack(themeChange.darkTheme, context),
                   size: 16,
                 ),
               ),
@@ -308,14 +409,12 @@ class TopBar extends StatelessWidget {
               "Tour Summary",
               style: TextStyle(
                   fontFamily: Constants.POPPINS,
-                  color: Styles.whiteblack(
-                      themeChange.darkTheme, context),
+                  color: Styles.whiteblack(themeChange.darkTheme, context),
                   fontSize: 25,
                   fontWeight: FontWeight.w600),
             ),
             Container(
-                margin: EdgeInsets.only(
-                    left: SizeConfig.screenWidth * 0.15),
+                margin: EdgeInsets.only(left: SizeConfig.screenWidth * 0.15),
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   shape: BoxShape.circle,
@@ -327,8 +426,7 @@ class TopBar extends StatelessWidget {
                   ],
                 ),
                 child: ProfileImageHomeWidget(
-                    image:
-                        AssetImage("assets/images/provaSocial.jpeg"),
+                    image: AssetImage("assets/images/provaSocial.jpeg"),
                     initials: "DB")),
           ],
         ),
@@ -360,10 +458,9 @@ class FloatingBook extends StatelessWidget {
                   height: SizeConfig.screenHeight * 0.135,
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Styles.blackwhite(
-                            themeChange.darkTheme, context),
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(20)),
+                        color:
+                            Styles.blackwhite(themeChange.darkTheme, context),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                         boxShadow: [
                           BoxShadow(
                               color: Colors.black.withOpacity(.09),
@@ -386,10 +483,8 @@ class FloatingBook extends StatelessWidget {
                                     fontFamily: Constants.POPPINS,
                                     fontSize: 13,
                                     fontWeight: FontWeight.normal,
-                                    color:
-                                        Styles.tourpreview_datebottom(
-                                            themeChange.darkTheme,
-                                            context)),
+                                    color: Styles.tourpreview_datebottom(
+                                        themeChange.darkTheme, context)),
                               ),
                               Text("Paris - France",
                                   style: TextStyle(
@@ -397,8 +492,7 @@ class FloatingBook extends StatelessWidget {
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold,
                                       color: Styles.whiteblack(
-                                          themeChange.darkTheme,
-                                          context))),
+                                          themeChange.darkTheme, context))),
                             ],
                           ),
                         ),
@@ -411,10 +505,8 @@ class FloatingBook extends StatelessWidget {
                               style: TextStyle(
                                   fontFamily: Constants.POPPINS,
                                   fontSize: 30,
-                                  color:
-                                      Styles.tourpreview_colorprice(
-                                          themeChange.darkTheme,
-                                          context)),
+                                  color: Styles.tourpreview_colorprice(
+                                      themeChange.darkTheme, context)),
                             ))
                       ],
                     ),
@@ -435,14 +527,12 @@ class FloatingBook extends StatelessWidget {
                             ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter),
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(40)),
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
                         boxShadow: [
                           themeChange.darkTheme
                               ? BoxShadow()
                               : BoxShadow(
-                                  color: Color.fromRGBO(
-                                      62, 109, 255, .39),
+                                  color: Color.fromRGBO(62, 109, 255, .39),
                                   blurRadius: 15,
                                   offset: Offset(0, 9))
                         ]),
@@ -450,8 +540,7 @@ class FloatingBook extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.05),
                       child: Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Book Now",

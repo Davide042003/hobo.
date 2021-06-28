@@ -91,6 +91,7 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
                           setState(() {
                             addNewTour.addNewTourVisible = false;
                             downScroll.navigationdown = false;
+                            Navigator.pop(context);
                           });
                         },
                       ))

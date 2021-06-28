@@ -63,15 +63,17 @@ class _InputFieldNewTourState extends State<InputFieldNewTour> {
 
 
   String validateField(String value) {
-    if (value
-        .trim()
-        .isEmpty) {
-      return 'This field is required';
-    }
-    if (value
-        .trim()
-        .length <= 3) {
-      return 'This field is required';
+    if(!widget.isForNumber) {
+      if (value
+          .trim()
+          .isEmpty) {
+        return 'This field is required';
+      }
+      if (value
+          .trim()
+          .length <= 3) {
+        return 'This field is required';
+      }
     }
   }
 }

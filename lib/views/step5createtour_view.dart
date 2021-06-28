@@ -90,6 +90,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
                               setState(() {
                                 addNewTour.addNewTourVisible = false;
                                 downScroll.navigationdown = false;
+                                Navigator.pop(context);
                               });
                             },
                           ))

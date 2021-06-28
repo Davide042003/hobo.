@@ -30,6 +30,41 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final PageController _pageController = PageController(initialPage: 0);
 
+  void _openPopUp(bool isDark) {
+    showGeneralDialog(
+        barrierColor: Colors.transparent,
+        transitionBuilder: (context, a1, a2, widget) {
+          final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+          return Material(
+            type: MaterialType.transparency,
+            child: Transform(
+              transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+              child: Opacity(
+                opacity: a1.value,
+                child: ExpandablePageView(
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: _pageController,
+                  children: [
+                    Step1CreateTour(_pageController),
+                    Step2CreateTour(_pageController),
+                    Step3CreateTour(_pageController),
+                    Step4CreateTour(_pageController),
+                    Step5CreateTour(_pageController),
+                    AddActivity(_pageController),
+                    AddVehicle(_pageController)
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 300),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -62,7 +97,7 @@ class _HomeViewState extends State<HomeView> {
                           color: Styles.whiteblack(
                               themeChange.darkTheme, context)),
                     ),
-                    SizedBox(width: SizeConfig.screenWidth *0.25),
+                    SizedBox(width: SizeConfig.screenWidth * 0.25),
                     GestureDetector(
                       child: Container(
                           height: SizeConfig.screenHeight * 0.05,
@@ -73,13 +108,14 @@ class _HomeViewState extends State<HomeView> {
                           child: Icon(
                             Ionicons.add_circle_outline,
                             size: 48,
-                            color:
-                            Styles.whiteblack(themeChange.darkTheme, context),
+                            color: Styles.whiteblack(
+                                themeChange.darkTheme, context),
                           )),
                       onTap: () {
                         setState(() {
                           addNewTour.addNewTourVisible = true;
                           downScroll.navigationdown = true;
+                          _openPopUp(themeChange.darkTheme);
                         });
                       },
                     ),
@@ -226,38 +262,24 @@ class _HomeViewState extends State<HomeView> {
             ],
           ),
         ),
-        addNewTour.addNewTourVisible ? GestureDetector(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
+        addNewTour.addNewTourVisible
+            ? GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
 
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
-          },
-          child: Container(
-            width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-              child: Container(
-                decoration: BoxDecoration(color: Styles.publishtour_blur(themeChange.darkTheme, context)),
-                child: ExpandablePageView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _pageController,
-                  children: [
-                    Step1CreateTour(_pageController),
-                    Step2CreateTour(_pageController),
-                    Step3CreateTour(_pageController),
-                    Step4CreateTour(_pageController),
-                    Step5CreateTour(_pageController),
-                    AddActivity(_pageController),
-                    AddVehicle(_pageController)
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ) : Container(),
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                },
+                child: Container(
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight,
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Styles.publishtour_blur(themeChange.darkTheme, context))))))
+            : SizedBox()
       ],
     );
   }

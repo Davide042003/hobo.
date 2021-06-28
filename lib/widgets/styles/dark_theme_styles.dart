@@ -241,4 +241,8 @@ class Styles {
   static Color publishtour_check(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(213, 213, 213, 1);
   }
+
+  static Color toursummary_popupbackground(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Colors.black.withOpacity(0.73):   Colors.black.withOpacity(0.3);
+  }
 }
