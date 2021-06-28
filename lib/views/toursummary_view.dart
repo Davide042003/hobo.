@@ -22,12 +22,10 @@ class _TourSummaryViewState extends State<TourSummaryView> {
       checkboxValue ? checkboxValue = false : checkboxValue = true;
     });
   }
-  
 
   void _openPopUp(bool isDark) {
     showGeneralDialog(
-        barrierColor:Styles.toursummary_popupbackground(
-        isDark, context),
+        barrierColor: Styles.toursummary_popupbackground(isDark, context),
         transitionBuilder: (context, a1, a2, widget) {
           final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
           return Material(
@@ -42,60 +40,68 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                       horizontal: SizeConfig.screenWidth * 0.04),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.white,
+                    color: Styles.chat_bar(isDark, context),
                   ),
                   child: Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.screenWidth * 0.05,
-                              vertical: SizeConfig.screenHeight * 0.03),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                child: Container(
-                                  height: SizeConfig.screenHeight * 0.04,
-                                  width: SizeConfig.screenWidth * 0.1,
-                                  child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: SizeConfig.screenHeight *
-                                                0.005),
-                                        child: Icon(
-                                          CustomIcons.close,
-                                          color: Styles.publishtour_close(
-                                              isDark, context),
-                                          size: 20,
-                                        ),
-                                      )),
-                                ),
-                                onTap: () {Navigator.pop(context);},
-                              ),
-                              SizedBox(width: SizeConfig.screenWidth * 0.04),
-                              Container(
-                                  height: SizeConfig.screenHeight * 0.04,
-                                  child: Text(
-                                    "CHANGE VEHICLE",
-                                    style: TextStyle(
-                                        fontFamily: Constants.POPPINS,
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Styles.whiteblack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.screenWidth * 0.05,
+                            vertical: SizeConfig.screenHeight * 0.03),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              child: Container(
+                                height: SizeConfig.screenHeight * 0.03,
+                                width: SizeConfig.screenWidth * 0.1,
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom:
+                                              SizeConfig.screenHeight * 0.005),
+                                      child: Icon(
+                                        CustomIcons.close,
+                                        color: Styles.publishtour_close(
                                             isDark, context),
-                                        letterSpacing: 4),
-                                  )),
-                            ],
-                          ),
+                                        size: 20,
+                                      ),
+                                    )),
+                              ),
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            SizedBox(width: SizeConfig.screenWidth * 0.03),
+                            Container(
+                                height: SizeConfig.screenHeight * 0.03,
+                                child: Text(
+                                  "CHANGE VEHICLE",
+                                  style: TextStyle(
+                                      fontFamily: Constants.POPPINS,
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Styles.whiteblack(isDark, context),
+                                      letterSpacing: 4),
+                                )),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        width: SizeConfig.screenWidth * 0.3,
+                        height: SizeConfig.screenHeight * 0.22,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Styles.toursummary_cardcar(isDark, context)),
+                      )
+                    ],
                   ),
                 ),
+              ),
             ),
           );
         },
-        transitionDuration: Duration(milliseconds: 200),
+        transitionDuration: Duration(milliseconds: 400),
         barrierDismissible: true,
         barrierLabel: '',
         context: context,
@@ -136,8 +142,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                     color: Styles.loginregister_background(
                         themeChange.darkTheme, context),
                     child: Padding(
-                      padding: EdgeInsets.only(
-                          top: SizeConfig.screenHeight * 0.1),
+                      padding:
+                          EdgeInsets.only(top: SizeConfig.screenHeight * 0.1),
                       child: Column(
                         children: [
                           Container(
@@ -147,23 +153,20 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.16,
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
                                       width: SizeConfig.screenWidth * 0.15,
-                                      height:
-                                          SizeConfig.screenHeight * 0.075,
+                                      height: SizeConfig.screenHeight * 0.075,
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Color.fromRGBO(
-                                              245, 95, 185, 1)),
+                                          color:
+                                              Color.fromRGBO(245, 95, 185, 1)),
                                       child: Icon(
-                                        LineIcons.strava,
+                                        CustomIcons.guide,
                                         color: Colors.white,
                                         size: 30,
                                       ),
@@ -174,30 +177,28 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                           fontFamily: Constants.POPPINS,
                                           fontSize: 15,
                                           color: Styles.whiteblack(
-                                              themeChange.darkTheme,
-                                              context)),
+                                              themeChange.darkTheme, context)),
                                     )
                                   ],
                                 ),
                                 GestureDetector(
-                                  onTap: () {_openPopUp(themeChange.darkTheme);},
+                                  onTap: () {
+                                    _openPopUp(themeChange.darkTheme);
+                                  },
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
-                                        width:
-                                            SizeConfig.screenWidth * 0.15,
-                                        height:
-                                            SizeConfig.screenHeight * 0.075,
+                                        width: SizeConfig.screenWidth * 0.15,
+                                        height: SizeConfig.screenHeight * 0.075,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            color: Color.fromRGBO(
-                                                0, 119, 255, 1)),
+                                            color:
+                                                Color.fromRGBO(0, 119, 255, 1)),
                                         child: Icon(
-                                          LineIcons.car,
+                                          CustomIcons.car,
                                           color: Colors.white,
-                                          size: 30,
+                                          size: 20,
                                         ),
                                       ),
                                       Text(
@@ -213,22 +214,19 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                   ),
                                 ),
                                 Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
                                       width: SizeConfig.screenWidth * 0.15,
-                                      height:
-                                          SizeConfig.screenHeight * 0.075,
+                                      height: SizeConfig.screenHeight * 0.075,
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Color.fromRGBO(
-                                              233, 206, 32, .2)),
+                                          color:
+                                              Color.fromRGBO(233, 206, 32, .2)),
                                       child: Icon(
-                                        Ionicons.diamond,
-                                        color:
-                                            Color.fromRGBO(233, 206, 32, 1),
-                                        size: 30,
+                                        CustomIcons.diamond,
+                                        color: Color.fromRGBO(233, 206, 32, 1),
+                                        size: 25,
                                       ),
                                     ),
                                     Text(
@@ -237,8 +235,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                           fontFamily: Constants.POPPINS,
                                           fontSize: 15,
                                           color: Styles.whiteblack(
-                                              themeChange.darkTheme,
-                                              context)),
+                                              themeChange.darkTheme, context)),
                                     )
                                   ],
                                 )
@@ -256,8 +253,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                             height: SizeConfig.screenHeight * 0.1,
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      SizeConfig.screenWidth * 0.065,
+                                  horizontal: SizeConfig.screenWidth * 0.065,
                                   vertical: SizeConfig.screenHeight * 0.03),
                               child: Row(
                                 mainAxisAlignment:
@@ -270,8 +266,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                         fontSize: 22,
                                         fontWeight: FontWeight.w600,
                                         color: Styles.whiteblack(
-                                            themeChange.darkTheme,
-                                            context)),
+                                            themeChange.darkTheme, context)),
                                   ),
                                   Text(
                                     "6 selected",
@@ -279,8 +274,8 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                                         fontFamily: Constants.POPPINS,
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
-                                        color: Color.fromRGBO(
-                                            217, 217, 217, 1)),
+                                        color:
+                                            Color.fromRGBO(217, 217, 217, 1)),
                                   )
                                 ],
                               ),
@@ -304,8 +299,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                               shrinkWrap: true,
                               primary: false,
                               itemCount: 5,
-                              itemBuilder: (ctx, i) =>
-                                  CardChooseTourWidget(),
+                              itemBuilder: (ctx, i) => CardChooseTourWidget(),
                               separatorBuilder: (ctx, i) => SizedBox(
                                 height: SizeConfig.screenHeight * 0.02,
                               ),
@@ -327,8 +321,7 @@ class _TourSummaryViewState extends State<TourSummaryView> {
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(40),
                         bottomLeft: Radius.circular(40)),
-                    color:
-                        Styles.blackwhite(themeChange.darkTheme, context),
+                    color: Styles.blackwhite(themeChange.darkTheme, context),
                     boxShadow: [
                       BoxShadow(
                           color: Colors.black.withOpacity(.09),

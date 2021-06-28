@@ -245,4 +245,8 @@ class Styles {
   static Color toursummary_popupbackground(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Colors.black.withOpacity(0.73):   Colors.black.withOpacity(0.3);
   }
+
+  static Color toursummary_cardcar(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(41, 41, 41, 1) : Color.fromRGBO(243, 243, 243, 1);
+  }
 }

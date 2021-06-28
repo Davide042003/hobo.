@@ -182,8 +182,8 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
                               width: 1.5)),
                   child: widget.checkBoxValue
                       ? Icon(
-                          Icons.check,
-                          size: 18,
+                          CustomIcons.check,
+                          size: 9,
                           color: Colors.white,
                         )
                       : null,

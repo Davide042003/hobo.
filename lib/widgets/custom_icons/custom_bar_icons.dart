@@ -52,4 +52,8 @@ class CustomIcons {
   static const IconData profileiconsetting = IconData(0xe835, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData close = IconData(0xe836, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData arrowdownlanguages = IconData(0xe837, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData car = IconData(0xe838, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData guide = IconData(0xe839, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData diamond = IconData(0xe83a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData check = IconData(0xe83b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

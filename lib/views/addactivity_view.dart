@@ -211,8 +211,8 @@ class _AddActivityState extends State<AddActivity> {
                                             width: 1)),
                                 child: _onlyAdult
                                     ? Icon(
-                                        Icons.check,
-                                        size: 18,
+                                        CustomIcons.check,
+                                        size: 9,
                                         color: Colors.white,
                                       )
                                     : null,
@@ -258,8 +258,8 @@ class _AddActivityState extends State<AddActivity> {
                                             width: 1)),
                                 child: _luxury
                                     ? Icon(
-                                        Icons.check,
-                                        size: 18,
+                                        CustomIcons.check,
+                                        size: 9,
                                         color: Colors.white,
                                       )
                                     : null,

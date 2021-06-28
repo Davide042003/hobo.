@@ -389,8 +389,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                     width: 1)),
                             child: _allowChildren
                                 ? Icon(
-                              Icons.check,
-                              size: 18,
+                              CustomIcons.check,
+                              size: 9,
                               color: Colors.white,
                             )
                                 : null,
@@ -442,8 +442,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                         width: 1)),
                                 child: _private
                                     ? Icon(
-                                  Icons.check,
-                                  size: 18,
+                                  CustomIcons.check,
+                                  size: 9,
                                   color: Colors.white,
                                 )
                                     : null,
