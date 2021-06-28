@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/views/step3createtour_view.dart';
 import 'package:hobo_test/widgets/add_tour/descriptionnewtour_widget.dart';
-import 'package:hobo_test/widgets/add_tour/language.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:flag/flag.dart';
 
 class Step2CreateTour extends StatefulWidget {
   final PageController pageController;
@@ -20,10 +20,25 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   final _formKey = GlobalKey<FormState>();
 
   FocusNode focusNodeDescription;
+  FocusNode focusNodeLanguage;
 
   @override
   void initState() {
     super.initState();
+
+    _selectedLocation = _locations[0];
+
+    focusNodeLanguage = FocusNode();
+
+    focusNodeLanguage.addListener(() {
+      setState(() {
+        if (focusNodeLanguage.hasFocus) {
+          focusNodeLanguage.requestFocus();
+        } else {
+          focusNodeLanguage.unfocus();
+        }
+      });
+    });
 
     focusNodeDescription = FocusNode();
 
@@ -41,6 +56,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   @override
   void dispose() {
     focusNodeDescription.dispose();
+    focusNodeLanguage.dispose();
 
     super.dispose();
   }
@@ -53,15 +69,10 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     }
   }
 
-  void _changeLanguage(Language language) {
-    setState(() {
-      _language = language;
-      print(_language.flag);
-    });
-  }
+  List<String> _locations = ['us', 'it', 'es', 'fr'];
+  String _selectedLocation = "";
 
   String _description = '';
-  Language _language = null;
 
   @override
   Widget build(BuildContext context) {
@@ -120,8 +131,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                     Container(
                         height: SizeConfig.screenHeight * 0.105,
                         child: ListView.separated(
-                          padding:
-                              EdgeInsets.only(left: SizeConfig.screenWidth * 0.05),
+                          padding: EdgeInsets.only(
+                              left: SizeConfig.screenWidth * 0.05),
                           primary: false,
                           shrinkWrap: true,
                           itemCount: 4,
@@ -184,7 +195,12 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.0465,
-                      ), child: DescriptionNewTour("Description", (value) => _description = value, focusNodeDescription, null),
+                      ),
+                      child: DescriptionNewTour(
+                          "Description",
+                          (value) => _description = value,
+                          focusNodeDescription,
+                          null),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.03),
                     Padding(
@@ -192,6 +208,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                         horizontal: SizeConfig.screenWidth * 0.0465,
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             "Language",
@@ -202,6 +220,43 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                                 color: Styles.whiteblack(
                                     themeChange.darkTheme, context)),
                           ),
+                          Expanded(
+                              child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                    width: SizeConfig.screenWidth * 0.25,
+                                    decoration: BoxDecoration(
+                                      color: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
+                                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015, right: SizeConfig.screenWidth * 0.035),
+                                      child: DropdownButton<String>(
+                                        isExpanded: true,
+                                        icon: Icon(CustomIcons.arrowdownlanguages,size: 5.5, color: Styles.whiteblack(themeChange.darkTheme, context),),
+                                        value: _selectedLocation,
+                                        underline: SizedBox(),
+                                          items: _locations.map((String val) {
+                                            return new DropdownMenuItem<String>(
+                                              value: val,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                child: Flag(
+                                                  val,
+                                                  height: SizeConfig.screenHeight * 0.045,
+                                                  width: SizeConfig.screenWidth * 0.15,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          onChanged: (newVal) {
+                                            _selectedLocation = newVal;
+                                            setState(() {});
+                                          }, dropdownColor: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
+                                      focusNode: focusNodeLanguage,),
+                                    )
+                                  ))),
                         ],
                       ),
                     ),
@@ -215,7 +270,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.07,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(35)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35)),
                               gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
@@ -265,174 +321,172 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     );
   }
 
-  Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {
-    return Column(children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.screenWidth * 0.05,
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                            height: SizeConfig.screenHeight * 0.04,
-                            child: Text(
-                              "Let's Publish a New Tour",
-                              style: TextStyle(
-                                  fontFamily: Constants.POPPINS,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Styles.whiteblack(
-                                      themeChange.darkTheme, context)),
-                            )),
-                        Expanded(
-                            child: GestureDetector(
-                              child: Container(
-                                height: SizeConfig.screenHeight * 0.04,
-                                child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Icon(
-                                      CustomIcons.close,
-                                      color: Styles.publishtour_close(
-                                          themeChange.darkTheme, context),
-                                      size: 22,
-                                    )),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  addNewTour.addNewTourVisible = false;
-                                  downScroll.navigationdown = false;
-                                  Navigator.pop(context);
-                                });
-                              },
-                            ))
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.03),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.screenWidth * 0.085),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Color.fromRGBO(245, 95, 185, 1),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        Container(
-                          width: SizeConfig.screenWidth * 0.13,
-                          height: SizeConfig.screenHeight * 0.006,
-                          color: Color.fromRGBO(245, 95, 185, 1),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        CircleAvatar(
-                          radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Color.fromRGBO(245, 95, 185, 1),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        Container(
-                          width: SizeConfig.screenWidth * 0.13,
-                          height: SizeConfig.screenHeight * 0.006,
-                          color: Styles.publishtour_bar(
-                              themeChange.darkTheme, context),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        CircleAvatar(
-                          radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Styles.publishtour_bar(
-                              themeChange.darkTheme, context),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        Container(
-                          width: SizeConfig.screenWidth * 0.13,
-                          height: SizeConfig.screenHeight * 0.006,
-                          color: Styles.publishtour_bar(
-                              themeChange.darkTheme, context),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        CircleAvatar(
-                          radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Styles.publishtour_bar(
-                              themeChange.darkTheme, context),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        Container(
-                          width: SizeConfig.screenWidth * 0.13,
-                          height: SizeConfig.screenHeight * 0.006,
-                          color: Styles.publishtour_bar(
-                              themeChange.darkTheme, context),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.01),
-                        CircleAvatar(
-                          radius: SizeConfig.screenWidth * 0.016,
-                          backgroundColor: Styles.publishtour_bar(
-                              themeChange.darkTheme, context),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.013),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth * 0.06,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Step 1",
-                          style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontSize: 12,
-                              color: Styles.publishtour_inactive(
-                                  themeChange.darkTheme, context)),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.09),
-                        Text(
-                          "Step 2",
-                          style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontSize: 12,
-                              color: Styles.whiteblack(
-                                  themeChange.darkTheme, context)),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.085),
-                        Text(
-                          "Step 3",
-                          style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontSize: 12,
-                              color: Styles.publishtour_inactive(
-                                  themeChange.darkTheme, context)),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.085),
-                        Text(
-                          "Step 4",
-                          style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontSize: 12,
-                              color: Styles.publishtour_inactive(
-                                  themeChange.darkTheme, context)),
-                        ),
-                        SizedBox(width: SizeConfig.screenWidth * 0.085),
-                        Text(
-                          "Step 5",
-                          style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontSize: 12,
-                              color: Styles.publishtour_inactive(
-                                  themeChange.darkTheme, context)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.03),
-                  Container(
-                    width: SizeConfig.screenWidth,
-                    height: SizeConfig.screenHeight * 0.0015,
-                    color: Styles.tourpreview_barlight(
-                        themeChange.darkTheme, context),
-                  ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.015),
-                ],);
+  Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
+      NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.screenWidth * 0.05,
+          ),
+          child: Row(
+            children: [
+              Container(
+                  height: SizeConfig.screenHeight * 0.04,
+                  child: Text(
+                    "Let's Publish a New Tour",
+                    style: TextStyle(
+                        fontFamily: Constants.POPPINS,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color:
+                            Styles.whiteblack(themeChange.darkTheme, context)),
+                  )),
+              Expanded(
+                  child: GestureDetector(
+                child: Container(
+                  height: SizeConfig.screenHeight * 0.04,
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(
+                        CustomIcons.close,
+                        color: Styles.publishtour_close(
+                            themeChange.darkTheme, context),
+                        size: 22,
+                      )),
+                ),
+                onTap: () {
+                  setState(() {
+                    addNewTour.addNewTourVisible = false;
+                    downScroll.navigationdown = false;
+                    Navigator.pop(context);
+                  });
+                },
+              ))
+            ],
+          ),
+        ),
+        SizedBox(height: SizeConfig.screenHeight * 0.03),
+        Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.085),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: SizeConfig.screenWidth * 0.016,
+                backgroundColor: Color.fromRGBO(245, 95, 185, 1),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              Container(
+                width: SizeConfig.screenWidth * 0.13,
+                height: SizeConfig.screenHeight * 0.006,
+                color: Color.fromRGBO(245, 95, 185, 1),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              CircleAvatar(
+                radius: SizeConfig.screenWidth * 0.016,
+                backgroundColor: Color.fromRGBO(245, 95, 185, 1),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              Container(
+                width: SizeConfig.screenWidth * 0.13,
+                height: SizeConfig.screenHeight * 0.006,
+                color: Styles.publishtour_bar(themeChange.darkTheme, context),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              CircleAvatar(
+                radius: SizeConfig.screenWidth * 0.016,
+                backgroundColor:
+                    Styles.publishtour_bar(themeChange.darkTheme, context),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              Container(
+                width: SizeConfig.screenWidth * 0.13,
+                height: SizeConfig.screenHeight * 0.006,
+                color: Styles.publishtour_bar(themeChange.darkTheme, context),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              CircleAvatar(
+                radius: SizeConfig.screenWidth * 0.016,
+                backgroundColor:
+                    Styles.publishtour_bar(themeChange.darkTheme, context),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              Container(
+                width: SizeConfig.screenWidth * 0.13,
+                height: SizeConfig.screenHeight * 0.006,
+                color: Styles.publishtour_bar(themeChange.darkTheme, context),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.01),
+              CircleAvatar(
+                radius: SizeConfig.screenWidth * 0.016,
+                backgroundColor:
+                    Styles.publishtour_bar(themeChange.darkTheme, context),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: SizeConfig.screenHeight * 0.013),
+        Padding(
+          padding: EdgeInsets.only(
+            left: SizeConfig.screenWidth * 0.06,
+          ),
+          child: Row(
+            children: [
+              Text(
+                "Step 1",
+                style: TextStyle(
+                    fontFamily: Constants.POPPINS,
+                    fontSize: 12,
+                    color: Styles.publishtour_inactive(
+                        themeChange.darkTheme, context)),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.09),
+              Text(
+                "Step 2",
+                style: TextStyle(
+                    fontFamily: Constants.POPPINS,
+                    fontSize: 12,
+                    color: Styles.whiteblack(themeChange.darkTheme, context)),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.085),
+              Text(
+                "Step 3",
+                style: TextStyle(
+                    fontFamily: Constants.POPPINS,
+                    fontSize: 12,
+                    color: Styles.publishtour_inactive(
+                        themeChange.darkTheme, context)),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.085),
+              Text(
+                "Step 4",
+                style: TextStyle(
+                    fontFamily: Constants.POPPINS,
+                    fontSize: 12,
+                    color: Styles.publishtour_inactive(
+                        themeChange.darkTheme, context)),
+              ),
+              SizedBox(width: SizeConfig.screenWidth * 0.085),
+              Text(
+                "Step 5",
+                style: TextStyle(
+                    fontFamily: Constants.POPPINS,
+                    fontSize: 12,
+                    color: Styles.publishtour_inactive(
+                        themeChange.darkTheme, context)),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: SizeConfig.screenHeight * 0.03),
+        Container(
+          width: SizeConfig.screenWidth,
+          height: SizeConfig.screenHeight * 0.0015,
+          color: Styles.tourpreview_barlight(themeChange.darkTheme, context),
+        ),
+        SizedBox(height: SizeConfig.screenHeight * 0.015),
+      ],
+    );
   }
 }
