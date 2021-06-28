@@ -117,7 +117,7 @@ class _MyAppState extends State<MyApp> {
               future: _repository.getCurrentUser(),
               builder: (context, AsyncSnapshot<User> snapshot){
                 if (snapshot.hasData){
-                  return LoginRegisterView();
+                  return ManagePagesView();
                 } else {
                   Future.wait([
                     precachePicture(
