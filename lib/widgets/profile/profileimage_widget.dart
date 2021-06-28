@@ -36,13 +36,25 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
 
   Widget _fallBackAvatar() {
     return Container(
-        height: SizeConfig.screenHeight * 0.09,
-        width:  SizeConfig.screenWidth * 0.2,
-        decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(40))
+      decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(.16),
+                blurRadius: 12,
+                offset: Offset(0,5)
+            )
+          ]
+      ),
+      child: CircleAvatar(
+        backgroundColor: Colors.white,
+        radius: SizeConfig.screenHeight * 0.065,
+        child: CircleAvatar(
+          backgroundColor: Colors.grey,
+          radius: SizeConfig.screenHeight * 0.061,
+            child: Center(child: Text(widget.initials, style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 25, color: Colors.black)))
         ),
-        child: Center(child: Text(widget.initials, style: TextStyle(fontFamily: Constants.POPPINS)))
+      ),
     );
   }
 

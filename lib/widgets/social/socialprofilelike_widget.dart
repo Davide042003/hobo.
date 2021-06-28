@@ -35,14 +35,14 @@ class _ProfileImageSocialWidgetState extends State<ProfileImageSocialWidget> {
   }
 
   Widget _fallBackAvatar() {
-    return Container(
-        height: SizeConfig.screenWidth * 0.5,
-        width:  SizeConfig.screenHeight * 0.025,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-            color: Colors.grey,
-        ),
-        child: Center(child: Text(widget.initials, style: TextStyle(fontFamily: Constants.POPPINS)))
+    return CircleAvatar(
+      backgroundColor: Colors.white,
+      radius: SizeConfig.screenHeight * 0.0145,
+      child: CircleAvatar(
+        backgroundColor: Colors.grey,
+        radius: SizeConfig.screenHeight * 0.013,
+          child: Center(child: Text(widget.initials, style: TextStyle(fontFamily: Constants.POPPINS, color: Colors.black, fontSize: 12)))
+      ),
     );
   }
 

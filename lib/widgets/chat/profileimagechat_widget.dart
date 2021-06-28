@@ -35,14 +35,10 @@ class _ProfileImageChatWidgetState extends State<ProfileImageChatWidget> {
   }
 
   Widget _fallBackAvatar() {
-    return Container(
-        height: SizeConfig.screenWidth * 0.025,
-        width:  SizeConfig.screenHeight * 0.025,
-        decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(25))
-        ),
-        child: Center(child: Text(widget.initials, style: TextStyle(fontFamily: Constants.POPPINS)))
+    return CircleAvatar(
+      backgroundColor: Colors.grey,
+      radius: SizeConfig.screenHeight * 0.027,
+        child: Center(child: Text(widget.initials, style: TextStyle(fontFamily: Constants.POPPINS, color: Colors.black, fontSize: 15)))
     );
   }
 
