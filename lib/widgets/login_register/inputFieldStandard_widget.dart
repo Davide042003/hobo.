@@ -27,7 +27,7 @@ class _InputFieldStandardState extends State<InputFieldStandard> {
     final TextStyle focusText = TextStyle(
         fontFamily: Constants.POPPINS,
         fontWeight: FontWeight.bold,
-        height: -1,
+        height: 0,
         color: widget.isRegistration
             ? Color.fromRGBO(36, 65, 187, 1)
             : Color.fromRGBO(116, 142, 243, 1),

@@ -58,7 +58,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           );
         },
-        transitionDuration: Duration(milliseconds: 300),
+        transitionDuration: Duration(milliseconds: 400),
         barrierDismissible: true,
         barrierLabel: '',
         context: context,

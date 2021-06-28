@@ -6,6 +6,7 @@ import 'package:hobo_test/methods/firebase_methods.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/imagepickerpost_view.dart';
+import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 
 import 'package:hobo_test/views/onboarding_view.dart';
@@ -116,7 +117,7 @@ class _MyAppState extends State<MyApp> {
               future: _repository.getCurrentUser(),
               builder: (context, AsyncSnapshot<User> snapshot){
                 if (snapshot.hasData){
-                  return TourSummaryView();
+                  return LoginRegisterView();
                 } else {
                   Future.wait([
                     precachePicture(

@@ -119,7 +119,12 @@ class _PeopleAndDateWidgetState extends State<PeopleAndDateWidget> {
               ),
               InkWell(
                   child: RadioItemPeople(peopleData[1], false),
-                  onTap: widget.callback),
+                onTap: () {
+                  setState(() {
+                    peopleData.forEach((element) => element.isSelected = false);
+                    peopleData[1].isSelected = true;
+                  });
+                },),
               InkWell(
                 child: RadioItemPeople(peopleData[2], false),
                 onTap: () {
