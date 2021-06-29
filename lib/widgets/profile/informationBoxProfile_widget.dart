@@ -408,7 +408,7 @@ class InformationBoxWidget extends StatelessWidget {
               children: [
                 Text(
                   "Revenue",
-                  style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 14),
+                  style: TextStyle(fontFamily: Constants.POPPINS, fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromRGBO(2007, 74, 154, 1)),
                 ),
               ],
             ),
@@ -417,19 +417,19 @@ class InformationBoxWidget extends StatelessWidget {
             padding: EdgeInsets.only(
                 left: SizeConfig.screenWidth * 0.06,
                 right: SizeConfig.screenWidth * 0.06,
-                top: SizeConfig.screenHeight * 0.014),
+                top: SizeConfig.screenHeight * 0.018),
             child: Row(
               children: [
                 Text(
                   "\$$revenue",
-                  style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 35),
+                  style: TextStyle(fontFamily: Constants.POPPINS, fontWeight: FontWeight.w300, fontSize: 35, color: Styles.whiteblack(themeChange.darkTheme, context)),
                 ),
               ],
             ),
           ),
           Container(
             margin: EdgeInsets.only(
-                left: SizeConfig.screenWidth * 0.515, top: SizeConfig.screenHeight *0.014),
+                left: SizeConfig.screenWidth * 0.515, top: SizeConfig.screenHeight *0.018),
             width: SizeConfig.screenWidth * 0.27,
             height: SizeConfig.screenHeight * 0.04,
             decoration: BoxDecoration(
