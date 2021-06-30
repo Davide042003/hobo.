@@ -12,6 +12,7 @@ import 'package:hobo_test/views/step3createtour_view.dart';
 import 'package:hobo_test/views/step4createtour_view.dart';
 import 'package:hobo_test/views/step5createtour_view.dart';
 import 'package:hobo_test/widgets/home/hotplaceshome_widget.dart';
+import 'package:hobo_test/widgets/home/maphome_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbar_widget.dart';
 import 'package:hobo_test/widgets/home/categories_widget.dart';
@@ -141,11 +142,21 @@ class _HomeViewState extends State<HomeView> {
                 padding: EdgeInsets.symmetric(
                     horizontal: SizeConfig.screenWidth * 0.07),
                 child: Container(
-                  width: double.infinity,
-                  height: SizeConfig.screenHeight * 0.23,
                   decoration: BoxDecoration(
-                    borderRadius: new BorderRadius.all(Radius.circular(30)),
-                    color: Colors.grey,
+                    border: Border.all(color: Colors.grey.shade300),
+                    borderRadius: BorderRadius.all(Radius.circular(30))
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    child: Container(
+                      width: double.infinity,
+                      height: SizeConfig.screenHeight * 0.23,
+                      decoration: BoxDecoration(
+                        borderRadius: new BorderRadius.all(Radius.circular(30)),
+                        color: Colors.grey,
+                      ),
+                      child: MapHomeWidget(),
+                    ),
                   ),
                 ),
               ),
