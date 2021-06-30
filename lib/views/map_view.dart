@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/home/tourlist_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbarmap_widget.dart';
 import 'package:hobo_test/widgets/home/map_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'dart:async';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 class MapView extends StatefulWidget {
   @override
@@ -18,15 +22,31 @@ class _MapViewState extends State<MapView> {
   static const _duration = const Duration(milliseconds: 300);
   static const _curve = Curves.ease;
 
+  FocusNode focusNodeSearch;
+  Completer<GoogleMapController> _controller = Completer();
+
   @override
   void initState() {
     super.initState();
+
+    focusNodeSearch = FocusNode();
+
+    focusNodeSearch.addListener(() {
+      setState(() {
+        if (focusNodeSearch.hasFocus) {
+          focusNodeSearch.requestFocus();
+        } else {
+          focusNodeSearch.unfocus();
+        }
+      });
+    });
   }
 
   @override
-  void dispose() {
+  void dispose() async{
     super.dispose();
     _pageController.dispose();
+    focusNodeSearch.dispose();
   }
 
   _onPageChanged(int index) {
@@ -44,7 +64,7 @@ class _MapViewState extends State<MapView> {
       children: [
         PageView(
             physics:new NeverScrollableScrollPhysics(),
-          children: [MapWidget(),TourlistWidget()],
+          children: [MapWidget(_controller),TourlistWidget()],
           onPageChanged: _onPageChanged,
           controller: _pageController,
         ),
@@ -158,7 +178,7 @@ class _MapViewState extends State<MapView> {
               ],
             ),
             SizedBox(height: SizeConfig.screenHeight * 0.03),
-            SearchBarMapWidget(),
+            SearchBarMapWidget(focusNodeSearch, _controller),
           ]),
         )),
       ],
