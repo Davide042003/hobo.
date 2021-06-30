@@ -72,6 +72,7 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
                           minLeadingWidth: SizeConfig.screenWidth*0.01,
                           dense: true,
                           leading: CircleAvatar(
+                            backgroundColor: Color.fromRGBO(116, 142, 243, 1),
                             radius: SizeConfig.screenWidth * 0.04,
                             child: Icon(
                               CustomIcons.pinlocationicon,
@@ -81,7 +82,7 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
                           ),
                           title: Text(_placeList[index].mainText,style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 14, fontWeight: FontWeight.w500, color: Styles.whiteblack(themeChange.darkTheme, context)),),
                           subtitle: Text(_placeList[index].secondaryText != null
-                              ? _placeList[index].secondaryText : "", style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 12, fontWeight: FontWeight.w500,),),
+                              ? _placeList[index].secondaryText : "", style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 12, fontWeight: FontWeight.w100, color: Color.fromRGBO(158, 158, 158, 1)),),
 
                           onTap: () {
                             setState(() {
