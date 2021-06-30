@@ -12,8 +12,9 @@ import 'package:hobo_test/models/map_model.dart';
 class SearchBarMapWidget extends StatefulWidget {
   final FocusNode focusNode;
   final Completer<GoogleMapController> _controller;
+  final TextEditingController controller;
 
-  const SearchBarMapWidget(this.focusNode, this._controller);
+  const SearchBarMapWidget(this.focusNode, this._controller, this.controller);
 
   @override
   _SearchBarMapWidgetState createState() => _SearchBarMapWidgetState();
@@ -24,7 +25,6 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
   List<MapCity> _placeList = [];
   String _sessionToken;
   var uuid = Uuid();
-  TextEditingController controller = new TextEditingController();
 
   @override
   void initState() {
@@ -87,7 +87,7 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
                           onTap: () {
                             setState(() {
                               getPlaceLoc(_placeList[index].id);
-                              controller.text = _placeList[index].mainText;
+                              widget.controller.text = _placeList[index].mainText;
                               _placeList.clear();
                               widget.focusNode.unfocus();
                               isAutocompleteEnabled = false;
@@ -121,7 +121,7 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
                       top: SizeConfig.screenHeight * 0.005),
                   child: TextField(
                     focusNode: widget.focusNode,
-                    controller: controller,
+                    controller: widget.controller,
                       style: TextStyle(
                           fontFamily: Constants.POPPINS,
                           fontSize: 16,
@@ -143,7 +143,7 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
                       ),
                       onTap: () {
                         setState(() {
-                          controller.text = "";
+                          widget.controller.text = "";
                           _placeList.clear();
                           isAutocompleteEnabled = false;
                         });

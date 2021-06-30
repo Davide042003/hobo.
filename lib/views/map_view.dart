@@ -23,6 +23,7 @@ class _MapViewState extends State<MapView> {
 
   FocusNode focusNodeSearch;
   Completer<GoogleMapController> _controller = Completer();
+  TextEditingController controllerText = new TextEditingController();
 
   @override
   void initState() {
@@ -63,7 +64,7 @@ class _MapViewState extends State<MapView> {
       children: [
         PageView(
             physics:new NeverScrollableScrollPhysics(),
-          children: [MapWidget(_controller),TourlistWidget()],
+          children: [MapWidget(_controller, controllerText),TourlistWidget()],
           onPageChanged: _onPageChanged,
           controller: _pageController,
         ),
@@ -177,7 +178,7 @@ class _MapViewState extends State<MapView> {
               ],
             ),
             SizedBox(height: SizeConfig.screenHeight * 0.03),
-            SearchBarMapWidget(focusNodeSearch, _controller),
+            SearchBarMapWidget(focusNodeSearch, _controller, controllerText),
           ]),
         )),
       ],

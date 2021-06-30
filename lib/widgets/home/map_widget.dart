@@ -1,8 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -11,8 +8,9 @@ import 'package:http/http.dart' as http;
 
 class MapWidget extends StatefulWidget {
   final Completer<GoogleMapController> _controller;
+  final TextEditingController _controllerText;
 
-  const MapWidget(this._controller);
+  const MapWidget(this._controller, this._controllerText);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -75,6 +73,7 @@ class _MapWidgetState extends State<MapWidget>
 
     setState(() {
       enableRelocate = false;
+      widget._controllerText.text = "";
     });
   }
 
@@ -121,11 +120,9 @@ class _MapWidgetState extends State<MapWidget>
                     Listener(
                       onPointerDown: (e){
                         FocusScopeNode currentFocus = FocusScope.of(context);
-
                         if (!currentFocus.hasPrimaryFocus) {
                           currentFocus.unfocus();
                         }
-
                         setState(() {
                           enableRelocate = true;
                         });
@@ -142,8 +139,7 @@ class _MapWidgetState extends State<MapWidget>
                             widget._controller.complete(controller);
                           });
                         },
-                        gestureRecognizers: Set()
-        ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
+
                       ),
                     ),
                     enableRelocate
@@ -160,7 +156,7 @@ class _MapWidgetState extends State<MapWidget>
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                          color: Colors.black.withOpacity(0.25),
+                                          color: Colors.black.withOpacity(0.1),
                                           blurRadius: 10)
                                     ]),
                                 child: FloatingActionButton(
