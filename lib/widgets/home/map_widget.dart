@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 
 class MapWidget extends StatefulWidget {
   final Completer<GoogleMapController> _controller;
@@ -14,7 +16,7 @@ class MapWidget extends StatefulWidget {
   _MapWidgetState createState() => _MapWidgetState();
 }
 
-class _MapWidgetState extends State<MapWidget> {
+class _MapWidgetState extends State<MapWidget> with AutomaticKeepAliveClientMixin {
   static LatLng _initialPosition;
 
   @override
@@ -57,6 +59,28 @@ class _MapWidgetState extends State<MapWidget> {
     });
   }
 
+  void getPlaceLoc(String input) async {
+    String kPLACES_API_KEY = "AIzaSyAP9Tw6rUqoICKt6TLPhDGyRHtmeJFqobs";
+    String baseURL =
+        'https://maps.googleapis.com/maps/api/place/details/json';
+    String request =
+        '$baseURL?place_id=$input&key=$kPLACES_API_KEY&fields=geometry';
+    var response = await http.get(Uri.parse(request));
+    if (response.statusCode == 200) {
+      setState(() {
+        double lat = json.decode(response.body)["result"]['geometry']['location']['lat'];
+        double lng = json.decode(response.body)["result"]['geometry']['location']['lng'];
+
+        _initialPosition = LatLng(lat, lng);
+        print("past location");
+      });
+
+    } else {
+      throw Exception('Failed to load predictions');
+    }
+  }
+
+
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: _initialPosition,
     zoom: 14.4746,
@@ -64,6 +88,8 @@ class _MapWidgetState extends State<MapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Container(
       width: SizeConfig.screenWidth,
       height: SizeConfig.screenHeight,
@@ -83,7 +109,6 @@ class _MapWidgetState extends State<MapWidget> {
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               setState(() {
-                if (widget._controller.isCompleted == false)
                   widget._controller.complete(controller);
               });
             },
@@ -92,4 +117,5 @@ class _MapWidgetState extends State<MapWidget> {
       ),
     );
   }
+  bool get wantKeepAlive => true;
 }
