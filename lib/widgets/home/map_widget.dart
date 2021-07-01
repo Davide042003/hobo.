@@ -1,10 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
 import 'package:http/http.dart' as http;
+import 'package:hobo_test/widgets/home/marker_generator.dart';
+
+import 'dart:ui' as ui;
+import 'package:flutter/rendering.dart';
 
 class MapWidget extends StatefulWidget {
   final Completer<GoogleMapController> _controller;
@@ -21,10 +27,30 @@ class _MapWidgetState extends State<MapWidget>
   static LatLng _initialPosition;
   bool enableRelocate = false;
 
+  List<Marker> markers = [];
+
   @override
   void initState() {
     super.initState();
     _getUserLocation();
+
+    MarkerGenerator(markerWidgets(), (bitmaps) {
+      setState(() {
+        markers = mapBitmapsToMarkers(bitmaps);
+      });
+    }).generate(context);
+  }
+
+  List<Marker> mapBitmapsToMarkers(List<Uint8List> bitmaps) {
+    List<Marker> markersList = [];
+    bitmaps.asMap().forEach((i, bmp) {
+      final city = cities[i];
+      markersList.add(Marker(
+          markerId: MarkerId(city.name),
+          position: city.position,
+          icon: BitmapDescriptor.fromBytes(bmp)));
+    });
+    return markersList;
   }
 
   Future<Position> _determinePosition() async {
@@ -109,82 +135,127 @@ class _MapWidgetState extends State<MapWidget>
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Container(
-      width: SizeConfig.screenWidth,
-      height: SizeConfig.screenHeight,
-      child: _initialPosition == null
-          ? CupertinoActivityIndicator()
-          : Stack(
-              children: [
-                Stack(
-                  children: [
-                    Listener(
-                      onPointerDown: (e){
-                        FocusScopeNode currentFocus = FocusScope.of(context);
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-                        setState(() {
-                          enableRelocate = true;
-                        });
-                      },
-                      child: GoogleMap(
-                        padding: EdgeInsets.only(
-                            bottom: SizeConfig.screenHeight * 0.07,
-                            left: SizeConfig.screenWidth * 0.05),
-                        myLocationButtonEnabled: false,
-                        mapType: MapType.normal,
-                        initialCameraPosition: _kGooglePlex,
-                        onMapCreated: (GoogleMapController controller) {
-                          setState(() {
-                            widget._controller.complete(controller);
-                          });
-                        },
-
+        width: SizeConfig.screenWidth,
+        height: SizeConfig.screenHeight,
+        child: _initialPosition == null
+            ? CupertinoActivityIndicator()
+            : Stack(children: [
+          Stack(
+            children: [
+              Listener(
+                onPointerDown: (e) {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                  setState(() {
+                    enableRelocate = true;
+                  });
+                },
+                child: GoogleMap(
+                    padding: EdgeInsets.only(
+                        bottom: SizeConfig.screenHeight * 0.07,
+                        left: SizeConfig.screenWidth * 0.05),
+                    myLocationButtonEnabled: false,
+                    mapType: MapType.normal,
+                    initialCameraPosition:             CameraPosition(target: LatLng(45.811328, 15.975862), zoom: 8),
+                    onMapCreated: (GoogleMapController controller) {
+                      setState(() {
+                        widget._controller.complete(controller);
+                      });
+                    },
+                    markers:  markers.toSet(),
+                ),
+              ),
+              enableRelocate
+                  ? Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        right: SizeConfig.screenWidth * 0.07,
+                        bottom: SizeConfig.screenHeight * 0.13),
+                    child: Container(
+                      width: SizeConfig.screenWidth * 0.1,
+                      height: SizeConfig.screenHeight * 0.05,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 10)
+                          ]),
+                      child: FloatingActionButton(
+                        elevation: 0,
+                        focusElevation: 0,
+                        hoverElevation: 0,
+                        highlightElevation: 0,
+                        disabledElevation: 0,
+                        onPressed: animateToInitial,
+                        backgroundColor: Styles.publishtour_bar(
+                            themeChange.darkTheme, context),
+                        child: Icon(
+                          Ionicons.locate,
+                          color: Styles.whiteblack(
+                              themeChange.darkTheme, context),
+                          size: 22,
+                        ),
                       ),
                     ),
-                    enableRelocate
-                        ? Align(
-                            alignment: Alignment.bottomRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  right: SizeConfig.screenWidth * 0.07,
-                                  bottom: SizeConfig.screenHeight * 0.13),
-                              child: Container(
-                                width: SizeConfig.screenWidth * 0.1,
-                                height: SizeConfig.screenHeight * 0.05,
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
-                                          blurRadius: 10)
-                                    ]),
-                                child: FloatingActionButton(
-                                  elevation: 0,
-                                  focusElevation: 0,
-                                  hoverElevation: 0,
-                                  highlightElevation: 0,
-                                  disabledElevation: 0,
-                                  onPressed: animateToInitial,
-                                  backgroundColor: Styles.publishtour_bar(
-                                      themeChange.darkTheme, context),
-                                  child: Icon(
-                                    Ionicons.locate,
-                                    color: Styles.whiteblack(
-                                        themeChange.darkTheme, context),
-                                    size: 22,
-                                  ),
-                                ),
-                              ),
-                            ))
-                        : SizedBox()
-                  ],
-                ),
-              ],
-            ),
-    );
+                  ))
+                  : SizedBox(),
+            ],
+          ),
+        ]));
   }
 
   @override
   bool get wantKeepAlive => true;
+}
+
+Widget _getMarkerWidget(String name) {
+  return Container(
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.36),
+          offset: Offset(0,3),
+          blurRadius: 6,
+        )
+      ],
+    ),
+    child: CircleAvatar(
+      radius: SizeConfig.screenWidth * 0.08,
+      backgroundColor: Color.fromRGBO(116, 142, 243, 1),
+      child: Padding(
+        padding: EdgeInsets.all(SizeConfig.screenWidth * 0.008),
+        child: ProfileImageWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+      ),
+    ),
+  );
+}
+
+// Example of backing data
+List<City> cities = [
+  City("Zagreb", LatLng(45.792565, 15.995832)),
+  City("Ljubljana", LatLng(46.037839, 14.513336)),
+  City("Novo Mesto", LatLng(45.806132, 15.160768)),
+  City("Varaždin", LatLng(46.302111, 16.338036)),
+  City("Maribor", LatLng(46.546417, 15.642292)),
+  City("Rijeka", LatLng(45.324289, 14.444480)),
+  City("Karlovac", LatLng(45.489728, 15.551561)),
+  City("Klagenfurt", LatLng(46.624124, 14.307974)),
+  City("Graz", LatLng(47.060426, 15.442028)),
+  City("Celje", LatLng(46.236738, 15.270346))
+];
+
+List<Widget> markerWidgets() {
+  return cities.map((c) => _getMarkerWidget(c.name)).toList();
+}
+
+class City {
+  final String name;
+  final LatLng position;
+
+  City(this.name, this.position);
 }
