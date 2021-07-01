@@ -6,13 +6,11 @@ import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 
 class NavigationBarWidget extends StatefulWidget {
-  final PageController pageController;
   final int currentPage;
   final double leftPosition;
 
   NavigationBarWidget(
-      {@required this.pageController,
-      @required this.currentPage,
+      {@required this.currentPage,
       @required this.leftPosition});
 
   @override
@@ -92,7 +90,6 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                             ),
                             onTap: () {
                               page.changePage = 0;
-                              widget.pageController.jumpToPage(page.page);
                             },
                           ),
                           GestureDetector(
@@ -116,7 +113,6 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                             ),
                             onTap: () {
                               page.changePage = 1;
-                              widget.pageController.jumpToPage(page.page);
                             },
                           ),
                           GestureDetector(
@@ -147,7 +143,6 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               ),
                             onTap: () {
                               page.changePage = 2;
-                              widget.pageController.jumpToPage(page.page);
                             }),
                           GestureDetector(
                               behavior: HitTestBehavior.translucent,
@@ -166,7 +161,6 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               ),
                               onTap: () {
                                 page.changePage = 3;
-                                widget.pageController.jumpToPage(page.page);
                               }),
                           GestureDetector(
                               behavior: HitTestBehavior.translucent,
@@ -185,7 +179,6 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                               ),
                               onTap: () {
                                   page.changePage = 4;
-                                  widget.pageController.jumpToPage(page.page);
                               })
                         ],
                       ),

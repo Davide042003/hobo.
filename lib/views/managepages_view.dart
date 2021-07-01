@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/views/chatlist_view.dart';
 import 'package:hobo_test/views/profile_view.dart';
 import 'package:hobo_test/views/social_view.dart';
+import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 import 'home_view.dart';
 import 'package:hobo_test/widgets/home/navigationbar_widget.dart';
 import 'map_view.dart';
@@ -15,7 +16,6 @@ class ManagePagesView extends StatefulWidget {
 class _ManagePagesViewState extends State<ManagePagesView> {
 
   int _currentPage = 0;
-  final PageController _pageController = PageController(initialPage: 0);
   final _leftPositionList = [0.091, 0.252, 0.411, 0.573, 0.732];
   double _leftPosition = 0.091;
 
@@ -27,7 +27,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
   @override
   void dispose() {
     super.dispose();
-    _pageController.dispose();
+  //  _pageController.dispose();
   }
 
   _onPageChanged(int index) {
@@ -41,6 +41,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final pageController = Provider.of<PageControlProvider>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -48,7 +49,7 @@ class _ManagePagesViewState extends State<ManagePagesView> {
       backgroundColor:  Styles.loginregister_background(themeChange.darkTheme, context),
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
-          controller: _pageController,
+          controller: pageController.page,
           scrollDirection: Axis.horizontal,
           onPageChanged: _onPageChanged,
           children: [
@@ -59,6 +60,6 @@ class _ManagePagesViewState extends State<ManagePagesView> {
             ProfileView()
           ],
         ),
-        bottomNavigationBar:NavigationBarWidget(pageController: _pageController, currentPage: _currentPage, leftPosition: _leftPosition,));
+        bottomNavigationBar:NavigationBarWidget(currentPage: _currentPage, leftPosition: _leftPosition,));
   }
 }

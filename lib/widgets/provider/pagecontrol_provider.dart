@@ -2,12 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 class PageControlProvider with ChangeNotifier {
-  int _page = 0;
+  PageController _page = new PageController(initialPage: 0);
+  int _actualPage = 0;
 
-  int get page => _page;
+  int get actualPage => _actualPage;
+  PageController get page => _page;
 
   set changePage(int value) {
-    _page = value;
+    _actualPage = actualPage;
+    _page.jumpToPage(value);
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    page.dispose();
+    super.dispose();
   }
 }

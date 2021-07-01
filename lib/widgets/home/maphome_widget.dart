@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
+import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 
 class MapHomeWidget extends StatefulWidget {
   @override
@@ -66,27 +66,33 @@ class _MapHomeWidgetState extends State<MapHomeWidget>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final page = Provider.of<PageControlProvider>(context);
 
     return Container(
       width: SizeConfig.screenWidth,
       height: SizeConfig.screenHeight,
-      child: _initialPosition != null ? GoogleMap(
-        rotateGesturesEnabled: false,
-        zoomGesturesEnabled: false,
-        scrollGesturesEnabled: false,
-        tiltGesturesEnabled: false,
-        zoomControlsEnabled: false,
-        padding: EdgeInsets.only(
-            bottom: SizeConfig.screenHeight * 0.015,
-            left: SizeConfig.screenWidth * 0.05),
-        myLocationButtonEnabled: false,
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          setState(() {
-             _controller.complete(controller);
-          });
+      child: _initialPosition != null ? Listener(
+        onPointerDown: (e){
+         page.changePage = 1;
         },
+        child: GoogleMap(
+          rotateGesturesEnabled: false,
+          zoomGesturesEnabled: false,
+          scrollGesturesEnabled: false,
+          tiltGesturesEnabled: false,
+          zoomControlsEnabled: false,
+          padding: EdgeInsets.only(
+              bottom: SizeConfig.screenHeight * 0.015,
+              left: SizeConfig.screenWidth * 0.05),
+          myLocationButtonEnabled: false,
+          mapType: MapType.normal,
+          initialCameraPosition: _kGooglePlex,
+          onMapCreated: (GoogleMapController controller) {
+            setState(() {
+               _controller.complete(controller);
+            });
+          },
+        ),
       ) : CupertinoActivityIndicator(),
     );
   }
