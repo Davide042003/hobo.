@@ -71,6 +71,11 @@ class _MapHomeWidgetState extends State<MapHomeWidget>
       width: SizeConfig.screenWidth,
       height: SizeConfig.screenHeight,
       child: _initialPosition != null ? GoogleMap(
+        rotateGesturesEnabled: false,
+        zoomGesturesEnabled: false,
+        scrollGesturesEnabled: false,
+        tiltGesturesEnabled: false,
+        zoomControlsEnabled: false,
         padding: EdgeInsets.only(
             bottom: SizeConfig.screenHeight * 0.015,
             left: SizeConfig.screenWidth * 0.05),

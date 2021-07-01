@@ -8,6 +8,7 @@ import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 import 'package:provider/provider.dart';
 import 'widgets/provider/dark_theme_provider.dart';
 import 'widgets/exports/base_export.dart';
@@ -31,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
   NewTourProvider newTourProvider = new NewTourProvider();
+  PageControlProvider pageControlProvider = new PageControlProvider();
   UserProvider userProvider = new UserProvider();
 
   bool _initialized = false;
@@ -96,14 +98,19 @@ class _MyAppState extends State<MyApp> {
               return newTourProvider;
             }
         ),
+        ChangeNotifierProvider<PageControlProvider>(
+            create: (_) {
+              return pageControlProvider;
+            }
+        ),
         ChangeNotifierProvider<UserProvider>(
             create: (_) {
               return userProvider;
             }
         ),
       ],
-      child: Consumer2<DarkThemeProvider, NavigationBarProvider>(
-        builder: (BuildContext context, value, value2, Widget child) {
+      child: Consumer4<DarkThemeProvider, NavigationBarProvider, PageControlProvider, NewTourProvider>(
+        builder: (BuildContext context, value, value2, value3, value4, Widget child) {
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
