@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
-import 'package:hobo_test/widgets/home/prova.dart';
 import 'package:hobo_test/widgets/home/tourlist_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/home/searchbarmap_widget.dart';

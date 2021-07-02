@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
+import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -8,8 +10,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
 import 'package:http/http.dart' as http;
 import 'package:hobo_test/widgets/home/marker_generator.dart';
-
-import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 
 class MapWidget extends StatefulWidget {
@@ -24,9 +24,10 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget>
     with AutomaticKeepAliveClientMixin {
+
   static LatLng _initialPosition;
   bool enableRelocate = false;
-
+  CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
   List<Marker> markers = [];
 
   @override
@@ -41,14 +42,87 @@ class _MapWidgetState extends State<MapWidget>
     }).generate(context);
   }
 
+  @override
+  void dispose() {
+    _customInfoWindowController.dispose();
+    super.dispose();
+  }
+
   List<Marker> mapBitmapsToMarkers(List<Uint8List> bitmaps) {
+    final themeChange = Provider.of<DarkThemeProvider>(context, listen: false);
+
     List<Marker> markersList = [];
     bitmaps.asMap().forEach((i, bmp) {
       final city = cities[i];
       markersList.add(Marker(
           markerId: MarkerId(city.name),
           position: city.position,
-          icon: BitmapDescriptor.fromBytes(bmp)));
+          icon: BitmapDescriptor.fromBytes(bmp),
+          onTap: () {
+            animateTo(city.position.latitude, city.position.longitude);
+            _customInfoWindowController.addInfoWindow(
+                Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Styles.map_tour(themeChange.darkTheme, context),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.16),
+                                  blurRadius: 36,
+                                  offset: Offset(0,20)
+                              )
+                            ]
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.account_circle,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                              SizedBox(
+                                width: 8.0,
+                              ),
+                              Text(
+                                "I am here",
+                                style:
+                                Theme.of(context).textTheme.headline6.copyWith(
+                                  color: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: SizeConfig.screenHeight*0.29),
+                        child: Center(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.16),
+                                      blurRadius: 36,
+                                      offset: Offset(0,20)
+                                  )
+                                ]
+                            ),
+                            child: Transform.rotate(
+                                angle: 180 * pi / 180,child: Icon(CupertinoIcons.triangle_fill,size: 22,color: Styles.map_tour(themeChange.darkTheme, context),)),
+                          ),
+                        ),
+                      ),
+                    ],
+                ),city.position
+            );
+      }));
     });
     return markersList;
   }
@@ -124,6 +198,13 @@ class _MapWidgetState extends State<MapWidget>
     }
   }
 
+  Future<void> animateTo(double lat, double lng) async {
+    final c = await widget._controller.future;
+    final p = CameraPosition(target: LatLng(lat + 1.1, lng ), zoom: 8);
+
+    await c.animateCamera(CameraUpdate.newCameraPosition(p));
+  }
+
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: _initialPosition,
     zoom: 14.4746,
@@ -151,21 +232,35 @@ class _MapWidgetState extends State<MapWidget>
                   setState(() {
                     enableRelocate = true;
                   });
+                  _customInfoWindowController.hideInfoWindow();
                 },
                 child: GoogleMap(
+                  onTap: (value){
+                    _customInfoWindowController.hideInfoWindow();
+                  },
+                  onCameraMove: (value){
+                    _customInfoWindowController.onCameraMove();
+                  },
                     padding: EdgeInsets.only(
                         bottom: SizeConfig.screenHeight * 0.07,
                         left: SizeConfig.screenWidth * 0.05),
                     myLocationButtonEnabled: false,
                     mapType: MapType.normal,
-                    initialCameraPosition:             CameraPosition(target: LatLng(45.811328, 15.975862), zoom: 8),
-                    onMapCreated: (GoogleMapController controller) {
+                    initialCameraPosition: CameraPosition(target: LatLng(45.811328, 15.975862), zoom: 8),
+                    onMapCreated: (GoogleMapController controller) async {
                       setState(() {
                         widget._controller.complete(controller);
+                        _customInfoWindowController.googleMapController = controller;
                       });
                     },
                     markers:  markers.toSet(),
                 ),
+              ),
+              CustomInfoWindow(
+                controller: _customInfoWindowController,
+                height: SizeConfig.screenHeight * 0.27,
+                width: SizeConfig.screenWidth * 0.9,
+                offset: SizeConfig.screenHeight * 0.08,
               ),
               enableRelocate
                   ? Align(
@@ -214,6 +309,7 @@ class _MapWidgetState extends State<MapWidget>
 
 Widget _getMarkerWidget(String name) {
   return Container(
+    margin: EdgeInsets.all(SizeConfig.screenWidth * 0.008),
     decoration: BoxDecoration(
       shape: BoxShape.circle,
       boxShadow: [

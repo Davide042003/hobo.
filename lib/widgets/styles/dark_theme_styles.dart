@@ -253,4 +253,8 @@ class Styles {
   static Color toursummary_typecartext(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Colors.white : Color.fromRGBO(51, 51, 51, 1) ;
   }
+
+  static Color map_tour(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Colors.white;
+  }
 }
