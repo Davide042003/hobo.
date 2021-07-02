@@ -50,8 +50,6 @@ class _MapWidgetState extends State<MapWidget>
   }
 
   List<Marker> mapBitmapsToMarkers(List<Uint8List> bitmaps) {
-    final themeChange = Provider.of<DarkThemeProvider>(context, listen: false);
-
     List<Marker> markersList = [];
     bitmaps.asMap().forEach((i, bmp) {
       final city = cities[i];
@@ -60,7 +58,7 @@ class _MapWidgetState extends State<MapWidget>
           position: city.position,
           icon: BitmapDescriptor.fromBytes(bmp),
           onTap: () {
-            animateTo(city.position.latitude, city.position.longitude);
+            animateTo(city.position.latitude, city.position.longitude + 0.05);
             _customInfoWindowController.addInfoWindow(
                 InfoWindow(),
                 city.position);

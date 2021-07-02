@@ -8,6 +8,7 @@ import 'package:hobo_test/widgets/home/map_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 
 
 class MapView extends StatefulWidget {
@@ -59,6 +60,7 @@ class _MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final page = Provider.of<PageControlProvider>(context);
 
     return Stack(
       children: [
@@ -161,20 +163,25 @@ class _MapViewState extends State<MapView> {
                   onTap: () => _pageController.animateToPage(_currentPage == 0 ? 1 : 0, duration: _duration, curve: _curve),
                 ),
                 SizedBox(width: SizeConfig.screenWidth * 0.05),
-                Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(.26),
-                            blurRadius: 7,
-                            offset: Offset(0, 6))
-                      ],
-                    ),
-                    child: ProfileImageHomeWidget(
-                        image: AssetImage("assets/images/provaSocial.jpeg"),
-                        initials: "DB")),
+                GestureDetector(
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(.26),
+                              blurRadius: 7,
+                              offset: Offset(0, 6))
+                        ],
+                      ),
+                      child: ProfileImageHomeWidget(
+                          image: AssetImage("assets/images/provaSocial.jpeg"),
+                          initials: "DB")),
+                    onTap: () {
+                      page.changePage = 4;
+                    }
+                ),
               ],
             ),
             SizedBox(height: SizeConfig.screenHeight * 0.03),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
 import 'package:hobo_test/widgets/chat/chatcard_widget.dart';
+import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 
 class ChatListView extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _ChatListViewState extends State<ChatListView> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final page = Provider.of<PageControlProvider>(context);
 
     return Column(
       children: [
@@ -39,20 +41,25 @@ class _ChatListViewState extends State<ChatListView> {
                               themeChange.darkTheme, context)),
                     ),
                     SizedBox(width: SizeConfig.screenWidth * 0.05),
-                    Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(.26),
-                                blurRadius: 7,
-                                offset: Offset(0, 6))
-                          ],
-                        ),
-                        child: ProfileImageHomeWidget(
-                            image: AssetImage("assets/images/provaSocial.jpeg"),
-                            initials: "DB")),
+                    GestureDetector(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(.26),
+                                  blurRadius: 7,
+                                  offset: Offset(0, 6))
+                            ],
+                          ),
+                          child: ProfileImageHomeWidget(
+                              image: AssetImage("assets/images/provaSocial.jpeg"),
+                              initials: "DB")),
+                        onTap: () {
+                          page.changePage = 4;
+                        }
+                    ),
                   ],
                 ),
               ]),

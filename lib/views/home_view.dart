@@ -20,6 +20,7 @@ import 'package:hobo_test/widgets/home/hotplaces_template.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 
 import 'addvehicle_view.dart';
 
@@ -74,6 +75,7 @@ class _HomeViewState extends State<HomeView> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
     final addNewTour = Provider.of<NewTourProvider>(context);
+    final page = Provider.of<PageControlProvider>(context);
 
     return Stack(
       children: [
@@ -120,20 +122,25 @@ class _HomeViewState extends State<HomeView> {
                         });
                       },
                     ),
-                    Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(.26),
-                                blurRadius: 7,
-                                offset: Offset(0, 6))
-                          ],
-                        ),
-                        child: ProfileImageHomeWidget(
-                            image: AssetImage("assets/images/provaSocial.jpeg"),
-                            initials: "DB"))
+                    GestureDetector(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(.26),
+                                  blurRadius: 7,
+                                  offset: Offset(0, 6))
+                            ],
+                          ),
+                          child: ProfileImageHomeWidget(
+                              image: AssetImage("assets/images/provaSocial.jpeg"),
+                              initials: "DB")),
+                      onTap: () {
+                        page.changePage = 4;
+                      },
+                    )
                   ],
                 ),
               ),
