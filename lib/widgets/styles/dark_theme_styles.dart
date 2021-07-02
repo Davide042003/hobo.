@@ -257,4 +257,16 @@ class Styles {
   static Color map_tour(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Colors.white;
   }
+
+  static Color map_tourcalendar(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(158, 158, 158, 1) : Color.fromRGBO(186, 195, 230, 1);
+  }
+
+  static Color map_moreinfo(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(116, 142, 243, 1) : Color.fromRGBO(0, 119, 255, 1);
+  }
+
+  static Color map_bar(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(78, 78, 78, 1) : Color.fromRGBO(236, 236, 236, 1);
+  }
 }

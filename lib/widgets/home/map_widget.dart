@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
@@ -24,10 +25,10 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget>
     with AutomaticKeepAliveClientMixin {
-
   static LatLng _initialPosition;
   bool enableRelocate = false;
-  CustomInfoWindowController _customInfoWindowController = CustomInfoWindowController();
+  CustomInfoWindowController _customInfoWindowController =
+      CustomInfoWindowController();
   List<Marker> markers = [];
 
   @override
@@ -61,68 +62,9 @@ class _MapWidgetState extends State<MapWidget>
           onTap: () {
             animateTo(city.position.latitude, city.position.longitude);
             _customInfoWindowController.addInfoWindow(
-                Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Styles.map_tour(themeChange.darkTheme, context),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.16),
-                                  blurRadius: 36,
-                                  offset: Offset(0,20)
-                              )
-                            ]
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.account_circle,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                              SizedBox(
-                                width: 8.0,
-                              ),
-                              Text(
-                                "I am here",
-                                style:
-                                Theme.of(context).textTheme.headline6.copyWith(
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: SizeConfig.screenHeight*0.29),
-                        child: Center(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.16),
-                                      blurRadius: 36,
-                                      offset: Offset(0,20)
-                                  )
-                                ]
-                            ),
-                            child: Transform.rotate(
-                                angle: 180 * pi / 180,child: Icon(CupertinoIcons.triangle_fill,size: 22,color: Styles.map_tour(themeChange.darkTheme, context),)),
-                          ),
-                        ),
-                      ),
-                    ],
-                ),city.position
-            );
-      }));
+                InfoWindow(),
+                city.position);
+          }));
     });
     return markersList;
   }
@@ -200,7 +142,7 @@ class _MapWidgetState extends State<MapWidget>
 
   Future<void> animateTo(double lat, double lng) async {
     final c = await widget._controller.future;
-    final p = CameraPosition(target: LatLng(lat + 1.1, lng ), zoom: 8);
+    final p = CameraPosition(target: LatLng(lat + 1.1, lng), zoom: 8);
 
     await c.animateCamera(CameraUpdate.newCameraPosition(p));
   }
@@ -221,90 +163,297 @@ class _MapWidgetState extends State<MapWidget>
         child: _initialPosition == null
             ? CupertinoActivityIndicator()
             : Stack(children: [
-          Stack(
-            children: [
-              Listener(
-                onPointerDown: (e) {
-                  FocusScopeNode currentFocus = FocusScope.of(context);
-                  if (!currentFocus.hasPrimaryFocus) {
-                    currentFocus.unfocus();
-                  }
-                  setState(() {
-                    enableRelocate = true;
-                  });
-                  _customInfoWindowController.hideInfoWindow();
-                },
-                child: GoogleMap(
-                  onTap: (value){
-                    _customInfoWindowController.hideInfoWindow();
-                  },
-                  onCameraMove: (value){
-                    _customInfoWindowController.onCameraMove();
-                  },
-                    padding: EdgeInsets.only(
-                        bottom: SizeConfig.screenHeight * 0.07,
-                        left: SizeConfig.screenWidth * 0.05),
-                    myLocationButtonEnabled: false,
-                    mapType: MapType.normal,
-                    initialCameraPosition: CameraPosition(target: LatLng(45.811328, 15.975862), zoom: 8),
-                    onMapCreated: (GoogleMapController controller) async {
-                      setState(() {
-                        widget._controller.complete(controller);
-                        _customInfoWindowController.googleMapController = controller;
-                      });
-                    },
-                    markers:  markers.toSet(),
-                ),
-              ),
-              CustomInfoWindow(
-                controller: _customInfoWindowController,
-                height: SizeConfig.screenHeight * 0.27,
-                width: SizeConfig.screenWidth * 0.9,
-                offset: SizeConfig.screenHeight * 0.08,
-              ),
-              enableRelocate
-                  ? Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        right: SizeConfig.screenWidth * 0.07,
-                        bottom: SizeConfig.screenHeight * 0.13),
-                    child: Container(
-                      width: SizeConfig.screenWidth * 0.1,
-                      height: SizeConfig.screenHeight * 0.05,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 10)
-                          ]),
-                      child: FloatingActionButton(
-                        elevation: 0,
-                        focusElevation: 0,
-                        hoverElevation: 0,
-                        highlightElevation: 0,
-                        disabledElevation: 0,
-                        onPressed: animateToInitial,
-                        backgroundColor: Styles.publishtour_bar(
-                            themeChange.darkTheme, context),
-                        child: Icon(
-                          Ionicons.locate,
-                          color: Styles.whiteblack(
-                              themeChange.darkTheme, context),
-                          size: 22,
-                        ),
+                Stack(
+                  children: [
+                    Listener(
+                      onPointerDown: (e) {
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+                        if (!currentFocus.hasPrimaryFocus) {
+                          currentFocus.unfocus();
+                        }
+                        setState(() {
+                          enableRelocate = true;
+                        });
+                        _customInfoWindowController.hideInfoWindow();
+                      },
+                      child: GoogleMap(
+                        onTap: (value) {
+                          _customInfoWindowController.hideInfoWindow();
+                        },
+                        onCameraMove: (value) {
+                          _customInfoWindowController.onCameraMove();
+                        },
+                        padding: EdgeInsets.only(
+                            bottom: SizeConfig.screenHeight * 0.07,
+                            left: SizeConfig.screenWidth * 0.05),
+                        myLocationButtonEnabled: false,
+                        mapType: MapType.normal,
+                        initialCameraPosition: CameraPosition(
+                            target: LatLng(45.811328, 15.975862), zoom: 8),
+                        onMapCreated: (GoogleMapController controller) async {
+                          setState(() {
+                            widget._controller.complete(controller);
+                            _customInfoWindowController.googleMapController =
+                                controller;
+                          });
+                        },
+                        markers: markers.toSet(),
                       ),
                     ),
-                  ))
-                  : SizedBox(),
-            ],
-          ),
-        ]));
+                    CustomInfoWindow(
+                      controller: _customInfoWindowController,
+                      height: SizeConfig.screenHeight * 0.27,
+                      width: SizeConfig.screenWidth * 0.9,
+                      offset: SizeConfig.screenHeight * 0.072,
+                    ),
+                    enableRelocate
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  right: SizeConfig.screenWidth * 0.07,
+                                  bottom: SizeConfig.screenHeight * 0.13),
+                              child: Container(
+                                width: SizeConfig.screenWidth * 0.1,
+                                height: SizeConfig.screenHeight * 0.05,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          blurRadius: 10)
+                                    ]),
+                                child: FloatingActionButton(
+                                  elevation: 0,
+                                  focusElevation: 0,
+                                  hoverElevation: 0,
+                                  highlightElevation: 0,
+                                  disabledElevation: 0,
+                                  onPressed: animateToInitial,
+                                  backgroundColor: Styles.publishtour_bar(
+                                      themeChange.darkTheme, context),
+                                  child: Icon(
+                                    Ionicons.locate,
+                                    color: Styles.whiteblack(
+                                        themeChange.darkTheme, context),
+                                    size: 22,
+                                  ),
+                                ),
+                              ),
+                            ))
+                        : SizedBox(),
+                  ],
+                ),
+              ]));
   }
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class InfoWindow extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+              color:
+                  Styles.map_tour(themeChange.darkTheme, context),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.16),
+                    blurRadius: 36,
+                    offset: Offset(0, 20))
+              ]),
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.screenWidth * 0.06,
+                  vertical: SizeConfig.screenHeight * 0.022),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Jessie Williams",
+                            style: TextStyle(
+                                fontFamily: Constants.POPPINS,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: Styles.whiteblack(
+                                    themeChange.darkTheme,
+                                    context)),
+                          ),
+                          SizedBox(
+                            height:
+                                SizeConfig.screenHeight * 0.0025,
+                          ),
+                          Container(
+                            width: SizeConfig.screenWidth * 0.28,
+                            height: SizeConfig.screenHeight * 0.027,
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(
+                                    245, 95, 185, .15),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(8))),
+                            child: Center(
+                                child: Text(
+                              "Private Tour",
+                              style: TextStyle(
+                                  fontFamily: Constants.POPPINS,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromRGBO(
+                                      245, 95, 185, 1)),
+                            )),
+                          )
+                        ],
+                      ),
+                      Expanded(
+                          child: Align(
+                        alignment: Alignment.topRight,
+                        child: Text(
+                          "\$50",
+                          style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 27,
+                              fontWeight: FontWeight.w300,
+                              color: Styles.whiteblack(
+                                  themeChange.darkTheme, context)),
+                        ),
+                      ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.02,
+                  ),
+                  Container(
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.001,
+                    color:Styles.map_bar(themeChange.darkTheme, context)
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.02,
+                  ),
+                  Text(
+                      "Neque porro quisquam est qui dolorem ip sum quia dolor sit amet, consectetur, adi pisci velit. sit amet, consectetur, adi pisci velit.",
+                      style: TextStyle(
+                          fontFamily: Constants.POPPINS,
+                          fontSize: 13,
+                          color: Styles.whiteblack(
+                              themeChange.darkTheme, context))),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: SizeConfig.screenWidth,
+                        height: SizeConfig.screenHeight * 0.04,
+                        child: Row(children: [
+                          Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: SizeConfig.screenHeight *
+                                        0.004),
+                                child: Icon(
+                                  CustomIcons.calendaricon,
+                                  size: 14,
+                                  color: Styles.map_tourcalendar(
+                                      themeChange.darkTheme, context),
+                                ),
+                              )),
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.015,
+                          ),
+                          Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                "Date: Apr 21, 2021",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                    color: Styles.map_tourcalendar(
+                                        themeChange.darkTheme,
+                                        context)),
+                              )),
+                          Expanded(
+                              child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.25,
+                              height: SizeConfig.screenHeight,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "More Info",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: Styles.map_moreinfo(
+                                            themeChange.darkTheme,
+                                            context)),
+                                  ),
+                                  SizedBox(width: SizeConfig.screenWidth * 0.005,),
+                                  Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom: SizeConfig.screenHeight *
+                                              0.003),
+                                    child: Icon(Icons.arrow_forward_ios_outlined, size: 12, color: Styles.map_moreinfo(
+                                        themeChange.darkTheme,
+                                        context)),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ))
+                        ]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.005,),
+                ],
+              )),
+        ),
+        Padding(
+          padding:
+              EdgeInsets.only(top: SizeConfig.screenHeight * 0.29),
+          child: Center(
+            child: Container(
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.16),
+                    blurRadius: 36,
+                    offset: Offset(0, 20))
+              ]),
+              child: Transform.rotate(
+                  angle: 180 * pi / 180,
+                  child: Icon(
+                    CupertinoIcons.triangle_fill,
+                    size: 22,
+                    color: Styles.map_tour(
+                        themeChange.darkTheme, context),
+                  )),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 Widget _getMarkerWidget(String name) {
@@ -315,7 +464,7 @@ Widget _getMarkerWidget(String name) {
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(0.36),
-          offset: Offset(0,3),
+          offset: Offset(0, 3),
           blurRadius: 6,
         )
       ],
@@ -325,7 +474,9 @@ Widget _getMarkerWidget(String name) {
       backgroundColor: Color.fromRGBO(116, 142, 243, 1),
       child: Padding(
         padding: EdgeInsets.all(SizeConfig.screenWidth * 0.008),
-        child: ProfileImageWidget(image: AssetImage("assets/images/provaSocial.jpeg"), initials: "DB"),
+        child: ProfileImageWidget(
+            image: AssetImage("assets/images/provaSocial.jpeg"),
+            initials: "DB"),
       ),
     ),
   );
