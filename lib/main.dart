@@ -6,6 +6,7 @@ import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
+import 'package:hobo_test/views/tourwaypoints_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
@@ -118,7 +119,7 @@ class _MyAppState extends State<MyApp> {
               future: _repository.getCurrentUser(),
               builder: (context, AsyncSnapshot<User> snapshot){
                 if (snapshot.hasData){
-                  return ManagePagesView();
+                  return TourWaypointsView();
                 } else {
                   Future.wait([
                     precachePicture(

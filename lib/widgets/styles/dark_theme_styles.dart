@@ -269,4 +269,8 @@ class Styles {
   static Color map_bar(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(78, 78, 78, 1) : Color.fromRGBO(236, 236, 236, 1);
   }
+
+  static Color waypoints_background(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(55, 55, 55, 1) : Colors.white;
+  }
 }

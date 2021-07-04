@@ -231,10 +231,10 @@ class _MapWidgetState extends State<MapWidget>
                                   backgroundColor: Styles.publishtour_bar(
                                       themeChange.darkTheme, context),
                                   child: Icon(
-                                    Ionicons.locate,
+                                    Icons.my_location_outlined,
                                     color: Styles.whiteblack(
                                         themeChange.darkTheme, context),
-                                    size: 22,
+                                    size: 20,
                                   ),
                                 ),
                               ),
@@ -250,7 +250,6 @@ class _MapWidgetState extends State<MapWidget>
 }
 
 class InfoWindow extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
