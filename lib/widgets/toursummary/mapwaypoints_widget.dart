@@ -26,8 +26,11 @@ class _MapWaypointsWidgetState extends State<MapWaypointsWidget> {
   List<Marker> markersHighlight = [];
   int markerFlag = null;
 
+  PolylinePoints polylinePoints = PolylinePoints();
+  Map<PolylineId, Polyline> polylines = {};
+
   @override
-  void initState() {
+  void initState(){
     super.initState();
 
     MarkerGenerator(markerWidgets(), (bitmaps) {
@@ -41,8 +44,42 @@ class _MapWaypointsWidgetState extends State<MapWaypointsWidget> {
         markersHighlight = mapBitmapsToMarkers(bitmaps);
       });
     }).generate(context);
+
+    for (int i = 0; i< (cities.length-1); i ++){
+      _getPolyline(PointLatLng(cities[i].position.latitude, cities[i].position.longitude), PointLatLng(cities[i + 1].position.latitude, cities[i + 1].position.longitude), i);
+    }
   }
 
+  void _getPolyline(PointLatLng start, PointLatLng end, int id) async {
+    List<LatLng> polylineCoordinates = [];
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      "AIzaSyAP9Tw6rUqoICKt6TLPhDGyRHtmeJFqobs",
+      start,
+      end,
+      travelMode: TravelMode.driving,
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+    _addPolyLine(polylineCoordinates, id.toString());
+  }
+
+  _addPolyLine(List<LatLng> polylineCoordinates, String polyId) {
+    PolylineId id = PolylineId(polyId);
+    Polyline polyline = Polyline(
+      polylineId: id,
+      color: Color.fromRGBO(36, 100, 210, 1),
+      points: polylineCoordinates,
+      width: 4,
+    );
+    polylines[id] = polyline;
+    setState(() {});
+  }
 
   List<Marker> mapBitmapsToMarkers(List<Uint8List> bitmaps) {
     List<Marker> markersList = [];
@@ -154,6 +191,7 @@ class _MapWaypointsWidgetState extends State<MapWaypointsWidget> {
                   });
                 },
                 markers: markers.toSet(),
+                polylines: polylines.values.toSet(),
               ),
             ),
             enableRelocate
