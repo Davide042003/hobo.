@@ -69,12 +69,12 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
     Widget _buildDialogItem(Language language) => Row(
           children: <Widget>[
             Text(language.name,
-                style: TextStyle(fontFamily: Constants.POPPINS)),
+                style: TextStyle(fontFamily: Constants.POPPINS,  color: Styles.whiteblack(themeChange.darkTheme, context))),
             SizedBox(width: SizeConfig.screenWidth * 0.01),
             Flexible(
                 child: Text(
               "(${language.isoCode})",
-              style: TextStyle(fontFamily: Constants.POPPINS),
+              style: TextStyle(fontFamily: Constants.POPPINS, color: Styles.whiteblack(themeChange.darkTheme, context)),
             ))
           ],
         );
@@ -83,17 +83,17 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
           context: context,
           builder: (context) => Theme(
               data: Theme.of(context)
-                  .copyWith(primaryColor: Color.fromRGBO(116, 142, 243, 1)),
+                  .copyWith(primaryColor: Color.fromRGBO(116, 142, 243, 1), dialogBackgroundColor: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context)),
               child: LanguagePickerDialog(
                   titlePadding: EdgeInsets.all(8.0),
                   searchCursorColor: Color.fromRGBO(116, 142, 243, 1),
                   searchInputDecoration: InputDecoration(
                       hintText: 'Search...',
-                      hintStyle: TextStyle(fontFamily: Constants.POPPINS)),
+                      hintStyle: TextStyle(fontFamily: Constants.POPPINS, fontSize: 15, color: Styles.publishtour_hintText(themeChange.darkTheme, context))),
                   isSearchable: true,
                   title: Text(
                     'Select your language',
-                    style: TextStyle(fontFamily: Constants.POPPINS),
+                    style: TextStyle(fontFamily: Constants.POPPINS,  color: Styles.whiteblack(themeChange.darkTheme, context), fontWeight: FontWeight.w600,),
                   ),
                   onValuePicked: (Language language) => setState(() {
                         _selectedDialogLanguage = language;
