@@ -101,6 +101,7 @@ class _MapWaypointsWidgetState extends State<MapWaypointsWidget> {
                   markers[markerFlag] = _markerInitial;
                 });
 
+                widget.hasDeleted();
                 markerFlag = null;
               }
 
@@ -126,8 +127,8 @@ class _MapWaypointsWidgetState extends State<MapWaypointsWidget> {
                 markers[markerFlag] = _markerInitial;
               });
 
-              markerFlag = null;
               widget.hasDeleted();
+              markerFlag = null;
             }
           }));
     });
@@ -152,32 +153,32 @@ class _MapWaypointsWidgetState extends State<MapWaypointsWidget> {
           children: [
             Listener(
               onPointerDown: (e) {
-
-                MarkerGenerator(markerWidgets(), (bitmaps) {
-                  setState(() {
-                    markers = mapBitmapsToMarkers(bitmaps);
-
-                    if (markerFlag != null) {
-                      final marker = markers[markerFlag];
-
-                      Marker _markerInitial = marker.copyWith(
-                          iconParam: BitmapDescriptor.fromBytes(bitmaps[markerFlag]));
-
-                      setState(() {
-                        markers[markerFlag] = _markerInitial;
-                      });
-
-                      markerFlag = null;
-                      widget.hasDeleted();
-
-                  }});
-                }).generate(context);
-
                 setState(() {
                   enableRelocate = true;
                 });
               },
               child: GoogleMap(
+                onTap: (value){
+                  MarkerGenerator(markerWidgets(), (bitmaps) {
+                    setState(() {
+                      markers = mapBitmapsToMarkers(bitmaps);
+
+                      if (markerFlag != null) {
+                        final marker = markers[markerFlag];
+
+                        Marker _markerInitial = marker.copyWith(
+                            iconParam: BitmapDescriptor.fromBytes(bitmaps[markerFlag]));
+
+                        setState(() {
+                          markers[markerFlag] = _markerInitial;
+                        });
+
+                        markerFlag = null;
+                        widget.hasDeleted();
+
+                      }});
+                  }).generate(context);
+                },
                 padding: EdgeInsets.only(
                     bottom: SizeConfig.screenHeight * 0.07,
                     left: SizeConfig.screenWidth * 0.05),
