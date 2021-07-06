@@ -4,6 +4,8 @@ import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:flag/flag.dart';
+import 'package:language_picker/language_picker_dialog.dart';
+import 'package:language_picker/languages.dart';
 
 class Step2ExtraInformation extends StatefulWidget {
   final PageController pageController;
@@ -34,7 +36,6 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
         }
       });
     });
-
   }
 
   @override
@@ -44,17 +45,18 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
     super.dispose();
   }
 
-
   void _trySubmitForm() async {
-    if (_selectedNationality != null) {
-      widget.pageController.nextPage(
-          duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+    if (_selectedNationality != null && _selectedLanguages.length > 0) {
+
     }
   }
 
   bool _certifiedGuide = false;
   List<String> _nations = ['us', 'it', 'es', 'fr'];
   String _selectedNationality = "";
+
+  Language _selectedDialogLanguage = null;
+  List<String> _selectedLanguages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +65,46 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
+
+    Widget _buildDialogItem(Language language) => Row(
+          children: <Widget>[
+            Text(language.name,
+                style: TextStyle(fontFamily: Constants.POPPINS)),
+            SizedBox(width: SizeConfig.screenWidth * 0.01),
+            Flexible(
+                child: Text(
+              "(${language.isoCode})",
+              style: TextStyle(fontFamily: Constants.POPPINS),
+            ))
+          ],
+        );
+
+    void _openLanguagePickerDialog() => showDialog(
+          context: context,
+          builder: (context) => Theme(
+              data: Theme.of(context)
+                  .copyWith(primaryColor: Color.fromRGBO(116, 142, 243, 1)),
+              child: LanguagePickerDialog(
+                  titlePadding: EdgeInsets.all(8.0),
+                  searchCursorColor: Color.fromRGBO(116, 142, 243, 1),
+                  searchInputDecoration: InputDecoration(
+                      hintText: 'Search...',
+                      hintStyle: TextStyle(fontFamily: Constants.POPPINS)),
+                  isSearchable: true,
+                  title: Text(
+                    'Select your language',
+                    style: TextStyle(fontFamily: Constants.POPPINS),
+                  ),
+                  onValuePicked: (Language language) => setState(() {
+                        _selectedDialogLanguage = language;
+                        _selectedLanguages.add(_selectedDialogLanguage.name +
+                            " " +
+                            "(" +
+                            _selectedDialogLanguage.isoCode +
+                            ")");
+                      }),
+                  itemBuilder: _buildDialogItem)),
+        );
 
     return GestureDetector(
       onTap: () {
@@ -89,7 +131,122 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
               child: Column(
                 children: [
                   _headerStep(themeChange, context, addNewTour, downScroll),
-                  SizedBox(height: SizeConfig.screenHeight * 0.01,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth * 0.0465,
+                    ),
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Spoken Languages",
+                            style: TextStyle(
+                                fontFamily: Constants.POPPINS,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                color: Styles.whiteblack(
+                                    themeChange.darkTheme, context)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.015,
+                  ),
+                  Container(
+                    height: SizeConfig.screenHeight * 0.04,
+                    width: SizeConfig.screenWidth,
+                    child: ListView.separated(
+                      padding:
+                          EdgeInsets.only(left: SizeConfig.screenWidth * 0.05),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _selectedLanguages.length + 1,
+                      shrinkWrap: true,
+                      primary: false,
+                      itemBuilder: (context, i) {
+                        if (i == 0) {
+                          return GestureDetector(
+                            onTap: (){
+                              _openLanguagePickerDialog();
+                            },
+                            child: Container(
+                              width: SizeConfig.screenWidth * 0.1,
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5)),
+                                  border: Border.all(
+                                      color: Color.fromRGBO(116, 142, 243, 1),
+                                      width: 1),
+                                  color: Colors.transparent),
+                              child: Center(
+                                  child: Text(
+                                "+",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 20,
+                                    color: Color.fromRGBO(116, 142, 243, 1)),
+                              )),
+                            ),
+                          );
+                        } else {
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: Styles.publishtour_backgroundinputfield(
+                                    themeChange.darkTheme, context),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: SizeConfig.screenWidth * 0.015),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    _selectedLanguages[i - 1],
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        color: Styles.whiteblack(
+                                            themeChange.darkTheme, context)),
+                                  ),
+                                  SizedBox(
+                                    width: SizeConfig.screenWidth * 0.01,
+                                  ),
+                                  GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
+                                    onTap: () {
+                                      setState(() {
+                                        _selectedLanguages
+                                            .remove(_selectedLanguages[i - 1]);
+                                      });
+                                    },
+                                    child: Container(
+                                      width: SizeConfig.screenWidth * 0.05,
+                                      height: SizeConfig.screenHeight,
+                                      child: Center(
+                                        child: Icon(
+                                          CustomIcons.close,
+                                          size: 14,
+                                          color: Styles.whiteblack(
+                                              themeChange.darkTheme, context).withOpacity(0.3),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      separatorBuilder: (context, i) {
+                        return SizedBox(
+                          width: SizeConfig.screenWidth * 0.03,
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.screenHeight * 0.035),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth * 0.0465,
@@ -101,11 +258,11 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                           Text(
                             "Certified Guide",
                             style: TextStyle(
-                              fontFamily: Constants.POPPINS,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: Styles.whiteblack(
-                                  themeChange.darkTheme, context)),
+                                fontFamily: Constants.POPPINS,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                color: Styles.whiteblack(
+                                    themeChange.darkTheme, context)),
                           ),
                           GestureDetector(
                               child: Container(
@@ -113,22 +270,22 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                                 height: SizeConfig.screenHeight * 0.045,
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(5)),
+                                        BorderRadius.all(Radius.circular(5)),
                                     color: _certifiedGuide
                                         ? Color.fromRGBO(245, 95, 185, 1)
                                         : Colors.transparent,
                                     border: _certifiedGuide
                                         ? null
                                         : Border.all(
-                                        color: Styles.publishtour_check(
-                                            themeChange.darkTheme, context),
-                                        width: 1)),
+                                            color: Styles.publishtour_check(
+                                                themeChange.darkTheme, context),
+                                            width: 1)),
                                 child: _certifiedGuide
                                     ? Icon(
-                                  CustomIcons.check,
-                                  size: 12,
-                                  color: Colors.white,
-                                )
+                                        CustomIcons.check,
+                                        size: 12,
+                                        color: Colors.white,
+                                      )
                                     : null,
                               ),
                               onTap: () {
@@ -144,7 +301,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                       ),
                     ),
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.03),
+                  SizedBox(height: SizeConfig.screenHeight * 0.035),
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth * 0.0465,
@@ -168,25 +325,40 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                                 child: Container(
                                     width: SizeConfig.screenWidth * 0.25,
                                     decoration: BoxDecoration(
-                                      color: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
-                                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                                      color: Styles
+                                          .publishtour_backgroundinputfield(
+                                              themeChange.darkTheme, context),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015, right: SizeConfig.screenWidth * 0.035),
+                                      padding: EdgeInsets.only(
+                                          left: SizeConfig.screenWidth * 0.015,
+                                          right:
+                                              SizeConfig.screenWidth * 0.035),
                                       child: DropdownButton<String>(
                                         isExpanded: true,
-                                        icon: Icon(CustomIcons.arrowdownlanguages,size: 5.5, color: Styles.whiteblack(themeChange.darkTheme, context),),
+                                        icon: Icon(
+                                          CustomIcons.arrowdownlanguages,
+                                          size: 5.5,
+                                          color: Styles.whiteblack(
+                                              themeChange.darkTheme, context),
+                                        ),
                                         value: _selectedNationality,
                                         underline: SizedBox(),
                                         items: _nations.map((String val) {
                                           return new DropdownMenuItem<String>(
                                             value: val,
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.all(Radius.circular(5)),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)),
                                               child: Flag(
                                                 val,
-                                                height: SizeConfig.screenHeight * 0.045,
-                                                width: SizeConfig.screenWidth * 0.15,
+                                                height:
+                                                    SizeConfig.screenHeight *
+                                                        0.045,
+                                                width: SizeConfig.screenWidth *
+                                                    0.15,
                                                 fit: BoxFit.fill,
                                               ),
                                             ),
@@ -195,10 +367,13 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                                         onChanged: (newVal) {
                                           _selectedNationality = newVal;
                                           setState(() {});
-                                        }, dropdownColor: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
-                                        focusNode: focusNodeNationality,),
-                                    )
-                                ))),
+                                        },
+                                        dropdownColor: Styles
+                                            .publishtour_backgroundinputfield(
+                                                themeChange.darkTheme, context),
+                                        focusNode: focusNodeNationality,
+                                      ),
+                                    )))),
                       ],
                     ),
                   ),
@@ -224,14 +399,14 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                           child: TextButton(
                             child: Padding(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 20),
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Continue",
+                                    "Save",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 18,
@@ -249,7 +424,9 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                           )),
                     ),
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.015,)
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.015,
+                  )
                 ],
               ),
             ),
@@ -259,7 +436,8 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
     );
   }
 
-  Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+  Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
+      NewTourProvider addNewTour, NavigationBarProvider downScroll) {
     return Column(
       children: [
         Padding(
@@ -277,16 +455,16 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                         fontFamily: Constants.POPPINS,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Styles.whiteblack(
-                            themeChange.darkTheme, context)),
+                        color:
+                            Styles.whiteblack(themeChange.darkTheme, context)),
                   )),
             ],
           ),
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.03),
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.screenWidth * 0.085),
+          padding:
+              EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.085),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -321,8 +499,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                 style: TextStyle(
                     fontFamily: Constants.POPPINS,
                     fontSize: 12,
-                    color: Styles.whiteblack(
-                        themeChange.darkTheme, context)),
+                    color: Styles.whiteblack(themeChange.darkTheme, context)),
               ),
               SizedBox(width: SizeConfig.screenWidth * 0.09),
               Text(
@@ -330,8 +507,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                 style: TextStyle(
                     fontFamily: Constants.POPPINS,
                     fontSize: 12,
-                    color: Styles.whiteblack(
-                        themeChange.darkTheme, context)),
+                    color: Styles.whiteblack(themeChange.darkTheme, context)),
               ),
             ],
           ),
@@ -340,8 +516,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
         Container(
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight * 0.0015,
-          color: Styles.tourpreview_barlight(
-              themeChange.darkTheme, context),
+          color: Styles.tourpreview_barlight(themeChange.darkTheme, context),
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.015),
       ],

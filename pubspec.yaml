@@ -47,6 +47,7 @@ dependencies:
   http: ^0.13.3
   custom_info_window: ^1.0.1
   flutter_polyline_points: ^1.0.0
+  language_picker: ^0.4.1
 
 dev_dependencies:
   flutter_test:
