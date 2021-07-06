@@ -10,6 +10,7 @@ import 'package:hobo_test/views/hotplaces_view.dart';
 import 'package:hobo_test/views/step1createtour_view.dart';
 import 'package:hobo_test/views/step1extrainformation_view.dart';
 import 'package:hobo_test/views/step2createtour_view.dart';
+import 'package:hobo_test/views/step2extrainformation.dart';
 import 'package:hobo_test/views/step3createtour_view.dart';
 import 'package:hobo_test/views/step4createtour_view.dart';
 import 'package:hobo_test/views/step5createtour_view.dart';
@@ -50,7 +51,8 @@ class _HomeViewState extends State<HomeView> {
                   physics: NeverScrollableScrollPhysics(),
                   controller: _pageControllerGuide,
                   children: [
-                    Step1ExtraInformation(_pageControllerGuide)
+                    Step1ExtraInformation(_pageControllerGuide),
+                    Step2ExtraInformation(_pageControllerGuide)
                   ],
                 ),
               ),
@@ -209,7 +211,7 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: new BorderRadius.all(Radius.circular(30)),
                         color: Colors.grey,
                       ),
-                      child: MapHomeWidget(),
+                      child: addNewTour.addNewTourVisible == true ? SizedBox() : MapHomeWidget(),
                     ),
                   ),
                 ),
