@@ -2,11 +2,13 @@ import 'dart:ui';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/addactivity_view.dart';
 import 'package:hobo_test/views/hotplaces_view.dart';
 import 'package:hobo_test/views/step1createtour_view.dart';
+import 'package:hobo_test/views/step1extrainformation_view.dart';
 import 'package:hobo_test/views/step2createtour_view.dart';
 import 'package:hobo_test/views/step3createtour_view.dart';
 import 'package:hobo_test/views/step4createtour_view.dart';
@@ -31,6 +33,36 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageControllerGuide = PageController(initialPage: 0);
+
+  void _openPopUpGuide(bool isDark) {
+    showGeneralDialog(
+        barrierColor: Colors.transparent,
+        transitionBuilder: (context, a1, a2, widget) {
+          final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
+          return Material(
+            type: MaterialType.transparency,
+            child: Transform(
+              transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
+              child: Opacity(
+                opacity: a1.value,
+                child: ExpandablePageView(
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: _pageControllerGuide,
+                  children: [
+                    Step1ExtraInformation(_pageControllerGuide)
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 400),
+        barrierDismissible: false,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
+  }
 
   void _openPopUp(bool isDark) {
     showGeneralDialog(
@@ -65,6 +97,21 @@ class _HomeViewState extends State<HomeView> {
         barrierLabel: '',
         context: context,
         pageBuilder: (context, animation1, animation2) {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
+        final addNewTour = Provider.of<NewTourProvider>(context, listen: false);
+        addNewTour.addNewTourVisible = true;
+        downScroll.navigationdown = true;
+        _openPopUpGuide(false);
+      });
+    });
   }
 
   @override

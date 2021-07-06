@@ -1,14 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hobo_test/views/step4createtour_view.dart';
 import 'package:hobo_test/widgets/add_tour/counter_widget.dart';
-import 'package:hobo_test/widgets/add_tour/descriptionnewtour_widget.dart';
 import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
-import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class AddVehicle extends StatefulWidget {
   final PageController pageController;
