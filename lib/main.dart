@@ -6,11 +6,11 @@ import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
-import 'package:hobo_test/views/tourwaypoints_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:splash_screen_view/SplashScreenView.dart';
 import 'widgets/provider/dark_theme_provider.dart';
 import 'widgets/exports/base_export.dart';
 
@@ -115,33 +115,62 @@ class _MyAppState extends State<MyApp> {
 
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: FutureBuilder(
-              future: _repository.getCurrentUser(),
-              builder: (context, AsyncSnapshot<User> snapshot){
-                if (snapshot.hasData){
-                  return ManagePagesView();
-                } else {
-                  Future.wait([
-                    precachePicture(
-                      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-1.svg'),
-                      null,
-                    ),
-                    precachePicture(
-                      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-2.svg'),
-                      null,
-                    ),
-                    precachePicture(
-                      ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-3.svg'),
-                      null,
-                    ),
-                  ]);
-                  return SliderLayoutView();
-                }
-              },
-            ),
+             home: SplashScreenView(
+                navigateRoute: AfterLoad(repository: _repository,),
+                duration: 3000,
+                imageSize: 140,
+                imageSrc: "assets/images/icon.png",
+                text: "hobo.",
+                pageRouteTransition: PageRouteTransition.CupertinoPageRoute,
+                textType: TextType.TyperAnimatedText,
+                textStyle: TextStyle(
+                  fontSize: 50.0,
+                  fontFamily: Constants.POPPINS,
+                  fontWeight: FontWeight.bold,
+                  color: Styles.hobo_splash(themeChangeProvider.darkTheme, context)
+                ),
+                backgroundColor: Styles.loginregister_background(themeChangeProvider.darkTheme, context),
+              ),
           );
         },
       ),
+    );
+  }
+}
+
+class AfterLoad extends StatelessWidget {
+  const AfterLoad({
+    Key key,
+    @required FirestoreService repository,
+  }) : _repository = repository, super(key: key);
+
+  final FirestoreService _repository;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _repository.getCurrentUser(),
+      builder: (context, AsyncSnapshot<User> snapshot){
+        if (snapshot.hasData){
+          return ManagePagesView();
+        } else {
+          Future.wait([
+            precachePicture(
+              ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-1.svg'),
+              null,
+            ),
+            precachePicture(
+              ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-2.svg'),
+              null,
+            ),
+            precachePicture(
+              ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Onboarding-3.svg'),
+              null,
+            ),
+          ]);
+          return SliderLayoutView();
+        }
+      },
     );
   }
 }

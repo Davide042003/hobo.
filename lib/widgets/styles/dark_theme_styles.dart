@@ -273,4 +273,8 @@ class Styles {
   static Color waypoints_background(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Color.fromRGBO(55, 55, 55, 1) : Colors.white;
   }
+
+  static Color hobo_splash(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Colors.white : Color.fromRGBO(80, 84, 101, 1);
+  }
 }

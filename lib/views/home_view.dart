@@ -105,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
 
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+   /* SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() {
         final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
         final addNewTour = Provider.of<NewTourProvider>(context, listen: false);
@@ -113,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
         downScroll.navigationdown = true;
         _openPopUpGuide(false);
       });
-    });
+    });*/
   }
 
   @override
