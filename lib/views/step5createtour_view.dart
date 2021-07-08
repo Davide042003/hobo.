@@ -26,8 +26,10 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
     super.dispose();
   }
 
-  void _trySubmitForm() async {
-
+  void _trySubmitForm(NewTourProvider tour, NavigationBarProvider scroll) async {
+    tour.addNewTourVisible = false;
+    scroll.navigationdown = false;
+    Navigator.pop(context);
   }
 
   @override
@@ -136,7 +138,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.05),
                     child: GestureDetector(
-                      onTap: _trySubmitForm,
+                      onTap: () {_trySubmitForm(addNewTour, downScroll);},
                       child: Container(
                           width: SizeConfig.screenWidth,
                           height: SizeConfig.screenHeight * 0.07,
@@ -152,7 +154,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
                           ),
                           child: TextButton(
                             onPressed: () {
-                              _trySubmitForm();
+                              _trySubmitForm(addNewTour, downScroll);
                               publishTour(addNewTour);
                             },
                             child: Padding(
