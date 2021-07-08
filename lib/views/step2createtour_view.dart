@@ -69,9 +69,13 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   }
 
   List<String> _locations = ['us', 'it', 'es', 'fr'];
-  String _selectedLocation = "";
 
+  String _tourImage1 = "";
+  String _tourImage2 = "";
+  String _tourImage3 = "";
+  String _selectedLocation = "";
   String _description = '';
+  String _language = "";
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +268,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.05),
                       child: GestureDetector(
-                        onTap: _trySubmitForm,
+                        onTap: null,
                         child: Container(
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.07,
@@ -280,6 +284,10 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                                   ]),
                             ),
                             child: TextButton(
+                              onPressed: () {
+                                _trySubmitForm();
+                                continueStep2(addNewTour);
+                              },
                               child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
@@ -319,6 +327,20 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
       ),
     );
   }
+  void continueStep2 (NewTourProvider newTourProvider) {
+    newTourProvider.setTourImageUrl1 = _tourImage1;
+    newTourProvider.setTourImageUrl2 = _tourImage2;
+    newTourProvider.setTourImageUrl3 = _tourImage3;
+    newTourProvider.setTourDescription = _description;
+    newTourProvider.setTourLanguage = _language;
+
+    print(newTourProvider.tourUrlImage1);
+    print(newTourProvider.tourUrlImage2);
+    print(newTourProvider.tourUrlImage3);
+    print(newTourProvider.tourDescription);
+    print(newTourProvider.tourLanguage);
+  }
+
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
       NewTourProvider addNewTour, NavigationBarProvider downScroll) {

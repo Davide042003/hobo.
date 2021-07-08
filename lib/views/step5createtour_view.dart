@@ -151,6 +151,10 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
                                 ]),
                           ),
                           child: TextButton(
+                            onPressed: () {
+                              _trySubmitForm();
+                              publishTour(addNewTour);
+                            },
                             child: Padding(
                               padding:
                               const EdgeInsets.symmetric(horizontal: 20),
@@ -188,6 +192,10 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
         ),
       ),
     );
+  }
+
+  void publishTour (NewTourProvider newTourProvider) {
+    newTourProvider.publishTour();
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {

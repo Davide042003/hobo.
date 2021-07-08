@@ -31,6 +31,8 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
   }
 
   Timestamp nextTour;
+  String _tourDate = "";
+  String _tourTime = "";
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +165,7 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.05),
                     child: GestureDetector(
-                      onTap: _trySubmitForm,
+                      onTap: null,
                       child: Container(
                           width: SizeConfig.screenWidth,
                           height: SizeConfig.screenHeight * 0.07,
@@ -178,6 +180,10 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
                                 ]),
                           ),
                           child: TextButton(
+                            onPressed: () {
+                              _trySubmitForm();
+                              continueStep3(addNewTour);
+                            },
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -215,6 +221,14 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
         ),
       ),
     );
+  }
+
+  void continueStep3 (NewTourProvider newTourProvider) {
+    newTourProvider.setTourDate = _tourDate;
+    newTourProvider.setTourTime = _tourTime;
+
+    print(newTourProvider.tourDate);
+    print(newTourProvider.tourTime);
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {
