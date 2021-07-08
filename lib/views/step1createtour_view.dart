@@ -314,7 +314,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.05),
                       child: GestureDetector(
-                        onTap: _trySubmitForm,
+                        onTap: null,
                         child: Container(
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.07,
@@ -353,7 +353,10 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                   ],
                                 ),
                               ),
-                              onPressed: () => continueStep1(addNewTour),
+                              onPressed: () {
+                                _trySubmitForm();
+                                continueStep1(addNewTour);
+                              },
                             )),
                       ),
                     ),
@@ -375,7 +378,11 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     newTourProvider.setIsForChildren = _allowChildren;
     newTourProvider.setIsPrivate = _private;
 
+    print(newTourProvider.tourName);
     print(newTourProvider.tourPlace);
+    print(newTourProvider.numberOfPeople);
+    print(newTourProvider.isForChildren);
+    print(newTourProvider.isPrivate);
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {
