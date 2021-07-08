@@ -353,6 +353,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                   ],
                                 ),
                               ),
+                              onPressed: () => continueStep1(addNewTour),
                             )),
                       ),
                     ),
@@ -365,6 +366,16 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
         ),
       ),
     );
+  }
+
+  void continueStep1 (NewTourProvider newTourProvider) {
+    newTourProvider.setTourName = _tourName;
+    newTourProvider.setTourPlace = _tourPlace;
+    newTourProvider.setNumberOfPeople = _maxPeople;
+    newTourProvider.setIsForChildren = _allowChildren;
+    newTourProvider.setIsPrivate = _private;
+
+    print(newTourProvider.tourPlace);
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {

@@ -5,7 +5,6 @@ import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/profile/cardtourprofile_widget.dart';
 
 class TourlistProfileWidget extends StatefulWidget {
-
   const TourlistProfileWidget({
     Key key,
     @required this.userId,
@@ -18,16 +17,30 @@ class TourlistProfileWidget extends StatefulWidget {
 }
 
 class _TourlistProfileWidgetState extends State<TourlistProfileWidget> {
+
+  CollectionReference tours;
+
   @override
-  Widget build(BuildContext context) {
-    CollectionReference tours = FirebaseFirestore.instance.collection('users')
+  void initState() {
+    tours = FirebaseFirestore.instance
+        .collection('users')
         .doc(widget.userId)
         .collection('tours');
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return FutureBuilder<QuerySnapshot>(
       future: tours.get(),
-      builder:
-          (context, snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text("Something went wrong");
         }
@@ -48,12 +61,14 @@ class _TourlistProfileWidgetState extends State<TourlistProfileWidget> {
               ),
               child: ListView.separated(
                 physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.01,
+                padding: EdgeInsets.only(
+                    top: SizeConfig.screenHeight * 0.01,
                     bottom: SizeConfig.screenHeight * 0.12),
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 itemCount: documents.length,
-                itemBuilder: (ctx, i) => CardTourProfileWidget(index: i,
+                itemBuilder: (ctx, i) => CardTourProfileWidget(
+                  index: i,
                   tourName: documents[i]["tourName"],
                   tourRatings: documents[i]["tourRatings"],
                   tourTotalRatings: documents[i]["tourTotalRatings"],
