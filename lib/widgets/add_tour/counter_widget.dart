@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class CounterWidget extends StatefulWidget {
   final Function(int) countPeople;
@@ -29,7 +30,7 @@ class _CounterWidgetState extends State<CounterWidget> {
     });
   }
 
-  void _dicrement() {
+  void _decrease() {
     setState(() {
       if (_currentCount > _minNumber) {
         _currentCount--;
@@ -43,6 +44,7 @@ class _CounterWidgetState extends State<CounterWidget> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final addNewTour = Provider.of<NewTourProvider>(context);
 
     return  Container(
       width: SizeConfig.screenWidth * 0.32,
@@ -56,7 +58,10 @@ class _CounterWidgetState extends State<CounterWidget> {
         children: [
           GestureDetector(
             behavior: HitTestBehavior.translucent,
-            onTap: _dicrement,
+            onTap: () {
+              _decrease();
+              updateNumberOfPeople(addNewTour);
+            },
             child: Container(
               width: SizeConfig.screenWidth * 0.095,
               height: SizeConfig.screenHeight,
@@ -84,7 +89,10 @@ class _CounterWidgetState extends State<CounterWidget> {
           ),
           GestureDetector(
             behavior: HitTestBehavior.translucent,
-            onTap: _increment,
+            onTap: () {
+              _increment();
+              updateNumberOfPeople(addNewTour);
+            },
             child: Container(
               width: SizeConfig.screenWidth * 0.095,
               height: SizeConfig.screenHeight,
@@ -103,5 +111,9 @@ class _CounterWidgetState extends State<CounterWidget> {
         ],
       ),
     );
+  }
+
+  void updateNumberOfPeople (NewTourProvider tourProvider) {
+    tourProvider.setNumberOfPeople = _currentCount;
   }
 }

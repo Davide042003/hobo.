@@ -108,7 +108,7 @@ class FirestoreService {
   }
 
   // Create Tours
-  Future<void> createTours(userId, tourName, tourImage, tourRatings, tourTotalRatings, tourPrice) async {
+  Future<void> createTours(userId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTime, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
     // generate random tourId
     var uuid = Uuid();
     var tourId = uuid.v1();
@@ -119,13 +119,53 @@ class FirestoreService {
         .collection('tours')
         .doc(tourId)
         .set({
+      // step 1
       'userId': userId,
       'tourId': tourId,
       'tourName': tourName,
+      'tourPlace': tourPlace,
+      'tourNumberOfPeople': tourNumberOfPeople,
+      'tourIsForChildren': tourIsForChildren,
+      'tourIsPrivate': tourIsPrivate,
+      // step 2
       'tourImage': tourImage,
+      'tourDescription': tourDescription,
+      'tourLanguage': tourLanguage,
+      //step 3
+      'tourDate': tourDate,
+      'tourTime': tourTime,
+      // step 4
+      'tourActivitiesId': tourActivitiesId,
+      // step5
+      'tourActivitiesVehiclesId': tourActivitiesVehiclesId,
+
       'tourTotalRatings': tourTotalRatings,
       'tourRatings': tourRatings,
       'tourPrice': tourPrice,
+      'timeCreation': Timestamp.now()
+    });
+
+    print('Success: Tour Created!');
+
+  }
+
+  // create sub-collection: tour -> images
+  Future<void> addTourImage(userId, tourId, imageUrl) async {
+    // generate random tourId
+    var uuid = Uuid();
+    var imageId = uuid.v1();
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId).collection('images').doc(imageId)
+        .set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'imageId': imageId,
+      'imageUrl': imageUrl,
       'timeCreation': Timestamp.now()
     });
 

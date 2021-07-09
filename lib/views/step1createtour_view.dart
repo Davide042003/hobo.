@@ -405,8 +405,6 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
   void continueStep1 (NewTourProvider newTourProvider) {
     newTourProvider.setTourName = _tourName;
-    newTourProvider.setTourPlaceName = _tourPlaceName;
-    newTourProvider.setTourPlaceId = _tourPlaceId;
     newTourProvider.setNumberOfPeople = _maxPeople;
     newTourProvider.setIsForChildren = _allowChildren;
     newTourProvider.setIsPrivate = _private;

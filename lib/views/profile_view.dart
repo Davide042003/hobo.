@@ -206,8 +206,6 @@ class _ProfileViewState extends State<ProfileView>
                                       color: Colors.white, size: 22),
                                 ),
                                 onTap: () {
-                                  _repository.createTours(_auth.currentUser.uid,
-                                      'provaTour', null, 4, 10, 50);
                                   _repository.createPosts(
                                       _auth.currentUser.uid,
                                       'post test',

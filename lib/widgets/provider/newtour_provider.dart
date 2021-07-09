@@ -21,6 +21,7 @@ class NewTourProvider with ChangeNotifier {
   String _tourUrlImage1 = "";
   String _tourUrlImage2 = "";
   String _tourUrlImage3 = "";
+  List<String> tourImages = List<String>.empty(growable: true);
   String _tourDescription = "";
   String _tourLanguage = "";
 
@@ -96,6 +97,17 @@ class NewTourProvider with ChangeNotifier {
   }
 
   // step 2
+  set setTourImages(String urlImage) {
+    try {
+      tourImages.add(urlImage);
+      print(urlImage);
+      print(urlImage[5]);
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
+  }
+
   set setTourImageUrl1(String url1) {
     _tourUrlImage1 = url1;
     notifyListeners();
@@ -135,9 +147,26 @@ class NewTourProvider with ChangeNotifier {
   // step 5 - publish tour
   void publishTour() {
     _repository.createTours(
-        _auth.currentUser.uid, _tourName, null, 4, 10, 50);
-    _repository.createPosts(_auth.currentUser.uid, 'post test', 'Rome', null,
-        55, 'This is a caption... ', 10);
+      _auth.currentUser.uid,
+          _tourName,
+      _tourPlaceName,
+      _numberOfPeople,
+      _isForChildren,
+      _isPrivate,
+      _tourDescription,
+      _tourLanguage,
+      _tourUrlImage1,
+      _tourDate,
+      _tourTime,
+      "id attività",
+      "id vehicles",
+      4,
+      5,
+      22
+    );
+
+    // todo: clean all the variables from this script after publish a tour!
+
   }
 
 }

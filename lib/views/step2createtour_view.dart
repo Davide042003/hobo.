@@ -142,23 +142,28 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, i) {
                             if (i == 0) {
-                              return Container(
-                                width: SizeConfig.screenWidth * 0.23,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5)),
-                                    border: Border.all(
-                                        color: Color.fromRGBO(116, 142, 243, 1),
-                                        width: 1),
-                                    color: Colors.transparent),
-                                child: Center(
-                                    child: Text(
-                                  "+",
-                                  style: TextStyle(
-                                      fontFamily: Constants.POPPINS,
-                                      fontSize: 43,
-                                      color: Color.fromRGBO(116, 142, 243, 1)),
-                                )),
+                              return GestureDetector(
+                                onTap: () {
+                                  addTourImages(addNewTour, "www.provaUrl.com");
+                                },
+                                child: Container(
+                                  width: SizeConfig.screenWidth * 0.23,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                      border: Border.all(
+                                          color: Color.fromRGBO(116, 142, 243, 1),
+                                          width: 1),
+                                      color: Colors.transparent),
+                                  child: Center(
+                                      child: Text(
+                                    "+",
+                                    style: TextStyle(
+                                        fontFamily: Constants.POPPINS,
+                                        fontSize: 43,
+                                        color: Color.fromRGBO(116, 142, 243, 1)),
+                                  )),
+                                ),
                               );
                             } else {
                               return Container(
@@ -327,6 +332,10 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
       ),
     );
   }
+  void addTourImages (NewTourProvider newTourProvider, String imageUrl) {
+    newTourProvider.setTourImages = imageUrl;
+  }
+
   void continueStep2 (NewTourProvider newTourProvider) {
     newTourProvider.setTourImageUrl1 = _tourImage1;
     newTourProvider.setTourImageUrl2 = _tourImage2;
