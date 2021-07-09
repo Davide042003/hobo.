@@ -173,15 +173,46 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                       ),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.01),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.screenWidth * 0.0465,
-                      ),
-                      child: InputFieldNewTour(
-                          "Tour place",
-                          (value) => _tourPlace = value,
-                          focusNodeTourPlace,
-                          null, false),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        setState(() {
+                          widget.pageController.jumpToPage(7);
+                        });
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.screenWidth * 0.0465,
+                          ),
+                          child: Theme(
+                            data: new ThemeData(
+                              primaryColor: Color.fromRGBO(116, 142, 243, 1),
+                              hintColor: Styles.loginregister_subheadingandform(
+                                  themeChange.darkTheme, context),
+                            ),
+                            child: Container(
+                              width: SizeConfig.screenWidth,
+                              height: SizeConfig.screenHeight * 0.055,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(5)),
+                                color: Styles.publishtour_backgroundinputfield(
+                                    themeChange.darkTheme, context),
+                              ),
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: SizeConfig.screenWidth * 0.035,vertical: SizeConfig.screenHeight *0.015),
+                                  child: Text(
+                                    "Tour Place",
+                                    style: TextStyle(
+                                      fontFamily: Constants.POPPINS,
+                                      fontSize: 15,
+                                      color: Styles.publishtour_hintText(
+                                          themeChange.darkTheme, context),
+                                    ),
+                                  )),
+                            ),
+                          )),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.03),
                     Padding(

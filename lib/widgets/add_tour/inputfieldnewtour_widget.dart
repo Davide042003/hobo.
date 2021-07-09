@@ -34,7 +34,7 @@ class _InputFieldNewTourState extends State<InputFieldNewTour> {
         child: TextFormField(
           focusNode: widget.focusNode,
           autocorrect: false,
-          enableSuggestions: false,
+          enableSuggestions: true,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.035),
             hintText: widget.text,
