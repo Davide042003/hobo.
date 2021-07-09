@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -13,6 +14,7 @@ class NewTourProvider with ChangeNotifier {
 
   var uuid = Uuid();
   var tourId;
+  var activityId;
 
   // step 1
   String _tourName = "";
@@ -33,6 +35,9 @@ class NewTourProvider with ChangeNotifier {
   // step 3
   String _tourDate;
   String _tourTime;
+
+  // step 4
+  List<String> activities = List<String>.filled(5, "", growable: true);
 
   bool get addNewTourVisible => _addNewTourVisible;
 
@@ -64,6 +69,7 @@ class NewTourProvider with ChangeNotifier {
   String get tourDate => _tourDate;
 
   String get tourTime => _tourTime;
+
 
   set addNewTourVisible(bool value) {
     _addNewTourVisible = value;
@@ -152,10 +158,18 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // step 4
+  void createActivity (){
+    tourId = uuid.v1();
+    activityId = uuid.v1();
+
+    _repository.createActivity(_auth.currentUser.uid, tourId, activityId);
+  }
+
   // step 5 - publish tour
   void publishTour() {
-
-    tourId = uuid.v1();
+    // tourId was set in: createActivity function (step 4)
+    //tourId = uuid.v1();
 
     _repository.createTours(
       _auth.currentUser.uid,
@@ -177,6 +191,7 @@ class NewTourProvider with ChangeNotifier {
       22
     );
 
+    // save images
     tourImages.forEach((element) {
       _repository.addTourImage(_auth.currentUser.uid, tourId, element);
     });

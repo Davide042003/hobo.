@@ -166,7 +166,27 @@ class FirestoreService {
       'timeCreation': Timestamp.now()
     });
 
-    print('Success: Tour Created!');
+    print('Success: Image Added!');
+
+  }
+
+  // create activity
+  Future<void> createActivity(userId, tourId, activityId) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId).collection('activities').doc(activityId)
+        .set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'activityId': activityId,
+      'timeCreation': Timestamp.now()
+    });
+
+    print('Success: Activity Created!');
 
   }
 
