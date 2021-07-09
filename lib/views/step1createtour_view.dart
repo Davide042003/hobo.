@@ -84,7 +84,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
   }
 
   String _tourName = '';
-  String _tourPlace = '';
+  String _tourPlaceName = "";
+  String _tourPlaceId = "";
   int _maxPeople = 0;
   bool _allowChildren = false;
   bool _private = false;
@@ -203,7 +204,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: SizeConfig.screenWidth * 0.035,vertical: SizeConfig.screenHeight *0.015),
                                   child: Text(
-                                    "Tour Place",
+                                    addNewTour.tourPlaceName,
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 15,
@@ -404,13 +405,15 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
   void continueStep1 (NewTourProvider newTourProvider) {
     newTourProvider.setTourName = _tourName;
-    newTourProvider.setTourPlace = _tourPlace;
+    newTourProvider.setTourPlaceName = _tourPlaceName;
+    newTourProvider.setTourPlaceId = _tourPlaceId;
     newTourProvider.setNumberOfPeople = _maxPeople;
     newTourProvider.setIsForChildren = _allowChildren;
     newTourProvider.setIsPrivate = _private;
 
     print(newTourProvider.tourName);
-    print(newTourProvider.tourPlace);
+    print(newTourProvider.tourPlaceName);
+    print(newTourProvider.tourPlaceId);
     print(newTourProvider.numberOfPeople);
     print(newTourProvider.isForChildren);
     print(newTourProvider.isPrivate);

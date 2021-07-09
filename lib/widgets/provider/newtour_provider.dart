@@ -11,7 +11,8 @@ class NewTourProvider with ChangeNotifier {
 
   // step 1
   String _tourName = "";
-  String _tourPlace = "";
+  String _tourPlaceName = "";
+  String _tourPlaceId = "";
   int _numberOfPeople = 0;
   bool _isForChildren;
   bool _isPrivate;
@@ -32,7 +33,9 @@ class NewTourProvider with ChangeNotifier {
   // step 1
   String get tourName => _tourName;
 
-  String get tourPlace => _tourPlace;
+  String get tourPlaceName => _tourPlaceName;
+
+  String get tourPlaceId => _tourPlaceId;
 
   int get numberOfPeople => _numberOfPeople;
 
@@ -67,8 +70,13 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  set setTourPlace(String tourPlaceSet) {
-    _tourPlace = tourPlaceSet;
+  set setTourPlaceName(String tourPlaceNameSet) {
+    _tourPlaceName = tourPlaceNameSet;
+    notifyListeners();
+  }
+
+  set setTourPlaceId(String tourPlaceIdSet) {
+    _tourPlaceId = tourPlaceIdSet;
     notifyListeners();
   }
 
