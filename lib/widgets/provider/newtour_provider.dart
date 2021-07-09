@@ -2,12 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class NewTourProvider with ChangeNotifier {
   final FirestoreService _repository = FirestoreService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _addNewTourVisible = false;
+
+
+  var uuid = Uuid();
+  var tourId;
 
   // step 1
   String _tourName = "";
@@ -21,7 +26,7 @@ class NewTourProvider with ChangeNotifier {
   String _tourUrlImage1 = "";
   String _tourUrlImage2 = "";
   String _tourUrlImage3 = "";
-  List<String> tourImages = List<String>.empty(growable: true);
+  List<String> tourImages = List<String>.filled(5, "", growable: true);
   String _tourDescription = "";
   String _tourLanguage = "";
 
@@ -100,8 +105,11 @@ class NewTourProvider with ChangeNotifier {
   set setTourImages(String urlImage) {
     try {
       tourImages.add(urlImage);
-      print(urlImage);
-      print(urlImage[5]);
+      int i = 0;
+      tourImages.forEach((element) {
+        print("Image $i " + element);
+        i++;
+      });
     } catch (e) {
       print(e);
     }
@@ -146,8 +154,12 @@ class NewTourProvider with ChangeNotifier {
 
   // step 5 - publish tour
   void publishTour() {
+
+    tourId = uuid.v1();
+
     _repository.createTours(
       _auth.currentUser.uid,
+          tourId,
           _tourName,
       _tourPlaceName,
       _numberOfPeople,
@@ -165,6 +177,9 @@ class NewTourProvider with ChangeNotifier {
       22
     );
 
+    tourImages.forEach((element) {
+      _repository.addTourImage(_auth.currentUser.uid, tourId, element);
+    });
     // todo: clean all the variables from this script after publish a tour!
 
   }

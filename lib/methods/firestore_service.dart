@@ -108,10 +108,7 @@ class FirestoreService {
   }
 
   // Create Tours
-  Future<void> createTours(userId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTime, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
-    // generate random tourId
-    var uuid = Uuid();
-    var tourId = uuid.v1();
+  Future<void> createTours(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTime, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
 
     _db
         .collection('users')
