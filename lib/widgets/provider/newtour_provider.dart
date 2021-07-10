@@ -239,5 +239,43 @@ class NewTourProvider with ChangeNotifier {
       _repository.addTourImage(_auth.currentUser.uid, tourId, element);
     });
     // todo: clean all the variables from this script after publish a tour!
+    initVariables();
+  }
+
+  void initVariablesStep4Save () {
+    // step 4
+    _activityDescription = "";
+    _only18 = false;
+    _luxury = false;
+    _price = "";
+
+    notifyListeners();
+  }
+
+  void initVariables () {
+    // step 1
+    _tourName = "";
+    _tourPlaceName = "";
+    _tourPlaceId = "";
+    _numberOfPeople = 0;
+    _isForChildren = false;
+    _isPrivate = false;
+
+    // step 2
+    tourImages.clear();
+    _tourDescription = "";
+    _tourLanguage = "";
+
+    // step 3
+    _tourDate = "";
+    _tourTime = "";
+
+    // step 4
+    _activityDescription = "";
+    _only18 = false;
+    _luxury = false;
+    _price = "";
+
+    notifyListeners();
   }
 }

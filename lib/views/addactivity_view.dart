@@ -457,6 +457,8 @@ class _AddActivityState extends State<AddActivity> {
 
     newTourProvider.createActivity();
 
+    newTourProvider.initVariablesStep4Save();
+
     print(newTourProvider.activityDescription);
     print(newTourProvider.only18);
     print(newTourProvider.luxury);
