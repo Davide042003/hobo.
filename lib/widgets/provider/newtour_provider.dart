@@ -191,7 +191,10 @@ class NewTourProvider with ChangeNotifier {
   }
 
   void createActivity() {
-    tourId = uuid.v1();
+    if (tourId== null || tourId == "") {
+      print("Generate new tour from: createActivity from newtour_provider");
+      tourId = uuid.v1();
+    }
     activityId = uuid.v1();
     activitiesPlacesId = uuid.v1();
 
