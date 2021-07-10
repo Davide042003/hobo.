@@ -3,6 +3,7 @@ import 'package:hobo_test/widgets/add_tour/descriptionnewtour_widget.dart';
 import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class AddActivity extends StatefulWidget {
   final PageController pageController;
@@ -86,6 +87,7 @@ class _AddActivityState extends State<AddActivity> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
+    final addNewTour = Provider.of<NewTourProvider>(context);
 
     return GestureDetector(
       onTap: () {
@@ -398,7 +400,12 @@ class _AddActivityState extends State<AddActivity> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.27),
                       child: GestureDetector(
-                        onTap: _trySubmitForm,
+                        onTap: (){
+                          saveStep4(addNewTour);
+                          // todo: _trySubmitForm doesn't work
+                          _trySubmitForm();
+                          widget.pageController.jumpToPage(3);
+                        },
                         child: Container(
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.07,
@@ -440,5 +447,19 @@ class _AddActivityState extends State<AddActivity> {
         ),
       ),
     );
+  }
+
+  void saveStep4 (NewTourProvider newTourProvider) {
+    newTourProvider.setActivityDescription = _description;
+    newTourProvider.setOnly18 = _onlyAdult;
+    newTourProvider.setLuxury = _luxury;
+    newTourProvider.setPrice = _price;
+
+    newTourProvider.createActivity();
+
+    print(newTourProvider.activityDescription);
+    print(newTourProvider.only18);
+    print(newTourProvider.luxury);
+    print(newTourProvider.price);
   }
 }

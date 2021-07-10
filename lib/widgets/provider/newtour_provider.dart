@@ -11,32 +11,38 @@ class NewTourProvider with ChangeNotifier {
 
   bool _addNewTourVisible = false;
 
-
+  // Ids
   var uuid = Uuid();
   var tourId;
   var activityId;
+  var activitiesPlacesId;
 
   // step 1
   String _tourName = "";
   String _tourPlaceName = "";
   String _tourPlaceId = "";
   int _numberOfPeople = 0;
-  bool _isForChildren;
-  bool _isPrivate;
+  bool _isForChildren = false;
+  bool _isPrivate = false;
 
   // step 2
   String _tourUrlImage1 = "";
   String _tourUrlImage2 = "";
   String _tourUrlImage3 = "";
-  List<String> tourImages = List<String>.filled(5, "", growable: true);
+  List<String> tourImages = List<String>.filled(0, "", growable: true);
   String _tourDescription = "";
   String _tourLanguage = "";
 
   // step 3
-  String _tourDate;
-  String _tourTime;
+  String _tourDate = "";
+  String _tourTime = "";
 
   // step 4
+  String _activityDescription = "";
+  bool _only18 = false;
+  bool _luxury = false;
+  String _price = "";
+
   List<String> activities = List<String>.filled(5, "", growable: true);
 
   bool get addNewTourVisible => _addNewTourVisible;
@@ -70,6 +76,12 @@ class NewTourProvider with ChangeNotifier {
 
   String get tourTime => _tourTime;
 
+
+  // step 4
+  String get activityDescription => _activityDescription;
+  bool get only18 => _only18;
+  bool get luxury => _luxury;
+  String get price => _price;
 
   set addNewTourVisible(bool value) {
     _addNewTourVisible = value;
@@ -158,12 +170,41 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
   // step 4
-  void createActivity (){
+
+  set setActivityDescription(String descript) {
+    _activityDescription = descript;
+    notifyListeners();
+  }
+  set setOnly18(bool only) {
+    _only18 = only;
+    notifyListeners();
+  }
+  set setLuxury(bool lux) {
+    _luxury = lux;
+    notifyListeners();
+  }
+  set setPrice(String priceActivity) {
+    _price = priceActivity;
+    notifyListeners();
+  }
+
+  void createActivity() {
     tourId = uuid.v1();
     activityId = uuid.v1();
+    activitiesPlacesId = uuid.v1();
 
-    _repository.createActivity(_auth.currentUser.uid, tourId, activityId);
+    _repository.createActivity(
+        _auth.currentUser.uid,
+        tourId,
+        activityId,
+    _activityDescription,
+      _only18,
+      _luxury,
+      activitiesPlacesId,
+      _price
+    );
   }
 
   // step 5 - publish tour
@@ -172,31 +213,28 @@ class NewTourProvider with ChangeNotifier {
     //tourId = uuid.v1();
 
     _repository.createTours(
-      _auth.currentUser.uid,
-          tourId,
-          _tourName,
-      _tourPlaceName,
-      _numberOfPeople,
-      _isForChildren,
-      _isPrivate,
-      _tourDescription,
-      _tourLanguage,
-      _tourUrlImage1,
-      _tourDate,
-      _tourTime,
-      "id attività",
-      "id vehicles",
-      4,
-      5,
-      22
-    );
+        _auth.currentUser.uid,
+        tourId,
+        _tourName,
+        _tourPlaceName,
+        _numberOfPeople,
+        _isForChildren,
+        _isPrivate,
+        _tourDescription,
+        _tourLanguage,
+        _tourUrlImage1,
+        _tourDate,
+        _tourTime,
+        "id attività",
+        "id vehicles",
+        4,
+        5,
+        22);
 
     // save images
     tourImages.forEach((element) {
       _repository.addTourImage(_auth.currentUser.uid, tourId, element);
     });
     // todo: clean all the variables from this script after publish a tour!
-
   }
-
 }

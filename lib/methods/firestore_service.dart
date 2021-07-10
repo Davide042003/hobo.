@@ -171,7 +171,7 @@ class FirestoreService {
   }
 
   // create activity
-  Future<void> createActivity(userId, tourId, activityId) async {
+  Future<void> createActivity(userId, tourId, activityId, description, only18, luxury, activitiesPlacesId, price) async {
 
     _db
         .collection('users')
@@ -183,6 +183,11 @@ class FirestoreService {
       'userId': userId,
       'tourId': tourId,
       'activityId': activityId,
+      'description': description,
+      'only18': only18,
+      'luxury': luxury,
+      'activitiesPlacesId': activitiesPlacesId,
+      'price': price,
       'timeCreation': Timestamp.now()
     });
 
