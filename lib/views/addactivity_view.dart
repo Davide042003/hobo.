@@ -324,15 +324,59 @@ class _AddActivityState extends State<AddActivity> {
                       ),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.01),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.screenWidth * 0.0465,
-                      ),
-                      child: InputFieldNewTour(
-                          "Activity place",
-                          (value) => _place = value,
-                          focusNodePlace,
-                          focusNodePrice, false),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        setState(() {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+                          widget.pageController.jumpToPage(8);
+                        });
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.screenWidth * 0.0465,
+                          ),
+                          child: Theme(
+                            data: new ThemeData(
+                              primaryColor: Color.fromRGBO(116, 142, 243, 1),
+                              hintColor: Styles.loginregister_subheadingandform(
+                                  themeChange.darkTheme, context),
+                            ),
+                            child: Container(
+                              width: SizeConfig.screenWidth,
+                              height: SizeConfig.screenHeight * 0.055,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(5)),
+                                color: Styles.publishtour_backgroundinputfield(
+                                    themeChange.darkTheme, context),
+                              ),
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                      SizeConfig.screenWidth * 0.035,
+                                      vertical:
+                                      SizeConfig.screenHeight * 0.015),
+                                  child: Text(
+                                    addNewTour.tourPlaceNameActivity.isNotEmpty
+                                        ? addNewTour.tourPlaceNameActivity
+                                        : "Activity Place",
+                                    style: TextStyle(
+                                      fontFamily: Constants.POPPINS,
+                                      fontSize: 15,
+                                      color: addNewTour.tourPlaceNameActivity.isNotEmpty
+                                          ? Styles.whiteblack(
+                                          themeChange.darkTheme, context)
+                                          : Styles.publishtour_hintText(
+                                          themeChange.darkTheme, context),
+                                    ),
+                                  )),
+                            ),
+                          )),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.02),
                     Padding(
@@ -379,7 +423,7 @@ class _AddActivityState extends State<AddActivity> {
                           SizedBox(width: SizeConfig.screenWidth * 0.01,),
                           Expanded(
                             child: InputFieldNewTour("Price per person",
-                                (value) => _price = value, focusNodePrice, null, true),
+                                (value) => _price = value, focusNodePrice, null, true, null),
                           ),
                         ],
                       ),

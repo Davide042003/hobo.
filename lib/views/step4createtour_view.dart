@@ -118,6 +118,7 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                               ),
                               onTap: () {
                                 widget.pageController.jumpToPage(5);
+                                addNewTour.setPlaceNameActivity = "";
                               },
                             );
                           } else {

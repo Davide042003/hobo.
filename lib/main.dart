@@ -157,7 +157,7 @@ class AfterLoad extends StatelessWidget {
       future: _repository.getCurrentUser(),
       builder: (context, AsyncSnapshot<User> snapshot){
         if (snapshot.hasData){
-          return LoginRegisterView();
+          return ManagePagesView();
         } else {
           Future.wait([
             precachePicture(

@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/addactivity_view.dart';
 import 'package:hobo_test/views/chooseplace_view.dart';
+import 'package:hobo_test/views/chooseplaceactivity_view.dart';
 import 'package:hobo_test/views/hotplaces_view.dart';
 import 'package:hobo_test/views/step1createtour_view.dart';
 import 'package:hobo_test/views/step1extrainformation_view.dart';
@@ -87,7 +88,8 @@ class _HomeViewState extends State<HomeView> {
                     Step5CreateTour(_pageController),
                     AddActivity(_pageController),
                     AddVehicle(_pageController),
-                    ChoosePlace(_pageController)
+                    ChoosePlace(_pageController),
+                    ChoosePlaceActivity(_pageController)
                   ],
                 ),
               ),

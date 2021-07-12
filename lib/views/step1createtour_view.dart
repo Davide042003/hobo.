@@ -22,6 +22,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
   FocusNode focusNodeTourPlace;
   FocusNode focusNodeContinue;
 
+  final tourNameController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -66,13 +68,15 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     focusNodeTourName.dispose();
     focusNodeTourPlace.dispose();
     focusNodeContinue.dispose();
+    tourNameController.dispose();
 
     super.dispose();
   }
 
-  void _updateCounter(int value) {
+  void _updateCounter(int value, NewTourProvider newTourProvider) {
     setState(() {
       _maxPeople = value;
+      newTourProvider.setNumberOfPeople = _maxPeople;
     });
   }
 
@@ -98,6 +102,15 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
+
+    tourNameController.value = addNewTour.tourName.isNotEmpty
+        ? TextEditingValue(
+            text: addNewTour.tourName,
+            selection: TextSelection.fromPosition(
+              TextPosition(offset: addNewTour.tourName.length),
+            ),
+          )
+        : TextEditingValue(text: "");
 
     return GestureDetector(
       onTap: () {
@@ -149,13 +162,11 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.0465,
                       ),
-                      child: InputFieldNewTour(
-                          addNewTour.tourName != ""
-                              ? addNewTour.tourName
-                              : "Tour Name", (value) {
+                      child: InputFieldNewTour("Tour Name", (value) {
                         _tourName = value;
                         addNewTour.setTourName = _tourName;
-                      }, focusNodeTourName, focusNodeTourPlace, false),
+                      }, focusNodeTourName, focusNodeTourPlace, false,
+                          tourNameController),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.03),
                     Padding(
@@ -181,6 +192,11 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
                         setState(() {
+                          FocusScopeNode currentFocus = FocusScope.of(context);
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
                           widget.pageController.jumpToPage(7);
                         });
                       },
@@ -210,14 +226,17 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                       vertical:
                                           SizeConfig.screenHeight * 0.015),
                                   child: Text(
-                                    addNewTour.tourPlaceName != null
+                                    addNewTour.tourPlaceName.isNotEmpty
                                         ? addNewTour.tourPlaceName
                                         : "Tour Place",
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 15,
-                                      color: Styles.publishtour_hintText(
-                                          themeChange.darkTheme, context),
+                                      color: addNewTour.tourPlaceName.isNotEmpty
+                                          ? Styles.whiteblack(
+                                              themeChange.darkTheme, context)
+                                          : Styles.publishtour_hintText(
+                                              themeChange.darkTheme, context),
                                     ),
                                   )),
                             ),
@@ -295,7 +314,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                         child: Row(
                           children: [
                             CounterWidget((value) {
-                              _updateCounter(value);
+                              _updateCounter(value, addNewTour);
                             })
                           ],
                         )),
@@ -340,6 +359,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                     } else {
                                       _private = false;
                                     }
+                                    addNewTour.setIsPrivate = _private;
                                   });
                                 }),
                             SizedBox(

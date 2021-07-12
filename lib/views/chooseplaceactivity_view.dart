@@ -4,16 +4,16 @@ import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
-class ChoosePlace extends StatefulWidget {
+class ChoosePlaceActivity extends StatefulWidget {
   final PageController pageController;
 
-  ChoosePlace(this.pageController);
+  ChoosePlaceActivity(this.pageController);
 
   @override
-  _ChoosePlaceState createState() => _ChoosePlaceState();
+  _ChoosePlaceActivityState createState() => _ChoosePlaceActivityState();
 }
 
-class _ChoosePlaceState extends State<ChoosePlace> {
+class _ChoosePlaceActivityState extends State<ChoosePlaceActivity> {
 
   FocusNode focusNodePlace;
   TextEditingController controllerText = new TextEditingController();
@@ -43,7 +43,7 @@ class _ChoosePlaceState extends State<ChoosePlace> {
   }
 
   void changePage(){
-    widget.pageController.jumpToPage(0);
+    widget.pageController.jumpToPage(5);
   }
 
   @override
@@ -92,7 +92,7 @@ class _ChoosePlaceState extends State<ChoosePlace> {
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                       bottom:
-                                          SizeConfig.screenHeight * 0.005),
+                                      SizeConfig.screenHeight * 0.005),
                                   child: Icon(
                                     CustomIcons.backarrow,
                                     color: Styles.publishtour_close(
@@ -103,7 +103,7 @@ class _ChoosePlaceState extends State<ChoosePlace> {
                           ),
                           onTap: () {
                             setState(() {
-                              widget.pageController.jumpToPage(0);
+                              widget.pageController.jumpToPage(5);
                               FocusScopeNode currentFocus = FocusScope.of(context);
 
                               if (!currentFocus.hasPrimaryFocus) {
@@ -152,7 +152,7 @@ class _ChoosePlaceState extends State<ChoosePlace> {
                     padding: EdgeInsets.symmetric(
                       horizontal: SizeConfig.screenWidth * 0.0465,
                     ),
-                    child: SearchBarAddWidget(focusNodePlace, controllerText, changePage, 1),
+                    child: SearchBarAddWidget(focusNodePlace, controllerText, changePage, 2),
                   ),
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.015,

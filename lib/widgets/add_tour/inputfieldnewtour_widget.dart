@@ -7,8 +7,9 @@ class InputFieldNewTour extends StatefulWidget {
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
   final bool isForNumber;
+  final TextEditingController textEditingController;
 
-  const InputFieldNewTour(this.text, this.onChanged, this.focusNode, this.nextFocusNode, this.isForNumber);
+  const InputFieldNewTour(this.text, this.onChanged, this.focusNode, this.nextFocusNode, this.isForNumber, this.textEditingController);
 
   @override
   _InputFieldNewTourState createState() => _InputFieldNewTourState();
@@ -32,6 +33,7 @@ class _InputFieldNewTourState extends State<InputFieldNewTour> {
           color: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
         ),
         child: TextFormField(
+          controller: widget.textEditingController,
           focusNode: widget.focusNode,
           autocorrect: false,
           enableSuggestions: true,

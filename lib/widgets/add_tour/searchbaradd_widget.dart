@@ -12,8 +12,9 @@ class SearchBarAddWidget extends StatefulWidget {
   final FocusNode focusNode;
   final TextEditingController controller;
   final VoidCallback changePage;
+  final int what;
 
-  SearchBarAddWidget(this.focusNode, this.controller, this.changePage);
+  SearchBarAddWidget(this.focusNode, this.controller, this.changePage, this.what);
 
   @override
   _SearchBarAddWidgetState createState() => _SearchBarAddWidgetState();
@@ -104,8 +105,15 @@ class _SearchBarAddWidgetState extends State<SearchBarAddWidget> {
                                     isAutocompleteEnabled = false;
 
                                     // save "index" in newtour_provider
-                                    addNewTour.setTourPlaceName = _placeList[index].mainText;
-                                    addNewTour.setTourPlaceId = _placeList[index].id;
+                                    if(widget.what == 1) {
+                                     addNewTour.setTourPlaceName = _placeList[index].mainText;
+                                     addNewTour.setTourPlaceId = _placeList[index].id;
+                                    }else if(widget.what==2) {
+                                      addNewTour.setPlaceNameActivity =
+                                          _placeList[index].mainText;
+                                      addNewTour.setPlaceIdActivity =
+                                          _placeList[index].id;
+                                    }
 
                                     print(addNewTour.tourPlaceName + " " + addNewTour.tourPlaceId);
 

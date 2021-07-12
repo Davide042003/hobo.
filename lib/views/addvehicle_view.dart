@@ -231,7 +231,7 @@ class _AddVehicleState extends State<AddVehicle> {
                           SizedBox(width: SizeConfig.screenWidth * 0.01,),
                           Expanded(
                             child: InputFieldNewTour("Enter price",
-                                    (value) => _price = value, focusNodePrice, null, true),
+                                    (value) => _price = value, focusNodePrice, null, true, null),
                           ),
                         ],
                       ),

@@ -42,6 +42,8 @@ class NewTourProvider with ChangeNotifier {
   bool _only18 = false;
   bool _luxury = false;
   String _price = "";
+  String _tourPlaceNameActivity = "";
+  String _tourPlaceIdActivity = "";
 
   List<String> activities = List<String>.filled(5, "", growable: true);
 
@@ -82,6 +84,8 @@ class NewTourProvider with ChangeNotifier {
   bool get only18 => _only18;
   bool get luxury => _luxury;
   String get price => _price;
+  String get tourPlaceNameActivity => _tourPlaceNameActivity;
+  String get tourPlaceIdActivity => _tourPlaceIdActivity;
 
   set addNewTourVisible(bool value) {
     _addNewTourVisible = value;
@@ -187,6 +191,16 @@ class NewTourProvider with ChangeNotifier {
   }
   set setPrice(String priceActivity) {
     _price = priceActivity;
+    notifyListeners();
+  }
+
+  set setPlaceNameActivity(String namePlaceActivity) {
+    _tourPlaceNameActivity = namePlaceActivity;
+    notifyListeners();
+  }
+
+  set setPlaceIdActivity(String tourPlaceActivityIdSet) {
+    _tourPlaceIdActivity = tourPlaceActivityIdSet;
     notifyListeners();
   }
 

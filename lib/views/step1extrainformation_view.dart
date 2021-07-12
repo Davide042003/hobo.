@@ -162,7 +162,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
                           "Name",
                               (value) => _name = value,
                           focusNodeName,
-                          focusNodeSurname, false),
+                          focusNodeSurname, false, null),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.03),
                     Padding(
@@ -192,7 +192,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
                           "Surname",
                               (value) => _surname = value,
                           focusNodeSurname,
-                          null, false),
+                          null, false, null),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.03),
                     Padding(
