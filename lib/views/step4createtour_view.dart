@@ -84,12 +84,12 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                   SizedBox(height: SizeConfig.screenHeight * 0.015),
                   Container(
                     constraints: BoxConstraints(
-                      maxHeight: SizeConfig.screenHeight * 0.4
+                      maxHeight: SizeConfig.screenHeight * 0.25
                     ),
                       margin: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.05),
                       child: ListView.separated(
-                        itemCount: 1,
+                        itemCount: 10,
                         padding: EdgeInsets.zero,
                         primary: false,
                         shrinkWrap: true,
@@ -122,7 +122,7 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                               },
                             );
                           } else {
-                            return CardTourAddWidget();
+                            return CardTourAddWidget(boldText: "Bold Text", textDescription: "qui ci va la descrizione della attività", price: "25", only18: true, luxury: true,);
                           }
                         },
                         separatorBuilder: (context, i) =>
