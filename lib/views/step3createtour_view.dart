@@ -4,7 +4,6 @@ import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
-import 'package:marquee/marquee.dart';
 import 'package:simple_time_range_picker/simple_time_range_picker.dart';
 
 class Step3CreateTour extends StatefulWidget {
