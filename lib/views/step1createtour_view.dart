@@ -337,16 +337,16 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                   decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(5)),
-                                      color: _private
+                                      color: addNewTour.isPrivate
                                           ? Color.fromRGBO(245, 95, 185, 1)
                                           : Colors.transparent,
-                                      border: _private
+                                      border: addNewTour.isPrivate
                                           ? null
                                           : Border.all(
                                               color: Color.fromRGBO(
                                                   213, 213, 213, 1),
                                               width: 1)),
-                                  child: _private
+                                  child: addNewTour.isPrivate
                                       ? Icon(
                                           CustomIcons.check,
                                           size: 9,
@@ -356,12 +356,12 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                 ),
                                 onTap: () {
                                   setState(() {
-                                    if (_private == false) {
-                                      _private = true;
+                                    if (addNewTour.isPrivate == false) {
+                                      addNewTour.setIsPrivate = true;
                                     } else {
-                                      _private = false;
+                                      addNewTour.setIsPrivate = false;
                                     }
-                                    addNewTour.setIsPrivate = _private;
+                                    //addNewTour.setIsPrivate = _private;
                                   });
                                 }),
                             SizedBox(
