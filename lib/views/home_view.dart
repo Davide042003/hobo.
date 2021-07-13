@@ -14,6 +14,7 @@ import 'package:hobo_test/views/step2extrainformation.dart';
 import 'package:hobo_test/views/step3createtour_view.dart';
 import 'package:hobo_test/views/step4createtour_view.dart';
 import 'package:hobo_test/views/step5createtour_view.dart';
+import 'package:hobo_test/widgets/categories_list.dart';
 import 'package:hobo_test/widgets/home/hotplaceshome_widget.dart';
 import 'package:hobo_test/widgets/home/maphome_widget.dart';
 import 'package:hobo_test/widgets/home/profileimagehome_widget.dart';
@@ -108,7 +109,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
 
-   /* SchedulerBinding.instance.addPostFrameCallback((_) {
+    /* SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() {
         final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
         final addNewTour = Provider.of<NewTourProvider>(context, listen: false);
@@ -192,7 +193,8 @@ class _HomeViewState extends State<HomeView> {
                             ],
                           ),
                           child: ProfileImageHomeWidget(
-                              image: AssetImage("assets/images/provaSocial.jpeg"),
+                              image:
+                                  AssetImage("assets/images/provaSocial.jpeg"),
                               initials: "DB")),
                       onTap: () {
                         page.changePage = 4;
@@ -207,9 +209,8 @@ class _HomeViewState extends State<HomeView> {
                     horizontal: SizeConfig.screenWidth * 0.07),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade300),
-                    borderRadius: BorderRadius.all(Radius.circular(30))
-                  ),
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                     child: Container(
@@ -219,7 +220,9 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: new BorderRadius.all(Radius.circular(30)),
                         color: Colors.grey,
                       ),
-                      child: addNewTour.addNewTourVisible == true ? SizedBox() : MapHomeWidget(),
+                      child: addNewTour.addNewTourVisible == true
+                          ? SizedBox()
+                          : MapHomeWidget(),
                     ),
                   ),
                 ),
@@ -299,40 +302,26 @@ class _HomeViewState extends State<HomeView> {
               SizedBox(height: SizeConfig.screenHeight * 0.02),
               Container(
                 height: SizeConfig.screenHeight * 0.05,
-                child: ListView(
-                  padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
-                  primary: false,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    CategoriesWidget(
-                        Color.fromRGBO(255, 113, 184, .11),
-                        Color.fromRGBO(245, 83, 163, 1),
-                        0.31,
-                        Ionicons.restaurant,
-                        "Restaurants"),
-                    SizedBox(width: SizeConfig.screenWidth * 0.03),
-                    CategoriesWidget(
-                        Color.fromRGBO(117, 149, 255, .11),
-                        Color.fromRGBO(75, 114, 241, 1),
-                        0.22,
-                        Ionicons.bed,
-                        "Hotels"),
-                    SizedBox(width: SizeConfig.screenWidth * 0.03),
-                    CategoriesWidget(
-                        Color.fromRGBO(80, 206, 134, .11),
-                        Color.fromRGBO(32, 194, 101, 1),
-                        0.2,
-                        Ionicons.earth,
-                        "Bars"),
-                    SizedBox(width: SizeConfig.screenWidth * 0.03),
-                    CategoriesWidget(
-                        Color.fromRGBO(255, 113, 184, .11),
-                        Color.fromRGBO(245, 83, 163, 1),
-                        0.31,
-                        Ionicons.restaurant,
-                        "Restaurants"),
-                  ],
-                ),
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    primary: false,
+                    padding:
+                        EdgeInsets.only(left: SizeConfig.screenWidth * 0.07),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: CategoriesList().tags.length,
+                    separatorBuilder: (context, i) {
+                      return SizedBox(width: SizeConfig.screenWidth * 0.03);
+                    },
+                    itemBuilder: (context, i) {
+                      return GestureDetector(
+                          child: CategoriesWidget(
+                        CategoriesList().tags[i].colorBackground,
+                        CategoriesList().tags[i].colorBackgroundIconEnd,
+                        CategoriesList().tags[i].widthBackground,
+                        CategoriesList().tags[i].icon,
+                        CategoriesList().tags[i].category,
+                      ));
+                    }),
               ),
             ],
           ),
@@ -350,10 +339,11 @@ class _HomeViewState extends State<HomeView> {
                     width: SizeConfig.screenWidth,
                     height: SizeConfig.screenHeight,
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Styles.publishtour_blur(themeChange.darkTheme, context))))))
+                        filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Styles.publishtour_blur(
+                                    themeChange.darkTheme, context))))))
             : SizedBox()
       ],
     );

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
-class CategoriesWidget extends StatelessWidget {
+class CategoriesSelectedWidget extends StatelessWidget {
   final Color colorBackground;
   final Color colorBackgroundIconEnd;
   final double widthBackground;
   final IconData icon;
   final String category;
 
-  CategoriesWidget(this.colorBackground, this.colorBackgroundIconEnd, this.widthBackground, this.icon, this.category);
+  CategoriesSelectedWidget(this.colorBackground, this.colorBackgroundIconEnd, this.widthBackground, this.icon, this.category);
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,18 @@ class CategoriesWidget extends StatelessWidget {
           width: SizeConfig.screenWidth * widthBackground,
           height: SizeConfig.screenHeight * 0.04,
           child: Row(children: [
+             Container(
+              width: SizeConfig.screenWidth * 0.05,
+              height: SizeConfig.screenHeight,
+              child: Center(
+                child: Icon(
+                  CustomIcons.close,
+                  size: 14,
+                  color: Styles.whiteblack(
+                      themeChange.darkTheme, context).withOpacity(0.3),
+                ),
+              ),
+            ),
             Container(
               height: SizeConfig.screenHeight * 0.055,
               decoration: BoxDecoration(
@@ -38,7 +51,7 @@ class CategoriesWidget extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                     colorBackground.withOpacity(1),
+                      colorBackground.withOpacity(1),
                       colorBackgroundIconEnd
                     ]),
                 boxShadow: [
