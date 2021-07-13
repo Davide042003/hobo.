@@ -168,6 +168,7 @@ class _HomeViewState extends State<HomeView> {
                       onTap: () {
                         setState(() {
                           addNewTour.addNewTourVisible = true;
+                          addNewTour.setTourId();
                           downScroll.navigationdown = true;
                           _openPopUp(themeChange.darkTheme);
                         });

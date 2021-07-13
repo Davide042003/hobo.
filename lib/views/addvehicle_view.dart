@@ -183,7 +183,7 @@ class _AddVehicleState extends State<AddVehicle> {
                                 )
                               ],
                             ),
-                            Expanded(child: Align(alignment:Alignment.centerRight,child: CounterWidget((value) { _updateCounter(value);})))
+                            Expanded(child: Align(alignment:Alignment.centerRight,child: CounterWidget((value) { _updateCounter(value);}, false)))
                           ],
                         )),
                     SizedBox(height: SizeConfig.screenHeight * 0.02),

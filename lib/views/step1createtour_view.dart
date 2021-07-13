@@ -315,7 +315,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                           children: [
                             CounterWidget((value) {
                               _updateCounter(value, addNewTour);
-                            })
+                            }, true)
                           ],
                         )),
                     SizedBox(

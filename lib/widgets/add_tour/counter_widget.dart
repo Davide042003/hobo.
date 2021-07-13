@@ -4,8 +4,9 @@ import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class CounterWidget extends StatefulWidget {
   final Function(int) countPeople;
+  final bool isInStepOne;
 
-  const CounterWidget(this.countPeople);
+  const CounterWidget(this.countPeople, this.isInStepOne);
 
   @override
   _CounterWidgetState createState() => _CounterWidgetState();

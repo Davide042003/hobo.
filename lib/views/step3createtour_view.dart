@@ -148,11 +148,11 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
                               if (datePick != null) {
                                 setState(() {
                                   date = datePick;
-
                                   // put it here
                                   dateInString =
                                       "${date.month}/${date.day}/${date.year}";
                                   print(dateInString);
+
                                 });
                               }
                             }),
@@ -288,11 +288,13 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
   }
 
   void continueStep3(NewTourProvider newTourProvider) {
-    newTourProvider.setTourDate = _tourDate;
-    newTourProvider.setTourTime = _tourTime;
+    newTourProvider.setTourDate = dateInString;
+    newTourProvider.setTourTimeStart = timeStartInString;
+    newTourProvider.setTourTimeEnd = timeEndInString;
 
     print(newTourProvider.tourDate);
-    print(newTourProvider.tourTime);
+    print(newTourProvider.tourTimeStart);
+    print(newTourProvider.tourTimeEnd);
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,

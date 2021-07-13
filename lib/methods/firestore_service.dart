@@ -108,7 +108,7 @@ class FirestoreService {
   }
 
   // Create Tours
-  Future<void> createTours(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTime, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
+  Future<void> createTours(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTimeStart, tourTimeEnd, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
 
     _db
         .collection('users')
@@ -130,7 +130,8 @@ class FirestoreService {
       'tourLanguage': tourLanguage,
       //step 3
       'tourDate': tourDate,
-      'tourTime': tourTime,
+      'tourTimeStart': tourTimeStart,
+      'tourTimeEnd': tourTimeEnd,
       // step 4
       'tourActivitiesId': tourActivitiesId,
       // step5

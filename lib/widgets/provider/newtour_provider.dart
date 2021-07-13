@@ -13,7 +13,7 @@ class NewTourProvider with ChangeNotifier {
 
   // Ids
   var uuid = Uuid();
-  var tourId;
+  var tourId = "";
   var activityId;
   var activitiesPlacesId;
 
@@ -35,7 +35,8 @@ class NewTourProvider with ChangeNotifier {
 
   // step 3
   String _tourDate = "";
-  String _tourTime = "";
+  String _tourTimeStart = "";
+  String _tourTimeEnd = "";
 
   // step 4
   String _activityDescription = "";
@@ -44,6 +45,11 @@ class NewTourProvider with ChangeNotifier {
   String _price = "";
   String _tourPlaceNameActivity = "";
   String _tourPlaceIdActivity = "";
+
+  // step 5
+  int _numberOfPeopleVehicle = 0;
+  String _priceVehicle = "";
+
 
   List<String> activities = List<String>.filled(5, "", growable: true);
 
@@ -76,7 +82,9 @@ class NewTourProvider with ChangeNotifier {
   // step 3
   String get tourDate => _tourDate;
 
-  String get tourTime => _tourTime;
+  String get tourTimeStart => _tourTimeStart;
+
+  String get tourTimeEnd => _tourTimeEnd;
 
 
   // step 4
@@ -87,11 +95,21 @@ class NewTourProvider with ChangeNotifier {
   String get tourPlaceNameActivity => _tourPlaceNameActivity;
   String get tourPlaceIdActivity => _tourPlaceIdActivity;
 
+  // step 5
+  int get numberOfPeopleVehicle => _numberOfPeopleVehicle;
+  String get priceVehicle => _priceVehicle;
+
+
   set addNewTourVisible(bool value) {
     _addNewTourVisible = value;
     notifyListeners();
   }
 
+  void setTourId () {
+    tourId = uuid.v1();
+    print("ID del tour: " + tourId);
+    notifyListeners();
+  }
   // step 1
   set setTourName(String tourNameSet) {
     _tourName = tourNameSet;
@@ -169,8 +187,12 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  set setTourTime(String time) {
-    _tourTime = time;
+  set setTourTimeStart(String time) {
+    _tourTimeStart = time;
+    notifyListeners();
+  }
+  set setTourTimeEnd(String time) {
+    _tourTimeEnd = time;
     notifyListeners();
   }
 
@@ -205,10 +227,7 @@ class NewTourProvider with ChangeNotifier {
   }
 
   void createActivity() {
-    if (tourId== null || tourId == "") {
-      print("Generate new tour from: createActivity from newtour_provider");
-      tourId = uuid.v1();
-    }
+
     activityId = uuid.v1();
     activitiesPlacesId = uuid.v1();
 
@@ -241,7 +260,8 @@ class NewTourProvider with ChangeNotifier {
         _tourLanguage,
         _tourUrlImage1,
         _tourDate,
-        _tourTime,
+        _tourTimeStart,
+        _tourTimeEnd,
         "id attività",
         "id vehicles",
         4,
@@ -282,7 +302,8 @@ class NewTourProvider with ChangeNotifier {
 
     // step 3
     _tourDate = "";
-    _tourTime = "";
+    _tourTimeStart = "";
+    _tourTimeEnd = "";
 
     // step 4
     _activityDescription = "";
@@ -290,6 +311,8 @@ class NewTourProvider with ChangeNotifier {
     _luxury = false;
     _price = "";
 
+
+    tourId = "";
     notifyListeners();
   }
 }
