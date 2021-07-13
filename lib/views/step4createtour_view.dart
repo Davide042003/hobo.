@@ -88,45 +88,47 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                     ),
                       margin: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.05),
-                      child: ListView.separated(
-                        itemCount: 10,
-                        padding: EdgeInsets.zero,
-                        primary: false,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, i) {
-                          if (i == 0) {
-                            return GestureDetector(
-                              child: Container(
-                                width: SizeConfig.screenWidth * 0.86,
-                                height: SizeConfig.screenHeight * 0.064,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5)),
-                                    border: Border.all(
-                                        color: Color.fromRGBO(116, 142, 243, 1),
-                                        width: 1),
-                                    color: Colors.transparent),
-                                child: Center(
-                                    child: Text(
-                                  "+",
-                                  style: TextStyle(
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color.fromRGBO(116, 142, 243, 1)),
-                                )),
-                              ),
-                              onTap: () {
-                                widget.pageController.jumpToPage(5);
-                                addNewTour.setPlaceNameActivity = "";
-                              },
-                            );
-                          } else {
-                            return CardTourAddWidget(boldText: "Bold Text", textDescription: "qui ci va la descrizione della attività", price: "25", only18: true, luxury: true,);
-                          }
-                        },
-                        separatorBuilder: (context, i) =>
-                            SizedBox(height: SizeConfig.screenHeight * 0.02),
+                      child: CupertinoScrollbar(
+                        child: ListView.separated(
+                          itemCount: 10,
+                          padding: EdgeInsets.zero,
+                          primary: false,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, i) {
+                            if (i == 0) {
+                              return GestureDetector(
+                                child: Container(
+                                  width: SizeConfig.screenWidth * 0.86,
+                                  height: SizeConfig.screenHeight * 0.064,
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                      border: Border.all(
+                                          color: Color.fromRGBO(116, 142, 243, 1),
+                                          width: 1),
+                                      color: Colors.transparent),
+                                  child: Center(
+                                      child: Text(
+                                    "+",
+                                    style: TextStyle(
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color.fromRGBO(116, 142, 243, 1)),
+                                  )),
+                                ),
+                                onTap: () {
+                                  widget.pageController.jumpToPage(5);
+                                  addNewTour.setPlaceNameActivity = "";
+                                },
+                              );
+                            } else {
+                              return CardTourAddWidget(boldText: "Bold Text", textDescription: "qui ci va la descrizione della attività", price: "25", only18: true, luxury: true,);
+                            }
+                          },
+                          separatorBuilder: (context, i) =>
+                              SizedBox(height: SizeConfig.screenHeight * 0.02),
+                        ),
                       )),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Container(
