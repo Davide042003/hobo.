@@ -115,6 +115,12 @@ class _CounterWidgetState extends State<CounterWidget> {
   }
 
   void updateNumberOfPeople (NewTourProvider tourProvider) {
-    tourProvider.setNumberOfPeople = _currentCount;
+    // step 1
+    if (widget.isInStepOne) {
+      tourProvider.setNumberOfPeople = _currentCount;
+    } else // step 5
+    if (widget.isInStepOne == false) {
+      tourProvider.setNumberOfPeopleVehicle = _currentCount;
+    }
   }
 }

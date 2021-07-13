@@ -3,6 +3,7 @@ import 'package:hobo_test/widgets/add_tour/counter_widget.dart';
 import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class AddVehicle extends StatefulWidget {
   final PageController pageController;
@@ -64,6 +65,7 @@ class _AddVehicleState extends State<AddVehicle> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
+    final addNewTour = Provider.of<NewTourProvider>(context);
 
     return GestureDetector(
       onTap: () {
@@ -252,7 +254,7 @@ class _AddVehicleState extends State<AddVehicle> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.27),
                       child: GestureDetector(
-                        onTap: _trySubmitForm,
+                        onTap: () => null,
                         child: Container(
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.07,
@@ -267,6 +269,12 @@ class _AddVehicleState extends State<AddVehicle> {
                                   ]),
                             ),
                             child: TextButton(
+                              onPressed: () {
+                                addNewTour.setNumberOfPeopleVehicle = _maxPeople;
+                                addNewTour.setPriceVehicle = _price;
+                                addNewTour.createVehicleInfo();
+                                _trySubmitForm();
+                              },
                               child: Padding(
                                 padding:
                                 const EdgeInsets.symmetric(horizontal: 20),

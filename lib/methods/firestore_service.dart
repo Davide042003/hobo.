@@ -196,6 +196,28 @@ class FirestoreService {
 
   }
 
+  // step 5 -> create collection -> doc
+  Future<void> createVehicleInfo(userId, tourId, vehicleId, numberOfPeopleVehicle, priceVehicle) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId).collection('vehicles').doc(vehicleId)
+        .set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'vehicleId': vehicleId,
+      'numberOfPeopleVehicle': numberOfPeopleVehicle,
+      'priceVehicle': priceVehicle,
+      'timeCreation': Timestamp.now()
+    });
+
+    print('Success: Vehicle Info Created!');
+
+  }
+
   // Create Tours
   Future<void> createPosts(userId, postName, postLocalization, postImage, postLikes, postDescription, postComments) async {
     // generate random tourId

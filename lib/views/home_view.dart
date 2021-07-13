@@ -24,6 +24,7 @@ import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
+import 'package:uuid/uuid.dart';
 
 import 'addvehicle_view.dart';
 
@@ -168,7 +169,11 @@ class _HomeViewState extends State<HomeView> {
                       onTap: () {
                         setState(() {
                           addNewTour.addNewTourVisible = true;
-                          addNewTour.setTourId();
+                          // generate tourId
+                          var uuid = Uuid();
+                          String tourId = uuid.v1();
+                          addNewTour.setTourId = tourId;
+                          // ----
                           downScroll.navigationdown = true;
                           _openPopUp(themeChange.darkTheme);
                         });

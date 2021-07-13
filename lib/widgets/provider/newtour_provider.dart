@@ -13,9 +13,10 @@ class NewTourProvider with ChangeNotifier {
 
   // Ids
   var uuid = Uuid();
-  var tourId = "";
+  var _tourId = "";
   var activityId;
   var activitiesPlacesId;
+  var vehicleId;
 
   // step 1
   String _tourName = "";
@@ -49,11 +50,13 @@ class NewTourProvider with ChangeNotifier {
   // step 5
   int _numberOfPeopleVehicle = 0;
   String _priceVehicle = "";
-
+  int _currentPeopleOfVehicle = 0;
+  String _typeOfVehicle = "";
 
   List<String> activities = List<String>.filled(5, "", growable: true);
 
   bool get addNewTourVisible => _addNewTourVisible;
+  String get tourId => _tourId;
 
   // step 1
   String get tourName => _tourName;
@@ -98,16 +101,17 @@ class NewTourProvider with ChangeNotifier {
   // step 5
   int get numberOfPeopleVehicle => _numberOfPeopleVehicle;
   String get priceVehicle => _priceVehicle;
-
+  int get currentPeopleOfVehicle => _currentPeopleOfVehicle;
+  String get typeOfVehicle => _typeOfVehicle;
 
   set addNewTourVisible(bool value) {
     _addNewTourVisible = value;
     notifyListeners();
   }
 
-  void setTourId () {
-    tourId = uuid.v1();
-    print("ID del tour: " + tourId);
+  set setTourId (String tourID) {
+    _tourId = tourID;
+    print("ID del tour: " + _tourId);
     notifyListeners();
   }
   // step 1
@@ -196,7 +200,6 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
   // step 4
 
   set setActivityDescription(String descript) {
@@ -226,6 +229,16 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // step 5
+  set setNumberOfPeopleVehicle(int numberOfPeopleVehicleSet) {
+    _numberOfPeopleVehicle = numberOfPeopleVehicleSet;
+    notifyListeners();
+  }
+  set setPriceVehicle(String priceV) {
+    _priceVehicle = priceV;
+    notifyListeners();
+  }
+
   void createActivity() {
 
     activityId = uuid.v1();
@@ -233,7 +246,7 @@ class NewTourProvider with ChangeNotifier {
 
     _repository.createActivity(
         _auth.currentUser.uid,
-        tourId,
+        _tourId,
         activityId,
     _activityDescription,
       _only18,
@@ -243,6 +256,20 @@ class NewTourProvider with ChangeNotifier {
     );
   }
 
+  void createVehicleInfo() {
+
+    vehicleId = uuid.v1();
+
+    _repository.createVehicleInfo(
+        _auth.currentUser.uid,
+        _tourId,
+        vehicleId,
+        _numberOfPeopleVehicle,
+        _priceVehicle
+    );
+  }
+
+
   // step 5 - publish tour
   void publishTour() {
     // tourId was set in: createActivity function (step 4)
@@ -250,7 +277,7 @@ class NewTourProvider with ChangeNotifier {
 
     _repository.createTours(
         _auth.currentUser.uid,
-        tourId,
+        _tourId,
         _tourName,
         _tourPlaceName,
         _numberOfPeople,
@@ -270,7 +297,7 @@ class NewTourProvider with ChangeNotifier {
 
     // save images
     tourImages.forEach((element) {
-      _repository.addTourImage(_auth.currentUser.uid, tourId, element);
+      _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
     });
     // todo: clean all the variables from this script after publish a tour!
     initVariables();
@@ -311,8 +338,12 @@ class NewTourProvider with ChangeNotifier {
     _luxury = false;
     _price = "";
 
+    // step 5
+    _numberOfPeopleVehicle = 0;
+    _priceVehicle = "";
 
-    tourId = "";
+    _tourId = "";
+
     notifyListeners();
   }
 }
