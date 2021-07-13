@@ -24,6 +24,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
   final tourNameController = TextEditingController();
 
+
+
   @override
   void initState() {
     super.initState();
@@ -277,16 +279,16 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(5)),
-                                    color: _allowChildren
+                                    color: addNewTour.isForChildren
                                         ? Color.fromRGBO(245, 95, 185, 1)
                                         : Colors.transparent,
-                                    border: _allowChildren
+                                    border: addNewTour.isForChildren
                                         ? null
                                         : Border.all(
                                             color: Styles.publishtour_check(
                                                 themeChange.darkTheme, context),
                                             width: 1)),
-                                child: _allowChildren
+                                child: addNewTour.isForChildren
                                     ? Icon(
                                         CustomIcons.check,
                                         size: 9,
@@ -296,10 +298,10 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                               ),
                               onTap: () {
                                 setState(() {
-                                  if (_allowChildren == false) {
-                                    _allowChildren = true;
+                                  if (addNewTour.isForChildren == false) {
+                                    addNewTour.setIsForChildren = true;
                                   } else {
-                                    _allowChildren = false;
+                                    addNewTour.setIsForChildren = false;
                                   }
                                 });
                               }),
