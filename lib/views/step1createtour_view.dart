@@ -27,7 +27,6 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
   final tourNameController = TextEditingController();
 
-
   List<CategoriesSelectedWidget> _selectedTags = [];
   List<CategoriesWidget> _nonSelectedTags = CategoriesList().tags;
 
@@ -89,7 +88,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
-    if (isValid && _maxPeople > 0 && _selectedTags.length>0) {
+    if (isValid && _maxPeople > 0 && _selectedTags.length > 0) {
       widget.pageController.nextPage(
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
@@ -422,40 +421,75 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                         padding: EdgeInsets.only(
                             left: SizeConfig.screenWidth * 0.0465),
                         scrollDirection: Axis.horizontal,
-                        itemCount: _selectedTags.length + _nonSelectedTags.length,
+                        itemCount:
+                            _selectedTags.length + _nonSelectedTags.length,
                         separatorBuilder: (context, i) {
                           return SizedBox(width: SizeConfig.screenWidth * 0.03);
                         },
                         itemBuilder: (context, i) {
-                          return i < _selectedTags.length ? GestureDetector(
-                            child: CategoriesSelectedWidget(
-                              _selectedTags[i].colorBackground,
-                              _selectedTags[i].colorBackgroundIconEnd,
-                              _selectedTags[i].widthBackground,
-                              _selectedTags[i].icon,
-                              _selectedTags[i].category,),
-                            onTap: () {
-                              setState(() {
-                                _nonSelectedTags.add(CategoriesWidget(_selectedTags[i].colorBackground, _selectedTags[i].colorBackgroundIconEnd, _selectedTags[i].widthBackground -0.06, _selectedTags[i].icon, _selectedTags[i].category));
-                                _selectedTags.removeAt(i);
-                              });
-                            },
-                          ) : GestureDetector(
-                            child: CategoriesWidget(
-                              _nonSelectedTags[i - _selectedTags.length].colorBackground,
-                              _nonSelectedTags[i - _selectedTags.length].colorBackgroundIconEnd,
-                              _nonSelectedTags[i - _selectedTags.length].widthBackground,
-                              _nonSelectedTags[i - _selectedTags.length].icon,
-                              _nonSelectedTags[i - _selectedTags.length].category,),
-                            onTap: () {
-                              setState(() {
-                                int actualDelete =i - _selectedTags.length;
+                          return i < _selectedTags.length
+                              ? GestureDetector(
+                                  child: CategoriesSelectedWidget(
+                                    _selectedTags[i].colorBackground,
+                                    _selectedTags[i].colorBackgroundIconEnd,
+                                    _selectedTags[i].widthBackground,
+                                    _selectedTags[i].icon,
+                                    _selectedTags[i].category,
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      _nonSelectedTags.add(CategoriesWidget(
+                                          _selectedTags[i].colorBackground,
+                                          _selectedTags[i]
+                                              .colorBackgroundIconEnd,
+                                          _selectedTags[i].widthBackground -
+                                              0.06,
+                                          _selectedTags[i].icon,
+                                          _selectedTags[i].category));
+                                      _selectedTags.removeAt(i);
+                                    });
+                                  },
+                                )
+                              : GestureDetector(
+                                  child: CategoriesWidget(
+                                    _nonSelectedTags[i - _selectedTags.length]
+                                        .colorBackground,
+                                    _nonSelectedTags[i - _selectedTags.length]
+                                        .colorBackgroundIconEnd,
+                                    _nonSelectedTags[i - _selectedTags.length]
+                                        .widthBackground,
+                                    _nonSelectedTags[i - _selectedTags.length]
+                                        .icon,
+                                    _nonSelectedTags[i - _selectedTags.length]
+                                        .category,
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      int actualDelete =
+                                          i - _selectedTags.length;
 
-                                _selectedTags.add(CategoriesSelectedWidget(_nonSelectedTags[i - _selectedTags.length].colorBackground, _nonSelectedTags[i - _selectedTags.length].colorBackgroundIconEnd, _nonSelectedTags[i - _selectedTags.length].widthBackground +0.06, _nonSelectedTags[i - _selectedTags.length].icon, _nonSelectedTags[i - _selectedTags.length].category));
-                                _nonSelectedTags.removeAt(actualDelete);
-                              });
-                            },
-                          );
+                                      _selectedTags.add(
+                                          CategoriesSelectedWidget(
+                                              _nonSelectedTags[
+                                                      i - _selectedTags.length]
+                                                  .colorBackground,
+                                              _nonSelectedTags[
+                                                      i - _selectedTags.length]
+                                                  .colorBackgroundIconEnd,
+                                              _nonSelectedTags[i -
+                                                          _selectedTags.length]
+                                                      .widthBackground +
+                                                  0.06,
+                                              _nonSelectedTags[
+                                                      i - _selectedTags.length]
+                                                  .icon,
+                                              _nonSelectedTags[
+                                                      i - _selectedTags.length]
+                                                  .category));
+                                      _nonSelectedTags.removeAt(actualDelete);
+                                    });
+                                  },
+                                );
                         },
                       ),
                     ),
@@ -578,6 +612,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                 onTap: () {
                   setState(() {
                     addNewTour.addNewTourVisible = false;
+                    addNewTour.initVariables();
                     downScroll.navigationdown = false;
                     Navigator.pop(context);
                   });

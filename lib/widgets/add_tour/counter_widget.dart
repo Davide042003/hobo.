@@ -24,21 +24,7 @@ class _CounterWidgetState extends State<CounterWidget> {
     super.initState();
   }
 
-  void _increment() {
-    setState(() {
-      _currentCount++;
-      widget.countPeople(_currentCount);
-    });
-  }
 
-  void _decrease() {
-    setState(() {
-      if (_currentCount > _minNumber) {
-        _currentCount--;
-        widget.countPeople(_currentCount);
-      }
-    });
-  }
 
 
   @override
@@ -60,7 +46,7 @@ class _CounterWidgetState extends State<CounterWidget> {
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
-              _decrease();
+              _decrease(addNewTour);
               updateNumberOfPeople(addNewTour);
             },
             child: Container(
@@ -83,15 +69,17 @@ class _CounterWidgetState extends State<CounterWidget> {
             height: SizeConfig.screenHeight * 0.045,
             color: Colors.white,
             child: Center(
-              child: Text(_currentCount.toString(), style: TextStyle(fontFamily: Constants.POPPINS,
+              child: widget.isInStepOne ? Text(addNewTour.numberOfPeople.toString(), style: TextStyle(fontFamily: Constants.POPPINS,
+                  fontSize: 15,
+                  color: Color.fromRGBO(51, 51, 51, 0.3))) : Text(addNewTour.numberOfPeopleVehicle.toString(), style: TextStyle(fontFamily: Constants.POPPINS,
                   fontSize: 15,
                   color: Color.fromRGBO(51, 51, 51, 0.3))),
-            )
+            ),
           ),
           GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
-              _increment();
+              _increment(addNewTour);
               updateNumberOfPeople(addNewTour);
             },
             child: Container(
@@ -112,6 +100,28 @@ class _CounterWidgetState extends State<CounterWidget> {
         ],
       ),
     );
+  }
+
+  void _increment(NewTourProvider tourProvider) {
+    setState(() {
+      _currentCount = tourProvider.numberOfPeople;
+      _currentCount ++;
+      tourProvider.setNumberOfPeople = _currentCount;
+
+      widget.countPeople(_currentCount);
+    });
+  }
+
+  void _decrease(NewTourProvider tourProvider) {
+    setState(() {
+      if (_currentCount > _minNumber) {
+        _currentCount = tourProvider.numberOfPeople;
+        _currentCount --;
+        tourProvider.setNumberOfPeople = _currentCount;
+
+        widget.countPeople(_currentCount);
+      }
+    });
   }
 
   void updateNumberOfPeople (NewTourProvider tourProvider) {
