@@ -43,6 +43,7 @@ dependencies:
   firebase_auth: ^1.4.1
   cloud_firestore: ^2.2.2
   uuid: ^3.0.4
+  google_sign_in: ^5.0.4
   splash_screen_view: ^3.0.0
   google_maps_flutter: ^2.0.6
   geolocator: ^7.2.0+1

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -105,6 +106,86 @@ class FirestoreService {
 
     print(userName);
 
+  }
+
+   Future<User> signInWithGoogle() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user;
+
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    final GoogleSignInAccount googleSignInAccount =
+    await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      var referralCode = DateTime
+          .now()
+          .millisecondsSinceEpoch
+          .toString();
+      var uuid = Uuid();
+      //var referralCode = uuid.v1();
+      print("Referral Code: $referralCode");
+
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      try {
+        final UserCredential userCredential =
+        await auth.signInWithCredential(credential);
+
+        user = userCredential.user;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          // handle the error here
+        }
+        else if (e.code == 'invalid-credential') {
+          // handle the error here
+        }
+      } catch (e) {
+        // handle the error here
+      }
+
+
+      _db
+          .collection('users')
+          .doc(user.uid)
+          .set({
+        'uid': user.uid,
+        'email': googleSignInAccount.email,
+        'name': googleSignInAccount.displayName,
+        'profilePic': null,
+        'username': googleSignInAccount.email.substring(0, googleSignInAccount.email.indexOf('@')),
+        'guide': false,
+        'referralCode': referralCode,
+        'ratings': 0,
+        'totalRatings': 0,
+        'revenue': 0.0,
+        'followers': 0,
+        'followed': 0,
+        'timeCreation': Timestamp.now()
+      });
+
+      userModel = UserModel(
+        uid: user.uid,
+        email: googleSignInAccount.email,
+        name: googleSignInAccount.displayName,
+      );
+
+
+      print(userModel.uid);
+      print(userModel.name);
+      userName = userModel.name;
+
+      print(userName);
+
+    }
+
+    return user;
   }
 
   // Create Tours
