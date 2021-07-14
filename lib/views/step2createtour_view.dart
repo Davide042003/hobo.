@@ -389,6 +389,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                   setState(() {
                     addNewTour.addNewTourVisible = false;
                     downScroll.navigationdown = false;
+                    addNewTour.initVariables();
                     Navigator.pop(context);
                   });
                 },

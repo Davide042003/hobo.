@@ -88,7 +88,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
 
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
-    if (isValid && _maxPeople > 0 && _selectedTags.length > 0) {
+    print("is valid $isValid");
+    if (isValid && _maxPeople > 0 && _selectedTags.length > 0 && _tourPlaceId != null) {
       widget.pageController.nextPage(
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }

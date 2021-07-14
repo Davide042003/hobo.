@@ -73,7 +73,9 @@ class _AddActivityState extends State<AddActivity> {
 
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
-    if (isValid) {}
+    if (isValid) {
+
+    }
   }
 
   bool _onlyAdult = false;
