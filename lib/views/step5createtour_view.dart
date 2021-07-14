@@ -29,10 +29,12 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
   void _trySubmitForm(NewTourProvider tour, NavigationBarProvider scroll) async {
     tour.addNewTourVisible = false;
     scroll.navigationdown = false;
+
+    //qui crea tour
+    tour.initVariables();
+
     Navigator.pop(context);
 
-//qui crea tour
-    tour.initVariables();
   }
 
   @override
@@ -240,6 +242,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
                                 setState(() {
                                   addNewTour.addNewTourVisible = false;
                                   downScroll.navigationdown = false;
+                                  addNewTour.initVariables();
                                   Navigator.pop(context);
                                 });
                               },
