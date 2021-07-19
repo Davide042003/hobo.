@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_provider.dart';
+import 'package:hobo_test/views/addpost_view.dart';
 import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
@@ -157,7 +158,7 @@ class AfterLoad extends StatelessWidget {
       future: _repository.getCurrentUser(),
       builder: (context, AsyncSnapshot<User> snapshot){
         if (snapshot.hasData){
-          return LoginRegisterView();
+          return AddPostView();
         } else {
           Future.wait([
             precachePicture(

@@ -277,4 +277,8 @@ class Styles {
   static Color hobo_splash(bool isDarkTheme, BuildContext context) {
     return isDarkTheme ? Colors.white : Color.fromRGBO(80, 84, 101, 1);
   }
+
+  static Color bar_addpost(bool isDarkTheme, BuildContext context) {
+    return isDarkTheme ? Color.fromRGBO(65, 65, 65, 1) : Color.fromRGBO(65, 65, 65, .09);
+  }
 }
