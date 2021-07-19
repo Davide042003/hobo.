@@ -82,54 +82,62 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                     ),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.015),
+                  Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.screenWidth * 0.0465,
+                  ),
+                  child: GestureDetector(
+                    child: Container(
+                      width: SizeConfig.screenWidth * 0.86,
+                      height: SizeConfig.screenHeight * 0.064,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(5)),
+                          border: Border.all(
+                              color: Color.fromRGBO(116, 142, 243, 1),
+                              width: 1),
+                          color: Colors.transparent),
+                      child: Center(
+                          child: Text(
+                            "+",
+                            style: TextStyle(
+                                fontSize: 40,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(116, 142, 243, 1)),
+                          )),
+                    ),
+                    onTap: () {
+                      widget.pageController.jumpToPage(5);
+                      addNewTour.setPlaceNameActivity = "";
+                    },
+                  ),
+                ),
+                  SizedBox(height: SizeConfig.screenHeight *0.03,),
+                  Container(
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.001,
+                    color: Color.fromRGBO(242, 242, 242, 1),
+                  ),
                   Container(
                     constraints: BoxConstraints(
                       maxHeight: SizeConfig.screenHeight * 0.25
                     ),
-                      margin: EdgeInsets.symmetric(
-                          horizontal: SizeConfig.screenWidth * 0.05),
                       child: CupertinoScrollbar(
-                        child: ListView.separated(
+                        child: ListView.builder(
                           itemCount: 10,
                           padding: EdgeInsets.zero,
                           primary: false,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, i) {
-                            if (i == 0) {
-                              return GestureDetector(
-                                child: Container(
-                                  width: SizeConfig.screenWidth * 0.86,
-                                  height: SizeConfig.screenHeight * 0.064,
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
-                                      border: Border.all(
-                                          color: Color.fromRGBO(116, 142, 243, 1),
-                                          width: 1),
-                                      color: Colors.transparent),
-                                  child: Center(
-                                      child: Text(
-                                    "+",
-                                    style: TextStyle(
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.w500,
-                                        color: Color.fromRGBO(116, 142, 243, 1)),
-                                  )),
-                                ),
-                                onTap: () {
-                                  widget.pageController.jumpToPage(5);
-                                  addNewTour.setPlaceNameActivity = "";
-                                },
-                              );
-                            } else {
                               return CardTourAddWidget(boldText: "Bold Text", textDescription: "qui ci va la descrizione della attività", price: "25", only18: true, luxury: true,);
-                            }
-                          },
-                          separatorBuilder: (context, i) =>
-                              SizedBox(height: SizeConfig.screenHeight * 0.02),
-                        ),
+                            })
                       )),
+                  Container(
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.001,
+                    color: Color.fromRGBO(242, 242, 242, 1),
+                  ),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
                   Container(
                     margin: EdgeInsets.symmetric(
