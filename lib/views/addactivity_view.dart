@@ -73,9 +73,7 @@ class _AddActivityState extends State<AddActivity> {
 
   void _trySubmitForm() async {
     final isValid = _formKey.currentState.validate();
-    if (isValid) {
-
-    }
+    if (isValid) {}
   }
 
   bool _onlyAdult = false;
@@ -91,6 +89,11 @@ class _AddActivityState extends State<AddActivity> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
 
+    if (addNewTour.activityDescription == "") {
+      _description = "Description";
+    } else {
+      _description = addNewTour.activityDescription;
+    }
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -131,7 +134,8 @@ class _AddActivityState extends State<AddActivity> {
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
                                     padding: EdgeInsets.only(
-                                        bottom: SizeConfig.screenHeight * 0.005),
+                                        bottom:
+                                            SizeConfig.screenHeight * 0.005),
                                     child: Icon(
                                       CustomIcons.backarrow,
                                       color: Styles.publishtour_close(
@@ -186,11 +190,11 @@ class _AddActivityState extends State<AddActivity> {
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.0465,
                       ),
-                      child: DescriptionNewTour(
-                          "Description",
-                          (value) => _description = value,
-                          focusNodeDescription,
-                          null),
+                      child: DescriptionNewTour(_description, (value) {
+                        addNewTour.setActivityDescription = value;
+                        _description = value;
+                      }
+                      , focusNodeDescription, null),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.02),
                     Padding(
@@ -214,7 +218,8 @@ class _AddActivityState extends State<AddActivity> {
                                           ? null
                                           : Border.all(
                                               color: Styles.publishtour_check(
-                                                  themeChange.darkTheme, context),
+                                                  themeChange.darkTheme,
+                                                  context),
                                               width: 1)),
                                   child: _onlyAdult
                                       ? Icon(
@@ -261,7 +266,8 @@ class _AddActivityState extends State<AddActivity> {
                                           ? null
                                           : Border.all(
                                               color: Styles.publishtour_check(
-                                                  themeChange.darkTheme, context),
+                                                  themeChange.darkTheme,
+                                                  context),
                                               width: 1)),
                                   child: _luxury
                                       ? Icon(
@@ -353,16 +359,16 @@ class _AddActivityState extends State<AddActivity> {
                               height: SizeConfig.screenHeight * 0.055,
                               decoration: BoxDecoration(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(5)),
+                                    BorderRadius.all(Radius.circular(5)),
                                 color: Styles.publishtour_backgroundinputfield(
                                     themeChange.darkTheme, context),
                               ),
                               child: Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal:
-                                      SizeConfig.screenWidth * 0.035,
+                                          SizeConfig.screenWidth * 0.035,
                                       vertical:
-                                      SizeConfig.screenHeight * 0.015),
+                                          SizeConfig.screenHeight * 0.015),
                                   child: Text(
                                     addNewTour.tourPlaceNameActivity.isNotEmpty
                                         ? addNewTour.tourPlaceNameActivity
@@ -370,11 +376,12 @@ class _AddActivityState extends State<AddActivity> {
                                     style: TextStyle(
                                       fontFamily: Constants.POPPINS,
                                       fontSize: 15,
-                                      color: addNewTour.tourPlaceNameActivity.isNotEmpty
+                                      color: addNewTour
+                                              .tourPlaceNameActivity.isNotEmpty
                                           ? Styles.whiteblack(
-                                          themeChange.darkTheme, context)
+                                              themeChange.darkTheme, context)
                                           : Styles.publishtour_hintText(
-                                          themeChange.darkTheme, context),
+                                              themeChange.darkTheme, context),
                                     ),
                                   )),
                             ),
@@ -410,22 +417,33 @@ class _AddActivityState extends State<AddActivity> {
                             width: SizeConfig.screenWidth * 0.1,
                             height: SizeConfig.screenHeight * 0.055,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(5)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
                               color: Styles.publishtour_backgroundinputfield(
                                   themeChange.darkTheme, context),
                             ),
                             child: Center(
-                              child: Text("\$", style: TextStyle(
-                                fontFamily: Constants.POPPINS,
-                                fontSize: 20,
-                                color: Styles.whiteblack(themeChange.darkTheme, context)
-                              ),),
+                              child: Text(
+                                "\$",
+                                style: TextStyle(
+                                    fontFamily: Constants.POPPINS,
+                                    fontSize: 20,
+                                    color: Styles.whiteblack(
+                                        themeChange.darkTheme, context)),
+                              ),
                             ),
                           ),
-                          SizedBox(width: SizeConfig.screenWidth * 0.01,),
+                          SizedBox(
+                            width: SizeConfig.screenWidth * 0.01,
+                          ),
                           Expanded(
-                            child: InputFieldNewTour("Price per person",
-                                (value) => _price = value, focusNodePrice, null, true, null),
+                            child: InputFieldNewTour(
+                                "Price per person",
+                                (value) => _price = value,
+                                focusNodePrice,
+                                null,
+                                true,
+                                null),
                           ),
                         ],
                       ),
@@ -446,7 +464,7 @@ class _AddActivityState extends State<AddActivity> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.27),
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           saveStep4(addNewTour);
                           // todo: _trySubmitForm doesn't work
                           _trySubmitForm();
@@ -456,7 +474,8 @@ class _AddActivityState extends State<AddActivity> {
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.07,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(35)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35)),
                               gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
@@ -495,7 +514,7 @@ class _AddActivityState extends State<AddActivity> {
     );
   }
 
-  void saveStep4 (NewTourProvider newTourProvider) {
+  void saveStep4(NewTourProvider newTourProvider) {
     newTourProvider.setActivityDescription = _description;
     newTourProvider.setOnly18 = _onlyAdult;
     newTourProvider.setLuxury = _luxury;
