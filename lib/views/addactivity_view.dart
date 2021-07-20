@@ -20,7 +20,7 @@ class _AddActivityState extends State<AddActivity> {
   FocusNode focusNodeDescription;
   FocusNode focusNodePlace;
   FocusNode focusNodePrice;
-  TextEditingController descriptionStep4Controller;
+  final descriptionStep4Controller = TextEditingController();
 
   @override
   void initState() {
@@ -69,6 +69,8 @@ class _AddActivityState extends State<AddActivity> {
     focusNodePrice.dispose();
     focusNodePlace.dispose();
 
+    descriptionStep4Controller.dispose();
+
     super.dispose();
   }
 
@@ -90,11 +92,14 @@ class _AddActivityState extends State<AddActivity> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
 
-    if (addNewTour.activityDescription == "") {
-      _description = "Description";
-    } else {
-      _description = addNewTour.activityDescription;
-    }
+    descriptionStep4Controller.value = addNewTour.activityDescription.isNotEmpty
+        ? TextEditingValue(
+      text: addNewTour.activityDescription,
+      selection: TextSelection.fromPosition(
+        TextPosition(offset: addNewTour.activityDescription.length),
+      ),
+    )
+        : TextEditingValue(text: "");
 
 
     return GestureDetector(
@@ -196,7 +201,6 @@ class _AddActivityState extends State<AddActivity> {
                       child: DescriptionNewTour("Description", (value) {
                         addNewTour.setActivityDescription = value;
                         _description = value;
-                        descriptionStep4Controller.text = value;
                       }
                       , focusNodeDescription, null, descriptionStep4Controller),
                     ),

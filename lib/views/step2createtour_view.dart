@@ -21,6 +21,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   FocusNode focusNodeDescription;
   FocusNode focusNodeLanguage;
 
+  final descriptionStep2Controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -57,6 +59,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     focusNodeDescription.dispose();
     focusNodeLanguage.dispose();
 
+    descriptionStep2Controller.dispose();
+
     super.dispose();
   }
 
@@ -76,7 +80,6 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   String _selectedLocation = "";
   String _description = '';
   String _language = "";
-  TextEditingController descriptionStep2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +88,15 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
+
+    descriptionStep2Controller.value = addNewTour.activityDescription.isNotEmpty
+        ? TextEditingValue(
+      text: addNewTour.activityDescription,
+      selection: TextSelection.fromPosition(
+        TextPosition(offset: addNewTour.activityDescription.length),
+      ),
+    )
+        : TextEditingValue(text: "");
 
     return GestureDetector(
       onTap: () {
@@ -208,7 +220,6 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                         horizontal: SizeConfig.screenWidth * 0.0465,
                       ),
                       child: DescriptionNewTour("Description", (value) {
-                        descriptionStep2Controller.text = value;
                         _description = value;
                       }, focusNodeDescription, null,
                           descriptionStep2Controller),
