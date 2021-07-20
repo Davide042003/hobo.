@@ -76,6 +76,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   String _selectedLocation = "";
   String _description = '';
   String _language = "";
+  TextEditingController descriptionStep2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +153,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(5)),
                                       border: Border.all(
-                                          color: Color.fromRGBO(116, 142, 243, 1),
+                                          color:
+                                              Color.fromRGBO(116, 142, 243, 1),
                                           width: 1),
                                       color: Colors.transparent),
                                   child: Center(
@@ -161,7 +163,8 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                                     style: TextStyle(
                                         fontFamily: Constants.POPPINS,
                                         fontSize: 43,
-                                        color: Color.fromRGBO(116, 142, 243, 1)),
+                                        color:
+                                            Color.fromRGBO(116, 142, 243, 1)),
                                   )),
                                 ),
                               );
@@ -204,11 +207,11 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.0465,
                       ),
-                      child: DescriptionNewTour(
-                          "Description",
-                          (value) => _description = value,
-                          focusNodeDescription,
-                          null),
+                      child: DescriptionNewTour("Description", (value) {
+                        descriptionStep2Controller.text = value;
+                        _description = value;
+                      }, focusNodeDescription, null,
+                          descriptionStep2Controller),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.03),
                     Padding(
@@ -232,27 +235,44 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                               child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Container(
-                                    width: SizeConfig.screenWidth * 0.25,
-                                    decoration: BoxDecoration(
-                                      color: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
-                                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: SizeConfig.screenWidth * 0.015, right: SizeConfig.screenWidth * 0.035),
-                                      child: DropdownButton<String>(
-                                        isExpanded: true,
-                                        icon: Icon(CustomIcons.arrowdownlanguages,size: 5.5, color: Styles.whiteblack(themeChange.darkTheme, context),),
-                                        value: _selectedLocation,
-                                        underline: SizedBox(),
+                                      width: SizeConfig.screenWidth * 0.25,
+                                      decoration: BoxDecoration(
+                                        color: Styles
+                                            .publishtour_backgroundinputfield(
+                                                themeChange.darkTheme, context),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5)),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left:
+                                                SizeConfig.screenWidth * 0.015,
+                                            right:
+                                                SizeConfig.screenWidth * 0.035),
+                                        child: DropdownButton<String>(
+                                          isExpanded: true,
+                                          icon: Icon(
+                                            CustomIcons.arrowdownlanguages,
+                                            size: 5.5,
+                                            color: Styles.whiteblack(
+                                                themeChange.darkTheme, context),
+                                          ),
+                                          value: _selectedLocation,
+                                          underline: SizedBox(),
                                           items: _locations.map((String val) {
                                             return new DropdownMenuItem<String>(
                                               value: val,
                                               child: ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(5)),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5)),
                                                 child: Flag(
                                                   val,
-                                                  height: SizeConfig.screenHeight * 0.045,
-                                                  width: SizeConfig.screenWidth * 0.15,
+                                                  height:
+                                                      SizeConfig.screenHeight *
+                                                          0.045,
+                                                  width:
+                                                      SizeConfig.screenWidth *
+                                                          0.15,
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
@@ -261,10 +281,14 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
                                           onChanged: (newVal) {
                                             _selectedLocation = newVal;
                                             setState(() {});
-                                          }, dropdownColor: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
-                                      focusNode: focusNodeLanguage,),
-                                    )
-                                  ))),
+                                          },
+                                          dropdownColor: Styles
+                                              .publishtour_backgroundinputfield(
+                                                  themeChange.darkTheme,
+                                                  context),
+                                          focusNode: focusNodeLanguage,
+                                        ),
+                                      )))),
                         ],
                       ),
                     ),
@@ -332,11 +356,12 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
       ),
     );
   }
-  void addTourImages (NewTourProvider newTourProvider, String imageUrl) {
+
+  void addTourImages(NewTourProvider newTourProvider, String imageUrl) {
     newTourProvider.setTourImages = imageUrl;
   }
 
-  void continueStep2 (NewTourProvider newTourProvider) {
+  void continueStep2(NewTourProvider newTourProvider) {
     newTourProvider.setTourImageUrl1 = _tourImage1;
     newTourProvider.setTourImageUrl2 = _tourImage2;
     newTourProvider.setTourImageUrl3 = _tourImage3;
@@ -349,7 +374,6 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     print(newTourProvider.tourDescription);
     print(newTourProvider.tourLanguage);
   }
-
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
       NewTourProvider addNewTour, NavigationBarProvider downScroll) {

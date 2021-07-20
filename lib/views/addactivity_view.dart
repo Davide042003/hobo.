@@ -20,6 +20,7 @@ class _AddActivityState extends State<AddActivity> {
   FocusNode focusNodeDescription;
   FocusNode focusNodePlace;
   FocusNode focusNodePrice;
+  TextEditingController descriptionStep4Controller;
 
   @override
   void initState() {
@@ -192,11 +193,12 @@ class _AddActivityState extends State<AddActivity> {
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.0465,
                       ),
-                      child: DescriptionNewTour(_description, (value) {
+                      child: DescriptionNewTour("Description", (value) {
                         addNewTour.setActivityDescription = value;
                         _description = value;
+                        descriptionStep4Controller.text = value;
                       }
-                      , focusNodeDescription, null),
+                      , focusNodeDescription, null, descriptionStep4Controller),
                     ),
                     SizedBox(height: SizeConfig.screenHeight * 0.02),
                     Padding(

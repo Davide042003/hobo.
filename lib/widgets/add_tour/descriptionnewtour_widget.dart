@@ -6,9 +6,9 @@ class DescriptionNewTour extends StatefulWidget {
   final Function onChanged;
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
+  final TextEditingController textEditingController;
 
-
-  const DescriptionNewTour(this.text, this.onChanged, this.focusNode, this.nextFocusNode);
+  const DescriptionNewTour(this.text, this.onChanged, this.focusNode, this.nextFocusNode, this.textEditingController);
 
   @override
   _DescriptionNewTourState createState() => _DescriptionNewTourState();
@@ -32,6 +32,7 @@ class _DescriptionNewTourState extends State<DescriptionNewTour> {
           color: Styles.publishtour_backgroundinputfield(themeChange.darkTheme, context),
         ),
         child: TextFormField(
+          controller: widget.textEditingController,
           minLines: 4,
           maxLines: 4,
           focusNode: widget.focusNode,
