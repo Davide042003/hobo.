@@ -94,6 +94,8 @@ class _AddActivityState extends State<AddActivity> {
     } else {
       _description = addNewTour.activityDescription;
     }
+
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -211,17 +213,17 @@ class _AddActivityState extends State<AddActivity> {
                                   decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(5)),
-                                      color: _onlyAdult
+                                      color: addNewTour.only18
                                           ? Color.fromRGBO(245, 95, 185, 1)
                                           : Colors.transparent,
-                                      border: _onlyAdult
+                                      border: addNewTour.only18
                                           ? null
                                           : Border.all(
                                               color: Styles.publishtour_check(
                                                   themeChange.darkTheme,
                                                   context),
                                               width: 1)),
-                                  child: _onlyAdult
+                                  child: addNewTour.only18
                                       ? Icon(
                                           CustomIcons.check,
                                           size: 9,
@@ -231,9 +233,11 @@ class _AddActivityState extends State<AddActivity> {
                                 ),
                                 onTap: () {
                                   setState(() {
-                                    if (_onlyAdult == false) {
+                                    if (addNewTour.only18 == false) {
+                                      addNewTour.setOnly18 = true;
                                       _onlyAdult = true;
                                     } else {
+                                      addNewTour.setOnly18 = false;
                                       _onlyAdult = false;
                                     }
                                   });
@@ -259,17 +263,17 @@ class _AddActivityState extends State<AddActivity> {
                                   decoration: BoxDecoration(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(5)),
-                                      color: _luxury
+                                      color: addNewTour.luxury
                                           ? Color.fromRGBO(245, 95, 185, 1)
                                           : Colors.transparent,
-                                      border: _luxury
+                                      border: addNewTour.luxury
                                           ? null
                                           : Border.all(
                                               color: Styles.publishtour_check(
                                                   themeChange.darkTheme,
                                                   context),
                                               width: 1)),
-                                  child: _luxury
+                                  child: addNewTour.luxury
                                       ? Icon(
                                           CustomIcons.check,
                                           size: 9,
@@ -279,10 +283,12 @@ class _AddActivityState extends State<AddActivity> {
                                 ),
                                 onTap: () {
                                   setState(() {
-                                    if (_luxury == false) {
+                                    if (addNewTour.luxury == false) {
+                                      addNewTour.setLuxury = true;
                                       _luxury = true;
                                     } else {
                                       _luxury = false;
+                                      addNewTour.setLuxury = false;
                                     }
                                   });
                                 }),
