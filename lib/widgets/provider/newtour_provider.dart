@@ -56,6 +56,7 @@ class NewTourProvider with ChangeNotifier {
   List<String> activities = List<String>.filled(5, "", growable: true);
 
   bool get addNewTourVisible => _addNewTourVisible;
+
   String get tourId => _tourId;
 
   // step 1
@@ -89,19 +90,26 @@ class NewTourProvider with ChangeNotifier {
 
   String get tourTimeEnd => _tourTimeEnd;
 
-
   // step 4
   String get activityDescription => _activityDescription;
+
   bool get only18 => _only18;
+
   bool get luxury => _luxury;
+
   String get price => _price;
+
   String get tourPlaceNameActivity => _tourPlaceNameActivity;
+
   String get tourPlaceIdActivity => _tourPlaceIdActivity;
 
   // step 5
   int get numberOfPeopleVehicle => _numberOfPeopleVehicle;
+
   String get priceVehicle => _priceVehicle;
+
   int get currentPeopleOfVehicle => _currentPeopleOfVehicle;
+
   String get typeOfVehicle => _typeOfVehicle;
 
   set addNewTourVisible(bool value) {
@@ -109,11 +117,12 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  set setTourId (String tourID) {
+  set setTourId(String tourID) {
     _tourId = tourID;
     print("ID del tour: " + _tourId);
     notifyListeners();
   }
+
   // step 1
   set setTourName(String tourNameSet) {
     _tourName = tourNameSet;
@@ -195,6 +204,7 @@ class NewTourProvider with ChangeNotifier {
     _tourTimeStart = time;
     notifyListeners();
   }
+
   set setTourTimeEnd(String time) {
     _tourTimeEnd = time;
     notifyListeners();
@@ -206,14 +216,17 @@ class NewTourProvider with ChangeNotifier {
     _activityDescription = descript;
     notifyListeners();
   }
+
   set setOnly18(bool only) {
     _only18 = only;
     notifyListeners();
   }
+
   set setLuxury(bool lux) {
     _luxury = lux;
     notifyListeners();
   }
+
   set setPrice(String priceActivity) {
     _price = priceActivity;
     notifyListeners();
@@ -234,39 +247,42 @@ class NewTourProvider with ChangeNotifier {
     _numberOfPeopleVehicle = numberOfPeopleVehicleSet;
     notifyListeners();
   }
+
   set setPriceVehicle(String priceV) {
     _priceVehicle = priceV;
     notifyListeners();
   }
 
   void createActivity() {
-
     activityId = uuid.v1();
     activitiesPlacesId = uuid.v1();
 
-    _repository.createActivity(
-        _auth.currentUser.uid,
-        _tourId,
-        activityId,
-    _activityDescription,
-      _only18,
-      _luxury,
-      activitiesPlacesId,
-      _price
-    );
+    _repository.createActivity(_auth.currentUser.uid, _tourId, activityId,
+        _activityDescription, _only18, _luxury, activitiesPlacesId, _price);
   }
 
   void createVehicleInfo() {
-
     vehicleId = uuid.v1();
 
-    _repository.createVehicleInfo(
+    _repository.createVehicleInfo(_auth.currentUser.uid, _tourId, vehicleId,
+        _numberOfPeopleVehicle, _priceVehicle);
+  }
+
+  // publish step 1
+  void publishTourStep1() {
+    // tourId was set in: createActivity function (step 4)
+    //tourId = uuid.v1();
+
+    _repository.createToursStep1(
         _auth.currentUser.uid,
         _tourId,
-        vehicleId,
-        _numberOfPeopleVehicle,
-        _priceVehicle
-    );
+        _tourName,
+        _tourPlaceName,
+        _numberOfPeople,
+        _isForChildren,
+        _isPrivate,
+        );
+    print("Tour: Step 1 Saved!");
   }
 
 
@@ -274,6 +290,10 @@ class NewTourProvider with ChangeNotifier {
   void publishTour() {
     // tourId was set in: createActivity function (step 4)
     //tourId = uuid.v1();
+// save images
+    tourImages.forEach((element) {
+      _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
+    });
 
     _repository.createTours(
         _auth.currentUser.uid,
@@ -295,15 +315,11 @@ class NewTourProvider with ChangeNotifier {
         5,
         22);
 
-    // save images
-    tourImages.forEach((element) {
-      _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
-    });
     // todo: clean all the variables from this script after publish a tour!
     initVariables();
   }
 
-  void initVariablesStep4Save () {
+  void initVariablesStep4Save() {
     // step 4
     _activityDescription = "";
     _only18 = false;
@@ -313,7 +329,7 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void initVariables () {
+  void initVariables() {
     // step 1
     _tourName = "";
     _tourPlaceName = "";

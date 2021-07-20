@@ -59,7 +59,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     focusNodeDescription.dispose();
     focusNodeLanguage.dispose();
 
-    descriptionStep2Controller.dispose();
+    //descriptionStep2Controller.dispose();
 
     super.dispose();
   }
@@ -89,11 +89,11 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     final addNewTour = Provider.of<NewTourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
-    descriptionStep2Controller.value = addNewTour.activityDescription.isNotEmpty
+    descriptionStep2Controller.value = addNewTour.tourDescription.isNotEmpty
         ? TextEditingValue(
-      text: addNewTour.activityDescription,
+      text: addNewTour.tourDescription,
       selection: TextSelection.fromPosition(
-        TextPosition(offset: addNewTour.activityDescription.length),
+        TextPosition(offset: addNewTour.tourDescription.length),
       ),
     )
         : TextEditingValue(text: "");

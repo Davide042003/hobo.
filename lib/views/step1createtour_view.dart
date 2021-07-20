@@ -568,6 +568,8 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     newTourProvider.setIsForChildren = _allowChildren;
     newTourProvider.setIsPrivate = _private;
 
+    newTourProvider.publishTourStep1();
+
     print(newTourProvider.tourName);
     print(newTourProvider.tourPlaceName);
     print(newTourProvider.tourPlaceId);

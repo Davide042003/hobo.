@@ -228,6 +228,32 @@ class FirestoreService {
 
   }
 
+  // Create Tour step by step
+  Future<void> createToursStep1(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId)
+        .set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'tourName': tourName,
+      'tourPlace': tourPlace,
+      'tourNumberOfPeople': tourNumberOfPeople,
+      'tourIsForChildren': tourIsForChildren,
+      'tourIsPrivate': tourIsPrivate,
+      'timeCreation': Timestamp.now()
+    });
+
+    print('Success: Tour Created!');
+
+  }
+  
+  // ---
+
   // create sub-collection: tour -> images
   Future<void> addTourImage(userId, tourId, imageUrl) async {
     // generate random tourId
