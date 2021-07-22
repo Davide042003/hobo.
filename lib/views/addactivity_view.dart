@@ -199,8 +199,8 @@ class _AddActivityState extends State<AddActivity> {
                         horizontal: SizeConfig.screenWidth * 0.0465,
                       ),
                       child: DescriptionNewTour("Description", (value) {
-                        addNewTour.setActivityDescription = value;
                         _description = value;
+                        addNewTour.setActivityDescription = descriptionStep4Controller.text;
                       }
                       , focusNodeDescription, null, descriptionStep4Controller),
                     ),
@@ -239,13 +239,10 @@ class _AddActivityState extends State<AddActivity> {
                                 ),
                                 onTap: () {
                                   setState(() {
-                                    if (addNewTour.only18 == false) {
-                                      addNewTour.setOnly18 = true;
-                                      _onlyAdult = true;
-                                    } else {
-                                      addNewTour.setOnly18 = false;
-                                      _onlyAdult = false;
-                                    }
+                                    _onlyAdult = addNewTour.only18;
+                                    _onlyAdult = !_onlyAdult;
+                                    addNewTour.setOnly18 = _onlyAdult;
+                                    print(_onlyAdult);
                                   });
                                 }),
                             SizedBox(
@@ -289,13 +286,10 @@ class _AddActivityState extends State<AddActivity> {
                                 ),
                                 onTap: () {
                                   setState(() {
-                                    if (addNewTour.luxury == false) {
-                                      addNewTour.setLuxury = true;
-                                      _luxury = true;
-                                    } else {
-                                      _luxury = false;
-                                      addNewTour.setLuxury = false;
-                                    }
+                                    _luxury = addNewTour.luxury;
+                                    _luxury = !_luxury;
+                                    addNewTour.setLuxury = _luxury;
+                                    print(_luxury);
                                   });
                                 }),
                             SizedBox(
@@ -527,18 +521,14 @@ class _AddActivityState extends State<AddActivity> {
   }
 
   void saveStep4(NewTourProvider newTourProvider) {
-    newTourProvider.setActivityDescription = _description;
-    newTourProvider.setOnly18 = _onlyAdult;
-    newTourProvider.setLuxury = _luxury;
+    print(descriptionStep4Controller.text);
+
+    newTourProvider.setActivityDescription = descriptionStep4Controller.text;
+    //newTourProvider.setOnly18 = _onlyAdult;
+    //newTourProvider.setLuxury = _luxury;
     newTourProvider.setPrice = _price;
 
     newTourProvider.createActivity();
 
-    newTourProvider.initVariablesStep4Save();
-
-    print(newTourProvider.activityDescription);
-    print(newTourProvider.only18);
-    print(newTourProvider.luxury);
-    print(newTourProvider.price);
   }
 }

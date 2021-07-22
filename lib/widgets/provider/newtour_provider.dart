@@ -211,7 +211,6 @@ class NewTourProvider with ChangeNotifier {
   }
 
   // step 4
-
   set setActivityDescription(String descript) {
     _activityDescription = descript;
     notifyListeners();
@@ -259,6 +258,7 @@ class NewTourProvider with ChangeNotifier {
 
     _repository.createActivity(_auth.currentUser.uid, _tourId, activityId,
         _activityDescription, _only18, _luxury, activitiesPlacesId, _price);
+
   }
 
   void createVehicleInfo() {
