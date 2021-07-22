@@ -196,7 +196,7 @@ class NewTourProvider with ChangeNotifier {
 
   // step 3
   set setTourDate(String date) {
-    _tourDate = tourDate;
+    _tourDate = date;
     notifyListeners();
   }
 
@@ -302,6 +302,22 @@ class NewTourProvider with ChangeNotifier {
     });
 
     print("Tour: Step 2 Saved!");
+  }
+
+  // publish step 3
+  void publishTourStep3() {
+    // tourId was set in: createActivity function (step 4)
+    //tourId = uuid.v1();
+
+    _repository.createToursStep3(
+      _auth.currentUser.uid,
+      _tourId,
+      _tourDate,
+      _tourTimeStart,
+      _tourTimeEnd,
+    );
+
+    print("Tour: Step 3 Saved!");
   }
 
 

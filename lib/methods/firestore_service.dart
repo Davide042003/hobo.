@@ -273,6 +273,27 @@ class FirestoreService {
     print('Success: Tour Step 2 Created!');
 
   }
+
+  Future<void> createToursStep3(userId, tourId, tourDate,tourTimeStart, tourTimeEnd) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId)
+        .set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      //step 3
+      'tourDate': tourDate,
+      'tourTimeStart': tourTimeStart,
+      'tourTimeEnd': tourTimeEnd,
+    }, SetOptions(merge : true));
+
+    print('Success: Tour Step 3 Created!');
+
+  }
   // ---
 
   // create sub-collection: tour -> images

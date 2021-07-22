@@ -288,9 +288,13 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
   }
 
   void continueStep3(NewTourProvider newTourProvider) {
+    print ("Prova data : " + dateInString);
+
     newTourProvider.setTourDate = dateInString;
     newTourProvider.setTourTimeStart = timeStartInString;
     newTourProvider.setTourTimeEnd = timeEndInString;
+
+    newTourProvider.publishTourStep3();
 
     print(newTourProvider.tourDate);
     print(newTourProvider.tourTimeStart);
