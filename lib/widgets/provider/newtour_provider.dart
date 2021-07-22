@@ -285,6 +285,25 @@ class NewTourProvider with ChangeNotifier {
     print("Tour: Step 1 Saved!");
   }
 
+  // publish step 2
+  void publishTourStep2() {
+    // tourId was set in: createActivity function (step 4)
+    //tourId = uuid.v1();
+
+    _repository.createToursStep2(
+      _auth.currentUser.uid,
+      _tourId,
+      _tourDescription,
+      _tourLanguage,
+    );
+
+    tourImages.forEach((element) {
+      _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
+    });
+
+    print("Tour: Step 2 Saved!");
+  }
+
 
   // step 5 - publish tour
   void publishTour() {

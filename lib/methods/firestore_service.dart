@@ -248,10 +248,31 @@ class FirestoreService {
       'timeCreation': Timestamp.now()
     });
 
-    print('Success: Tour Created!');
+    print('Success: Tour Step 1 Created!');
 
   }
-  
+
+  Future<void> createToursStep2(userId, tourId,tourDescription, tourLanguage) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId)
+        .set({
+      // general info
+      'userId': userId,
+      'tourId': tourId,
+      // step 2
+      'tourDescription': tourDescription,
+      'tourLanguage': tourLanguage,
+      // ---
+      'timeCreation': Timestamp.now()
+    });
+
+    print('Success: Tour Step 2 Created!');
+
+  }
   // ---
 
   // create sub-collection: tour -> images

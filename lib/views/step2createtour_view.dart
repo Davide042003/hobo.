@@ -373,15 +373,12 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   }
 
   void continueStep2(NewTourProvider newTourProvider) {
-    newTourProvider.setTourImageUrl1 = _tourImage1;
-    newTourProvider.setTourImageUrl2 = _tourImage2;
-    newTourProvider.setTourImageUrl3 = _tourImage3;
     newTourProvider.setTourDescription = _description;
     newTourProvider.setTourLanguage = _language;
 
-    print(newTourProvider.tourUrlImage1);
-    print(newTourProvider.tourUrlImage2);
-    print(newTourProvider.tourUrlImage3);
+    newTourProvider.publishTourStep2();
+
+
     print(newTourProvider.tourDescription);
     print(newTourProvider.tourLanguage);
   }
