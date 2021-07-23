@@ -57,6 +57,8 @@ class NewTourProvider with ChangeNotifier {
 
   bool get addNewTourVisible => _addNewTourVisible;
 
+  FirebaseAuth get authUser => _auth;
+
   String get tourId => _tourId;
 
   // step 1
