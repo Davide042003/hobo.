@@ -331,9 +331,7 @@ class NewTourProvider with ChangeNotifier {
 
   // step 5 - publish tour
   void publishTour() {
-    // tourId was set in: createActivity function (step 4)
-    //tourId = uuid.v1();
-// save images
+    /*
     tourImages.forEach((element) {
       _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
     });
@@ -357,7 +355,7 @@ class NewTourProvider with ChangeNotifier {
         4,
         5,
         22);
-
+     */
     // todo: clean all the variables from this script after publish a tour!
     initVariables();
   }
@@ -397,6 +395,7 @@ class NewTourProvider with ChangeNotifier {
     _only18 = false;
     _luxury = false;
     _price = "";
+    _activityPlace = "";
 
     // step 5
     _numberOfPeopleVehicle = 0;
