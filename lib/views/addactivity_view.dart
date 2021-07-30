@@ -523,12 +523,17 @@ class _AddActivityState extends State<AddActivity> {
   void saveStep4(NewTourProvider newTourProvider) {
     print(descriptionStep4Controller.text);
 
+    TextEditingController activityPlaceController = TextEditingController();
+    activityPlaceController.text = newTourProvider.tourPlaceNameActivity;
+    print(activityPlaceController.text);
+
     newTourProvider.setActivityDescription = descriptionStep4Controller.text;
     //newTourProvider.setOnly18 = _onlyAdult;
     //newTourProvider.setLuxury = _luxury;
     newTourProvider.setPrice = _price;
+    newTourProvider.setActivityPlace = activityPlaceController.text;
 
-    newTourProvider.createActivity();
+    newTourProvider.createActivity(activityPlaceController.text);
 
   }
 }

@@ -15,7 +15,6 @@ class NewTourProvider with ChangeNotifier {
   var uuid = Uuid();
   var _tourId = "";
   var activityId;
-  var activitiesPlacesId;
   var vehicleId;
 
   // step 1
@@ -46,6 +45,7 @@ class NewTourProvider with ChangeNotifier {
   String _price = "";
   String _tourPlaceNameActivity = "";
   String _tourPlaceIdActivity = "";
+  String _activityPlace = "";
 
   // step 5
   int _numberOfPeopleVehicle = 0;
@@ -104,6 +104,8 @@ class NewTourProvider with ChangeNotifier {
   String get tourPlaceNameActivity => _tourPlaceNameActivity;
 
   String get tourPlaceIdActivity => _tourPlaceIdActivity;
+
+  String get activityPlace => _activityPlace;
 
   // step 5
   int get numberOfPeopleVehicle => _numberOfPeopleVehicle;
@@ -243,6 +245,11 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  set setActivityPlace(String tourPlaceActivityIdSet) {
+    _activityPlace = activityPlace;
+    notifyListeners();
+  }
+
   // step 5
   set setNumberOfPeopleVehicle(int numberOfPeopleVehicleSet) {
     _numberOfPeopleVehicle = numberOfPeopleVehicleSet;
@@ -254,12 +261,11 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void createActivity() {
+  void createActivity(String activityPl) {
     activityId = uuid.v1();
-    activitiesPlacesId = uuid.v1();
 
     _repository.createActivity(_auth.currentUser.uid, _tourId, activityId,
-        _activityDescription, _only18, _luxury, activitiesPlacesId, _price);
+        _activityDescription, _only18, _luxury, activityPl, _price);
 
   }
 
@@ -362,6 +368,7 @@ class NewTourProvider with ChangeNotifier {
     _only18 = false;
     _luxury = false;
     _price = "";
+    _activityPlace = "";
 
     notifyListeners();
   }

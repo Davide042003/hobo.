@@ -208,7 +208,7 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                                     scrollDirection: Axis.vertical,
                                     itemBuilder: (context, i) {
                                       return CardTourAddWidget(
-                                        boldText: documents[i]["tourId"],
+                                        boldText: documents[i]["activityPlace"],
                                         textDescription:
                                         documents[i]["description"],
                                         price: documents[i]["price"],
@@ -226,7 +226,6 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                     color: Color.fromRGBO(242, 242, 242, 1),
                   ),
                   SizedBox(height: SizeConfig.screenHeight * 0.03),
-                  SizedBox(height: SizeConfig.screenHeight * 0.04),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.05),
