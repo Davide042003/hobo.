@@ -17,6 +17,8 @@ class NewTourProvider with ChangeNotifier {
   var activityId;
   var vehicleId;
 
+  bool _isGuide = false;
+
   // step 1
   String _tourName = "";
   String _tourPlaceName = "";
@@ -60,6 +62,12 @@ class NewTourProvider with ChangeNotifier {
   FirebaseAuth get authUser => _auth;
 
   String get tourId => _tourId;
+
+
+  // ---
+  bool get isGuide => _isGuide;
+  // ---
+
 
   // step 1
   String get tourName => _tourName;
@@ -127,6 +135,11 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  set setIsGuide(bool value) {
+    _isGuide = value;
+    registrationChoice(_isGuide);
+    notifyListeners();
+  }
   // step 1
   set setTourName(String tourNameSet) {
     _tourName = tourNameSet;
@@ -276,6 +289,10 @@ class NewTourProvider with ChangeNotifier {
         _numberOfPeopleVehicle, _priceVehicle);
   }
 
+  // registration choice
+  void registrationChoice (choice){
+    _repository.userRegistrationChoice(_auth.currentUser.uid, choice);
+  }
   // publish step 1
   void publishTourStep1() {
     // tourId was set in: createActivity function (step 4)

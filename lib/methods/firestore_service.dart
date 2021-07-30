@@ -49,6 +49,20 @@ class FirestoreService {
     return docs.length == 0 ? true : false;
   }
 
+  Future<void> userRegistrationChoice(userId, choice) async {
+    bool isGuide = choice;
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .set({
+      // step 1
+      'userId': userId,
+      'choice': isGuide,
+    }, SetOptions(merge: true));
+
+  }
+
   // update data
   Future<void> updateUser(User currentUser) {
     userModel = UserModel(

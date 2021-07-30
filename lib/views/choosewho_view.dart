@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 
 class ChooseWho extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _ChooseWhoState extends State<ChooseWho> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final addNewTour = Provider.of<NewTourProvider>(context);
 
     return Scaffold(
         body: Container(
@@ -37,12 +39,15 @@ class _ChooseWhoState extends State<ChooseWho> {
                     height: SizeConfig.screenHeight * 0.04,
                   ),
                   GestureDetector(
-                      onTap: () => Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ManagePagesView()),
-                            (Route<dynamic> route) => false,
-                          ),
+                      onTap: () {
+                        addNewTour.setIsGuide = false;
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ManagePagesView()),
+                          (Route<dynamic> route) => false,
+                        );
+                      },
                       child: Container(
                         width: SizeConfig.screenWidth * 1,
                         alignment: Alignment.center,
@@ -87,6 +92,15 @@ class _ChooseWhoState extends State<ChooseWho> {
                       )),
                   SizedBox(height: SizeConfig.screenHeight * 0.04),
                   GestureDetector(
+                      onTap: () {
+                        addNewTour.setIsGuide = true;
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ManagePagesView()),
+                              (Route<dynamic> route) => false,
+                        );
+                      },
                       child: Container(
                     width: SizeConfig.screenWidth * 1,
                     alignment: Alignment.center,
