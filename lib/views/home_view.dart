@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/addactivity_view.dart';
 import 'package:hobo_test/views/chooseplace_view.dart';
@@ -108,7 +109,19 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-
+    final addNewTour = Provider.of<NewTourProvider>(context, listen: false);
+    if (addNewTour.isGuide) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
+          addNewTour.addNewTourVisible = true;
+          downScroll.navigationdown = true;
+          _openPopUpGuide(false);
+        });
+      });
+    } else {
+      print("Welcome Tourist!");
+    }
     /* SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() {
         final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
