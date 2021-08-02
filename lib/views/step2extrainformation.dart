@@ -382,7 +382,6 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                     padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.05),
                     child: GestureDetector(
-                      onTap: _trySubmitForm,
                       child: Container(
                           width: SizeConfig.screenWidth,
                           height: SizeConfig.screenHeight * 0.07,
@@ -397,6 +396,10 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                                 ]),
                           ),
                           child: TextButton(
+                            onPressed: () {
+                              _saveAddExtraInfo2(addNewTour);
+                              _trySubmitForm();
+                            },
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -434,6 +437,14 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
         ),
       ),
     );
+  }
+
+  void _saveAddExtraInfo2 (NewTourProvider extraInfoProvider) {
+    extraInfoProvider.setSpokenLanguages = _selectedLanguages.toString();
+    extraInfoProvider.setCertifiedGuide = _certifiedGuide;
+    extraInfoProvider.setNationality = _nations.toString();
+
+    extraInfoProvider.publishAddExtraInfo2();
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,

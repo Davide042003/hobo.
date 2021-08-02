@@ -214,10 +214,24 @@ class FirestoreService {
       'surname': surname,
       'birthday': birthday,
       'gender': gender,
-      'timeCreation': Timestamp.now()
     }, SetOptions(merge: true));
 
     print('Success: Extra info Guide!');
+  }
+
+  Future<void> createExtraInfoGuide2(userId, spokenLanguage, certifiedGuide, nationality) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .set({
+      'userId': userId,
+      'spokenLanguage': spokenLanguage,
+      'certifiedGuide': certifiedGuide,
+      'nationality': nationality,
+    }, SetOptions(merge: true));
+
+    print('Success: Extra info Guide 2!');
   }
 
   // Create Tours

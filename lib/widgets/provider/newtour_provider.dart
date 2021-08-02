@@ -22,6 +22,9 @@ class NewTourProvider with ChangeNotifier {
   String _surname = "";
   String _birthday = "";
   String _gender = "";
+  String _spokenLanguages = "";
+  bool _certifiedGuide = false;
+  String _nationality = "";
 
   // step 1
   String _tourName = "";
@@ -74,6 +77,9 @@ class NewTourProvider with ChangeNotifier {
   String get surname => _surname;
   String get birthday => _birthday;
   String get gender => _gender;
+  String get spokenLanguages => _spokenLanguages;
+  bool get certifiedGuide => _certifiedGuide;
+  String get nationality => _nationality;
   // ---
 
 
@@ -142,7 +148,7 @@ class NewTourProvider with ChangeNotifier {
     print("ID del tour: " + _tourId);
     notifyListeners();
   }
-
+  // GUIDE
   set setIsGuide(bool value) {
     _isGuide = value;
     registrationChoice(_isGuide);
@@ -167,6 +173,23 @@ class NewTourProvider with ChangeNotifier {
   void publishAddExtraInfo1(){
     _repository.createExtraInfoGuide(_auth.currentUser.uid, _nameGuide, _surname, _birthday, _gender);
   }
+  set setSpokenLanguages (String spoken) {
+    _spokenLanguages = spoken;
+    notifyListeners();
+  }
+  set setCertifiedGuide (bool certifiedG) {
+    _certifiedGuide = certifiedG;
+    notifyListeners();
+  }
+  set setNationality (String nation) {
+    _nationality = nation;
+    notifyListeners();
+  }
+  void publishAddExtraInfo2(){
+    _repository.createExtraInfoGuide2(_auth.currentUser.uid, _spokenLanguages, _certifiedGuide, _nationality);
+  }
+  // ---
+
   // step 1
   set setTourName(String tourNameSet) {
     _tourName = tourNameSet;
