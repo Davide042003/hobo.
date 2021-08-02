@@ -18,6 +18,10 @@ class NewTourProvider with ChangeNotifier {
   var vehicleId;
 
   bool _isGuide = false;
+  String _nameGuide = "";
+  String _surname = "";
+  String _birthday = "";
+  String _gender = "";
 
   // step 1
   String _tourName = "";
@@ -66,6 +70,10 @@ class NewTourProvider with ChangeNotifier {
 
   // ---
   bool get isGuide => _isGuide;
+  String get username => _nameGuide;
+  String get surname => _surname;
+  String get birthday => _birthday;
+  String get gender => _gender;
   // ---
 
 
@@ -139,6 +147,25 @@ class NewTourProvider with ChangeNotifier {
     _isGuide = value;
     registrationChoice(_isGuide);
     notifyListeners();
+  }
+  set setUsernameGuide(String usernameGuide) {
+    _nameGuide = usernameGuide;
+    notifyListeners();
+  }
+  set setSurnameGuide(String surnameGuide) {
+    _surname = surnameGuide;
+    notifyListeners();
+  }
+  set setBirthday(String birthD) {
+    _birthday = birthD;
+    notifyListeners();
+  }
+  set setGender(String gender) {
+    _gender = gender;
+    notifyListeners();
+  }
+  void publishAddExtraInfo1(){
+    _repository.createExtraInfoGuide(_auth.currentUser.uid, _nameGuide, _surname, _birthday, _gender);
   }
   // step 1
   set setTourName(String tourNameSet) {

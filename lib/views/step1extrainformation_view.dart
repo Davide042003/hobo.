@@ -91,6 +91,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
       widget.pageController.nextPage(
           duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     }
+
   }
 
   String _name = '';
@@ -107,6 +108,8 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
+
+
 
     return GestureDetector(
       onTap: () {
@@ -337,7 +340,6 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
                       padding: EdgeInsets.symmetric(
                           horizontal: SizeConfig.screenWidth * 0.05),
                       child: GestureDetector(
-                        onTap: _trySubmitForm,
                         child: Container(
                             width: SizeConfig.screenWidth,
                             height: SizeConfig.screenHeight * 0.07,
@@ -352,6 +354,10 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
                                   ]),
                             ),
                             child: TextButton(
+                              onPressed: () {
+                                _addExtraInfo1(addNewTour);
+                                _trySubmitForm();
+                              },
                               child: Padding(
                                 padding:
                                 const EdgeInsets.symmetric(horizontal: 20),
@@ -388,6 +394,14 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
         ),
       ),
     );
+  }
+  void _addExtraInfo1 (NewTourProvider extraInfoProvider) {
+    extraInfoProvider.setUsernameGuide = _name;
+    extraInfoProvider.setSurnameGuide = _surname;
+    extraInfoProvider.setBirthday = birthDateInString;
+    extraInfoProvider.setGender = _selectedGender;
+
+    extraInfoProvider.publishAddExtraInfo1();
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {

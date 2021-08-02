@@ -202,6 +202,24 @@ class FirestoreService {
     return user;
   }
 
+  // Extra info guide
+  Future<void> createExtraInfoGuide(userId, nameguide, surname, birthday, gender) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .set({
+      'userId': userId,
+      'nameguide': nameguide,
+      'surname': surname,
+      'birthday': birthday,
+      'gender': gender,
+      'timeCreation': Timestamp.now()
+    }, SetOptions(merge: true));
+
+    print('Success: Extra info Guide!');
+  }
+
   // Create Tours
   Future<void> createTours(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTimeStart, tourTimeEnd, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
 
