@@ -110,13 +110,15 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     final addNewTour = Provider.of<NewTourProvider>(context, listen: false);
+    final themeChange = Provider.of<DarkThemeProvider>(context, listen: false);
+
     if (addNewTour.isGuide) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         setState(() {
           final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
           addNewTour.addNewTourVisible = true;
           downScroll.navigationdown = true;
-          _openPopUpGuide(false);
+          _openPopUpGuide(themeChange.darkTheme);
         });
       });
     } else {

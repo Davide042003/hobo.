@@ -45,9 +45,13 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
     super.dispose();
   }
 
-  void _trySubmitForm() async {
-    if (_selectedNationality != null && _selectedLanguages.length > 0) {
 
+  void _trySubmitForm(NewTourProvider tour, NavigationBarProvider scroll) async {
+    if (_selectedNationality != null && _selectedLanguages.length > 0) {
+      tour.addNewTourVisible = false;
+      scroll.navigationdown = false;
+
+      Navigator.pop(context);
     }
   }
 
@@ -398,7 +402,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                           child: TextButton(
                             onPressed: () {
                               _saveAddExtraInfo2(addNewTour);
-                              _trySubmitForm();
+                              _trySubmitForm(addNewTour, downScroll);
                             },
                             child: Padding(
                               padding:

@@ -61,4 +61,5 @@ class CustomIcons {
   static const IconData addplace = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData pen = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData no_under18 = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData tagpeople = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

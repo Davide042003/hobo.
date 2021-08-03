@@ -138,7 +138,7 @@ class _AddPostViewState extends State<AddPostView> {
                         horizontal: SizeConfig.screenWidth * 0.05),
                     child: Row(
                       children: [
-                        Icon(CustomIcons.addplace,
+                        Icon(CustomIcons.tagpeople,
                             size: 18, color: Color.fromRGBO(55, 199, 117, 1)),
                         SizedBox(
                           width: SizeConfig.screenWidth * 0.025,
