@@ -615,7 +615,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
                 onTap: () {
                   setState(() {
                     addNewTour.addNewTourVisible = false;
-                    addNewTour.initVariables();
+                    //addNewTour.initVariables();
                     downScroll.navigationdown = false;
                     Navigator.pop(context);
                   });

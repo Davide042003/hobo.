@@ -5,6 +5,9 @@ import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+/// READ ME:
+/// lat e lng e placeId usati sia per lo step 1 che per le activity dello step 4
+
 class NewTourProvider with ChangeNotifier {
   final FirestoreService _repository = FirestoreService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,6 +36,10 @@ class NewTourProvider with ChangeNotifier {
   int _numberOfPeople = 0;
   bool _isForChildren = false;
   bool _isPrivate = false;
+  String _lat = "";
+  String _lng = "";
+  String _placeId = "";
+  bool _completedCreation = false;
 
   // step 2
   String _tourUrlImage1 = "";
@@ -41,8 +48,6 @@ class NewTourProvider with ChangeNotifier {
   List<String> tourImages = List<String>.filled(0, "", growable: true);
   String _tourDescription = "";
   String _tourLanguage = "";
-  String _lat = "";
-  String _lng = "";
 
   // step 3
   String _tourDate = "";
@@ -108,6 +113,9 @@ class NewTourProvider with ChangeNotifier {
 
   String get lng => _lng;
 
+  String get placeId => _placeId;
+
+  bool get completedCreation => _completedCreation;
   // step 2
   String get tourUrlImage1 => _tourUrlImage1;
 
@@ -246,12 +254,25 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setLatLng(String la, String ln) {
+  set setLat(String la) {
     _lat = la;
+    notifyListeners();
+  }
+
+  set setLng(String ln) {
     _lng = ln;
     notifyListeners();
   }
 
+  set setPlaceId(String plcId) {
+    _placeId = plcId;
+    notifyListeners();
+  }
+
+  set setCompleteCreation (bool created) {
+    _completedCreation = created;
+    notifyListeners();
+  }
   // step 2
   set setTourImages(String urlImage) {
     try {
@@ -355,11 +376,12 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // step 4
   void createActivity(String activityPl) {
     activityId = uuid.v1();
 
     _repository.createActivity(_auth.currentUser.uid, _tourId, activityId,
-        _activityDescription, _only18, _luxury, activityPl, _price);
+        _activityDescription, _only18, _luxury, activityPl, _price, _lat, _lng, _placeId);
   }
 
   void createVehicleInfo() {
@@ -388,7 +410,9 @@ class NewTourProvider with ChangeNotifier {
         _isForChildren,
         _isPrivate,
         _lat,
-        _lng);
+        _lng,
+        _placeId,
+    _completedCreation);
     print("Tour: Step 1 Saved!");
   }
 
@@ -433,27 +457,16 @@ class NewTourProvider with ChangeNotifier {
     tourImages.forEach((element) {
       _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
     });
+    */
 
-    _repository.createTours(
-        _auth.currentUser.uid,
-        _tourId,
-        _tourName,
-        _tourPlaceName,
-        _numberOfPeople,
-        _isForChildren,
-        _isPrivate,
-        _tourDescription,
-        _tourLanguage,
-        _tourUrlImage1,
-        _tourDate,
-        _tourTimeStart,
-        _tourTimeEnd,
-        "id attività",
-        "id vehicles",
-        4,
-        5,
-        22);
-     */
+    print("tour id" + _tourId);
+
+    _repository.publishTourStep5(
+      _auth.currentUser.uid,
+      _tourId,
+      _completedCreation
+    );
+
     // todo: clean all the variables from this script after publish a tour!
     initVariables();
   }
@@ -465,6 +478,11 @@ class NewTourProvider with ChangeNotifier {
     _luxury = false;
     _price = "";
     _activityPlace = "";
+    _lat = "";
+    _lng = "";
+    _placeId = "";
+
+    print("--- tour id --- " + _tourId);
 
     notifyListeners();
   }
@@ -477,6 +495,9 @@ class NewTourProvider with ChangeNotifier {
     _numberOfPeople = 0;
     _isForChildren = false;
     _isPrivate = false;
+    _lat = "";
+    _lng = "";
+    _placeId = "";
 
     // step 2
     tourImages.clear();
@@ -500,6 +521,7 @@ class NewTourProvider with ChangeNotifier {
     _priceVehicle = "";
 
     _tourId = "";
+    _completedCreation = false;
 
     notifyListeners();
   }

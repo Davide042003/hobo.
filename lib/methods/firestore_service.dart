@@ -275,7 +275,7 @@ class FirestoreService {
   }
 
   // Create Tour step by step
-  Future<void> createToursStep1(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate, lat, lng) async {
+  Future<void> createToursStep1(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate, lat, lng, placeId, completedCreation) async {
 
     _db
         .collection('users')
@@ -293,6 +293,8 @@ class FirestoreService {
       'tourIsPrivate': tourIsPrivate,
       'lat': lat,
       'lng': lng,
+      'placeId': placeId,
+      'completedCreation': completedCreation,
       'timeCreation': Timestamp.now()
     });
 
@@ -316,7 +318,7 @@ class FirestoreService {
       'tourLanguage': tourLanguage,
       // ---
       'timeCreation': Timestamp.now()
-    });
+    }, SetOptions(merge : true));
 
     print('Success: Tour Step 2 Created!');
 
@@ -343,7 +345,6 @@ class FirestoreService {
 
   }
   // ---
-
   // create sub-collection: tour -> images
   Future<void> addTourImage(userId, tourId, imageUrl) async {
     // generate random tourId
@@ -369,7 +370,7 @@ class FirestoreService {
   }
 
   // create activity
-  Future<void> createActivity(userId, tourId, activityId, description, only18, luxury, activityPlace, price) async {
+  Future<void> createActivity(userId, tourId, activityId, description, only18, luxury, activityPlace, price, lat, lng, placeId) async {
 
     _db
         .collection('users')
@@ -386,6 +387,9 @@ class FirestoreService {
       'luxury': luxury,
       'activityPlace': activityPlace,
       'price': price,
+      'lat': lat,
+      'lng': lng,
+      'placeId': placeId,
       'timeCreation': Timestamp.now()
     });
 
@@ -412,6 +416,24 @@ class FirestoreService {
     });
 
     print('Success: Vehicle Info Created!');
+
+  }
+
+  Future<void> publishTourStep5(userId, tourId, completedCreation) async {
+
+    _db
+        .collection('users')
+        .doc(userId)
+        .collection('tours')
+        .doc(tourId)
+        .set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'completedCreation': completedCreation,
+    }, SetOptions(merge : true));
+
+    print('Success: Tour Step 5 Created!');
 
   }
 

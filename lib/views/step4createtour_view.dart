@@ -322,7 +322,7 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                   setState(() {
                     addNewTour.addNewTourVisible = false;
                     downScroll.navigationdown = false;
-                    addNewTour.initVariables();
+                    //addNewTour.initVariables();
                     Navigator.pop(context);
                   });
                 },

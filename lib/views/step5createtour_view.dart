@@ -31,7 +31,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
     scroll.navigationdown = false;
 
     //qui crea tour
-    tour.initVariables();
+    //tour.initVariables();
 
     Navigator.pop(context);
 
@@ -202,6 +202,8 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
   }
 
   void publishTour (NewTourProvider newTourProvider) {
+    newTourProvider.setCompleteCreation = true;
+
     newTourProvider.publishTour();
   }
 
@@ -242,7 +244,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
                                 setState(() {
                                   addNewTour.addNewTourVisible = false;
                                   downScroll.navigationdown = false;
-                                  addNewTour.initVariables();
+                                  //addNewTour.initVariables();
                                   Navigator.pop(context);
                                 });
                               },

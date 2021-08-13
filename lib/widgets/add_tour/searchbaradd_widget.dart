@@ -117,7 +117,7 @@ class _SearchBarAddWidgetState extends State<SearchBarAddWidget> {
                                       getPlaceLoc(_placeList[index].id, addNewTour);
                                     }
 
-                                    print(addNewTour.tourPlaceName + " " + addNewTour.tourPlaceId);
+                                    //print(addNewTour.tourPlaceName + " " + addNewTour.tourPlaceId);
 
 
                                     _placeList.clear();
@@ -244,7 +244,10 @@ class _SearchBarAddWidgetState extends State<SearchBarAddWidget> {
             json.decode(response.body)["result"]['geometry']['location']['lat'];
         double lng =
             json.decode(response.body)["result"]['geometry']['location']['lng'];
-        tourProvider.setLatLng(lat.toString(), lng.toString());
+        tourProvider.setLat = lat.toString();
+        tourProvider.setLng = lng.toString();
+        tourProvider.setPlaceId = input;
+
     } else {
       throw Exception('Failed to load predictions');
     }
