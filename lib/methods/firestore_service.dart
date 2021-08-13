@@ -10,7 +10,6 @@ class FirestoreService {
   FirebaseFirestore _db = FirebaseFirestore.instance;
   String userName;
 
-
   // get current user
   Future<User> getCurrentUser() async {
     User currentUser;
@@ -18,10 +17,10 @@ class FirestoreService {
     return currentUser;
   }
 
-
   Future<String> getUserName() async {
     //query the user photo
-    _db.collection("users")
+    _db
+        .collection("users")
         .doc(_auth.currentUser.uid)
         .snapshots()
         .listen((event) {
@@ -34,8 +33,6 @@ class FirestoreService {
 
     return userName;
   }
-
-
 
   // get authenticate
   Future<bool> authenticateUser(User user) async {
@@ -52,15 +49,11 @@ class FirestoreService {
   Future<void> userRegistrationChoice(userId, choice) async {
     bool isGuide = choice;
 
-    _db
-        .collection('users')
-        .doc(userId)
-        .set({
+    _db.collection('users').doc(userId).set({
       // step 1
       'userId': userId,
       'choice': isGuide,
     }, SetOptions(merge: true));
-
   }
 
   // update data
@@ -89,10 +82,7 @@ class FirestoreService {
 
     UserCredential userCredentials = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
-    _db
-        .collection('users')
-        .doc(userCredentials.user.uid)
-        .set({
+    _db.collection('users').doc(userCredentials.user.uid).set({
       'uid': userCredentials.user.uid,
       'email': email,
       'name': name,
@@ -119,29 +109,24 @@ class FirestoreService {
     userName = userModel.name;
 
     print(userName);
-
   }
 
-   Future<User> signInWithGoogle() async {
+  Future<User> signInWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User user;
 
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
-    final GoogleSignInAccount googleSignInAccount =
-    await googleSignIn.signIn();
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
     if (googleSignInAccount != null) {
-      var referralCode = DateTime
-          .now()
-          .millisecondsSinceEpoch
-          .toString();
+      var referralCode = DateTime.now().millisecondsSinceEpoch.toString();
       var uuid = Uuid();
       //var referralCode = uuid.v1();
       print("Referral Code: $referralCode");
 
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+          await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -150,30 +135,26 @@ class FirestoreService {
 
       try {
         final UserCredential userCredential =
-        await auth.signInWithCredential(credential);
+            await auth.signInWithCredential(credential);
 
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           // handle the error here
-        }
-        else if (e.code == 'invalid-credential') {
+        } else if (e.code == 'invalid-credential') {
           // handle the error here
         }
       } catch (e) {
         // handle the error here
       }
 
-
-      _db
-          .collection('users')
-          .doc(user.uid)
-          .set({
+      _db.collection('users').doc(user.uid).set({
         'uid': user.uid,
         'email': googleSignInAccount.email,
         'name': googleSignInAccount.displayName,
         'profilePic': null,
-        'username': googleSignInAccount.email.substring(0, googleSignInAccount.email.indexOf('@')),
+        'username': googleSignInAccount.email
+            .substring(0, googleSignInAccount.email.indexOf('@')),
         'guide': false,
         'referralCode': referralCode,
         'ratings': 0,
@@ -190,25 +171,22 @@ class FirestoreService {
         name: googleSignInAccount.displayName,
       );
 
-
       print(userModel.uid);
       print(userModel.name);
       userName = userModel.name;
 
       print(userName);
-
     }
 
     return user;
   }
 
-  // Extra info guide
-  Future<void> createExtraInfoGuide(userId, nameguide, surname, birthday, gender) async {
+  // ---------------- GUIDE START METHODS ----------------------------
 
-    _db
-        .collection('users')
-        .doc(userId)
-        .set({
+  // Extra info guide
+  Future<void> createExtraInfoGuide(
+      userId, nameguide, surname, birthday, gender) async {
+    _db.collection('users').doc(userId).set({
       'userId': userId,
       'nameguide': nameguide,
       'surname': surname,
@@ -219,12 +197,9 @@ class FirestoreService {
     print('Success: Extra info Guide!');
   }
 
-  Future<void> createExtraInfoGuide2(userId, spokenLanguage, certifiedGuide, nationality) async {
-
-    _db
-        .collection('users')
-        .doc(userId)
-        .set({
+  Future<void> createExtraInfoGuide2(
+      userId, spokenLanguage, certifiedGuide, nationality) async {
+    _db.collection('users').doc(userId).set({
       'userId': userId,
       'spokenLanguage': spokenLanguage,
       'certifiedGuide': certifiedGuide,
@@ -235,14 +210,26 @@ class FirestoreService {
   }
 
   // deprecate function, it was replaced with step by step createToursStep
-  Future<void> createTours(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTimeStart, tourTimeEnd, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
-
-    _db
-        .collection('users')
-        .doc(userId)
-        .collection('tours')
-        .doc(tourId)
-        .set({
+  Future<void> createTours(
+      userId,
+      tourId,
+      tourName,
+      tourPlace,
+      tourNumberOfPeople,
+      tourIsForChildren,
+      tourIsPrivate,
+      tourDescription,
+      tourLanguage,
+      tourImage,
+      tourDate,
+      tourTimeStart,
+      tourTimeEnd,
+      tourActivitiesId,
+      tourActivitiesVehiclesId,
+      tourRatings,
+      tourTotalRatings,
+      tourPrice) async {
+    _db.collection('users').doc(userId).collection('tours').doc(tourId).set({
       // step 1
       'userId': userId,
       'tourId': tourId,
@@ -271,18 +258,29 @@ class FirestoreService {
     });
 
     print('Success: Tour Created!');
-
   }
 
-  // Create Tour step by step
-  Future<void> createToursStep1(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate, lat, lng, placeId, completedCreation) async {
+  // ---------------- FINISH GUIDE START METHODS ----------------------------
 
-    _db
-        .collection('users')
-        .doc(userId)
-        .collection('tours')
-        .doc(tourId)
-        .set({
+  // ---
+
+  // ---------------- START TOURS METHODS ----------------------------
+
+  // Create Tour step by step
+  Future<void> createToursStep1(
+      userId,
+      tourId,
+      tourName,
+      tourPlace,
+      tourNumberOfPeople,
+      tourIsForChildren,
+      tourIsPrivate,
+      lat,
+      lng,
+      placeId,
+      completedCreation) async {
+    // users collection
+    _db.collection('users').doc(userId).collection('tours').doc(tourId).set({
       // step 1
       'userId': userId,
       'tourId': tourId,
@@ -297,19 +295,30 @@ class FirestoreService {
       'completedCreation': completedCreation,
       'timeCreation': Timestamp.now()
     });
-
     print('Success: Tour Step 1 Created!');
 
+    // tours collection
+    _db.collection('tours').doc(tourId).set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'tourName': tourName,
+      'tourPlace': tourPlace,
+      'tourNumberOfPeople': tourNumberOfPeople,
+      'tourIsForChildren': tourIsForChildren,
+      'tourIsPrivate': tourIsPrivate,
+      'lat': lat,
+      'lng': lng,
+      'placeId': placeId,
+      'completedCreation': completedCreation,
+      'timeCreation': Timestamp.now()
+    });
   }
 
-  Future<void> createToursStep2(userId, tourId,tourDescription, tourLanguage) async {
-
-    _db
-        .collection('users')
-        .doc(userId)
-        .collection('tours')
-        .doc(tourId)
-        .set({
+  Future<void> createToursStep2(
+      userId, tourId, tourDescription, tourLanguage) async {
+    // users
+    _db.collection('users').doc(userId).collection('tours').doc(tourId).set({
       // general info
       'userId': userId,
       'tourId': tourId,
@@ -318,20 +327,27 @@ class FirestoreService {
       'tourLanguage': tourLanguage,
       // ---
       'timeCreation': Timestamp.now()
-    }, SetOptions(merge : true));
-
+    }, SetOptions(merge: true));
     print('Success: Tour Step 2 Created!');
 
+    // tours
+    _db.collection('tours').doc(tourId).set({
+      // general info
+      'userId': userId,
+      'tourId': tourId,
+      // step 2
+      'tourDescription': tourDescription,
+      'tourLanguage': tourLanguage,
+      // ---
+      'timeCreation': Timestamp.now()
+    }, SetOptions(merge: true));
+    //tours
   }
 
-  Future<void> createToursStep3(userId, tourId, tourDate,tourTimeStart, tourTimeEnd) async {
-
-    _db
-        .collection('users')
-        .doc(userId)
-        .collection('tours')
-        .doc(tourId)
-        .set({
+  Future<void> createToursStep3(
+      userId, tourId, tourDate, tourTimeStart, tourTimeEnd) async {
+    // users
+    _db.collection('users').doc(userId).collection('tours').doc(tourId).set({
       // step 1
       'userId': userId,
       'tourId': tourId,
@@ -339,11 +355,21 @@ class FirestoreService {
       'tourDate': tourDate,
       'tourTimeStart': tourTimeStart,
       'tourTimeEnd': tourTimeEnd,
-    }, SetOptions(merge : true));
-
+    }, SetOptions(merge: true));
     print('Success: Tour Step 3 Created!');
 
+    // tours
+    _db.collection('tours').doc(tourId).set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      //step 3
+      'tourDate': tourDate,
+      'tourTimeStart': tourTimeStart,
+      'tourTimeEnd': tourTimeEnd,
+    }, SetOptions(merge: true));
   }
+
   // ---
   // create sub-collection: tour -> images
   Future<void> addTourImage(userId, tourId, imageUrl) async {
@@ -351,11 +377,14 @@ class FirestoreService {
     var uuid = Uuid();
     var imageId = uuid.v1();
 
+    // users
     _db
         .collection('users')
         .doc(userId)
         .collection('tours')
-        .doc(tourId).collection('images').doc(imageId)
+        .doc(tourId)
+        .collection('images')
+        .doc(imageId)
         .set({
       // step 1
       'userId': userId,
@@ -364,19 +393,30 @@ class FirestoreService {
       'imageUrl': imageUrl,
       'timeCreation': Timestamp.now()
     });
-
     print('Success: Image Added!');
 
+    // tours
+    _db.collection('tours').doc(tourId).collection('images').doc(imageId).set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'imageId': imageId,
+      'imageUrl': imageUrl,
+      'timeCreation': Timestamp.now()
+    });
   }
 
   // create activity
-  Future<void> createActivity(userId, tourId, activityId, description, only18, luxury, activityPlace, price, lat, lng, placeId) async {
-
+  Future<void> createActivity(userId, tourId, activityId, description, only18,
+      luxury, activityPlace, price, lat, lng, placeId) async {
+    // users
     _db
         .collection('users')
         .doc(userId)
         .collection('tours')
-        .doc(tourId).collection('activities').doc(activityId)
+        .doc(tourId)
+        .collection('activities')
+        .doc(activityId)
         .set({
       // step 1
       'userId': userId,
@@ -392,19 +432,41 @@ class FirestoreService {
       'placeId': placeId,
       'timeCreation': Timestamp.now()
     });
-
     print('Success: Activity Created!');
 
+    _db
+        .collection('tours')
+        .doc(tourId)
+        .collection('activities')
+        .doc(activityId)
+        .set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'activityId': activityId,
+      'description': description,
+      'only18': only18,
+      'luxury': luxury,
+      'activityPlace': activityPlace,
+      'price': price,
+      'lat': lat,
+      'lng': lng,
+      'placeId': placeId,
+      'timeCreation': Timestamp.now()
+    });
   }
 
   // step 5 -> create collection -> doc
-  Future<void> createVehicleInfo(userId, tourId, vehicleId, numberOfPeopleVehicle, priceVehicle) async {
-
+  Future<void> createVehicleInfo(
+      userId, tourId, vehicleId, numberOfPeopleVehicle, priceVehicle) async {
+    // users
     _db
         .collection('users')
         .doc(userId)
         .collection('tours')
-        .doc(tourId).collection('vehicles').doc(vehicleId)
+        .doc(tourId)
+        .collection('vehicles')
+        .doc(vehicleId)
         .set({
       // step 1
       'userId': userId,
@@ -414,41 +476,56 @@ class FirestoreService {
       'priceVehicle': priceVehicle,
       'timeCreation': Timestamp.now()
     });
-
     print('Success: Vehicle Info Created!');
 
-  }
-
-  Future<void> publishTourStep5(userId, tourId, completedCreation) async {
-
+    // tours
     _db
-        .collection('users')
-        .doc(userId)
         .collection('tours')
         .doc(tourId)
+        .collection('vehicles')
+        .doc(vehicleId)
         .set({
       // step 1
       'userId': userId,
       'tourId': tourId,
-      'completedCreation': completedCreation,
-    }, SetOptions(merge : true));
-
-    print('Success: Tour Step 5 Created!');
-
+      'vehicleId': vehicleId,
+      'numberOfPeopleVehicle': numberOfPeopleVehicle,
+      'priceVehicle': priceVehicle,
+      'timeCreation': Timestamp.now()
+    });
   }
 
+  Future<void> publishTourStep5(userId, tourId, completedCreation) async {
+    // users
+    _db.collection('users').doc(userId).collection('tours').doc(tourId).set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'completedCreation': completedCreation,
+    }, SetOptions(merge: true));
+    print('Success: Tour Step 5 Created!');
+
+    // tours
+    _db.collection('tours').doc(tourId).set({
+      // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'completedCreation': completedCreation,
+    }, SetOptions(merge: true));
+  }
+
+  // ---------------- FINISH TOURS METHODS ----------------------------
+
+  // ---
+
   // Create Tours
-  Future<void> createPosts(userId, postName, postLocalization, postImage, postLikes, postDescription, postComments) async {
+  Future<void> createPosts(userId, postName, postLocalization, postImage,
+      postLikes, postDescription, postComments) async {
     // generate random tourId
     var uuid = Uuid();
     var postId = uuid.v1();
 
-    _db
-        .collection('users')
-        .doc(userId)
-        .collection('posts')
-        .doc(postId)
-        .set({
+    _db.collection('users').doc(userId).collection('posts').doc(postId).set({
       'userId': userId,
       'postId': postId,
       'postName': postName,
@@ -461,11 +538,11 @@ class FirestoreService {
     });
 
     print('Success: Post Created!');
-
   }
 
   // Create Review
-  Future<void> createReviews(userIdGuide, usernameGuide, userIdTourist, usernameTourist, tourId, ratings, date, description) async {
+  Future<void> createReviews(userIdGuide, usernameGuide, userIdTourist,
+      usernameTourist, tourId, ratings, date, description) async {
     // generate random tourId
     var uuid = Uuid();
     var reviewId = uuid.v1();
@@ -488,9 +565,7 @@ class FirestoreService {
     });
 
     print('Success: Review Created!');
-
   }
-
 
   // ------------ todo: delete the functions down here -------------------------
 
