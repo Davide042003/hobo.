@@ -108,21 +108,19 @@ class _SearchBarAddWidgetState extends State<SearchBarAddWidget> {
                                     if(widget.what == 1) {
                                      addNewTour.setTourPlaceName = _placeList[index].mainText;
                                      addNewTour.setTourPlaceId = _placeList[index].id;
+                                     getPlaceLoc(_placeList[index].id, addNewTour);
                                     }else if(widget.what==2) {
                                       addNewTour.setPlaceNameActivity =
                                           _placeList[index].mainText;
                                       addNewTour.setPlaceIdActivity =
                                           _placeList[index].id;
+                                      getPlaceLoc(_placeList[index].id, addNewTour);
                                     }
 
                                     print(addNewTour.tourPlaceName + " " + addNewTour.tourPlaceId);
 
-                                    _placeList.clear();
-                                    //print("Tour place index: " + addNewTour.tourPlaceName);
-                      /*              widget.placeId = _placeList[index].id;
-                                    widget.placeName =
-                                        _placeList[index].mainText;*/
 
+                                    _placeList.clear();
                                     widget.changePage();
                                   });
                                 },
@@ -234,19 +232,19 @@ class _SearchBarAddWidgetState extends State<SearchBarAddWidget> {
     }
   }
 
-  void getPlaceLoc(String input) async {
+  void getPlaceLoc(String input, NewTourProvider tourProvider) async {
     String kPLACES_API_KEY = "AIzaSyAP9Tw6rUqoICKt6TLPhDGyRHtmeJFqobs";
     String baseURL = 'https://maps.googleapis.com/maps/api/place/details/json';
     String request =
         '$baseURL?place_id=$input&key=$kPLACES_API_KEY&fields=geometry';
     var response = await http.get(Uri.parse(request));
     if (response.statusCode == 200) {
-      setState(() {
+      print(response.body);
         double lat =
             json.decode(response.body)["result"]['geometry']['location']['lat'];
         double lng =
             json.decode(response.body)["result"]['geometry']['location']['lng'];
-      });
+        tourProvider.setLatLng(lat.toString(), lng.toString());
     } else {
       throw Exception('Failed to load predictions');
     }

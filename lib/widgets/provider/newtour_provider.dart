@@ -41,6 +41,8 @@ class NewTourProvider with ChangeNotifier {
   List<String> tourImages = List<String>.filled(0, "", growable: true);
   String _tourDescription = "";
   String _tourLanguage = "";
+  String _lat = "";
+  String _lng = "";
 
   // step 3
   String _tourDate = "";
@@ -70,18 +72,24 @@ class NewTourProvider with ChangeNotifier {
 
   String get tourId => _tourId;
 
-
   // ---
   bool get isGuide => _isGuide;
-  String get username => _nameGuide;
-  String get surname => _surname;
-  String get birthday => _birthday;
-  String get gender => _gender;
-  String get spokenLanguages => _spokenLanguages;
-  bool get certifiedGuide => _certifiedGuide;
-  String get nationality => _nationality;
-  // ---
 
+  String get username => _nameGuide;
+
+  String get surname => _surname;
+
+  String get birthday => _birthday;
+
+  String get gender => _gender;
+
+  String get spokenLanguages => _spokenLanguages;
+
+  bool get certifiedGuide => _certifiedGuide;
+
+  String get nationality => _nationality;
+
+  // ---
 
   // step 1
   String get tourName => _tourName;
@@ -95,6 +103,10 @@ class NewTourProvider with ChangeNotifier {
   bool get isForChildren => _isForChildren;
 
   bool get isPrivate => _isPrivate;
+
+  String get lat => _lat;
+
+  String get lng => _lng;
 
   // step 2
   String get tourUrlImage1 => _tourUrlImage1;
@@ -148,46 +160,59 @@ class NewTourProvider with ChangeNotifier {
     print("ID del tour: " + _tourId);
     notifyListeners();
   }
+
   // GUIDE
   set setIsGuide(bool value) {
     _isGuide = value;
     registrationChoice(_isGuide);
     notifyListeners();
   }
+
   set setUsernameGuide(String usernameGuide) {
     _nameGuide = usernameGuide;
     notifyListeners();
   }
+
   set setSurnameGuide(String surnameGuide) {
     _surname = surnameGuide;
     notifyListeners();
   }
+
   set setBirthday(String birthD) {
     _birthday = birthD;
     notifyListeners();
   }
+
   set setGender(String gender) {
     _gender = gender;
     notifyListeners();
   }
-  void publishAddExtraInfo1(){
-    _repository.createExtraInfoGuide(_auth.currentUser.uid, _nameGuide, _surname, _birthday, _gender);
+
+  void publishAddExtraInfo1() {
+    _repository.createExtraInfoGuide(
+        _auth.currentUser.uid, _nameGuide, _surname, _birthday, _gender);
   }
-  set setSpokenLanguages (String spoken) {
+
+  set setSpokenLanguages(String spoken) {
     _spokenLanguages = spoken;
     notifyListeners();
   }
-  set setCertifiedGuide (bool certifiedG) {
+
+  set setCertifiedGuide(bool certifiedG) {
     _certifiedGuide = certifiedG;
     notifyListeners();
   }
-  set setNationality (String nation) {
+
+  set setNationality(String nation) {
     _nationality = nation;
     notifyListeners();
   }
-  void publishAddExtraInfo2(){
-    _repository.createExtraInfoGuide2(_auth.currentUser.uid, _spokenLanguages, _certifiedGuide, _nationality);
+
+  void publishAddExtraInfo2() {
+    _repository.createExtraInfoGuide2(
+        _auth.currentUser.uid, _spokenLanguages, _certifiedGuide, _nationality);
   }
+
   // ---
 
   // step 1
@@ -218,6 +243,12 @@ class NewTourProvider with ChangeNotifier {
 
   set setIsPrivate(bool isPrivateSet) {
     _isPrivate = isPrivateSet;
+    notifyListeners();
+  }
+
+  void setLatLng(String la, String ln) {
+    _lat = la;
+    _lng = ln;
     notifyListeners();
   }
 
@@ -329,7 +360,6 @@ class NewTourProvider with ChangeNotifier {
 
     _repository.createActivity(_auth.currentUser.uid, _tourId, activityId,
         _activityDescription, _only18, _luxury, activityPl, _price);
-
   }
 
   void createVehicleInfo() {
@@ -340,9 +370,10 @@ class NewTourProvider with ChangeNotifier {
   }
 
   // registration choice
-  void registrationChoice (choice){
+  void registrationChoice(choice) {
     _repository.userRegistrationChoice(_auth.currentUser.uid, choice);
   }
+
   // publish step 1
   void publishTourStep1() {
     // tourId was set in: createActivity function (step 4)
@@ -356,7 +387,8 @@ class NewTourProvider with ChangeNotifier {
         _numberOfPeople,
         _isForChildren,
         _isPrivate,
-        );
+        _lat,
+        _lng);
     print("Tour: Step 1 Saved!");
   }
 
@@ -394,7 +426,6 @@ class NewTourProvider with ChangeNotifier {
 
     print("Tour: Step 3 Saved!");
   }
-
 
   // step 5 - publish tour
   void publishTour() {

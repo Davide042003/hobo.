@@ -234,7 +234,7 @@ class FirestoreService {
     print('Success: Extra info Guide 2!');
   }
 
-  // Create Tours
+  // deprecate function, it was replaced with step by step createToursStep
   Future<void> createTours(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate,tourDescription, tourLanguage, tourImage, tourDate,tourTimeStart, tourTimeEnd, tourActivitiesId, tourActivitiesVehiclesId, tourRatings, tourTotalRatings, tourPrice) async {
 
     _db
@@ -275,7 +275,7 @@ class FirestoreService {
   }
 
   // Create Tour step by step
-  Future<void> createToursStep1(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate) async {
+  Future<void> createToursStep1(userId, tourId, tourName, tourPlace,tourNumberOfPeople,tourIsForChildren, tourIsPrivate, lat, lng) async {
 
     _db
         .collection('users')
@@ -291,6 +291,8 @@ class FirestoreService {
       'tourNumberOfPeople': tourNumberOfPeople,
       'tourIsForChildren': tourIsForChildren,
       'tourIsPrivate': tourIsPrivate,
+      'lat': lat,
+      'lng': lng,
       'timeCreation': Timestamp.now()
     });
 
