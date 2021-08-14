@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -60,8 +61,7 @@ class _MapWidgetState extends State<MapWidget>
           onTap: () {
             animateTo(city.position.latitude, city.position.longitude + 0.05);
             _customInfoWindowController.addInfoWindow(
-                InfoWindow(),
-                city.position);
+                InfoWindow(), city.position);
           }));
     });
     return markersList;
@@ -260,8 +260,7 @@ class InfoWindow extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-              color:
-                  Styles.map_tour(themeChange.darkTheme, context),
+              color: Styles.map_tour(themeChange.darkTheme, context),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -279,8 +278,7 @@ class InfoWindow extends StatelessWidget {
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Jessie Williams",
@@ -289,21 +287,18 @@ class InfoWindow extends StatelessWidget {
                                 fontSize: 17,
                                 fontWeight: FontWeight.w600,
                                 color: Styles.whiteblack(
-                                    themeChange.darkTheme,
-                                    context)),
+                                    themeChange.darkTheme, context)),
                           ),
                           SizedBox(
-                            height:
-                                SizeConfig.screenHeight * 0.0025,
+                            height: SizeConfig.screenHeight * 0.0025,
                           ),
                           Container(
                             width: SizeConfig.screenWidth * 0.28,
                             height: SizeConfig.screenHeight * 0.027,
                             decoration: BoxDecoration(
-                                color: Color.fromRGBO(
-                                    245, 95, 185, .15),
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(8))),
+                                color: Color.fromRGBO(245, 95, 185, .15),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8))),
                             child: Center(
                                 child: Text(
                               "Private Tour",
@@ -311,8 +306,7 @@ class InfoWindow extends StatelessWidget {
                                   fontFamily: Constants.POPPINS,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500,
-                                  color: Color.fromRGBO(
-                                      245, 95, 185, 1)),
+                                  color: Color.fromRGBO(245, 95, 185, 1)),
                             )),
                           )
                         ],
@@ -336,10 +330,9 @@ class InfoWindow extends StatelessWidget {
                     height: SizeConfig.screenHeight * 0.02,
                   ),
                   Container(
-                    width: SizeConfig.screenWidth,
-                    height: SizeConfig.screenHeight * 0.001,
-                    color:Styles.map_bar(themeChange.darkTheme, context)
-                  ),
+                      width: SizeConfig.screenWidth,
+                      height: SizeConfig.screenHeight * 0.001,
+                      color: Styles.map_bar(themeChange.darkTheme, context)),
                   SizedBox(
                     height: SizeConfig.screenHeight * 0.02,
                   ),
@@ -361,8 +354,7 @@ class InfoWindow extends StatelessWidget {
                               alignment: Alignment.bottomLeft,
                               child: Padding(
                                 padding: EdgeInsets.only(
-                                    bottom: SizeConfig.screenHeight *
-                                        0.004),
+                                    bottom: SizeConfig.screenHeight * 0.004),
                                 child: Icon(
                                   CustomIcons.calendaricon,
                                   size: 14,
@@ -382,8 +374,7 @@ class InfoWindow extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 13,
                                     color: Styles.map_tourcalendar(
-                                        themeChange.darkTheme,
-                                        context)),
+                                        themeChange.darkTheme, context)),
                               )),
                           Expanded(
                               child: Align(
@@ -402,17 +393,20 @@ class InfoWindow extends StatelessWidget {
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
                                         color: Styles.map_moreinfo(
-                                            themeChange.darkTheme,
-                                            context)),
+                                            themeChange.darkTheme, context)),
                                   ),
-                                  SizedBox(width: SizeConfig.screenWidth * 0.005,),
+                                  SizedBox(
+                                    width: SizeConfig.screenWidth * 0.005,
+                                  ),
                                   Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom: SizeConfig.screenHeight *
-                                              0.003),
-                                    child: Icon(Icons.arrow_forward_ios_outlined, size: 12, color: Styles.map_moreinfo(
-                                        themeChange.darkTheme,
-                                        context)),
+                                    padding: EdgeInsets.only(
+                                        bottom:
+                                            SizeConfig.screenHeight * 0.003),
+                                    child: Icon(
+                                        Icons.arrow_forward_ios_outlined,
+                                        size: 12,
+                                        color: Styles.map_moreinfo(
+                                            themeChange.darkTheme, context)),
                                   )
                                 ],
                               ),
@@ -422,13 +416,14 @@ class InfoWindow extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.005,),
+                  SizedBox(
+                    height: SizeConfig.screenHeight * 0.005,
+                  ),
                 ],
               )),
         ),
         Padding(
-          padding:
-              EdgeInsets.only(top: SizeConfig.screenHeight * 0.29),
+          padding: EdgeInsets.only(top: SizeConfig.screenHeight * 0.29),
           child: Center(
             child: Container(
               decoration: BoxDecoration(boxShadow: [
@@ -442,8 +437,7 @@ class InfoWindow extends StatelessWidget {
                   child: Icon(
                     CupertinoIcons.triangle_fill,
                     size: 22,
-                    color: Styles.map_tour(
-                        themeChange.darkTheme, context),
+                    color: Styles.map_tour(themeChange.darkTheme, context),
                   )),
             ),
           ),
@@ -481,6 +475,7 @@ Widget _getMarkerWidget(String name) {
 
 // Example of backing data
 List<City> cities = [
+  /*
   City("Zagreb", LatLng(45.792565, 15.995832)),
   City("Ljubljana", LatLng(46.037839, 14.513336)),
   City("Novo Mesto", LatLng(45.806132, 15.160768)),
@@ -491,6 +486,7 @@ List<City> cities = [
   City("Klagenfurt", LatLng(46.624124, 14.307974)),
   City("Graz", LatLng(47.060426, 15.442028)),
   City("Celje", LatLng(46.236738, 15.270346))
+   */
 ];
 
 List<Widget> markerWidgets() {
@@ -498,8 +494,92 @@ List<Widget> markerWidgets() {
 }
 
 class City {
-  final String name;
-  final LatLng position;
+  String name;
+  LatLng position;
 
   City(this.name, this.position);
+
+  toString() {
+    return "name: " + name + ", lat & lng: " + position.toString();
+  }
+}
+
+// ----------- START GET TOURS -----------------------------
+CollectionReference _tourReference =
+    FirebaseFirestore.instance.collection('tours');
+
+Future<void> getTours() async {
+  // Get docs from collection reference
+  QuerySnapshot querySnapshot = await _tourReference.get();
+
+  String myTourCity;
+  String latInString;
+  double lat;
+  String lngInString;
+  double lng;
+  var position;
+
+  // Get data from docs and convert map to List
+  final allTours = querySnapshot.docs
+      .map((doc) => {
+            doc['tourPlace'],
+            doc['lat'],
+            doc['lng'],
+          })
+      .toList();
+
+  print(allTours);
+
+  for (int i = 0; i < allTours.length; i++) {
+    myTourCity = querySnapshot.docs[i]['tourPlace'];
+
+    latInString = querySnapshot.docs[i]['lat'];
+    lat = double.parse(latInString);
+
+    lngInString = querySnapshot.docs[i]['lng'];
+    lng = double.parse(lngInString);
+
+    position = new LatLng(lat, lng);
+
+    //print("$myTourCity  $position");
+
+    // todo: read down
+    // READ ME: here we can add cities to the list
+    cities.add(City(myTourCity, position));
+  }
+
+  print(cities.length);
+}
+
+// not used
+Future getDocs() async {
+  QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection("tours").get();
+  for (int i = 0; i < querySnapshot.size; i++) {
+    var a = querySnapshot.docs[i];
+    print(a.id);
+  }
+}
+
+// ----------- END GET TOURS -----------------------------
+
+// generale stream to build UI
+class GetTours extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection("tours").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) return new Text("There is no tours");
+          return new ListView(children: getToursPosition(snapshot));
+        });
+  }
+
+  getToursPosition(AsyncSnapshot<QuerySnapshot> snapshot) {
+    return snapshot.data.docs
+        .map((doc) => new ListTile(
+            title: new Text(doc["name"]),
+            subtitle: new Text(doc["amount"].toString())))
+        .toList();
+  }
 }

@@ -9,6 +9,8 @@ import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'package:hobo_test/models/map_model.dart';
 
+import 'map_widget.dart';
+
 class SearchBarMapWidget extends StatefulWidget {
   final FocusNode focusNode;
   final Completer<GoogleMapController> _controller;
@@ -175,7 +177,10 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
                 ],
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  print("Bottom Search in searchbarmap_widget used to get tours data");
+                  getTours();
+                },
                 child: Container(
                   decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
                     BoxShadow(
