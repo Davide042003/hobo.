@@ -178,8 +178,6 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
               ),
               child: TextButton(
                 onPressed: () {
-                  print("Bottom Search in searchbarmap_widget used to get tours data");
-                  getTours();
                 },
                 child: Container(
                   decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [

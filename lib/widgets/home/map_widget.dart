@@ -37,6 +37,69 @@ class _MapWidgetState extends State<MapWidget>
     super.initState();
     _getUserLocation();
 
+    getTours();
+
+    MarkerGenerator(markerWidgets(), (bitmaps) {
+      setState(() {
+        markers = mapBitmapsToMarkers(bitmaps);
+      });
+    }).generate(context);
+  }
+
+  // ----------- START GET TOURS -----------------------------
+  CollectionReference _tourReference =
+      FirebaseFirestore.instance.collection('tours');
+
+  Future<void> getTours() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await _tourReference.get();
+
+    String myTourCity;
+    String latInString;
+    double lat;
+    String lngInString;
+    double lng;
+    var position;
+
+    // Get data from docs and convert map to List
+    final allTours = querySnapshot.docs
+        .map((doc) => {
+              doc['tourPlace'],
+              doc['lat'],
+              doc['lng'],
+            })
+        .toList();
+
+    print(allTours);
+
+    for (int i = 0; i < allTours.length; i++) {
+      myTourCity = querySnapshot.docs[i]['tourPlace'];
+
+      latInString = querySnapshot.docs[i]['lat'];
+      lat = double.parse(latInString);
+
+      lngInString = querySnapshot.docs[i]['lng'];
+      lng = double.parse(lngInString);
+
+      position = new LatLng(lat, lng);
+
+      //print("$myTourCity  $position");
+
+      // todo: read down
+      // READ ME: here we can add cities to the list
+      cities.add(City(myTourCity, position));
+    }
+
+    print(cities.length);
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        generateMarker();
+      });
+    });
+  }
+
+  void generateMarker() {
     MarkerGenerator(markerWidgets(), (bitmaps) {
       setState(() {
         markers = mapBitmapsToMarkers(bitmaps);
@@ -504,53 +567,6 @@ class City {
   }
 }
 
-// ----------- START GET TOURS -----------------------------
-CollectionReference _tourReference =
-    FirebaseFirestore.instance.collection('tours');
-
-Future<void> getTours() async {
-  // Get docs from collection reference
-  QuerySnapshot querySnapshot = await _tourReference.get();
-
-  String myTourCity;
-  String latInString;
-  double lat;
-  String lngInString;
-  double lng;
-  var position;
-
-  // Get data from docs and convert map to List
-  final allTours = querySnapshot.docs
-      .map((doc) => {
-            doc['tourPlace'],
-            doc['lat'],
-            doc['lng'],
-          })
-      .toList();
-
-  print(allTours);
-
-  for (int i = 0; i < allTours.length; i++) {
-    myTourCity = querySnapshot.docs[i]['tourPlace'];
-
-    latInString = querySnapshot.docs[i]['lat'];
-    lat = double.parse(latInString);
-
-    lngInString = querySnapshot.docs[i]['lng'];
-    lng = double.parse(lngInString);
-
-    position = new LatLng(lat, lng);
-
-    //print("$myTourCity  $position");
-
-    // todo: read down
-    // READ ME: here we can add cities to the list
-    cities.add(City(myTourCity, position));
-  }
-
-  print(cities.length);
-}
-
 // not used
 Future getDocs() async {
   QuerySnapshot querySnapshot =
@@ -561,9 +577,7 @@ Future getDocs() async {
   }
 }
 
-// ----------- END GET TOURS -----------------------------
-
-// generale stream to build UI
+// generate stream to build UI
 class GetTours extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
