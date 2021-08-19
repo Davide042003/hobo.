@@ -26,6 +26,7 @@ class _MapViewState extends State<MapView> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController controllerText = new TextEditingController();
 
+
   @override
   void initState() {
     super.initState();
@@ -61,6 +62,7 @@ class _MapViewState extends State<MapView> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final page = Provider.of<PageControlProvider>(context);
+
 
     return Stack(
       children: [
@@ -192,3 +194,4 @@ class _MapViewState extends State<MapView> {
     );
   }
 }
+

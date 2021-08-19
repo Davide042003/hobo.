@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'package:hobo_test/models/map_model.dart';
@@ -15,6 +16,7 @@ class SearchBarMapWidget extends StatefulWidget {
   final FocusNode focusNode;
   final Completer<GoogleMapController> _controller;
   final TextEditingController controller;
+
 
   const SearchBarMapWidget(this.focusNode, this._controller, this.controller);
 
@@ -37,6 +39,7 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
+    final addNewTour = Provider.of<NewTourProvider>(context);
 
     return Stack(
       children: [
@@ -85,8 +88,8 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
                           title: Text(_placeList[index].mainText,style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 14, fontWeight: FontWeight.w500, color: Styles.whiteblack(themeChange.darkTheme, context)),),
                           subtitle: Text(_placeList[index].secondaryText != null
                               ? _placeList[index].secondaryText : "", style: TextStyle(fontFamily: Constants.POPPINS, fontSize: 12, fontWeight: FontWeight.w100, color: Color.fromRGBO(158, 158, 158, 1)),),
-
                           onTap: () {
+                            addNewTour.refreshMarkersFunction = true;
                             setState(() {
                               getPlaceLoc(_placeList[index].id);
                               widget.controller.text = _placeList[index].mainText;

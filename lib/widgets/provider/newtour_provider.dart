@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/methods/firestore_service.dart';
+import 'package:hobo_test/views/map_view.dart';
+import 'package:hobo_test/widgets/home/map_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,6 +15,8 @@ class NewTourProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _addNewTourVisible = false;
+
+  bool _refreshMarkers = false;
 
   // Ids
   var uuid = Uuid();
@@ -72,6 +76,8 @@ class NewTourProvider with ChangeNotifier {
   List<String> activities = List<String>.filled(5, "", growable: true);
 
   bool get addNewTourVisible => _addNewTourVisible;
+
+  bool get refreshMarkers => _refreshMarkers;
 
   FirebaseAuth get authUser => _auth;
 
@@ -163,6 +169,10 @@ class NewTourProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  set refreshMarkersFunction (bool value) {
+    _refreshMarkers = value;
+    notifyListeners();
+  }
   set setTourId(String tourID) {
     _tourId = tourID;
     print("ID del tour: " + _tourId);
