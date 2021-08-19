@@ -106,6 +106,12 @@ class _MapWidgetState extends State<MapWidget>
         markers = mapBitmapsToMarkers(bitmaps);
       });
     }).generate(context);
+    markers.forEach((element) {
+      print(element.markerId);
+    });
+    cities.forEach((element) {
+      print("City: " + element.toString());
+    });
     print("generate marker");
   }
 
@@ -168,6 +174,9 @@ class _MapWidgetState extends State<MapWidget>
   }
 
   Future<void> animateToInitial() async {
+
+    getTours();
+
     Position position = await _determinePosition();
 
     final c = await widget._controller.future;
@@ -315,7 +324,6 @@ class _MapWidgetState extends State<MapWidget>
           controller;
       mapController = controller;
     });
-    generateMarker();
     print("Map created");
   }
 
