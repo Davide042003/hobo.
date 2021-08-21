@@ -71,7 +71,7 @@ class _MapWidgetState extends State<MapWidget>
             })
         .toList();
 
-    print(allTours);
+    //print(allTours);
 
     for (int i = 0; i < allTours.length; i++) {
       myTourCity = querySnapshot.docs[i]['tourPlace'];
@@ -98,6 +98,10 @@ class _MapWidgetState extends State<MapWidget>
         generateMarker();
       });
     });
+
+    Position currentPos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print("Current position:   $currentPos");
+
   }
 
   void generateMarker() {
@@ -110,7 +114,7 @@ class _MapWidgetState extends State<MapWidget>
       print(element.markerId);
     });
     cities.forEach((element) {
-      print("City: " + element.toString());
+      //print("City: " + element.toString());
     });
     print("generate marker");
   }
@@ -161,8 +165,11 @@ class _MapWidgetState extends State<MapWidget>
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+
+    return await Geolocator.getCurrentPosition();
+
+    //return await Geolocator.getCurrentPosition(
+    //    desiredAccuracy: LocationAccuracy.high);
   }
 
   void _getUserLocation() async {
