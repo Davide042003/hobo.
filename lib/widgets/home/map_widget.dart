@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -14,6 +15,7 @@ import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:hobo_test/widgets/home/marker_generator.dart';
 import 'package:flutter/rendering.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MapWidget extends StatefulWidget {
   final Completer<GoogleMapController> _controller;
@@ -32,6 +34,16 @@ class _MapWidgetState extends State<MapWidget>
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   List<Marker> markers = [];
+
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  Geoflutterfire geo = Geoflutterfire();
+
+  BehaviorSubject<double> radius = new BehaviorSubject.seeded(100.0);
+  Stream<dynamic> query;
+
+  StreamSubscription subscription;
+  Position currentPos;
+
 
   @override
   void initState() {
@@ -99,10 +111,48 @@ class _MapWidgetState extends State<MapWidget>
       });
     });
 
-    Position currentPos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    // GET CURRENT POSITION
+    currentPos = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
     print("Current position:   $currentPos");
+    _addGeoPoint(currentPos);
+  }
+
+  Future<DocumentReference> _addGeoPoint(Position currentPosition) async {
+    var pos = currentPosition;
+    GeoFirePoint point =
+        geo.point(latitude: pos.latitude, longitude: pos.longitude);
+    return db.collection('locations').add({
+      'position': point.data,
+      'other': 'other...',
+    });
 
   }
+
+  void _updateMarkers (List<DocumentSnapshot> documentList){
+    print(documentList);
+    documentList.forEach((DocumentSnapshot document) {
+      GeoPoint pos = document.data();
+      print(pos);
+    });
+  }
+
+/*
+  _startQuery () async {
+    var pos = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    double lat = pos.latitude;
+    double lng = pos.longitude;
+
+    var ref = db.collection('locations');
+    GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
+
+    subscription = radius.switchMap((rad) {
+      return geo.collection(collectionRef: ref).within(center: center, radius: radius, field: 'position', strictMode: true);
+    });
+  }
+  */
 
   void generateMarker() {
     MarkerGenerator(markerWidgets(), (bitmaps) {
@@ -165,7 +215,6 @@ class _MapWidgetState extends State<MapWidget>
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-
     return await Geolocator.getCurrentPosition();
 
     //return await Geolocator.getCurrentPosition(
@@ -181,7 +230,6 @@ class _MapWidgetState extends State<MapWidget>
   }
 
   Future<void> animateToInitial() async {
-
     getTours();
 
     Position position = await _determinePosition();
@@ -239,7 +287,6 @@ class _MapWidgetState extends State<MapWidget>
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final addNewTour = Provider.of<NewTourProvider>(context);
 
-
     return Container(
         width: SizeConfig.screenWidth,
         height: SizeConfig.screenHeight,
@@ -275,6 +322,17 @@ class _MapWidgetState extends State<MapWidget>
                             target: LatLng(45.811328, 15.975862), zoom: 8),
                         onMapCreated: _onMapCreated,
                         markers: markers.toSet(),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 100,
+                      left: 100,
+                      child: Slider(
+                        min: 100,
+                        max: 500,
+                        divisions: 4,
+                        value: radius.value,
+                        label: 'Radius ${radius.value}km',
                       ),
                     ),
                     CustomInfoWindow(
@@ -324,11 +382,10 @@ class _MapWidgetState extends State<MapWidget>
               ]));
   }
 
-  _onMapCreated (GoogleMapController controller) async {
+  _onMapCreated(GoogleMapController controller) async {
     setState(() {
       widget._controller.complete(controller);
-      _customInfoWindowController.googleMapController =
-          controller;
+      _customInfoWindowController.googleMapController = controller;
       mapController = controller;
     });
     print("Map created");
