@@ -37,13 +37,7 @@ class _MapWidgetState extends State<MapWidget>
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   Geoflutterfire geo = Geoflutterfire();
-
-  BehaviorSubject<double> radius = new BehaviorSubject.seeded(100.0);
-  Stream<dynamic> query;
-
-  StreamSubscription subscription;
-  Position currentPos;
-
+  Position myPos;
 
   @override
   void initState() {
@@ -111,30 +105,38 @@ class _MapWidgetState extends State<MapWidget>
       });
     });
 
-    // GET CURRENT POSITION
-    currentPos = await Geolocator.getCurrentPosition(
+    // GET POSITION
+    myPos = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    print("Current position:   $currentPos");
-    _addGeoPoint(currentPos);
+    double myLat = myPos.latitude;
+    double myLng = myPos.longitude;
+
+    GeoFirePoint myLocation = geo.point(latitude: myLat, longitude: myLng);
+    // ---
+    db
+        .collection('locations')
+        .add({'name': 'random name', 'position': myLocation.data});
+
+    _queryDistance(myLocation);
   }
 
-  Future<DocumentReference> _addGeoPoint(Position currentPosition) async {
-    var pos = currentPosition;
-    GeoFirePoint point =
-        geo.point(latitude: pos.latitude, longitude: pos.longitude);
-    return db.collection('locations').add({
-      'position': point.data,
-      'other': 'other...',
-    });
+  void _queryDistance (GeoFirePoint myLoc) {
+    print("--- START QUERY ---");
+    // QUERY
+    var collectionReference = db.collection('locations');
 
-  }
+    double radius = 50;
+    String field = 'position';
 
-  void _updateMarkers (List<DocumentSnapshot> documentList){
-    print(documentList);
-    documentList.forEach((DocumentSnapshot document) {
-      GeoPoint pos = document.data();
-      print(pos);
+    Stream<List<DocumentSnapshot>> stream = geo.collection(collectionRef: collectionReference)
+        .within(center: myLoc, radius: radius, field: field);
+
+    stream.listen((List<DocumentSnapshot> documentList) {
+      print("Query Done");
+      documentList.forEach((element) {
+        
+      });
     });
   }
 
@@ -161,7 +163,7 @@ class _MapWidgetState extends State<MapWidget>
       });
     }).generate(context);
     markers.forEach((element) {
-      print(element.markerId);
+      //print(element.markerId);
     });
     cities.forEach((element) {
       //print("City: " + element.toString());
@@ -322,17 +324,6 @@ class _MapWidgetState extends State<MapWidget>
                             target: LatLng(45.811328, 15.975862), zoom: 8),
                         onMapCreated: _onMapCreated,
                         markers: markers.toSet(),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 100,
-                      left: 100,
-                      child: Slider(
-                        min: 100,
-                        max: 500,
-                        divisions: 4,
-                        value: radius.value,
-                        label: 'Radius ${radius.value}km',
                       ),
                     ),
                     CustomInfoWindow(
