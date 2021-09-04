@@ -118,25 +118,26 @@ class _MapWidgetState extends State<MapWidget>
         .collection('locations')
         .add({'name': 'random name', 'position': myLocation.data});
 
-    _queryDistance(myLocation);
+    //_queryDistance(myLocation, myLat, myLng);
+    _queryDistance(myLocation, myLat, myLng);
   }
 
-  void _queryDistance (GeoFirePoint myLoc) {
+  void _queryDistance (GeoFirePoint myLoc, double myLat, double myLng) {
     print("--- START QUERY ---");
     // QUERY
     var collectionReference = db.collection('locations');
 
-    double radius = 50;
+    double radius = 0;
     String field = 'position';
 
     Stream<List<DocumentSnapshot>> stream = geo.collection(collectionRef: collectionReference)
         .within(center: myLoc, radius: radius, field: field);
 
     stream.listen((List<DocumentSnapshot> documentList) {
-      print("Query Done");
       documentList.forEach((element) {
-        
+        print("City name: ${element['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
       });
+      //print("City name: ${documentList[0]['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
     });
   }
 
