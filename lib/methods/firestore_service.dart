@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:uuid/uuid.dart';
@@ -9,6 +10,8 @@ class FirestoreService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _db = FirebaseFirestore.instance;
   String userName;
+
+  final geo = Geoflutterfire();
 
   // get current user
   Future<User> getCurrentUser() async {
@@ -508,6 +511,14 @@ class FirestoreService {
     // tours
     _db.collection('tours').doc(tourId).set({
       // step 1
+      'userId': userId,
+      'tourId': tourId,
+      'completedCreation': completedCreation,
+    }, SetOptions(merge: true));
+
+    // locations
+    _db.collection('locations').doc(tourId).set({
+      // create the locations for the GeoFlutterFire
       'userId': userId,
       'tourId': tourId,
       'completedCreation': completedCreation,

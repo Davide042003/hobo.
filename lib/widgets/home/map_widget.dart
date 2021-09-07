@@ -17,6 +17,7 @@ import 'package:hobo_test/widgets/home/marker_generator.dart';
 import 'package:flutter/rendering.dart';
 import 'package:rxdart/rxdart.dart';
 
+
 class MapWidget extends StatefulWidget {
   final Completer<GoogleMapController> _controller;
   final TextEditingController _controllerText;
@@ -106,11 +107,11 @@ class _MapWidgetState extends State<MapWidget>
     });
 
     // GET POSITION
-    myPos = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    myPos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
 
     double myLat = myPos.latitude;
     double myLng = myPos.longitude;
+
 
     GeoFirePoint myLocation = geo.point(latitude: myLat, longitude: myLng);
     // ---
@@ -119,6 +120,10 @@ class _MapWidgetState extends State<MapWidget>
         .add({'name': 'random name', 'position': myLocation.data});
 
     //_queryDistance(myLocation, myLat, myLng);
+
+    myLat = 43.77925;
+    myLng = 11.24626;
+
     _queryDistance(myLocation, myLat, myLng);
   }
 
@@ -127,15 +132,18 @@ class _MapWidgetState extends State<MapWidget>
     // QUERY
     var collectionReference = db.collection('locations');
 
-    double radius = 0;
+    double radius = 1000;
     String field = 'position';
 
+    // todo: delete down
+    GeoFirePoint fakePos = geo.point(latitude: 41.9027835, longitude: 12.4963655);
+
     Stream<List<DocumentSnapshot>> stream = geo.collection(collectionRef: collectionReference)
-        .within(center: myLoc, radius: radius, field: field);
+        .within(center: fakePos, radius: radius, field: field);
 
     stream.listen((List<DocumentSnapshot> documentList) {
       documentList.forEach((element) {
-        print("City name: ${element['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
+        print("City name: ${element['name']} - local position (lat: $myLat, lng: $myLng)");
       });
       //print("City name: ${documentList[0]['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
     });
@@ -236,6 +244,9 @@ class _MapWidgetState extends State<MapWidget>
     getTours();
 
     Position position = await _determinePosition();
+
+    // todo: sto usando una fake position per testare geoflutterfire
+    position = myPos;
 
     final c = await widget._controller.future;
     final p = CameraPosition(
