@@ -316,6 +316,20 @@ class FirestoreService {
       'completedCreation': completedCreation,
       'timeCreation': Timestamp.now()
     });
+
+    double tourLat = double.parse(lat);
+    double tourLng = double.parse(lng);
+
+    // GeoFirePoint
+    GeoFirePoint myLocation =
+        geo.point(latitude: double.parse(lat), longitude: double.parse(lng));
+
+    // locations collection
+    _db.collection('locations').add({
+      'tourName': tourName,
+      'position': myLocation.data,
+      'timeCreation': Timestamp.now()
+    });
   }
 
   Future<void> createToursStep2(
@@ -517,12 +531,7 @@ class FirestoreService {
     }, SetOptions(merge: true));
 
     // locations
-    _db.collection('locations').doc(tourId).set({
-      // create the locations for the GeoFlutterFire
-      'userId': userId,
-      'tourId': tourId,
-      'completedCreation': completedCreation,
-    }, SetOptions(merge: true));
+    // todo: inserire la collection locations, forse andrà inserita in uno step precedente.
   }
 
   // ---------------- FINISH TOURS METHODS ----------------------------

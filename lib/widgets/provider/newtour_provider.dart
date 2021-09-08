@@ -102,6 +102,7 @@ class NewTourProvider with ChangeNotifier {
 
   // ---
 
+
   // step 1
   String get tourName => _tourName;
 
@@ -424,6 +425,8 @@ class NewTourProvider with ChangeNotifier {
         _placeId,
     _completedCreation);
     print("Tour: Step 1 Saved!");
+
+
   }
 
   // publish step 2
@@ -468,8 +471,6 @@ class NewTourProvider with ChangeNotifier {
       _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
     });
     */
-
-    print("tour id" + _tourId);
 
     _repository.publishTourStep5(
       _auth.currentUser.uid,

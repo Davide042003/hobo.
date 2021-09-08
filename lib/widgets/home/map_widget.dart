@@ -112,12 +112,11 @@ class _MapWidgetState extends State<MapWidget>
     double myLat = myPos.latitude;
     double myLng = myPos.longitude;
 
-
     GeoFirePoint myLocation = geo.point(latitude: myLat, longitude: myLng);
     // ---
     db
         .collection('locations')
-        .add({'name': 'random name', 'position': myLocation.data});
+        .add({'tourName': 'random name', 'position': myLocation.data});
 
     //_queryDistance(myLocation, myLat, myLng);
 
@@ -143,7 +142,7 @@ class _MapWidgetState extends State<MapWidget>
 
     stream.listen((List<DocumentSnapshot> documentList) {
       documentList.forEach((element) {
-        print("City name: ${element['name']} - local position (lat: $myLat, lng: $myLng)");
+        print("City name: ${element['tourName']} - local position (lat: $myLat, lng: $myLng)");
       });
       //print("City name: ${documentList[0]['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
     });
