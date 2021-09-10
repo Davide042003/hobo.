@@ -40,15 +40,17 @@ class _MapWidgetState extends State<MapWidget>
   FirebaseFirestore db = FirebaseFirestore.instance;
   Geoflutterfire geo = Geoflutterfire();
   Position myPos;
+  bool fromInitTours = true;
 
   @override
   void initState() {
     super.initState();
     _getUserLocation();
 
+    fromInitTours = true;
     getTours(true);
 
-    MarkerGenerator(markerWidgets(), (bitmaps) {
+    MarkerGenerator(markerWidgets(true), (bitmaps) {
       setState(() {
         markers = mapBitmapsToMarkers(bitmaps);
       });
@@ -74,7 +76,6 @@ class _MapWidgetState extends State<MapWidget>
 
     // reset the city locations and the queried locations
     cities.clear();
-    citiesQuery.clear();
 
     // Get data from docs and convert map to List
     final allTours = querySnapshot.docs
@@ -112,13 +113,11 @@ class _MapWidgetState extends State<MapWidget>
   void addCityQueriedToList (String myTourCity, double lat, double lng) async {
     var position = new LatLng(lat, lng);
 
-    // reset the city locations
-    cities.clear();
-    citiesQuery.clear();
     citiesQuery.add(City(myTourCity, position));
 
     print("Queried city tours: ${citiesQuery.length}");
     print("Info: $myTourCity --- lat: $lat --- lng: $lng");
+    print("citiesQuery: $citiesQuery");
   }
 
   Future<void> getTours(bool fromInit) async {
@@ -148,12 +147,18 @@ class _MapWidgetState extends State<MapWidget>
       myLat = 43.77925;
       myLng = 11.24626;
 
+      // reset the city locations
+      cities.clear();
+      citiesQuery.clear();
+
       _queryDistance(myLocation, myLat, myLng, fromInit);
     }
   }
 
   void _queryDistance (GeoFirePoint myLoc, double myLat, double myLng, bool fromInit) {
+
     print("--- START QUERY ---");
+    fromInitTours = fromInit;
     // QUERY
     var collectionReference = db.collection('locations');
 
@@ -177,11 +182,10 @@ class _MapWidgetState extends State<MapWidget>
       //print("City name: ${documentList[0]['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
     });
 
-
-
     if (fromInit==false) {
       Future.delayed(const Duration(milliseconds: 500), () {
         setState(() {
+          fromInitTours = false;
           generateMarkerQuery();
         });
       });
@@ -189,7 +193,7 @@ class _MapWidgetState extends State<MapWidget>
   }
 
   void generateMarker() {
-    MarkerGenerator(markerWidgets(), (bitmaps) {
+    MarkerGenerator(markerWidgets(true), (bitmaps) {
       setState(() {
         markers = mapBitmapsToMarkers(bitmaps);
       });
@@ -203,16 +207,17 @@ class _MapWidgetState extends State<MapWidget>
     print("generate markers");
   }
   void generateMarkerQuery() {
-    MarkerGenerator(markerWidgets(), (bitmaps) {
+    MarkerGenerator(markerWidgets(false), (bitmaps) {
       setState(() {
-        markers = mapBitmapsToMarkersQuery(bitmaps);
+        print("from init?: $fromInitTours");
+        markersByDistance = mapBitmapsToMarkersQuery(bitmaps);
       });
     }).generate(context);
-    markers.forEach((element) {
+    markersByDistance.forEach((element) {
       //print(element.markerId);
     });
-    cities.forEach((element) {
-      //print("City: " + element.toString());
+    citiesQuery.forEach((element) {
+      print("City: " + element.toString());
     });
     print("generate markers from query");
   }
@@ -243,6 +248,7 @@ class _MapWidgetState extends State<MapWidget>
 
   // List of the queried markers
   List<Marker> mapBitmapsToMarkersQuery(List<Uint8List> bitmaps) {
+    print("Inside -> mapBitmapsToMarkersQuery");
     List<Marker> markersList = [];
     bitmaps.asMap().forEach((i, bmp) {
       final city = citiesQuery[i];
@@ -256,6 +262,7 @@ class _MapWidgetState extends State<MapWidget>
                 InfoWindow(), city.position);
           }));
     });
+    print("Tour in zona trovati: ${markersList.length}");
     return markersList;
   }
 
@@ -392,7 +399,7 @@ class _MapWidgetState extends State<MapWidget>
                         initialCameraPosition: CameraPosition(
                             target: LatLng(45.811328, 15.975862), zoom: 8),
                         onMapCreated: _onMapCreated,
-                        markers: markers.toSet(),
+                        markers: fromInitTours ? markers.toSet() : markersByDistance.toSet(),
                       ),
                     ),
                     CustomInfoWindow(
@@ -682,15 +689,6 @@ Widget _getMarkerWidget(String name) {
 // Example of backing data
 List<City> cities = [
   /*
-  City("Zagreb", LatLng(45.792565, 15.995832)),
-  City("Ljubljana", LatLng(46.037839, 14.513336)),
-  City("Novo Mesto", LatLng(45.806132, 15.160768)),
-  City("Varaždin", LatLng(46.302111, 16.338036)),
-  City("Maribor", LatLng(46.546417, 15.642292)),
-  City("Rijeka", LatLng(45.324289, 14.444480)),
-  City("Karlovac", LatLng(45.489728, 15.551561)),
-  City("Klagenfurt", LatLng(46.624124, 14.307974)),
-  City("Graz", LatLng(47.060426, 15.442028)),
   City("Celje", LatLng(46.236738, 15.270346))
    */
 ];
@@ -698,20 +696,15 @@ List<City> cities = [
 List<City> citiesQuery = [
   /*
   City("Zagreb", LatLng(45.792565, 15.995832)),
-  City("Ljubljana", LatLng(46.037839, 14.513336)),
-  City("Novo Mesto", LatLng(45.806132, 15.160768)),
-  City("Varaždin", LatLng(46.302111, 16.338036)),
-  City("Maribor", LatLng(46.546417, 15.642292)),
-  City("Rijeka", LatLng(45.324289, 14.444480)),
-  City("Karlovac", LatLng(45.489728, 15.551561)),
-  City("Klagenfurt", LatLng(46.624124, 14.307974)),
-  City("Graz", LatLng(47.060426, 15.442028)),
-  City("Celje", LatLng(46.236738, 15.270346))
    */
 ];
 
-List<Widget> markerWidgets() {
-  return cities.map((c) => _getMarkerWidget(c.name)).toList();
+List<Widget> markerWidgets(bool fromInit) {
+  if (fromInit) {
+    return cities.map((c) => _getMarkerWidget(c.name)).toList();
+  } else {
+    return citiesQuery.map((c) => _getMarkerWidget(c.name)).toList();
+  }
 }
 
 class City {
