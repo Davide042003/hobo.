@@ -35,6 +35,7 @@ class _MapWidgetState extends State<MapWidget>
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
   List<Marker> markers = [];
+  List<Marker> markersByDistance = [];
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   Geoflutterfire geo = Geoflutterfire();
@@ -45,21 +46,23 @@ class _MapWidgetState extends State<MapWidget>
     super.initState();
     _getUserLocation();
 
-    getTours();
+    getTours(true);
 
     MarkerGenerator(markerWidgets(), (bitmaps) {
       setState(() {
         markers = mapBitmapsToMarkers(bitmaps);
       });
     }).generate(context);
+
+
+    citiesQuery.clear();
   }
 
   // ----------- START GET TOURS -----------------------------
   CollectionReference _tourReference =
       FirebaseFirestore.instance.collection('tours');
 
-  Future<void> getTours() async {
-    // Get docs from collection reference
+  void addCityToList () async {
     QuerySnapshot querySnapshot = await _tourReference.get();
 
     String myTourCity;
@@ -69,13 +72,17 @@ class _MapWidgetState extends State<MapWidget>
     double lng;
     var position;
 
+    // reset the city locations and the queried locations
+    cities.clear();
+    citiesQuery.clear();
+
     // Get data from docs and convert map to List
     final allTours = querySnapshot.docs
         .map((doc) => {
-              doc['tourPlace'],
-              doc['lat'],
-              doc['lng'],
-            })
+      doc['tourPlace'],
+      doc['lat'],
+      doc['lng'],
+    })
         .toList();
 
     //print(allTours);
@@ -98,71 +105,88 @@ class _MapWidgetState extends State<MapWidget>
       cities.add(City(myTourCity, position));
     }
 
-    print(cities.length);
+    print("Total city tours: ${cities.length}");
 
-    Future.delayed(const Duration(milliseconds: 500), () {
-      setState(() {
-        generateMarker();
-      });
-    });
-
-    // GET POSITION
-    myPos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
-    double myLat = myPos.latitude;
-    double myLng = myPos.longitude;
-
-    GeoFirePoint myLocation = geo.point(latitude: myLat, longitude: myLng);
-    // ---
-    db
-        .collection('locations')
-        .add({'tourName': 'random name', 'position': myLocation.data});
-
-    //_queryDistance(myLocation, myLat, myLng);
-
-    myLat = 43.77925;
-    myLng = 11.24626;
-
-    _queryDistance(myLocation, myLat, myLng);
   }
 
-  void _queryDistance (GeoFirePoint myLoc, double myLat, double myLng) {
+  void addCityQueriedToList (String myTourCity, double lat, double lng) async {
+    var position = new LatLng(lat, lng);
+
+    // reset the city locations
+    cities.clear();
+    citiesQuery.clear();
+    citiesQuery.add(City(myTourCity, position));
+
+    print("Queried city tours: ${citiesQuery.length}");
+    print("Info: $myTourCity --- lat: $lat --- lng: $lng");
+  }
+
+  Future<void> getTours(bool fromInit) async {
+    // Get docs from collection reference
+    if (fromInit) {
+      addCityToList();
+    }
+
+    if (fromInit==true) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          generateMarker();
+        });
+      });
+    }
+
+    if (fromInit == false) {
+      // GET POSITION
+      myPos = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+
+      double myLat = myPos.latitude;
+      double myLng = myPos.longitude;
+
+      GeoFirePoint myLocation = geo.point(latitude: myLat, longitude: myLng);
+
+      myLat = 43.77925;
+      myLng = 11.24626;
+
+      _queryDistance(myLocation, myLat, myLng, fromInit);
+    }
+  }
+
+  void _queryDistance (GeoFirePoint myLoc, double myLat, double myLng, bool fromInit) {
     print("--- START QUERY ---");
     // QUERY
     var collectionReference = db.collection('locations');
 
-    double radius = 1000;
+    double radius = 100;
     String field = 'position';
+
+    double myPosLat = myLoc.latitude;
+    double myPosLng = myLoc.longitude;
 
     // todo: delete down
     GeoFirePoint fakePos = geo.point(latitude: 41.9027835, longitude: 12.4963655);
 
     Stream<List<DocumentSnapshot>> stream = geo.collection(collectionRef: collectionReference)
-        .within(center: fakePos, radius: radius, field: field);
+        .within(center: myLoc, radius: radius, field: field);
 
     stream.listen((List<DocumentSnapshot> documentList) {
       documentList.forEach((element) {
-        print("City name: ${element['tourName']} - local position (lat: $myLat, lng: $myLng)");
+        addCityQueriedToList(element['tourName'], fakePos.latitude, fakePos.longitude);
+        //print("City name: ${element['tourName']} --- city position: (lat: ${fakePos.latitude}, lng: ${fakePos.longitude}) --- my position: (lat: $myPosLat, lng: $myPosLng)");
       });
       //print("City name: ${documentList[0]['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
     });
+
+
+
+    if (fromInit==false) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          generateMarkerQuery();
+        });
+      });
+    }
   }
-
-/*
-  _startQuery () async {
-    var pos = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    double lat = pos.latitude;
-    double lng = pos.longitude;
-
-    var ref = db.collection('locations');
-    GeoFirePoint center = geo.point(latitude: lat, longitude: lng);
-
-    subscription = radius.switchMap((rad) {
-      return geo.collection(collectionRef: ref).within(center: center, radius: radius, field: 'position', strictMode: true);
-    });
-  }
-  */
 
   void generateMarker() {
     MarkerGenerator(markerWidgets(), (bitmaps) {
@@ -176,7 +200,21 @@ class _MapWidgetState extends State<MapWidget>
     cities.forEach((element) {
       //print("City: " + element.toString());
     });
-    print("generate marker");
+    print("generate markers");
+  }
+  void generateMarkerQuery() {
+    MarkerGenerator(markerWidgets(), (bitmaps) {
+      setState(() {
+        markers = mapBitmapsToMarkersQuery(bitmaps);
+      });
+    }).generate(context);
+    markers.forEach((element) {
+      //print(element.markerId);
+    });
+    cities.forEach((element) {
+      //print("City: " + element.toString());
+    });
+    print("generate markers from query");
   }
 
   @override
@@ -185,10 +223,29 @@ class _MapWidgetState extends State<MapWidget>
     super.dispose();
   }
 
+  // List of all the markers
   List<Marker> mapBitmapsToMarkers(List<Uint8List> bitmaps) {
     List<Marker> markersList = [];
     bitmaps.asMap().forEach((i, bmp) {
       final city = cities[i];
+      markersList.add(Marker(
+          markerId: MarkerId(city.name),
+          position: city.position,
+          icon: BitmapDescriptor.fromBytes(bmp),
+          onTap: () {
+            animateTo(city.position.latitude, city.position.longitude + 0.05);
+            _customInfoWindowController.addInfoWindow(
+                InfoWindow(), city.position);
+          }));
+    });
+    return markersList;
+  }
+
+  // List of the queried markers
+  List<Marker> mapBitmapsToMarkersQuery(List<Uint8List> bitmaps) {
+    List<Marker> markersList = [];
+    bitmaps.asMap().forEach((i, bmp) {
+      final city = citiesQuery[i];
       markersList.add(Marker(
           markerId: MarkerId(city.name),
           position: city.position,
@@ -240,7 +297,8 @@ class _MapWidgetState extends State<MapWidget>
   }
 
   Future<void> animateToInitial() async {
-    getTours();
+    // todo: here we generate markers...
+    getTours(false);
 
     Position position = await _determinePosition();
 
@@ -623,6 +681,21 @@ Widget _getMarkerWidget(String name) {
 
 // Example of backing data
 List<City> cities = [
+  /*
+  City("Zagreb", LatLng(45.792565, 15.995832)),
+  City("Ljubljana", LatLng(46.037839, 14.513336)),
+  City("Novo Mesto", LatLng(45.806132, 15.160768)),
+  City("Varaždin", LatLng(46.302111, 16.338036)),
+  City("Maribor", LatLng(46.546417, 15.642292)),
+  City("Rijeka", LatLng(45.324289, 14.444480)),
+  City("Karlovac", LatLng(45.489728, 15.551561)),
+  City("Klagenfurt", LatLng(46.624124, 14.307974)),
+  City("Graz", LatLng(47.060426, 15.442028)),
+  City("Celje", LatLng(46.236738, 15.270346))
+   */
+];
+
+List<City> citiesQuery = [
   /*
   City("Zagreb", LatLng(45.792565, 15.995832)),
   City("Ljubljana", LatLng(46.037839, 14.513336)),
