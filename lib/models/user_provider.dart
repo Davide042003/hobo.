@@ -1,12 +1,9 @@
-import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:uuid/uuid.dart';
 
 
 class UserProvider with ChangeNotifier {
-  final firestoreService = FirestoreService();
-
   String _userName;
   String _userId;
   var uuid = Uuid();
@@ -14,7 +11,7 @@ class UserProvider with ChangeNotifier {
   // Getters
   String get userName => _userName;
   String get userId => _userId;
-  Stream<List<UserModel>> get users => firestoreService.getAllUsers();
+  //Stream<List<UserModel>> get users => firestoreService.getAllUsers();
 
   // Setters
   set changeUserName (String userName) {
@@ -45,11 +42,11 @@ class UserProvider with ChangeNotifier {
     if (_userId == null){
       // add data to model
       var newUser = UserModel(username: _userName, uid: uuid.v1());
-      firestoreService.setUser(newUser);
+      //firestoreService.setUser(newUser);
       print ("Save -> create $newUser");
     } else {
       var updateUser = UserModel(username: _userName, uid: _userId);
-      firestoreService.setUser(updateUser);
+      //firestoreService.setUser(updateUser);
     }
   }
 }

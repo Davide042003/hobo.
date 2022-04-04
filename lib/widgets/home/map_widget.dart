@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
@@ -37,8 +35,7 @@ class _MapWidgetState extends State<MapWidget>
   List<Marker> markers = [];
   List<Marker> markersByDistance = [];
 
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  Geoflutterfire geo = Geoflutterfire();
+
   Position myPos;
   bool fromInitTours = true;
 
@@ -61,11 +58,8 @@ class _MapWidgetState extends State<MapWidget>
   }
 
   // ----------- START GET TOURS -----------------------------
-  CollectionReference _tourReference =
-      FirebaseFirestore.instance.collection('tours');
 
   void addCityToList () async {
-    QuerySnapshot querySnapshot = await _tourReference.get();
 
     String myTourCity;
     String latInString;
@@ -77,34 +71,10 @@ class _MapWidgetState extends State<MapWidget>
     // reset the city locations and the queried locations
     cities.clear();
 
+
     // Get data from docs and convert map to List
-    final allTours = querySnapshot.docs
-        .map((doc) => {
-      doc['tourPlace'],
-      doc['lat'],
-      doc['lng'],
-    })
-        .toList();
 
     //print(allTours);
-
-    for (int i = 0; i < allTours.length; i++) {
-      myTourCity = querySnapshot.docs[i]['tourPlace'];
-
-      latInString = querySnapshot.docs[i]['lat'];
-      lat = double.parse(latInString);
-
-      lngInString = querySnapshot.docs[i]['lng'];
-      lng = double.parse(lngInString);
-
-      position = new LatLng(lat, lng);
-
-      //print("$myTourCity  $position");
-
-      // todo: read down
-      // READ ME: here we can add cities to the list
-      cities.add(City(myTourCity, position));
-    }
 
     print("Total city tours: ${cities.length}");
 
@@ -134,62 +104,6 @@ class _MapWidgetState extends State<MapWidget>
       });
     }
 
-    if (fromInit == false) {
-      // GET POSITION
-      myPos = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-
-      double myLat = myPos.latitude;
-      double myLng = myPos.longitude;
-
-      GeoFirePoint myLocation = geo.point(latitude: myLat, longitude: myLng);
-
-      myLat = 43.77925;
-      myLng = 11.24626;
-
-      // reset the city locations
-      cities.clear();
-      citiesQuery.clear();
-
-      _queryDistance(myLocation, myLat, myLng, fromInit);
-    }
-  }
-
-  void _queryDistance (GeoFirePoint myLoc, double myLat, double myLng, bool fromInit) {
-
-    print("--- START QUERY ---");
-    fromInitTours = fromInit;
-    // QUERY
-    var collectionReference = db.collection('locations');
-
-    double radius = 100;
-    String field = 'position';
-
-    double myPosLat = myLoc.latitude;
-    double myPosLng = myLoc.longitude;
-
-    // todo: delete down
-    GeoFirePoint fakePos = geo.point(latitude: 41.9027835, longitude: 12.4963655);
-
-    Stream<List<DocumentSnapshot>> stream = geo.collection(collectionRef: collectionReference)
-        .within(center: myLoc, radius: radius, field: field);
-
-    stream.listen((List<DocumentSnapshot> documentList) {
-      documentList.forEach((element) {
-        addCityQueriedToList(element['tourName'], fakePos.latitude, fakePos.longitude);
-        //print("City name: ${element['tourName']} --- city position: (lat: ${fakePos.latitude}, lng: ${fakePos.longitude}) --- my position: (lat: $myPosLat, lng: $myPosLng)");
-      });
-      //print("City name: ${documentList[0]['name']} - distance: $radius - local position (lat: $myLat, lng: $myLng)");
-    });
-
-    if (fromInit==false) {
-      Future.delayed(const Duration(milliseconds: 500), () {
-        setState(() {
-          fromInitTours = false;
-          generateMarkerQuery();
-        });
-      });
-    }
   }
 
   void generateMarker() {
@@ -719,14 +633,6 @@ class City {
 }
 
 // not used
-Future getDocs() async {
-  QuerySnapshot querySnapshot =
-      await FirebaseFirestore.instance.collection("tours").get();
-  for (int i = 0; i < querySnapshot.size; i++) {
-    var a = querySnapshot.docs[i];
-    print(a.id);
-  }
-}
 
 // generate stream to build UI
 class GetTours extends StatefulWidget {
@@ -737,6 +643,18 @@ class GetTours extends StatefulWidget {
 class _GetToursState extends State<GetTours> {
   @override
   Widget build(BuildContext context) {
+    /*
+    getToursPosition() {
+      return Container(
+          child: ListTile(
+              title: new Text("name"),
+              subtitle: new Text("amount")
+          ));
+    }
+    return new ListView(children: getToursPosition());
+
+     */
+    /*
     return new StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection("tours").snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -744,12 +662,6 @@ class _GetToursState extends State<GetTours> {
           return new ListView(children: getToursPosition(snapshot));
         });
   }
-
-  getToursPosition(AsyncSnapshot<QuerySnapshot> snapshot) {
-    return snapshot.data.docs
-        .map((doc) => new ListTile(
-            title: new Text(doc["name"]),
-            subtitle: new Text(doc["amount"].toString())))
-        .toList();
+*/
   }
 }

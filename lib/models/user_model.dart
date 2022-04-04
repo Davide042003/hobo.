@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class UserModel {
@@ -8,7 +7,7 @@ class UserModel {
   final String name;
   final String profilePic;
   final bool guide;
-  final Timestamp timestamp;
+  //final Timestamp timestamp;
 
   UserModel({
     this.username,
@@ -17,7 +16,7 @@ class UserModel {
     this.profilePic,
     this.uid,
     this.guide,
-    this.timestamp,
+    //this.timestamp,
   });
 
   factory UserModel.fromJson(Map<dynamic, dynamic> json) {
@@ -28,7 +27,7 @@ class UserModel {
       profilePic: json['profilePic'],
       uid: json['uid'],
       guide: json['guide'],
-      timestamp: json['timestamp'],
+      //timestamp: json['timestamp'],
     );
   }
 
@@ -40,7 +39,7 @@ class UserModel {
       'profilePic': profilePic,
       'uid': uid,
       'guide': guide,
-      'timestamp': timestamp
+      //'timestamp': timestamp
     };
   }
 }

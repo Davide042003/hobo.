@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/addpost_view.dart';
 import 'package:hobo_test/views/home_view.dart';
@@ -21,7 +19,6 @@ import 'widgets/exports/base_export.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
 
   runApp(MyApp());
 }
@@ -32,7 +29,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  FirestoreService _repository = FirestoreService();
 
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
@@ -43,11 +39,12 @@ class _MyAppState extends State<MyApp> {
   bool _initialized = false;
   bool _error = false;
 
+  bool isLogged = false;
+
   // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
-      await Firebase.initializeApp();
       setState(() {
         _initialized = true;
       });
@@ -123,7 +120,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
              home: SplashScreenView(
-                navigateRoute: AfterLoad(repository: _repository,),
+                navigateRoute: AfterLoad(),
                 duration: 3000,
                 imageSize: 140,
                 imageSrc: "assets/images/icon.png",
@@ -146,15 +143,15 @@ class _MyAppState extends State<MyApp> {
 }
 
 class AfterLoad extends StatelessWidget {
+
   const AfterLoad({
     Key key,
-    @required FirestoreService repository,
-  }) : _repository = repository, super(key: key);
+  }) : super(key: key);
 
-  final FirestoreService _repository;
 
   @override
   Widget build(BuildContext context) {
+    /*
     return FutureBuilder(
       future: _repository.getCurrentUser(),
       builder: (context, AsyncSnapshot<User> snapshot){
@@ -179,5 +176,7 @@ class AfterLoad extends StatelessWidget {
         }
       },
     );
+    */
+    return SliderLayoutView();
   }
 }

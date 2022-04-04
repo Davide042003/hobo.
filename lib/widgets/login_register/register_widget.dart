@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/models/user_model.dart';
 import 'package:hobo_test/models/user_provider.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
@@ -110,11 +107,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   void _trySubmitForm(bool dark) async {
     final isValid = _formKey.currentState.validate();
     if (isValid) {
-      try {
-        FirestoreService firestoreService = FirestoreService();
-        firestoreService.registerUser(_name, _username, _email, _password);
 
-        /*
+      /*
         UserCredential userCredentials = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: _email, password: _password);
         FirebaseFirestore.instance.collection('users').doc(userCredentials.user.uid).set({
@@ -127,39 +121,36 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           'timeCreation' : Timestamp.now()
         });
 */
-        Future.wait([
-          precachePicture(
-            ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Guide-background.svg'),
-            null,
-          ),
-          precachePicture(
-            ExactAssetPicture(SvgPicture.svgStringDecoder, dark ? 'assets/images/Guide-girl-dark.svg' : 'assets/images/Guide-girl.svg'),
-            null,
-          ),
-          precachePicture(
-            ExactAssetPicture(SvgPicture.svgStringDecoder, 'assets/images/Tourist-background.svg'),
-            null,
-          ),
-          precachePicture(
-            ExactAssetPicture(SvgPicture.svgStringDecoder, dark ? 'assets/images/Tourist-girl-dark.svg' : 'assets/images/Tourist-girl.svg'),
-            null,
-          ),
-        ]);
+      Future.wait([
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder,
+              'assets/images/Guide-background.svg'),
+          null,
+        ),
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder, dark
+              ? 'assets/images/Guide-girl-dark.svg'
+              : 'assets/images/Guide-girl.svg'),
+          null,
+        ),
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder,
+              'assets/images/Tourist-background.svg'),
+          null,
+        ),
+        precachePicture(
+          ExactAssetPicture(SvgPicture.svgStringDecoder, dark
+              ? 'assets/images/Tourist-girl-dark.svg'
+              : 'assets/images/Tourist-girl.svg'),
+          null,
+        ),
+      ]);
 
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => ChooseWho()),
-              (Route<dynamic> route) => false,
-        );
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
-        }
-      } catch (e) {
-        print(e);
-      }
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => ChooseWho()),
+            (Route<dynamic> route) => false,
+      );
     }
   }
 

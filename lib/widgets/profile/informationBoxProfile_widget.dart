@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/add_tour/cardtouradd_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
@@ -38,13 +37,6 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     final addNewTour = Provider.of<NewTourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
-
-    CollectionReference activities = FirebaseFirestore.instance
-        .collection('users')
-        .doc(addNewTour.authUser.currentUser.uid)
-        .collection('tours')
-        .doc(addNewTour.tourId)
-        .collection('activities');
 
     return GestureDetector(
       onTap: () {
@@ -128,97 +120,60 @@ class _Step4CreateTourState extends State<Step4CreateTour> {
                     height: SizeConfig.screenHeight * 0.001,
                     color: Color.fromRGBO(242, 242, 242, 1),
                   ),
-                  FutureBuilder<QuerySnapshot>(
-                    future: activities.get(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text("Something went wrong");
-                      }
-
-                      if (snapshot.hasData && snapshot.data.docs.length == 0) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.screenWidth * 0.05),
-                          width: SizeConfig.screenWidth,
-                          height: SizeConfig.screenHeight * 0.065,
-                          child: Row(
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.screenWidth * 0.05),
+                    width: SizeConfig.screenWidth,
+                    height: SizeConfig.screenHeight * 0.065,
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: SizeConfig.screenWidth * 0.065,
+                          backgroundColor: Styles.publishtour_noacitivity(
+                              themeChange.darkTheme, context),
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.05,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: SizeConfig.screenHeight * 0.0065),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CircleAvatar(
-                                radius: SizeConfig.screenWidth * 0.065,
-                                backgroundColor: Styles.publishtour_noacitivity(
-                                    themeChange.darkTheme, context),
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth * 0.05,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: SizeConfig.screenHeight * 0.0065),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: SizeConfig.screenWidth * 0.4,
-                                      height: SizeConfig.screenHeight * 0.01,
-                                      color: Styles.publishtour_noacitivity(
-                                          themeChange.darkTheme, context),
-                                    ),
-                                    Container(
-                                        width: SizeConfig.screenWidth * 0.3,
-                                        height: SizeConfig.screenHeight * 0.01,
-                                        color: Styles.publishtour_noacitivity(
-                                            themeChange.darkTheme, context)),
-                                    Container(
-                                        width: SizeConfig.screenWidth * 0.2,
-                                        height: SizeConfig.screenHeight * 0.01,
-                                        color: Styles.publishtour_noacitivity(
-                                            themeChange.darkTheme, context)),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: SizeConfig.screenWidth * 0.14,
-                              ),
                               Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: SizeConfig.screenHeight * 0.01),
-                                width: SizeConfig.screenWidth * 0.11,
-                                height: SizeConfig.screenHeight * 0.1,
+                                width: SizeConfig.screenWidth * 0.4,
+                                height: SizeConfig.screenHeight * 0.01,
                                 color: Styles.publishtour_noacitivity(
                                     themeChange.darkTheme, context),
-                              )
+                              ),
+                              Container(
+                                  width: SizeConfig.screenWidth * 0.3,
+                                  height: SizeConfig.screenHeight * 0.01,
+                                  color: Styles.publishtour_noacitivity(
+                                      themeChange.darkTheme, context)),
+                              Container(
+                                  width: SizeConfig.screenWidth * 0.2,
+                                  height: SizeConfig.screenHeight * 0.01,
+                                  color: Styles.publishtour_noacitivity(
+                                      themeChange.darkTheme, context)),
                             ],
                           ),
-                        );
-                      }
-                      if (snapshot.hasData) {
-                        final List<DocumentSnapshot> documents =
-                            snapshot.data.docs;
-                        //Map<String, dynamic> data = snapshot.data.docs as Map<String, dynamic>;
-                        return Container(
-                            constraints: BoxConstraints(
-                                maxHeight: SizeConfig.screenHeight * 0.25),
-                            child: CupertinoScrollbar(
-                                child: ListView.builder(
-                                    itemCount: documents.length,
-                                    padding: EdgeInsets.zero,
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemBuilder: (context, i) {
-                                      return CardTourAddWidget(
-                                        boldText: documents[i]["activityPlace"],
-                                        textDescription:
-                                        documents[i]["description"],
-                                        price: documents[i]["price"],
-                                        only18: documents[i]["only18"],
-                                        luxury: documents[i]["luxury"],
-                                      );
-                                    })));
-                      }
-                      return Text("loading");
-                    },
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth * 0.14,
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              vertical: SizeConfig.screenHeight * 0.01),
+                          width: SizeConfig.screenWidth * 0.11,
+                          height: SizeConfig.screenHeight * 0.1,
+                          color: Styles.publishtour_noacitivity(
+                              themeChange.darkTheme, context),
+                        )
+                      ],
+                    ),
                   ),
                   Container(
                     width: SizeConfig.screenWidth,

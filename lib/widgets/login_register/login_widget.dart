@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
@@ -70,18 +68,6 @@ class _LoginWidgetState extends State<LoginWidget> {
     focusNodeSubmit.dispose();
 
     super.dispose();
-  }
-
-  void googlesignin() async {
-    FirestoreService firestoreService = FirestoreService();
-
-    User user = await firestoreService.signInWithGoogle();
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => ChooseWho()),
-          (Route<dynamic> route) => false,
-    );
   }
   
   String _userEmail = '';
@@ -214,7 +200,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.loginregister_google(themeChange.darkTheme, context),
                         ),
                         child: TextButton(
-                          onPressed: googlesignin,
+                          onPressed: () {
+                          },
                           child: SvgPicture.asset("assets/images/Google-Logo.svg", width: 25,),
                         )),
                     SizedBox(width: SizeConfig.screenWidth * 0.05),

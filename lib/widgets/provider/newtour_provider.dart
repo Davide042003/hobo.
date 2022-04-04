@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hobo_test/methods/firestore_service.dart';
 import 'package:hobo_test/views/map_view.dart';
 import 'package:hobo_test/widgets/home/map_widget.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +9,6 @@ import 'package:uuid/uuid.dart';
 /// lat e lng e placeId usati sia per lo step 1 che per le activity dello step 4
 
 class NewTourProvider with ChangeNotifier {
-  final FirestoreService _repository = FirestoreService();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _addNewTourVisible = false;
 
@@ -78,8 +74,6 @@ class NewTourProvider with ChangeNotifier {
   bool get addNewTourVisible => _addNewTourVisible;
 
   bool get refreshMarkers => _refreshMarkers;
-
-  FirebaseAuth get authUser => _auth;
 
   String get tourId => _tourId;
 
@@ -208,8 +202,7 @@ class NewTourProvider with ChangeNotifier {
   }
 
   void publishAddExtraInfo1() {
-    _repository.createExtraInfoGuide(
-        _auth.currentUser.uid, _nameGuide, _surname, _birthday, _gender);
+
   }
 
   set setSpokenLanguages(String spoken) {
@@ -228,8 +221,7 @@ class NewTourProvider with ChangeNotifier {
   }
 
   void publishAddExtraInfo2() {
-    _repository.createExtraInfoGuide2(
-        _auth.currentUser.uid, _spokenLanguages, _certifiedGuide, _nationality);
+
   }
 
   // ---
@@ -391,20 +383,15 @@ class NewTourProvider with ChangeNotifier {
   void createActivity(String activityPl) {
     activityId = uuid.v1();
 
-    _repository.createActivity(_auth.currentUser.uid, _tourId, activityId,
-        _activityDescription, _only18, _luxury, activityPl, _price, _lat, _lng, _placeId);
   }
 
   void createVehicleInfo() {
     vehicleId = uuid.v1();
-
-    _repository.createVehicleInfo(_auth.currentUser.uid, _tourId, vehicleId,
-        _numberOfPeopleVehicle, _priceVehicle);
   }
 
   // registration choice
   void registrationChoice(choice) {
-    _repository.userRegistrationChoice(_auth.currentUser.uid, choice);
+
   }
 
   // publish step 1
@@ -412,19 +399,6 @@ class NewTourProvider with ChangeNotifier {
     // tourId was set in: createActivity function (step 4)
     //tourId = uuid.v1();
 
-    _repository.createToursStep1(
-        _auth.currentUser.uid,
-        _tourId,
-        _tourName,
-        _tourPlaceName,
-        _numberOfPeople,
-        _isForChildren,
-        _isPrivate,
-        _lat,
-        _lng,
-        _placeId,
-    _completedCreation);
-    print("Tour: Step 1 Saved!");
 
 
   }
@@ -434,16 +408,7 @@ class NewTourProvider with ChangeNotifier {
     // tourId was set in: createActivity function (step 4)
     //tourId = uuid.v1();
 
-    _repository.createToursStep2(
-      _auth.currentUser.uid,
-      _tourId,
-      _tourDescription,
-      _tourLanguage,
-    );
 
-    tourImages.forEach((element) {
-      _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
-    });
 
     print("Tour: Step 2 Saved!");
   }
@@ -453,13 +418,7 @@ class NewTourProvider with ChangeNotifier {
     // tourId was set in: createActivity function (step 4)
     //tourId = uuid.v1();
 
-    _repository.createToursStep3(
-      _auth.currentUser.uid,
-      _tourId,
-      _tourDate,
-      _tourTimeStart,
-      _tourTimeEnd,
-    );
+
 
     print("Tour: Step 3 Saved!");
   }
@@ -471,12 +430,6 @@ class NewTourProvider with ChangeNotifier {
       _repository.addTourImage(_auth.currentUser.uid, _tourId, element);
     });
     */
-
-    _repository.publishTourStep5(
-      _auth.currentUser.uid,
-      _tourId,
-      _completedCreation
-    );
 
     // todo: clean all the variables from this script after publish a tour!
     initVariables();
