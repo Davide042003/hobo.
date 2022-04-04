@@ -123,23 +123,23 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 */
       Future.wait([
         precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder,
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
               'assets/images/Guide-background.svg'),
           null,
         ),
         precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder, dark
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, dark
               ? 'assets/images/Guide-girl-dark.svg'
               : 'assets/images/Guide-girl.svg'),
           null,
         ),
         precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder,
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
               'assets/images/Tourist-background.svg'),
           null,
         ),
         precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoder, dark
+          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, dark
               ? 'assets/images/Tourist-girl-dark.svg'
               : 'assets/images/Tourist-girl.svg'),
           null,

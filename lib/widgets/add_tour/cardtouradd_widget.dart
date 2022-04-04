@@ -32,8 +32,9 @@ class _CardTourAddWidgetState extends State<CardTourAddWidget> {
    SlidableController controller;
 
     return Slidable(
+      /*
       controller: controller,
-      actionPane: SlidableDrawerActionPane(),
+      startActionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.13,
       secondaryActions: <Widget>[
         Container(
@@ -61,6 +62,8 @@ class _CardTourAddWidgetState extends State<CardTourAddWidget> {
           ),
         ),
       ],
+
+       */
       child: Stack(
         children: [
           Container(

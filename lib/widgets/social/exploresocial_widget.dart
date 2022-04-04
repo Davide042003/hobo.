@@ -33,6 +33,9 @@ class ExploreWidget extends StatelessWidget {
         Container(
           margin:
               EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.065),
+
+
+          /*
           child: StaggeredGridView.countBuilder(
               shrinkWrap: true,
               padding: EdgeInsets.only(
@@ -47,8 +50,9 @@ class ExploreWidget extends StatelessWidget {
                 return PostExploreWidget();
               },
               staggeredTileBuilder: (index) {
-                return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
+                //return StaggeredTile.count(1, index.isEven ? 1.2 : 1.8);
               }),
+           */
         )
       ],
     );

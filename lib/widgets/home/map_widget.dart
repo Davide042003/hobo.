@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
 import 'package:hobo_test/widgets/provider/newtour_provider.dart';
 import 'package:http/http.dart' as http;
@@ -35,8 +34,6 @@ class _MapWidgetState extends State<MapWidget>
   List<Marker> markers = [];
   List<Marker> markersByDistance = [];
 
-
-  Position myPos;
   bool fromInitTours = true;
 
   @override
@@ -180,57 +177,20 @@ class _MapWidgetState extends State<MapWidget>
     return markersList;
   }
 
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    return await Geolocator.getCurrentPosition();
-
-    //return await Geolocator.getCurrentPosition(
-    //    desiredAccuracy: LocationAccuracy.high);
-  }
-
   void _getUserLocation() async {
-    Position position = await _determinePosition();
-    setState(() {
-      _initialPosition = LatLng(position.latitude, position.longitude);
-      print(_initialPosition);
-    });
+
   }
 
   Future<void> animateToInitial() async {
     // todo: here we generate markers...
     getTours(false);
 
-    Position position = await _determinePosition();
-
     // todo: sto usando una fake position per testare geoflutterfire
-    position = myPos;
 
     final c = await widget._controller.future;
-    final p = CameraPosition(
-        target: LatLng(position.latitude, position.longitude), zoom: 14.4746);
 
-    await c.animateCamera(CameraUpdate.newCameraPosition(p));
+
+    //await c.animateCamera(CameraUpdate.newCameraPosition(p));
 
     setState(() {
       enableRelocate = false;

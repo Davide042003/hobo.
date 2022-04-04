@@ -356,14 +356,13 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(5)),
-                                              child: Flag(
-                                                val,
+                                              child: Container(
                                                 height:
                                                     SizeConfig.screenHeight *
                                                         0.045,
                                                 width: SizeConfig.screenWidth *
                                                     0.15,
-                                                fit: BoxFit.fill,
+                                                
                                               ),
                                             ),
                                           );
