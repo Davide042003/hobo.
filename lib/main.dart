@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hobo_test/models/user_provider.dart';
+import 'package:hobo_test/widgets/provider/user_provider.dart';
 import 'package:hobo_test/views/addpost_view.dart';
 import 'package:hobo_test/views/home_view.dart';
 import 'package:hobo_test/views/loginregister_view.dart';
