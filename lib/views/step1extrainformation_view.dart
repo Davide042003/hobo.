@@ -3,7 +3,7 @@ import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 
 class Step1ExtraInformation extends StatefulWidget {
   final PageController pageController;
@@ -106,7 +106,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final tourProvider = Provider.of<TourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
 
@@ -137,7 +137,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
                     vertical: SizeConfig.screenHeight * 0.025),
                 child: Column(
                   children: [
-                    _headerStep(themeChange, context, addNewTour, downScroll),
+                    _headerStep(themeChange, context, tourProvider, downScroll),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.screenWidth * 0.0465,
@@ -355,7 +355,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
                             ),
                             child: TextButton(
                               onPressed: () {
-                                _addExtraInfo1(addNewTour);
+                                _addExtraInfo1(tourProvider);
                                 _trySubmitForm();
                               },
                               child: Padding(
@@ -395,7 +395,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
       ),
     );
   }
-  void _addExtraInfo1 (NewTourProvider extraInfoProvider) {
+  void _addExtraInfo1 (TourProvider extraInfoProvider) {
     extraInfoProvider.setUsernameGuide = _name;
     extraInfoProvider.setSurnameGuide = _surname;
     extraInfoProvider.setBirthday = birthDateInString;
@@ -404,7 +404,7 @@ class _Step1ExtraInformationState extends State<Step1ExtraInformation> {
     extraInfoProvider.publishAddExtraInfo1();
   }
 
-  Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+  Column _headerStep(DarkThemeProvider themeChange, BuildContext context, TourProvider addNewTour, NavigationBarProvider downScroll) {
     return Column(
       children: [
         Padding(

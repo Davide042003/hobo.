@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:flag/flag.dart';
 import 'package:language_picker/language_picker_dialog.dart';
 import 'package:language_picker/languages.dart';
@@ -46,7 +46,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
   }
 
 
-  void _trySubmitForm(NewTourProvider tour, NavigationBarProvider scroll) async {
+  void _trySubmitForm(TourProvider tour, NavigationBarProvider scroll) async {
     if (_selectedNationality != null && _selectedLanguages.length > 0) {
       tour.addNewTourVisible = false;
       scroll.navigationdown = false;
@@ -67,7 +67,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
     Widget _buildDialogItem(Language language) => Row(
@@ -442,7 +442,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
     );
   }
 
-  void _saveAddExtraInfo2 (NewTourProvider extraInfoProvider) {
+  void _saveAddExtraInfo2 (TourProvider extraInfoProvider) {
     extraInfoProvider.setSpokenLanguages = _selectedLanguages.toString();
     extraInfoProvider.setCertifiedGuide = _certifiedGuide;
     extraInfoProvider.setNationality = _nations.toString();
@@ -451,7 +451,7 @@ class _Step2ExtraInformationState extends State<Step2ExtraInformation> {
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
-      NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+      TourProvider addNewTour, NavigationBarProvider downScroll) {
     return Column(
       children: [
         Padding(

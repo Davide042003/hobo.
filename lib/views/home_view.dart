@@ -24,7 +24,7 @@ import 'package:hobo_test/widgets/home/categories_widget.dart';
 import 'package:hobo_test/widgets/home/hotplaces_template.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -109,14 +109,14 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    final addNewTour = Provider.of<NewTourProvider>(context, listen: false);
+    final tourProvider = Provider.of<TourProvider>(context, listen: false);
     final themeChange = Provider.of<DarkThemeProvider>(context, listen: false);
 
-    if (addNewTour.isGuide) {
+    if (tourProvider.isGuide) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         setState(() {
           final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
-          addNewTour.addNewTourVisible = true;
+          tourProvider.addNewTourVisible = true;
           downScroll.navigationdown = true;
           _openPopUpGuide(themeChange.darkTheme);
         });
@@ -127,8 +127,8 @@ class _HomeViewState extends State<HomeView> {
     /* SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() {
         final downScroll = Provider.of<NavigationBarProvider>(context, listen: false);
-        final addNewTour = Provider.of<NewTourProvider>(context, listen: false);
-        addNewTour.addNewTourVisible = true;
+        final tourProvider = Provider.of<NewTourProvider>(context, listen: false);
+        tourProvider.addNewTourVisible = true;
         downScroll.navigationdown = true;
         _openPopUpGuide(false);
       });
@@ -142,7 +142,7 @@ class _HomeViewState extends State<HomeView> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final tourProvider = Provider.of<TourProvider>(context);
     final page = Provider.of<PageControlProvider>(context);
 
     return Stack(
@@ -184,11 +184,11 @@ class _HomeViewState extends State<HomeView> {
                           )),
                       onTap: () {
                         setState(() {
-                          addNewTour.addNewTourVisible = true;
+                          tourProvider.addNewTourVisible = true;
                           // generate tourId
                           var uuid = Uuid();
                           String tourId = uuid.v1();
-                          addNewTour.setTourId = tourId;
+                          tourProvider.setTourId = tourId;
                           // ----
                           downScroll.navigationdown = true;
                           _openPopUp(themeChange.darkTheme);
@@ -235,7 +235,7 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: new BorderRadius.all(Radius.circular(30)),
                         color: Colors.grey,
                       ),
-                      child: addNewTour.addNewTourVisible == true
+                      child: tourProvider.addNewTourVisible == true
                           ? SizedBox()
                           : MapHomeWidget(),
                     ),
@@ -341,7 +341,7 @@ class _HomeViewState extends State<HomeView> {
             ],
           ),
         ),
-        addNewTour.addNewTourVisible
+        tourProvider.addNewTourVisible
             ? GestureDetector(
                 onTap: () {
                   FocusScopeNode currentFocus = FocusScope.of(context);

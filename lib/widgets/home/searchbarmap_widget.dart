@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'package:hobo_test/models/map_model.dart';
@@ -39,7 +39,7 @@ class _SearchBarMapWidgetState extends State<SearchBarMapWidget> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
 
     return Stack(
       children: [

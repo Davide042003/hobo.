@@ -3,7 +3,7 @@ import 'package:hobo_test/widgets/add_tour/descriptionnewtour_widget.dart';
 import 'package:hobo_test/widgets/add_tour/inputfieldnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 
 class AddActivity extends StatefulWidget {
   final PageController pageController;
@@ -90,7 +90,7 @@ class _AddActivityState extends State<AddActivity> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
 
     descriptionStep4Controller.value = addNewTour.activityDescription.isNotEmpty
         ? TextEditingValue(
@@ -520,7 +520,7 @@ class _AddActivityState extends State<AddActivity> {
     );
   }
 
-  void saveStep4(NewTourProvider newTourProvider) {
+  void saveStep4(TourProvider newTourProvider) {
     print(descriptionStep4Controller.text);
 
     TextEditingController activityPlaceController = TextEditingController();

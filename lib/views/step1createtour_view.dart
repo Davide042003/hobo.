@@ -7,7 +7,7 @@ import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/home/categories_widget.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 
 class Step1CreateTour extends StatefulWidget {
   final PageController pageController;
@@ -79,7 +79,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     super.dispose();
   }
 
-  void _updateCounter(int value, NewTourProvider newTourProvider) {
+  void _updateCounter(int value, TourProvider newTourProvider) {
     setState(() {
       _maxPeople = value;
       newTourProvider.setNumberOfPeople = _maxPeople;
@@ -107,7 +107,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
     tourNameController.value = addNewTour.tourName.isNotEmpty
@@ -562,7 +562,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
     );
   }
 
-  void continueStep1(NewTourProvider newTourProvider) {
+  void continueStep1(TourProvider newTourProvider) {
     newTourProvider.setTourName = _tourName;
     newTourProvider.setNumberOfPeople = _maxPeople;
     newTourProvider.setIsForChildren = _allowChildren;
@@ -579,7 +579,7 @@ class _Step1CreateTourState extends State<Step1CreateTour> {
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
-      NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+      TourProvider addNewTour, NavigationBarProvider downScroll) {
     return Column(
       children: [
         Padding(

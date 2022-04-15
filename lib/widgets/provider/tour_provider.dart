@@ -8,7 +8,7 @@ import 'package:uuid/uuid.dart';
 /// READ ME:
 /// lat e lng e placeId usati sia per lo step 1 che per le activity dello step 4
 
-class NewTourProvider with ChangeNotifier {
+class TourProvider with ChangeNotifier {
 
   bool _addNewTourVisible = false;
 

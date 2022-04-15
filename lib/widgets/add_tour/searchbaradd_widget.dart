@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'package:hobo_test/models/map_model.dart';
@@ -35,7 +35,7 @@ class _SearchBarAddWidgetState extends State<SearchBarAddWidget> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
 
     return Stack(
       children: [
@@ -232,7 +232,7 @@ class _SearchBarAddWidgetState extends State<SearchBarAddWidget> {
     }
   }
 
-  void getPlaceLoc(String input, NewTourProvider tourProvider) async {
+  void getPlaceLoc(String input, TourProvider tourProvider) async {
     String kPLACES_API_KEY = "AIzaSyAP9Tw6rUqoICKt6TLPhDGyRHtmeJFqobs";
     String baseURL = 'https://maps.googleapis.com/maps/api/place/details/json';
     String request =

@@ -8,7 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/profile/profileimage_widget.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:hobo_test/widgets/home/marker_generator.dart';
 import 'package:flutter/rendering.dart';
@@ -237,7 +237,7 @@ class _MapWidgetState extends State<MapWidget>
   Widget build(BuildContext context) {
     super.build(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
 
     return Container(
         width: SizeConfig.screenWidth,

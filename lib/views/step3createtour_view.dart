@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:simple_time_range_picker/simple_time_range_picker.dart';
 
 class Step3CreateTour extends StatefulWidget {
@@ -47,7 +47,7 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
     return GestureDetector(
@@ -286,7 +286,7 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
     );
   }
 
-  void continueStep3(NewTourProvider newTourProvider) {
+  void continueStep3(TourProvider newTourProvider) {
     print ("Prova data : " + dateInString);
 
     newTourProvider.setTourDate = dateInString;
@@ -301,7 +301,7 @@ class _Step3CreateTourState extends State<Step3CreateTour> {
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
-      NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+      TourProvider addNewTour, NavigationBarProvider downScroll) {
     return Column(
       children: [
         Padding(

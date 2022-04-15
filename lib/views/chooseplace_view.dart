@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/add_tour/searchbaradd_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 
 class ChoosePlace extends StatefulWidget {
   final PageController pageController;
@@ -51,7 +51,7 @@ class _ChoosePlaceState extends State<ChoosePlace> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
 
     return GestureDetector(
       onTap: () {

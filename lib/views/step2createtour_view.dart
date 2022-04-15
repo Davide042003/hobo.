@@ -3,7 +3,7 @@ import 'package:hobo_test/widgets/add_tour/descriptionnewtour_widget.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:flag/flag.dart';
 
 class Step2CreateTour extends StatefulWidget {
@@ -86,7 +86,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
     descriptionStep2Controller.value = addNewTour.tourDescription.isNotEmpty
@@ -367,11 +367,11 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
     );
   }
 
-  void addTourImages(NewTourProvider newTourProvider, String imageUrl) {
+  void addTourImages(TourProvider newTourProvider, String imageUrl) {
     newTourProvider.setTourImages = imageUrl;
   }
 
-  void continueStep2(NewTourProvider newTourProvider) {
+  void continueStep2(TourProvider newTourProvider) {
     newTourProvider.setTourDescription = _description;
     newTourProvider.setTourLanguage = _language;
 
@@ -383,7 +383,7 @@ class _Step2CreateTourState extends State<Step2CreateTour> {
   }
 
   Column _headerStep(DarkThemeProvider themeChange, BuildContext context,
-      NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+      TourProvider addNewTour, NavigationBarProvider downScroll) {
     return Column(
       children: [
         Padding(

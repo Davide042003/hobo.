@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 
 class ChooseWho extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class _ChooseWhoState extends State<ChooseWho> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final tourProvider = Provider.of<TourProvider>(context);
 
     return Scaffold(
         body: Container(
@@ -40,7 +40,7 @@ class _ChooseWhoState extends State<ChooseWho> {
                   ),
                   GestureDetector(
                       onTap: () {
-                        addNewTour.setIsGuide = false;
+                        tourProvider.setIsGuide = false;
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -93,7 +93,7 @@ class _ChooseWhoState extends State<ChooseWho> {
                   SizedBox(height: SizeConfig.screenHeight * 0.04),
                   GestureDetector(
                       onTap: () {
-                        addNewTour.setIsGuide = true;
+                        tourProvider.setIsGuide = true;
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

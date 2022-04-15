@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 
 class CounterWidget extends StatefulWidget {
   final Function(int) countPeople;
@@ -31,7 +31,7 @@ class _CounterWidgetState extends State<CounterWidget> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
 
     return  Container(
       width: SizeConfig.screenWidth * 0.32,
@@ -102,7 +102,7 @@ class _CounterWidgetState extends State<CounterWidget> {
     );
   }
 
-  void _increment(NewTourProvider tourProvider) {
+  void _increment(TourProvider tourProvider) {
     setState(() {
       _currentCount = tourProvider.numberOfPeople;
       _currentCount ++;
@@ -112,7 +112,7 @@ class _CounterWidgetState extends State<CounterWidget> {
     });
   }
 
-  void _decrease(NewTourProvider tourProvider) {
+  void _decrease(TourProvider tourProvider) {
     setState(() {
       if (_currentCount > _minNumber) {
         _currentCount = tourProvider.numberOfPeople;
@@ -124,7 +124,7 @@ class _CounterWidgetState extends State<CounterWidget> {
     });
   }
 
-  void updateNumberOfPeople (NewTourProvider tourProvider) {
+  void updateNumberOfPeople (TourProvider tourProvider) {
     // step 1
     if (widget.isInStepOne) {
       tourProvider.setNumberOfPeople = _currentCount;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 
 class Step5CreateTour extends StatefulWidget {
   final PageController pageController;
@@ -26,7 +26,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
     super.dispose();
   }
 
-  void _trySubmitForm(NewTourProvider tour, NavigationBarProvider scroll) async {
+  void _trySubmitForm(TourProvider tour, NavigationBarProvider scroll) async {
     tour.addNewTourVisible = false;
     scroll.navigationdown = false;
 
@@ -42,7 +42,7 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);
     final bottom = MediaQuery.of(context).viewInsets.bottom;
-    final addNewTour = Provider.of<NewTourProvider>(context);
+    final addNewTour = Provider.of<TourProvider>(context);
     final downScroll = Provider.of<NavigationBarProvider>(context);
 
     return GestureDetector(
@@ -201,13 +201,13 @@ class _Step5CreateTourState extends State<Step5CreateTour> {
     );
   }
 
-  void publishTour (NewTourProvider newTourProvider) {
+  void publishTour (TourProvider newTourProvider) {
     newTourProvider.setCompleteCreation = true;
 
     newTourProvider.publishTour();
   }
 
-  Column _headerStep(DarkThemeProvider themeChange, BuildContext context, NewTourProvider addNewTour, NavigationBarProvider downScroll) {
+  Column _headerStep(DarkThemeProvider themeChange, BuildContext context, TourProvider addNewTour, NavigationBarProvider downScroll) {
     return Column(
                 children: [
                   Padding(

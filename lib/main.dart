@@ -9,7 +9,7 @@ import 'package:hobo_test/views/loginregister_view.dart';
 import 'package:hobo_test/views/managepages_view.dart';
 import 'package:hobo_test/views/onboarding_view.dart';
 import 'package:hobo_test/widgets/provider/navigationbar_provider.dart';
-import 'package:hobo_test/widgets/provider/newtour_provider.dart';
+import 'package:hobo_test/widgets/provider/tour_provider.dart';
 import 'package:hobo_test/widgets/provider/pagecontrol_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
-  NewTourProvider newTourProvider = new NewTourProvider();
+  TourProvider newTourProvider = new TourProvider();
   PageControlProvider pageControlProvider = new PageControlProvider();
   UserProvider userProvider = new UserProvider();
 
@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
               return scrollDownProvider;
             }
         ),
-        ChangeNotifierProvider<NewTourProvider>(
+        ChangeNotifierProvider<TourProvider>(
             create: (_) {
               return newTourProvider;
             }
@@ -114,7 +114,7 @@ class _MyAppState extends State<MyApp> {
             }
         ),
       ],
-      child: Consumer4<DarkThemeProvider, NavigationBarProvider, PageControlProvider, NewTourProvider>(
+      child: Consumer4<DarkThemeProvider, NavigationBarProvider, PageControlProvider, TourProvider>(
         builder: (BuildContext context, value, value2, value3, value4, Widget child) {
 
           return MaterialApp(
