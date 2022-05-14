@@ -47,6 +47,7 @@ dependencies:
   language_picker: ^0.4.1
   simple_time_range_picker: ^0.0.2
   rxdart: ^0.27.1
+  flutter_secure_storage: ^5.0.2
 
 
 dev_dependencies:

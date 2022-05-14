@@ -6,7 +6,6 @@ import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart'
 import 'inputFieldPassword_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
-
 class LoginWidget extends StatefulWidget {
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
@@ -31,9 +30,9 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     focusNodeMail.addListener(() {
       setState(() {
-        if(focusNodeMail.hasFocus) {
+        if (focusNodeMail.hasFocus) {
           focusNodeMail.requestFocus();
-        }else{
+        } else {
           focusNodeMail.unfocus();
         }
       });
@@ -41,9 +40,9 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     focusNodeSubmit.addListener(() {
       setState(() {
-        if(focusNodeSubmit.hasFocus) {
+        if (focusNodeSubmit.hasFocus) {
           focusNodeSubmit.requestFocus();
-        }else{
+        } else {
           focusNodeSubmit.unfocus();
         }
       });
@@ -51,9 +50,9 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     focusNodePassword.addListener(() {
       setState(() {
-        if(focusNodePassword.hasFocus) {
+        if (focusNodePassword.hasFocus) {
           focusNodePassword.requestFocus();
-        }else{
+        } else {
           focusNodePassword.unfocus();
         }
       });
@@ -62,14 +61,13 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   void dispose() {
-
     focusNodeMail.dispose();
     focusNodePassword.dispose();
     focusNodeSubmit.dispose();
 
     super.dispose();
   }
-  
+
   String _userEmail = '';
   String _password = '';
 
@@ -84,8 +82,9 @@ class _LoginWidgetState extends State<LoginWidget> {
       child: Padding(
         padding: EdgeInsets.only(bottom: bottom),
         child: SingleChildScrollView(
-            child: Container(
-            margin: EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.1),
+          child: Container(
+            margin:
+                EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth * 0.1),
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.07),
@@ -97,7 +96,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           fontFamily: Constants.POPPINS,
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
-                      color: Styles.whiteblack(themeChange.darkTheme, context)),
+                          color: Styles.whiteblack(
+                              themeChange.darkTheme, context)),
                       textAlign: TextAlign.left,
                     )),
                 Align(
@@ -107,15 +107,28 @@ class _LoginWidgetState extends State<LoginWidget> {
                             fontFamily: Constants.POPPINS,
                             fontWeight: FontWeight.w300,
                             fontSize: 17,
-                            color: Styles.loginregister_subheadingandform(themeChange.darkTheme, context)),
+                            color: Styles.loginregister_subheadingandform(
+                                themeChange.darkTheme, context)),
                         textAlign: TextAlign.left)),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
-                InputFieldStandard("Username/Email", 0, CustomIcons.mailicon, (value) => _userEmail = value, false, focusNodeMail, focusNodePassword, 18),
+                InputFieldStandard(
+                    "Username/Email",
+                    0,
+                    CustomIcons.mailicon,
+                    (value) => _userEmail = value,
+                    false,
+                    focusNodeMail,
+                    focusNodePassword,
+                    18),
                 SizedBox(height: SizeConfig.screenHeight * 0.03),
                 InputFieldPassword(
                     this._showPassword,
-                    () => setState(() => this._showPassword = !this._showPassword),
-                    (value) => _password = value, false, focusNodePassword, focusNodeSubmit),
+                    () => setState(
+                        () => this._showPassword = !this._showPassword),
+                    (value) => _password = value,
+                    false,
+                    focusNodePassword,
+                    focusNodeSubmit),
                 SizedBox(height: SizeConfig.screenHeight * 0.05),
                 Container(
                     width: SizeConfig.screenWidth,
@@ -153,6 +166,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ],
                         ),
                       ),
+                      onPressed: () {
+                        print(_userEmail);
+                        print(_password);
+                      },
                     )),
                 SizedBox(height: SizeConfig.screenHeight * 0.008),
                 GestureDetector(
@@ -166,7 +183,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                       child: Text(
                         "Forgot Password?",
                         style: TextStyle(
-                            color: Styles.loginregister_forgot(themeChange.darkTheme, context),
+                            color: Styles.loginregister_forgot(
+                                themeChange.darkTheme, context),
                             fontFamily: Constants.POPPINS,
                             fontSize: 17,
                             fontWeight: FontWeight.w600),
@@ -183,7 +201,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     child: Text(
                       "Or login with",
                       style: TextStyle(
-                          color: Styles.loginregister_or(themeChange.darkTheme, context),
+                          color: Styles.loginregister_or(
+                              themeChange.darkTheme, context),
                           fontFamily: Constants.POPPINS,
                           fontSize: 15,
                           fontWeight: FontWeight.w600),
@@ -197,33 +216,50 @@ class _LoginWidgetState extends State<LoginWidget> {
                     Container(
                         height: SizeConfig.screenHeight * 0.11,
                         width: SizeConfig.screenWidth * 0.18,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.loginregister_google(themeChange.darkTheme, context),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                          },
-                          child: SvgPicture.asset("assets/images/Google-Logo.svg", width: 25,),
-                        )),
-                    SizedBox(width: SizeConfig.screenWidth * 0.05),
-                    Container(
-                      height: SizeConfig.screenHeight * 0.11,
-                        width: SizeConfig.screenWidth * 0.18,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.loginregister_fb(themeChange.darkTheme, context),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Styles.loginregister_google(
+                              themeChange.darkTheme, context),
                         ),
                         child: TextButton(
                           onPressed: () {},
-                          child: Icon(LineIcons.facebookF, size: 30, color: Color.fromRGBO(25, 119, 243, 1),),
+                          child: SvgPicture.asset(
+                            "assets/images/Google-Logo.svg",
+                            width: 25,
+                          ),
                         )),
                     SizedBox(width: SizeConfig.screenWidth * 0.05),
                     Container(
                         height: SizeConfig.screenHeight * 0.11,
                         width: SizeConfig.screenWidth * 0.18,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Styles.whiteblack(themeChange.darkTheme, context)),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Styles.loginregister_fb(
+                              themeChange.darkTheme, context),
+                        ),
                         child: TextButton(
                           onPressed: () {},
-                          child: Icon(Ionicons.logo_apple, color: Styles.blackwhite(themeChange.darkTheme, context), size: 30),
-                        )
-                    ),
+                          child: Icon(
+                            LineIcons.facebookF,
+                            size: 30,
+                            color: Color.fromRGBO(25, 119, 243, 1),
+                          ),
+                        )),
+                    SizedBox(width: SizeConfig.screenWidth * 0.05),
+                    Container(
+                        height: SizeConfig.screenHeight * 0.11,
+                        width: SizeConfig.screenWidth * 0.18,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Styles.whiteblack(
+                                themeChange.darkTheme, context)),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Icon(Ionicons.logo_apple,
+                              color: Styles.blackwhite(
+                                  themeChange.darkTheme, context),
+                              size: 30),
+                        )),
                   ],
                 )
               ],
