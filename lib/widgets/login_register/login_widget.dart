@@ -5,6 +5,8 @@ import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
 import 'inputFieldPassword_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -70,6 +72,13 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   String _userEmail = '';
   String _password = '';
+
+  void attemptLogin(String userEmail, String password) async {
+    // print([userEmail, password]);
+    String url = dotenv.env['HOME_ROUTE'].toString() + '/login';
+    http.Response res = await http.post(Uri.parse(url),
+        body: {"_username": userEmail, "_password": _password});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +176,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       ),
                       onPressed: () {
-                        print(_userEmail);
-                        print(_password);
+                        attemptLogin(_userEmail, _password);
                       },
                     )),
                 SizedBox(height: SizeConfig.screenHeight * 0.008),

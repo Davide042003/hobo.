@@ -15,10 +15,11 @@ import 'package:provider/provider.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'widgets/provider/dark_theme_provider.dart';
 import 'widgets/exports/base_export.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
+  await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
-
 
   runApp(MyApp());
 }
@@ -29,7 +30,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
   TourProvider newTourProvider = new TourProvider();
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _initialized = true;
       });
-    } catch(e) {
+    } catch (e) {
       // Set `_error` state to true if Firebase initialization fails
       setState(() {
         _error = true;
@@ -64,8 +64,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void getCurrentAppTheme() {
-  //  themeChangeProvider.darkTheme =
- //   await themeChangeProvider.darkThemePreference.getTheme();
+    //  themeChangeProvider.darkTheme =
+    //   await themeChangeProvider.darkThemePreference.getTheme();
 
     var brightness = SchedulerBinding.instance.window.platformBrightness;
     themeChangeProvider.darkTheme = brightness == Brightness.dark;
@@ -73,9 +73,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     // Show error message if initialization failed
-    if(_error) {
+    if (_error) {
       print(_error);
       return Container();
     }
@@ -85,56 +84,47 @@ class _MyAppState extends State<MyApp> {
       return Container();
     }
 
-
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<DarkThemeProvider>(
-            create: (_) {
-              return themeChangeProvider;
-            }
-        ),
-        ChangeNotifierProvider<NavigationBarProvider>(
-            create: (_) {
-              return scrollDownProvider;
-            }
-        ),
-        ChangeNotifierProvider<TourProvider>(
-            create: (_) {
-              return newTourProvider;
-            }
-        ),
-        ChangeNotifierProvider<PageControlProvider>(
-            create: (_) {
-              return pageControlProvider;
-            }
-        ),
-        ChangeNotifierProvider<UserProvider>(
-            create: (_) {
-              return userProvider;
-            }
-        ),
+        ChangeNotifierProvider<DarkThemeProvider>(create: (_) {
+          return themeChangeProvider;
+        }),
+        ChangeNotifierProvider<NavigationBarProvider>(create: (_) {
+          return scrollDownProvider;
+        }),
+        ChangeNotifierProvider<TourProvider>(create: (_) {
+          return newTourProvider;
+        }),
+        ChangeNotifierProvider<PageControlProvider>(create: (_) {
+          return pageControlProvider;
+        }),
+        ChangeNotifierProvider<UserProvider>(create: (_) {
+          return userProvider;
+        }),
       ],
-      child: Consumer4<DarkThemeProvider, NavigationBarProvider, PageControlProvider, TourProvider>(
-        builder: (BuildContext context, value, value2, value3, value4, Widget child) {
-
+      child: Consumer4<DarkThemeProvider, NavigationBarProvider,
+          PageControlProvider, TourProvider>(
+        builder: (BuildContext context, value, value2, value3, value4,
+            Widget child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-             home: SplashScreenView(
-                navigateRoute: AfterLoad(),
-                duration: 3000,
-                imageSize: 140,
-                imageSrc: "assets/images/icon.png",
-                text: "hobo.",
-                pageRouteTransition: PageRouteTransition.CupertinoPageRoute,
-                textType: TextType.TyperAnimatedText,
-                textStyle: TextStyle(
+            home: SplashScreenView(
+              navigateRoute: AfterLoad(),
+              duration: 3000,
+              imageSize: 140,
+              imageSrc: "assets/images/icon.png",
+              text: "hobo.",
+              pageRouteTransition: PageRouteTransition.CupertinoPageRoute,
+              textType: TextType.TyperAnimatedText,
+              textStyle: TextStyle(
                   fontSize: 50.0,
                   fontFamily: Constants.POPPINS,
                   fontWeight: FontWeight.bold,
-                  color: Styles.hobo_splash(themeChangeProvider.darkTheme, context)
-                ),
-                backgroundColor: Styles.loginregister_background(themeChangeProvider.darkTheme, context),
-              ),
+                  color: Styles.hobo_splash(
+                      themeChangeProvider.darkTheme, context)),
+              backgroundColor: Styles.loginregister_background(
+                  themeChangeProvider.darkTheme, context),
+            ),
           );
         },
       ),
@@ -143,11 +133,9 @@ class _MyAppState extends State<MyApp> {
 }
 
 class AfterLoad extends StatelessWidget {
-
   const AfterLoad({
     Key key,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {

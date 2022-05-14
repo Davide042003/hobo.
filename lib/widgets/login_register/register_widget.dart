@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 
 class RegisterWidget extends StatefulWidget {
-
   @override
   _RegisterWidgetState createState() => _RegisterWidgetState();
 }
@@ -105,9 +104,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   }
 
   void _trySubmitForm(bool dark) async {
-    final isValid = _formKey.currentState.validate();
+    print([_name, _username, _email, _password]);
+    // final isValid = _formKey.currentState.validate();
+    final isValid = false;
     if (isValid) {
-
       /*
         UserCredential userCredentials = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: _email, password: _password);
@@ -128,9 +128,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           null,
         ),
         precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, dark
-              ? 'assets/images/Guide-girl-dark.svg'
-              : 'assets/images/Guide-girl.svg'),
+          ExactAssetPicture(
+              SvgPicture.svgStringDecoderBuilder,
+              dark
+                  ? 'assets/images/Guide-girl-dark.svg'
+                  : 'assets/images/Guide-girl.svg'),
           null,
         ),
         precachePicture(
@@ -139,9 +141,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           null,
         ),
         precachePicture(
-          ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, dark
-              ? 'assets/images/Tourist-girl-dark.svg'
-              : 'assets/images/Tourist-girl.svg'),
+          ExactAssetPicture(
+              SvgPicture.svgStringDecoderBuilder,
+              dark
+                  ? 'assets/images/Tourist-girl-dark.svg'
+                  : 'assets/images/Tourist-girl.svg'),
           null,
         ),
       ]);
@@ -149,7 +153,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => ChooseWho()),
-            (Route<dynamic> route) => false,
+        (Route<dynamic> route) => false,
       );
     }
   }
@@ -271,44 +275,47 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.035),
                 Container(
-                    width: SizeConfig.screenWidth,
-                    height: SizeConfig.screenHeight * 0.065,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(35)),
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromRGBO(116, 142, 243, 1),
-                            Color.fromRGBO(36, 65, 187, 1)
-                          ]),
-                    ),
-                    child: TextButton(
-                      focusNode: focusNodeSubmit,
-                      onPressed: () {_trySubmitForm(themeChange.darkTheme);},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Register",
-                              style: TextStyle(
-                                fontFamily: Constants.POPPINS,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_right_outlined,
+                  width: SizeConfig.screenWidth,
+                  height: SizeConfig.screenHeight * 0.065,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(35)),
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color.fromRGBO(116, 142, 243, 1),
+                          Color.fromRGBO(36, 65, 187, 1)
+                        ]),
+                  ),
+                  child: TextButton(
+                    focusNode: focusNodeSubmit,
+                    onPressed: () {
+                      _trySubmitForm(themeChange.darkTheme);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Register",
+                            style: TextStyle(
+                              fontFamily: Constants.POPPINS,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
                               color: Colors.white,
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_right_outlined,
+                            color: Colors.white,
+                          )
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ])),
         ),
       ),

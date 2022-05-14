@@ -48,6 +48,7 @@ dependencies:
   simple_time_range_picker: ^0.0.2
   rxdart: ^0.27.1
   flutter_secure_storage: ^5.0.2
+  flutter_dotenv: ^5.0.2
 
 
 dev_dependencies:
@@ -98,6 +99,7 @@ flutter:
    - assets/images/Google-Logo.svg
    - assets/images/image-social-1.png
    - assets/images/instagram-gradient.jpeg
+   - .env
 
   fonts:
     - family: Poppins
