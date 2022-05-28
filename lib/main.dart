@@ -16,6 +16,7 @@ import 'package:splash_screen_view/SplashScreenView.dart';
 import 'widgets/provider/dark_theme_provider.dart';
 import 'widgets/exports/base_export.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:convert' show json, base64, ascii;
 
 Future main() async {
   await dotenv.load();

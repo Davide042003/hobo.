@@ -75,9 +75,13 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   void attemptLogin(String userEmail, String password) async {
     // print([userEmail, password]);
-    String url = dotenv.env['HOME_ROUTE'].toString() + '/login';
+    String url = dotenv.env['HOME_ROUTE'].toString() + '/auth/login';
     http.Response res = await http.post(Uri.parse(url),
         body: {"_username": userEmail, "_password": _password});
+
+    if (res.statusCode == 200) {
+      print('Successfully Logged In');
+    }
   }
 
   @override

@@ -9,6 +9,8 @@ import 'inputFieldStandard_widget.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldPassword_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -104,23 +106,20 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   }
 
   void _trySubmitForm(bool dark) async {
-    print([_name, _username, _email, _password]);
-    // final isValid = _formKey.currentState.validate();
-    final isValid = false;
-    if (isValid) {
-      /*
-        UserCredential userCredentials = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: _email, password: _password);
-        FirebaseFirestore.instance.collection('users').doc(userCredentials.user.uid).set({
-          'uid': userCredentials.user.uid,
-          'email': _email,
-          'name': _name,
-          'profilePic': null,
-          'username': _username,
-          'guide': false,
-          'timeCreation' : Timestamp.now()
-        });
-*/
+    // print([_name, _username, _email, _password]);
+    String url = dotenv.env['HOME_ROUTE'].toString() + '/auth/register';
+    print(url);
+    http.Response res = await http.post(Uri.parse(url), body: {
+      "name": _name,
+      "username": _username,
+      "password": _password,
+      "email": _email
+    });
+
+    print(res.statusCode);
+    print(res.body);
+
+    if (res.statusCode == 200) {
       Future.wait([
         precachePicture(
           ExactAssetPicture(SvgPicture.svgStringDecoderBuilder,
@@ -155,6 +154,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         MaterialPageRoute(builder: (context) => ChooseWho()),
         (Route<dynamic> route) => false,
       );
+    } else {
+      print("Couldn't register");
     }
   }
 
