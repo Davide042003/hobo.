@@ -11,8 +11,7 @@ class HotPlacesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      overflow: Overflow.visible,
-      children: [
+      clipBehavior: Clip.none, children: [
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(40))),
