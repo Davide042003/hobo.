@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'package:hobo_test/widgets/login_register/inputFieldStandard_widget.dart';
+import '../../views/managepages_view.dart';
 import 'inputFieldPassword_widget.dart';
 import 'package:hobo_test/widgets/exports/base_export.dart';
 import 'package:http/http.dart' as http;
@@ -81,6 +82,13 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     if (res.statusCode == 200) {
       print('Successfully Logged In');
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ManagePagesView()),
+            (Route<dynamic> route) => false,
+      );
     }
   }
 
