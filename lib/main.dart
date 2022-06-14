@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hobo_test/widgets/provider/user_provider.dart';
 import 'package:hobo_test/views/addpost_view.dart';
 import 'package:hobo_test/views/home_view.dart';
 import 'package:hobo_test/views/loginregister_view.dart';
@@ -35,7 +34,6 @@ class _MyAppState extends State<MyApp> {
   NavigationBarProvider scrollDownProvider = new NavigationBarProvider();
   TourProvider newTourProvider = new TourProvider();
   PageControlProvider pageControlProvider = new PageControlProvider();
-  UserProvider userProvider = new UserProvider();
 
   bool _initialized = false;
   bool _error = false;
@@ -98,9 +96,6 @@ class _MyAppState extends State<MyApp> {
         }),
         ChangeNotifierProvider<PageControlProvider>(create: (_) {
           return pageControlProvider;
-        }),
-        ChangeNotifierProvider<UserProvider>(create: (_) {
-          return userProvider;
         }),
       ],
       child: Consumer4<DarkThemeProvider, NavigationBarProvider,

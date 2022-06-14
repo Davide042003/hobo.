@@ -3,7 +3,6 @@ import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:hobo_test/widgets/provider/user_provider.dart';
 import 'package:hobo_test/views/addactivity_view.dart';
 import 'package:hobo_test/views/chooseplace_view.dart';
 import 'package:hobo_test/views/chooseplaceactivity_view.dart';
@@ -137,7 +136,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
 
     SizeConfig().init(context);
     final themeChange = Provider.of<DarkThemeProvider>(context);

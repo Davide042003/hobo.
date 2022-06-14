@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hobo_test/models/user_model.dart';
-import 'package:hobo_test/widgets/provider/user_provider.dart';
 import 'package:hobo_test/views/choosewho_view.dart';
 import 'package:hobo_test/widgets/custom_icons/custom_bar_icons.dart';
 import 'inputFieldStandard_widget.dart';
